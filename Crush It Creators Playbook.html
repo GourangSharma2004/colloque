@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crush It! — The Creator's Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --accent:#6366F1;--accent-dark:#4338CA;--accent-deeper:#312E81;
+  --accent-light:#818CF8;--accent-lighter:#A5B4FC;--accent-bg:#EEF2FF;--accent-bg2:#E0E7FF;
+  --dark:#0C0A1D;--dark-surface:#16132D;--dark-card:#1E1A38;
+  --text:#1E1B32;--text-sec:#64618C;--text-on-dark:#E8E6F0;--text-on-dark-sec:#A5A3B5;
+  --warm:#F59E0B;--pink:#EC4899;--emerald:#10B981;--coral:#F97316;
+  --border:#E5E3ED;--white:#fff;--light:#FAFBFF;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --font-display:'Playfair Display',Georgia,serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);color:var(--text);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.2;color:var(--text)}
+h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900}
+h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:1rem}
+h3{font-size:clamp(1.2rem,2vw,1.5rem);font-weight:700;margin-bottom:.75rem}
+h4{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;font-family:var(--font-body)}
+p{margin-bottom:1.1rem;font-size:1.05rem}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+a:hover{border-bottom-color:var(--accent)}
+strong{font-weight:700}
+img{max-width:100%;display:block}
+
+/* Layout */
+.container{max-width:820px;margin:0 auto;padding:0 1.5rem}
+.narrow{max-width:680px;margin:0 auto}
+section{padding:5rem 0}
+.section-dark{background:var(--dark);color:var(--text-on-dark)}
+.section-dark h2,.section-dark h3{color:var(--white)}
+.section-dark p{color:var(--text-on-dark-sec)}
+.section-dark .label-accent{color:var(--accent-lighter)}
+.section-accent{background:var(--accent-bg)}
+.section-light{background:var(--light)}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;background:rgba(12,10,29,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(99,102,241,.15);padding:.75rem 0}
+nav .container{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+nav .brand{color:var(--white);font-weight:800;font-size:1rem;letter-spacing:-.02em;white-space:nowrap}
+nav .brand span{color:var(--accent-light)}
+nav .links{display:flex;gap:.2rem;flex-wrap:wrap;justify-content:center}
+nav .links a{color:var(--text-on-dark-sec);font-size:.72rem;font-weight:600;padding:.35rem .55rem;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;transition:all .2s;border:none}
+nav .links a:hover{color:var(--white);background:rgba(99,102,241,.2)}
+
+/* Hero */
+.hero{background:linear-gradient(145deg,var(--dark) 0%,#1a1145 50%,var(--accent-deeper) 100%);color:var(--white);padding:6rem 0 5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 60% 40%,rgba(99,102,241,.12) 0%,transparent 50%);pointer-events:none}
+.hero .overline{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent-light);margin-bottom:1.2rem;display:block}
+.hero h1{color:var(--white);margin-bottom:1.2rem}
+.hero h1 em{font-style:normal;color:var(--accent-light)}
+.hero .subtitle{font-size:1.15rem;color:var(--text-on-dark-sec);max-width:600px;margin:0 auto 2rem;line-height:1.65}
+.hero .badge{display:inline-block;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:var(--accent-lighter);padding:.45rem 1.2rem;border-radius:100px;font-size:.82rem;font-weight:600;letter-spacing:.03em}
+
+/* Cards */
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.2rem;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 24px rgba(99,102,241,.08)}
+.card-dark{background:var(--dark-card);border-color:rgba(99,102,241,.15)}
+.card-dark p{color:var(--text-on-dark-sec)}
+.card-dark h3,.card-dark h4{color:var(--white)}
+.card-accent{border-left:4px solid var(--accent);background:var(--accent-bg)}
+.card-accent p{color:var(--text);margin-bottom:0}
+.card-warm{border-left:4px solid var(--warm);background:#FFFBEB}
+.card-pink{border-left:4px solid var(--pink);background:#FDF2F8}
+.card-emerald{border-left:4px solid var(--emerald);background:#ECFDF5}
+
+/* Callouts */
+.callout{padding:1.5rem 1.8rem;border-radius:10px;margin:2rem 0;font-size:1rem}
+.callout-quote{background:var(--accent-bg);border-left:4px solid var(--accent);font-style:italic;position:relative}
+.callout-quote .attr{display:block;font-style:normal;font-weight:700;color:var(--accent-dark);margin-top:.75rem;font-size:.9rem}
+.callout-action{background:#FEF3C7;border-left:4px solid var(--warm)}
+.callout-action strong{color:#92400E}
+
+/* Grids */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+@media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* SVG Container */
+.svg-wrap{max-width:560px;margin:2.5rem auto;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;overflow:hidden}
+.svg-wrap svg{width:100%;height:auto;display:block}
+.svg-wrap.dark{background:var(--dark-card);border-color:rgba(99,102,241,.15)}
+.svg-caption{text-align:center;font-size:.82rem;color:var(--text-sec);margin-top:.75rem;font-weight:500}
+
+/* Tags/Labels */
+.label{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .7rem;border-radius:6px}
+.label-accent{background:var(--accent-bg2);color:var(--accent-dark)}
+.label-warm{background:#FEF3C7;color:#92400E}
+.label-pink{background:#FCE7F3;color:#9D174D}
+.label-emerald{background:#D1FAE5;color:#065F46}
+
+/* Section Number */
+.section-num{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:.5rem;display:block}
+.section-dark .section-num{color:var(--accent-light)}
+
+/* Ordered/Unordered Lists */
+.content-list{padding-left:1.5rem;margin-bottom:1.5rem}
+.content-list li{margin-bottom:.6rem;font-size:1.02rem;padding-left:.3rem}
+.content-list li::marker{color:var(--accent)}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:2rem 0;border-radius:12px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+thead{background:var(--accent-deeper);color:var(--white)}
+th{padding:.9rem 1rem;text-align:left;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+td{padding:.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--accent-bg);color:var(--text)}
+
+/* Divider */
+.divider{width:60px;height:3px;background:var(--accent);border-radius:3px;margin:2rem 0}
+.divider-center{margin:2rem auto}
+
+/* Footer */
+footer{background:var(--dark);color:var(--text-on-dark-sec);text-align:center;padding:1rem 0 3rem}
+footer .heart{color:var(--accent-light)}
+footer p{font-size:.95rem;margin:0}
+
+/* Day Cards */
+.day-card{display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid var(--border)}
+.day-card:last-child{border-bottom:none}
+.day-num{min-width:52px;height:52px;background:var(--accent-bg2);color:var(--accent-dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0}
+.day-card .day-content h4{margin-bottom:.25rem;font-size:.95rem}
+.day-card .day-content p{margin-bottom:0;font-size:.9rem;color:var(--text-sec)}
+.week-header{background:var(--accent-deeper);color:var(--white);padding:1rem 1.5rem;border-radius:10px;margin:2rem 0 1rem;font-weight:800;font-size:1.05rem;font-family:var(--font-body)}
+
+/* Pathway Card */
+.pathway{border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
+.pathway::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent)}
+.pathway .pathway-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
+.pathway .pathway-head h4{margin:0}
+.pathway .meta{font-size:.78rem;color:var(--text-sec)}
+.pathway .meta span{display:inline-block;margin-right:1rem}
+
+/* Vocab */
+.vocab-item{padding:1.2rem 0;border-bottom:1px solid var(--border)}
+.vocab-item:last-child{border-bottom:none}
+.vocab-item .term{font-weight:800;color:var(--accent-dark);font-size:1.05rem}
+.vocab-item .def{margin-top:.3rem;font-size:.95rem;color:var(--text-sec)}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero .container>*{animation:fadeUp .6s ease-out both}
+.hero .container>*:nth-child(2){animation-delay:.1s}
+.hero .container>*:nth-child(3){animation-delay:.2s}
+.hero .container>*:nth-child(4){animation-delay:.3s}
+
+@media(max-width:600px){
+  section{padding:3rem 0}
+  .hero{padding:4rem 0 3rem}
+  nav .links a{font-size:.65rem;padding:.3rem .4rem}
+  .svg-wrap{padding:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<nav>
+<div class="container">
+  <div class="brand">CRUSH IT! <span>Playbook</span></div>
+  <div class="links">
+    <a href="#context">Context</a>
+    <a href="#passion">Fit</a>
+    <a href="#brand">Brand</a>
+    <a href="#platform">Platform</a>
+    <a href="#engine">Content</a>
+    <a href="#monetise">Money</a>
+    <a href="#hustle">Hustle</a>
+    <a href="#community">Community</a>
+    <a href="#legacy">Legacy</a>
+    <a href="#vocabulary">Vocab</a>
+    <a href="#lifestage">Stages</a>
+    <a href="#launch">4 Weeks</a>
+  </div>
+</div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+<div class="container">
+  <span class="overline">Based on Crush It! by Gary Vaynerchuk</span>
+  <h1>The Creator's <em>Playbook</em></h1>
+  <p class="subtitle">Not a book summary. A monetisation and brand-building transformation guide — built for anyone ready to turn passion into income. Pick your life stage, find your starting point, and execute.</p>
+  <span class="badge">12 Frameworks · 5 Diagrams · 4-Week Launch Plan</span>
+</div>
+</header>
+
+<!-- ============ SECTION 1: CREATOR CONTEXT OPENER ============ -->
+<section id="context" class="section-dark">
+<div class="container narrow">
+  <span class="section-num">01 — Creator Context</span>
+  <h2>The Book That Called the Creator Economy Before It Existed</h2>
+  <div class="divider" style="background:var(--accent-light)"></div>
+
+  <p>Gary Vaynerchuk published <strong>Crush It!</strong> in 2009. YouTube was four years old. Twitter was a toy. Instagram didn't exist. Podcasting was a niche hobby. The idea that you could build a business around your personal passion — using free internet tools — sounded delusional to most people.</p>
+
+  <p>Gary had already done it. He turned his family's wine shop into a $60M business by filming himself tasting wine on a webcam and uploading it to YouTube. No production budget. No permission. Just a guy who cared more about wine than anyone else in the room, and a camera.</p>
+
+  <p>The book's thesis was simple: <strong>the internet has made it possible for anyone to turn their passion into a livelihood — but only if you're willing to outwork and out-care everyone else.</strong></p>
+
+  <div class="card card-dark" style="margin:2.5rem 0">
+    <h4 style="color:var(--accent-lighter);margin-bottom:1rem">What's Changed Since 2009</h4>
+    <div class="grid-2" style="align-items:start">
+      <p><strong style="color:var(--white)">Creator economy size:</strong> From near-zero to $250B+ globally.</p>
+      <p><strong style="color:var(--white)">Discovery:</strong> Algorithms now push your content to strangers. You don't need existing followers to go viral.</p>
+      <p><strong style="color:var(--white)">Platforms:</strong> TikTok, Reels, Shorts, Substack, Patreon — monetisation is built in.</p>
+      <p><strong style="color:var(--white)">Tools:</strong> AI editing, AI writing, Canva, Descript, Riverside — pro-quality output with zero budget.</p>
+    </div>
+  </div>
+
+  <h3 style="color:var(--accent-lighter)">What Remains Permanently True</h3>
+  <p>Strip away the platform names and the specific tactics. Here's what Gary nailed in 2009 that is <em>more</em> true today:</p>
+
+  <div class="card card-dark" style="margin-bottom:1rem">
+    <h4 style="color:var(--warm)">Authenticity is the only sustainable moat</h4>
+    <p>AI can generate content. Thousands of creators cover every niche. The one thing nobody can replicate is your specific perspective, your taste, your obsession. Gary called this your "DNA." In 2026, DNA is your only edge.</p>
+  </div>
+  <div class="card card-dark" style="margin-bottom:1rem">
+    <h4 style="color:var(--warm)">Attention precedes monetisation — always</h4>
+    <p>You cannot sell to people who don't know you exist. Every dollar you'll ever make as a creator starts with someone choosing to watch, read, or listen to your free content. Build the audience first. Monetise second.</p>
+  </div>
+  <div class="card card-dark" style="margin-bottom:1rem">
+    <h4 style="color:var(--warm)">Patience is a competitive advantage</h4>
+    <p>Most people quit in 90 days. Gary built Wine Library TV for 18 months before it broke through. The compound effect of showing up every single day — publishing, engaging, improving — is what separates the creators who make it from the ones who blame the algorithm.</p>
+  </div>
+  <div class="card card-dark">
+    <h4 style="color:var(--warm)">Hustle is not optional</h4>
+    <p>The "4-hour workweek" is a fantasy for beginners. Gary's framework is brutally honest: if you have a day job, your creator business gets built from 7pm to 2am. Weekends aren't off. This isn't forever — but it's the price of entry.</p>
+  </div>
+
+  <div class="callout callout-quote" style="background:rgba(99,102,241,.1);border-left-color:var(--accent-light);margin-top:2.5rem">
+    <p style="color:var(--text-on-dark);margin-bottom:0">"You no longer have to wait for someone to give you permission. The gatekeepers are gone. The tools are free. The audience is there. The only thing left is whether you're willing to do the work."</p>
+    <span class="attr" style="color:var(--accent-lighter)">— Paraphrased from Crush It!</span>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 2: PASSION-SKILL-MARKET FIT ============ -->
+<section id="passion">
+<div class="container narrow">
+  <span class="section-num">02 — Passion-Skill-Market Fit</span>
+  <h2>Find the Intersection Where Money Lives</h2>
+  <div class="divider"></div>
+
+  <p>Gary Vaynerchuk doesn't say "follow your passion" the way a motivational poster does. His argument is more specific: <strong>find the thing you'd happily do for free, that you can get genuinely great at, and that enough people care about to form a market.</strong> Miss any one of those three, and you'll either burn out, stay broke, or never start.</p>
+
+  <p>Passion without skill is a hobby. Skill without passion is a job. Passion and skill without market demand is a diary. You need all three.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 560 500" xmlns="http://www.w3.org/2000/svg" aria-label="Venn diagram showing Passion, Skill, and Market Demand intersection">
+      <defs>
+        <style>
+          .venn-label{font-family:'Inter',sans-serif;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em}
+          .venn-sub{font-family:'Inter',sans-serif;font-weight:500;font-size:11px}
+          .venn-center{font-family:'Inter',sans-serif;font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+        </style>
+      </defs>
+      <!-- Circles -->
+      <circle cx="210" cy="195" r="138" fill="#6366F1" fill-opacity=".18" stroke="#6366F1" stroke-width="2.5"/>
+      <circle cx="350" cy="195" r="138" fill="#EC4899" fill-opacity=".18" stroke="#EC4899" stroke-width="2.5"/>
+      <circle cx="280" cy="325" r="138" fill="#F59E0B" fill-opacity=".18" stroke="#F59E0B" stroke-width="2.5"/>
+      <!-- Primary labels -->
+      <text x="148" y="135" class="venn-label" fill="#4338CA" text-anchor="middle">Passion</text>
+      <text x="148" y="153" class="venn-sub" fill="#64618C" text-anchor="middle">What you'd do for free</text>
+      <text x="412" y="135" class="venn-label" fill="#BE185D" text-anchor="middle">Skill</text>
+      <text x="412" y="153" class="venn-sub" fill="#64618C" text-anchor="middle">What you're great at</text>
+      <text x="280" y="415" class="venn-label" fill="#B45309" text-anchor="middle">Market</text>
+      <text x="280" y="433" class="venn-sub" fill="#64618C" text-anchor="middle">What people will pay for</text>
+      <!-- Overlap labels -->
+      <text x="280" y="152" class="venn-sub" fill="#64618C" text-anchor="middle">Fun but no buyers</text>
+      <text x="182" y="298" class="venn-sub" fill="#64618C" text-anchor="middle">Need to upskill</text>
+      <text x="378" y="298" class="venn-sub" fill="#64618C" text-anchor="middle">Pays but drains</text>
+      <!-- Center sweet spot -->
+      <circle cx="280" cy="237" r="42" fill="#6366F1" fill-opacity=".12" stroke="#4338CA" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="280" y="232" class="venn-center" fill="#312E81" text-anchor="middle">Monetisable</text>
+      <text x="280" y="249" class="venn-center" fill="#312E81" text-anchor="middle">Sweet Spot</text>
+    </svg>
+    <p class="svg-caption">Your creator business lives at the centre. All three circles must overlap.</p>
+  </div>
+
+  <h3>Passion vs. Generic Interest — The Sharp Distinction</h3>
+  <p>Interest is something you consume. Passion is something you can't stop <em>producing</em> about. You watch cooking videos — that's interest. You corner people at dinner to explain why cast iron is superior to non-stick — that's passion. Gary's litmus test: <strong>Would you talk about this for an hour without getting paid and without anyone listening?</strong> If yes, you've found your lane.</p>
+
+  <div class="callout callout-action" style="margin:2rem 0">
+    <strong>Self-Audit: 5 Questions Before You Proceed</strong>
+    <ol class="content-list" style="margin-top:.75rem;margin-bottom:0">
+      <li>What topic could I create 100 pieces of content about without running out of ideas?</li>
+      <li>What do people already come to me for advice on — without me marketing it?</li>
+      <li>Is there an existing audience spending money in this space? (Search for courses, books, paid communities.)</li>
+      <li>Can I name 10 creators in this niche? If yes, good — it means there's a market. If no, the niche might be too small.</li>
+      <li>Am I willing to talk about this publicly for the next 3 years — even if nobody pays attention for the first 6 months?</li>
+    </ol>
+  </div>
+
+  <p>If you answered "yes" to all five, you have founder-passion fit. If you hesitated on #5, go back to #1 and pick something you care about more. The hustle this playbook demands only works if the fuel is genuine.</p>
+</div>
+</section>
+
+<!-- ============ SECTION 3: PERSONAL BRAND ARCHITECTURE ============ -->
+<section id="brand" class="section-dark">
+<div class="container narrow">
+  <span class="section-num">03 — Personal Brand Architecture</span>
+  <h2>Your Brand Is Not a Logo. It's a Reputation at Scale.</h2>
+  <div class="divider" style="background:var(--accent-light)"></div>
+
+  <p>Gary defines personal brand as one thing: <strong>what people say about you when you leave the room — amplified by the internet.</strong> It's not your colour palette or your bio. It's the gut feeling someone gets after consuming three pieces of your content. It's whether they'd recommend you to a friend.</p>
+
+  <p>A strong personal brand makes everything easier. People trust your recommendations. They buy what you sell. They forgive your mistakes. They amplify your content for free. A weak brand means you're starting from zero with every single post.</p>
+
+  <h3 style="color:var(--accent-lighter);margin-top:2rem">The Brand-Building Phases</h3>
+
+  <div class="grid-2" style="margin:1.5rem 0">
+    <div class="card card-dark">
+      <span class="label label-accent">Phase 1</span>
+      <h4 style="color:var(--white);margin-top:.5rem">Discovery</h4>
+      <p>Define your niche, voice, and point of view. Answer: "What do I stand for?" and "Who is this for?" Ship nothing until you can answer both in one sentence.</p>
+    </div>
+    <div class="card card-dark">
+      <span class="label label-accent">Phase 2</span>
+      <h4 style="color:var(--white);margin-top:.5rem">Creation</h4>
+      <p>Publish relentlessly. Your first 50 pieces of content are your tuition. They will be bad. That's the point. You're building a body of work and learning what resonates.</p>
+    </div>
+    <div class="card card-dark">
+      <span class="label label-accent">Phase 3</span>
+      <h4 style="color:var(--white);margin-top:.5rem">Distribution</h4>
+      <p>Repurpose and cross-post. One long-form piece becomes 5 short-form clips. Your content finds new audiences on every platform. Algorithms reward multi-platform presence.</p>
+    </div>
+    <div class="card card-dark">
+      <span class="label label-accent">Phase 4</span>
+      <h4 style="color:var(--white);margin-top:.5rem">Monetisation</h4>
+      <p>When people trust you, they'll pay you. Launch your first offer only after you've built genuine demand — not before. Premature monetisation kills brands.</p>
+    </div>
+  </div>
+
+  <div class="svg-wrap dark">
+    <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" aria-label="Brand building funnel from Stranger to Evangelist">
+      <defs>
+        <style>
+          .funnel-label{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.03em}
+          .funnel-action{font-family:'Inter',sans-serif;font-weight:400;font-size:11px;fill:#A5A3B5}
+        </style>
+      </defs>
+      <!-- Funnel segments -->
+      <path d="M 30,10 L 530,10 L 500,80 L 60,80 Z" fill="#6366F1" fill-opacity=".2" stroke="#6366F1" stroke-width="1"/>
+      <path d="M 60,88 L 500,88 L 470,158 L 90,158 Z" fill="#6366F1" fill-opacity=".3" stroke="#6366F1" stroke-width="1"/>
+      <path d="M 90,166 L 470,166 L 440,236 L 120,236 Z" fill="#6366F1" fill-opacity=".45" stroke="#6366F1" stroke-width="1"/>
+      <path d="M 120,244 L 440,244 L 410,314 L 150,314 Z" fill="#6366F1" fill-opacity=".65" stroke="#6366F1" stroke-width="1"/>
+      <path d="M 150,322 L 410,322 L 380,392 L 180,392 Z" fill="#6366F1" fill-opacity=".85" stroke="#6366F1" stroke-width="1"/>
+      <!-- Labels -->
+      <text x="280" y="52" class="funnel-label" fill="#C7D2FE" text-anchor="middle">STRANGER</text>
+      <text x="280" y="130" class="funnel-label" fill="#C7D2FE" text-anchor="middle">FOLLOWER</text>
+      <text x="280" y="208" class="funnel-label" fill="#E8E6F0" text-anchor="middle">FAN</text>
+      <text x="280" y="286" class="funnel-label" fill="#fff" text-anchor="middle">CUSTOMER</text>
+      <text x="280" y="364" class="funnel-label" fill="#fff" text-anchor="middle">EVANGELIST</text>
+      <!-- Right-side actions -->
+      <text x="534" y="52" class="funnel-action" text-anchor="start">Discovers you via algorithm</text>
+      <text x="510" y="130" class="funnel-action" text-anchor="start">Hits follow — wants more</text>
+      <text x="480" y="208" class="funnel-action" text-anchor="start">Watches everything you make</text>
+      <text x="450" y="286" class="funnel-action" text-anchor="start">Buys your product or service</text>
+      <text x="420" y="364" class="funnel-action" text-anchor="start">Tells everyone about you</text>
+    </svg>
+    <p class="svg-caption" style="color:var(--text-on-dark-sec)">Every piece of content you publish moves people one stage down this funnel.</p>
+  </div>
+
+  <h3 style="color:var(--accent-lighter);margin-top:2rem">Across Creator Life Stages</h3>
+  <div class="grid-3" style="margin-top:1rem">
+    <div class="card card-dark" style="border-top:3px solid var(--accent-light)">
+      <span class="label label-accent">19–24 / Student</span>
+      <p style="margin-top:.5rem;font-size:.92rem">You have time and zero reputation cost. Your brand IS your experimentation. Document your learning journey. Be the "beginner who figures it out in public." This is magnetic.</p>
+    </div>
+    <div class="card card-dark" style="border-top:3px solid var(--warm)">
+      <span class="label label-warm">28–38 / Pivoter</span>
+      <p style="margin-top:.5rem;font-size:.92rem">You have professional credibility. Leverage it. Your brand bridges your past expertise with your new direction. "Former engineer teaching design thinking" is a powerful position.</p>
+    </div>
+    <div class="card card-dark" style="border-top:3px solid var(--emerald)">
+      <span class="label label-emerald">45–60 / Expert</span>
+      <p style="margin-top:.5rem;font-size:.92rem">You have decades of pattern recognition. Your brand is authority. Don't try to act young or trendy. Own your depth. Teach the hard-won lessons no 25-year-old can fake.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 4: PLATFORM STRATEGY ============ -->
+<section id="platform">
+<div class="container narrow">
+  <span class="section-num">04 — Platform Strategy</span>
+  <h2>Where to Build — and Why It Matters More Than What You Post</h2>
+  <div class="divider"></div>
+
+  <p>In 2009, Gary told everyone to start a blog, get on YouTube, and use Twitter aggressively. His logic wasn't about those specific platforms — it was about a principle: <strong>go where attention is underpriced and the gatekeepers haven't locked it down yet.</strong></p>
+
+  <p>In 2026, the principle is the same. The platforms are different. And the biggest shift is this: <strong>algorithms now distribute your content to people who don't follow you.</strong> In 2009, you needed followers first. Now, one piece of content can reach millions regardless of your follower count. This changes everything about how you launch.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg" aria-label="Platform selection matrix showing monetisation speed vs audience depth">
+      <defs>
+        <style>
+          .axis-label{font-family:'Inter',sans-serif;font-weight:600;font-size:11px;fill:#64618C;text-transform:uppercase;letter-spacing:.08em}
+          .platform-name{font-family:'Inter',sans-serif;font-weight:700;font-size:12.5px}
+          .platform-sub{font-family:'Inter',sans-serif;font-weight:400;font-size:9.5px;fill:#64618C}
+        </style>
+      </defs>
+      <!-- Grid background -->
+      <rect x="70" y="20" width="470" height="360" fill="#FAFBFF" rx="8" stroke="#E5E3ED" stroke-width="1"/>
+      <!-- Grid lines -->
+      <line x1="70" y1="110" x2="540" y2="110" stroke="#E5E3ED" stroke-width=".5" stroke-dasharray="4,4"/>
+      <line x1="70" y1="200" x2="540" y2="200" stroke="#E5E3ED" stroke-width=".5" stroke-dasharray="4,4"/>
+      <line x1="70" y1="290" x2="540" y2="290" stroke="#E5E3ED" stroke-width=".5" stroke-dasharray="4,4"/>
+      <line x1="190" y1="20" x2="190" y2="380" stroke="#E5E3ED" stroke-width=".5" stroke-dasharray="4,4"/>
+      <line x1="305" y1="20" x2="305" y2="380" stroke="#E5E3ED" stroke-width=".5" stroke-dasharray="4,4"/>
+      <line x1="420" y1="20" x2="420" y2="380" stroke="#E5E3ED" stroke-width=".5" stroke-dasharray="4,4"/>
+      <!-- Axes -->
+      <text x="305" y="410" class="axis-label" text-anchor="middle">Monetisation Speed →</text>
+      <text x="18" y="200" class="axis-label" text-anchor="middle" transform="rotate(-90,18,200)">Audience Depth →</text>
+      <text x="90" y="400" class="platform-sub" text-anchor="start" style="font-size:10px">Slow</text>
+      <text x="520" y="400" class="platform-sub" text-anchor="end" style="font-size:10px">Fast</text>
+      <text x="56" y="370" class="platform-sub" text-anchor="end" style="font-size:10px">Low</text>
+      <text x="56" y="38" class="platform-sub" text-anchor="end" style="font-size:10px">High</text>
+      <!-- Platform Bubbles -->
+      <!-- YouTube: slow-medium speed, very deep audience -->
+      <circle cx="220" cy="62" r="38" fill="#6366F1" fill-opacity=".15" stroke="#6366F1" stroke-width="2"/>
+      <text x="220" y="58" class="platform-name" fill="#4338CA" text-anchor="middle">YouTube</text>
+      <text x="220" y="73" class="platform-sub" text-anchor="middle">Long-form king</text>
+      <!-- Substack: slow, very deep -->
+      <circle cx="120" cy="70" r="32" fill="#F59E0B" fill-opacity=".15" stroke="#F59E0B" stroke-width="2"/>
+      <text x="120" y="67" class="platform-name" fill="#B45309" text-anchor="middle">Substack</text>
+      <text x="120" y="80" class="platform-sub" text-anchor="middle">Deep trust</text>
+      <!-- Podcasts: slow, deep -->
+      <circle cx="140" cy="155" r="32" fill="#F97316" fill-opacity=".15" stroke="#F97316" stroke-width="2"/>
+      <text x="140" y="152" class="platform-name" fill="#C2410C" text-anchor="middle">Podcasts</text>
+      <text x="140" y="165" class="platform-sub" text-anchor="middle">Intimacy</text>
+      <!-- LinkedIn: medium speed, deep-ish audience -->
+      <circle cx="360" cy="110" r="35" fill="#10B981" fill-opacity=".15" stroke="#10B981" stroke-width="2"/>
+      <text x="360" y="107" class="platform-name" fill="#065F46" text-anchor="middle">LinkedIn</text>
+      <text x="360" y="121" class="platform-sub" text-anchor="middle">B2B goldmine</text>
+      <!-- Instagram: medium-fast, medium depth -->
+      <circle cx="390" cy="210" r="36" fill="#8B5CF6" fill-opacity=".15" stroke="#8B5CF6" stroke-width="2"/>
+      <text x="390" y="207" class="platform-name" fill="#6D28D9" text-anchor="middle">Instagram</text>
+      <text x="390" y="221" class="platform-sub" text-anchor="middle">Visual brands</text>
+      <!-- TikTok: very fast distribution, shallow audience -->
+      <circle cx="480" cy="290" r="38" fill="#EC4899" fill-opacity=".15" stroke="#EC4899" stroke-width="2"/>
+      <text x="480" y="286" class="platform-name" fill="#BE185D" text-anchor="middle">TikTok</text>
+      <text x="480" y="301" class="platform-sub" text-anchor="middle">Speed to reach</text>
+      <!-- X: fast, shallow-medium -->
+      <circle cx="460" cy="180" r="28" fill="#64618C" fill-opacity=".15" stroke="#64618C" stroke-width="2"/>
+      <text x="460" y="178" class="platform-name" fill="#64618C" text-anchor="middle">X</text>
+      <text x="460" y="191" class="platform-sub" text-anchor="middle">Thought leaders</text>
+    </svg>
+    <p class="svg-caption">Higher + more right = faster money but shallower relationships. Pick based on your goal.</p>
+  </div>
+
+  <h3>The "Go Deep, Then Distribute" Rule</h3>
+  <p>Gary's original advice: dominate one platform before expanding. This remains critical. Spreading yourself across six platforms on day one means you'll be mediocre on all six. Instead:</p>
+
+  <div class="card card-accent" style="margin:1.5rem 0">
+    <p><strong>Pick ONE primary platform.</strong> Go all-in for 90 days. Build your content rhythm, find your voice, grow your first 1,000 followers there. Only then add a second platform — and use it primarily for repurposed content from your primary.</p>
+  </div>
+
+  <h3 style="margin-top:2rem">How to Pick Your Primary Platform</h3>
+  <div class="grid-2" style="margin:1rem 0">
+    <div class="card">
+      <h4>You're a talker / explainer</h4>
+      <p style="margin-bottom:0">→ <strong>YouTube</strong> (long-form) or <strong>Podcasts</strong>. You shine when you can go deep. Your content ages well. Monetisation is slow but compounding.</p>
+    </div>
+    <div class="card">
+      <h4>You're visual / aesthetic-driven</h4>
+      <p style="margin-bottom:0">→ <strong>Instagram</strong> or <strong>TikTok</strong>. Your content is about showing, not telling. Quick feedback loops. Build audience fast, monetise through brand deals and products.</p>
+    </div>
+    <div class="card">
+      <h4>You're a writer / thinker</h4>
+      <p style="margin-bottom:0">→ <strong>Substack</strong> or <strong>LinkedIn</strong>. Long-form text builds the deepest trust. Slower growth but your audience converts at much higher rates.</p>
+    </div>
+    <div class="card">
+      <h4>You're a professional pivoter</h4>
+      <p style="margin-bottom:0">→ <strong>LinkedIn</strong> first. Your existing network is an unfair advantage. Then expand to YouTube or a newsletter. Don't start on TikTok — your credibility plays better on professional platforms.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem">Short-Form vs. Long-Form — What Gary Would Say Now</h3>
+  <p>Gary was an early champion of long-form content (he filmed 20-minute wine episodes). Today, he'd tell you: <strong>short-form is the discovery engine; long-form is the trust engine.</strong> You need both — but start with whichever feels more natural. A 60-second TikTok can drive traffic to a 30-minute YouTube video. A 2,000-word newsletter can link to a quick Instagram reel. They're not opposites. They're a system.</p>
+</div>
+</section>
+
+<!-- ============ SECTION 5: CONTENT ENGINE ============ -->
+<section id="engine" class="section-accent">
+<div class="container narrow">
+  <span class="section-num">05 — Content Engine</span>
+  <h2>Build the Machine That Creates While You Sleep</h2>
+  <div class="divider"></div>
+
+  <p>Gary's content philosophy is dead simple: <strong>create massive amounts of value-first content, every single day, and give it away for free.</strong> The volume builds skill. The consistency builds audience. The generosity builds trust. There is no shortcut through this phase.</p>
+
+  <h3>Document vs. Create</h3>
+  <p>This is one of Gary's most powerful ideas. Most aspiring creators think they need to <em>create</em> polished, original content. That's a trap — it leads to perfectionism, slow output, and burnout. The alternative: <strong>document.</strong></p>
+
+  <div class="grid-2" style="margin:1.5rem 0">
+    <div class="card card-pink">
+      <h4>Creating</h4>
+      <p style="margin-bottom:0">Sitting in front of a blank page. Trying to be original. Takes hours. Feels forced. Output: maybe 2 pieces per week. Often abandoned after a month.</p>
+    </div>
+    <div class="card card-emerald">
+      <h4>Documenting</h4>
+      <p style="margin-bottom:0">Sharing your real process. Showing what you're learning, building, or struggling with. Takes 15 minutes. Feels natural. Output: daily. Sustainable indefinitely.</p>
+    </div>
+  </div>
+
+  <p>When you're starting out, document. Film yourself learning. Share your notes. Post your mistakes. The switch to "creating" original frameworks happens naturally after you've documented enough to know what your audience actually wants.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 560 520" xmlns="http://www.w3.org/2000/svg" aria-label="Content flywheel showing how one piece multiplies across platforms">
+      <defs>
+        <style>
+          .fly-label{font-family:'Inter',sans-serif;font-weight:700;font-size:12px;fill:#1E1B32}
+          .fly-sub{font-family:'Inter',sans-serif;font-weight:400;font-size:10px;fill:#64618C}
+          .fly-center{font-family:'Inter',sans-serif;font-weight:800;font-size:13px;fill:#312E81;text-transform:uppercase;letter-spacing:.04em}
+        </style>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#6366F1"/>
+        </marker>
+      </defs>
+      <!-- Center node -->
+      <circle cx="280" cy="260" r="62" fill="#6366F1" fill-opacity=".1" stroke="#6366F1" stroke-width="2.5"/>
+      <text x="280" y="254" class="fly-center" text-anchor="middle">Core</text>
+      <text x="280" y="272" class="fly-center" text-anchor="middle">Content</text>
+      <!-- Node 1: Top — Long-form Video -->
+      <circle cx="280" cy="72" r="48" fill="#6366F1" fill-opacity=".08" stroke="#6366F1" stroke-width="1.5"/>
+      <text x="280" y="68" class="fly-label" text-anchor="middle">Long-form</text>
+      <text x="280" y="83" class="fly-sub" text-anchor="middle">YouTube / Podcast</text>
+      <!-- Node 2: Top-right — Short Clips -->
+      <circle cx="458" cy="154" r="48" fill="#EC4899" fill-opacity=".08" stroke="#EC4899" stroke-width="1.5"/>
+      <text x="458" y="150" class="fly-label" text-anchor="middle">Short Clips</text>
+      <text x="458" y="165" class="fly-sub" text-anchor="middle">TikTok / Reels</text>
+      <!-- Node 3: Bottom-right — Social Posts -->
+      <circle cx="428" cy="388" r="48" fill="#F59E0B" fill-opacity=".08" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="428" y="384" class="fly-label" text-anchor="middle">Social Posts</text>
+      <text x="428" y="399" class="fly-sub" text-anchor="middle">X / LinkedIn</text>
+      <!-- Node 4: Bottom-left — Newsletter -->
+      <circle cx="132" cy="388" r="48" fill="#10B981" fill-opacity=".08" stroke="#10B981" stroke-width="1.5"/>
+      <text x="132" y="384" class="fly-label" text-anchor="middle">Newsletter</text>
+      <text x="132" y="399" class="fly-sub" text-anchor="middle">Substack / Email</text>
+      <!-- Node 5: Top-left — Community -->
+      <circle cx="102" cy="154" r="48" fill="#F97316" fill-opacity=".08" stroke="#F97316" stroke-width="1.5"/>
+      <text x="102" y="150" class="fly-label" text-anchor="middle">Community</text>
+      <text x="102" y="165" class="fly-sub" text-anchor="middle">Comments / DMs</text>
+      <!-- Arrows (clockwise) -->
+      <path d="M 314,204 Q 370,130 420,130" fill="none" stroke="#6366F1" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <path d="M 488,195 Q 500,290 468,348" fill="none" stroke="#6366F1" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <path d="M 388,406 Q 280,440 180,406" fill="none" stroke="#6366F1" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <path d="M 96,200 Q 72,290 96,348" fill="none" stroke="#6366F1" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <path d="M 140,114 Q 200,70 240,78" fill="none" stroke="#6366F1" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <!-- Center arrows out -->
+      <line x1="280" y1="198" x2="280" y2="128" stroke="#818CF8" stroke-width="1" stroke-dasharray="3,3"/>
+    </svg>
+    <p class="svg-caption">One piece of core content feeds every platform. This is how creators scale without burning out.</p>
+  </div>
+
+  <h3>The Consistency Principle</h3>
+  <p>Gary doesn't care about your posting schedule. He cares that you <em>have</em> one and that you keep it. Here's what the data supports in 2026:</p>
+
+  <div class="card" style="margin:1.5rem 0">
+    <div class="grid-2">
+      <div>
+        <h4>Minimum Viable Cadence</h4>
+        <ul class="content-list">
+          <li><strong>YouTube:</strong> 1 video/week</li>
+          <li><strong>TikTok/Reels:</strong> 5–7 posts/week</li>
+          <li><strong>Newsletter:</strong> 1/week</li>
+          <li><strong>LinkedIn/X:</strong> 5 posts/week</li>
+          <li><strong>Podcast:</strong> 1 episode/week</li>
+        </ul>
+      </div>
+      <div>
+        <h4>The Real Rule</h4>
+        <p style="font-size:.95rem">Pick a cadence you can maintain for 6 months without hating your life. Consistency beats volume. Three posts a week for 52 weeks destroys seven posts a week for 8 weeks then silence.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Finding Your Unique Angle (A Structured Method)</h3>
+  <p>"Be yourself" is not strategy. Here's a method that actually works:</p>
+  <ol class="content-list">
+    <li><strong>List your 3 strongest knowledge areas</strong> (e.g., finance, psychology, cooking).</li>
+    <li><strong>Pick an unexpected intersection of two.</strong> "Finance + psychology" = behavioural investing content. "Cooking + psychology" = why you eat what you eat.</li>
+    <li><strong>Add your delivery style.</strong> Are you funny? Intense? Calm? Data-driven? Narrative? Your style is your filter.</li>
+    <li><strong>Write your positioning statement:</strong> "I make [content type] about [intersection] for [audience] who want [outcome]."</li>
+  </ol>
+  <div class="callout callout-quote">
+    <p style="margin-bottom:0"><strong>Example:</strong> "I make 3-minute LinkedIn videos about behavioural finance for professionals who want to stop making emotional money decisions." — That's a niche. That's a brand. That's a business.</p>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 6: MONETISATION PATHWAYS ============ -->
+<section id="monetise">
+<div class="container narrow">
+  <span class="section-num">06 — Monetisation Pathways</span>
+  <h2>How Attention Becomes Income — The Complete Map</h2>
+  <div class="divider"></div>
+
+  <p>This is the chapter most creators skip to. Don't. Everything before this section is the foundation that makes monetisation work. Gary's framework is clear: <strong>build the audience first, then monetise the trust you've earned.</strong> Trying to sell on day one is like asking someone to marry you on the first date.</p>
+
+  <p>In Crush It!, Gary mentions several revenue streams: advertising, speaking, books, consulting, affiliate marketing, and merchandise. Here's each one translated to 2026, with realistic requirements and timelines.</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 560 520" xmlns="http://www.w3.org/2000/svg" aria-label="Monetisation ladder from free content to scale">
+      <defs>
+        <style>
+          .ladder-label{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em}
+          .ladder-sub{font-family:'Inter',sans-serif;font-weight:500;font-size:10px}
+          .ladder-right{font-family:'Inter',sans-serif;font-weight:400;font-size:10.5px;fill:#64618C}
+        </style>
+      </defs>
+      <!-- Step 1: Free Content (bottom, widest) -->
+      <rect x="20" y="430" width="520" height="65" rx="10" fill="#6366F1" fill-opacity=".1" stroke="#6366F1" stroke-width="1.5"/>
+      <text x="50" y="467" class="ladder-label" fill="#4338CA">FREE CONTENT</text>
+      <text x="50" y="483" class="ladder-sub" fill="#64618C">Blog posts, videos, social content — no paywall</text>
+      <!-- Step 2: Build Audience -->
+      <rect x="50" y="350" width="460" height="65" rx="10" fill="#6366F1" fill-opacity=".2" stroke="#6366F1" stroke-width="1.5"/>
+      <text x="80" y="387" class="ladder-label" fill="#4338CA">BUILD AUDIENCE</text>
+      <text x="80" y="403" class="ladder-sub" fill="#64618C">1,000+ followers who actually engage</text>
+      <!-- Step 3: First Dollar -->
+      <rect x="80" y="270" width="400" height="65" rx="10" fill="#6366F1" fill-opacity=".35" stroke="#6366F1" stroke-width="1.5"/>
+      <text x="110" y="307" class="ladder-label" fill="#312E81">FIRST DOLLAR</text>
+      <text x="110" y="323" class="ladder-sub" fill="#64618C">Tips, affiliates, a small digital product</text>
+      <!-- Step 4: Digital Products -->
+      <rect x="110" y="190" width="340" height="65" rx="10" fill="#6366F1" fill-opacity=".5" stroke="#6366F1" stroke-width="1.5"/>
+      <text x="140" y="227" class="ladder-label" fill="#fff">DIGITAL PRODUCTS</text>
+      <text x="140" y="243" class="ladder-sub" fill="#C7D2FE">Courses, ebooks, templates, memberships</text>
+      <!-- Step 5: Sustainable Income -->
+      <rect x="140" y="110" width="280" height="65" rx="10" fill="#6366F1" fill-opacity=".7" stroke="#6366F1" stroke-width="1.5"/>
+      <text x="168" y="147" class="ladder-label" fill="#fff">SUSTAINABLE INCOME</text>
+      <text x="168" y="163" class="ladder-sub" fill="#C7D2FE">Coaching, consulting, recurring revenue</text>
+      <!-- Step 6: Scale -->
+      <rect x="170" y="30" width="220" height="65" rx="10" fill="#6366F1" fill-opacity=".9" stroke="#6366F1" stroke-width="1.5"/>
+      <text x="210" y="67" class="ladder-label" fill="#fff">SCALE</text>
+      <text x="210" y="83" class="ladder-sub" fill="#C7D2FE">Team, licensing, equity, brand deals</text>
+      <!-- Right side timeline markers -->
+      <text x="548" y="466" class="ladder-right" text-anchor="end">Month 1–3</text>
+      <text x="548" y="386" class="ladder-right" text-anchor="end">Month 3–6</text>
+      <text x="548" y="306" class="ladder-right" text-anchor="end">Month 6–12</text>
+      <text x="548" y="226" class="ladder-right" text-anchor="end">Year 1–2</text>
+      <text x="548" y="146" class="ladder-right" text-anchor="end">Year 2–3</text>
+      <text x="548" y="66" class="ladder-right" text-anchor="end">Year 3+</text>
+      <!-- Upward arrow -->
+      <line x1="14" y1="490" x2="14" y2="40" stroke="#6366F1" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="10" y="268" class="ladder-sub" fill="#6366F1" text-anchor="middle" transform="rotate(-90,10,268)" style="font-size:11px;font-weight:700;letter-spacing:.1em">PROGRESSION</text>
+    </svg>
+    <p class="svg-caption">You climb this ladder one rung at a time. Skipping rungs is how creators burn credibility.</p>
+  </div>
+
+  <h3>Every Revenue Stream — Explained</h3>
+
+  <div class="pathway">
+    <div class="pathway-head">
+      <h4>Affiliate Marketing</h4>
+      <div><span class="label label-emerald">Low barrier</span></div>
+    </div>
+    <p style="font-size:.95rem">Recommend products you genuinely use. Earn a commission on every sale. Gary used this early with wine accessories. In 2026, Amazon Associates, Impact, PartnerStack, and platform-specific programs make this the easiest first dollar.</p>
+    <div class="meta">
+      <span><strong>Need:</strong> 500+ engaged followers</span>
+      <span><strong>Timeline:</strong> Month 3–6</span>
+      <span><strong>Tool:</strong> Amazon Associates, LTK, Impact</span>
+    </div>
+  </div>
+
+  <div class="pathway">
+    <div class="pathway-head">
+      <h4>Digital Products (Ebooks, Templates, Guides)</h4>
+      <div><span class="label label-accent">Medium barrier</span></div>
+    </div>
+    <p style="font-size:.95rem">Package your knowledge into a downloadable asset. Price it at $9–$49. You don't need a massive audience — you need a specific one. A 500-person email list with 40% open rates can generate $5K from a single product launch.</p>
+    <div class="meta">
+      <span><strong>Need:</strong> Email list of 500+</span>
+      <span><strong>Timeline:</strong> Month 6–12</span>
+      <span><strong>Tool:</strong> Gumroad, Lemon Squeezy, Notion templates</span>
+    </div>
+  </div>
+
+  <div class="pathway">
+    <div class="pathway-head">
+      <h4>Online Courses</h4>
+      <div><span class="label label-accent">Medium barrier</span></div>
+    </div>
+    <p style="font-size:.95rem">The evolution of digital products. A structured learning experience priced at $49–$499. In 2026, cohort-based courses with live elements command premium pricing. Record once, sell forever — or run live cohorts for higher margins.</p>
+    <div class="meta">
+      <span><strong>Need:</strong> 2,000+ followers, proven free content</span>
+      <span><strong>Timeline:</strong> Year 1–2</span>
+      <span><strong>Tool:</strong> Teachable, Maven, Kajabi, Skool</span>
+    </div>
+  </div>
+
+  <div class="pathway">
+    <div class="pathway-head">
+      <h4>Memberships &amp; Subscriptions</h4>
+      <div><span class="label label-warm">Recurring revenue</span></div>
+    </div>
+    <p style="font-size:.95rem">The holy grail of creator economics. Charge $5–$50/month for exclusive content, community access, or ongoing coaching. Even 200 members at $20/month = $4,000/month in recurring revenue. This is how creators quit their day job.</p>
+    <div class="meta">
+      <span><strong>Need:</strong> Loyal, engaged community</span>
+      <span><strong>Timeline:</strong> Year 1–2</span>
+      <span><strong>Tool:</strong> Patreon, Substack, Skool, Circle</span>
+    </div>
+  </div>
+
+  <div class="pathway">
+    <div class="pathway-head">
+      <h4>Coaching &amp; Consulting</h4>
+      <div><span class="label label-pink">High value</span></div>
+    </div>
+    <p style="font-size:.95rem">Trade your time for premium rates. Gary built his early empire partly through speaking and consulting. In 2026, 1:1 coaching at $100–$500/hour or group coaching at $500–$2,000 per cohort is realistic once you've demonstrated expertise through free content.</p>
+    <div class="meta">
+      <span><strong>Need:</strong> Demonstrated results, testimonials</span>
+      <span><strong>Timeline:</strong> Month 6–18</span>
+      <span><strong>Tool:</strong> Calendly, Zoom, Stripe</span>
+    </div>
+  </div>
+
+  <div class="pathway">
+    <div class="pathway-head">
+      <h4>Brand Deals &amp; Sponsorships</h4>
+      <div><span class="label label-warm">Scale play</span></div>
+    </div>
+    <p style="font-size:.95rem">Companies pay you to feature their product. This was barely possible for small creators in 2009. In 2026, even micro-influencers (5K–50K followers) command $500–$5,000 per sponsored post. The key: only promote products you'd use anyway.</p>
+    <div class="meta">
+      <span><strong>Need:</strong> 5,000+ followers, clear niche</span>
+      <span><strong>Timeline:</strong> Year 1+</span>
+      <span><strong>Tool:</strong> Aspire, Grin, or direct outreach</span>
+    </div>
+  </div>
+
+  <div class="pathway">
+    <div class="pathway-head">
+      <h4>Speaking &amp; Events</h4>
+      <div><span class="label label-pink">Premium</span></div>
+    </div>
+    <p style="font-size:.95rem">Gary turned speaking into a major revenue stream. In 2026, virtual and in-person keynotes pay $2,000–$25,000+ depending on your brand. Start by speaking for free at local events. Build a reel. Raise your price every 3 talks.</p>
+    <div class="meta">
+      <span><strong>Need:</strong> Strong personal brand, speaking reel</span>
+      <span><strong>Timeline:</strong> Year 2+</span>
+      <span><strong>Tool:</strong> SpeakerHub, direct outreach, YouTube</span>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2.5rem">The "1,000 True Fans" Reality Check</h3>
+  <p>Kevin Kelly's concept, heavily endorsed by Gary's philosophy. Here's what it means in actual numbers:</p>
+
+  <div class="card card-accent" style="margin:1.5rem 0">
+    <p><strong>1,000 fans × $100/year each = $100,000/year.</strong></p>
+    <p>That $100 could be a $9/month membership ($108/year). Or one $49 course + one $51 ebook per year. Or a $100 annual subscription. You don't need millions of followers. You need a thousand people who trust you enough to spend $100/year on what you create.</p>
+    <p style="margin-bottom:0">Most creators overestimate how many followers they need and underestimate how much each loyal fan is worth.</p>
+  </div>
+
+  <h3>Common Monetisation Mistakes</h3>
+  <div class="grid-2" style="margin-top:1rem">
+    <div class="card card-pink">
+      <h4>Monetising too early</h4>
+      <p style="margin-bottom:0;font-size:.93rem">Launching a course with 200 followers. Nobody buys. You feel defeated and quit. The audience wasn't there yet. Build trust first.</p>
+    </div>
+    <div class="card card-pink">
+      <h4>Too many revenue streams</h4>
+      <p style="margin-bottom:0;font-size:.93rem">Affiliate links + merch + a course + coaching + a membership — all at once. Focus on ONE revenue stream until it generates consistent income, then add the next.</p>
+    </div>
+    <div class="card card-pink">
+      <h4>Promoting products you don't use</h4>
+      <p style="margin-bottom:0;font-size:.93rem">Your audience will know. One inauthentic promotion can destroy months of trust-building. Gary's rule: only recommend what you'd recommend to your best friend.</p>
+    </div>
+    <div class="card card-pink">
+      <h4>Underpricing your expertise</h4>
+      <p style="margin-bottom:0;font-size:.93rem">Charging $10 for a course that should be $200. Low prices attract low-commitment buyers and signal low value. Price based on the transformation you deliver, not the time you spent creating.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 7: HUSTLE OPERATING SYSTEM ============ -->
+<section id="hustle" class="section-dark">
+<div class="container narrow">
+  <span class="section-num">07 — The Hustle Operating System</span>
+  <h2>The Time Philosophy That Separates Dreamers from Builders</h2>
+  <div class="divider" style="background:var(--accent-light)"></div>
+
+  <p>Gary Vaynerchuk is not subtle about this. If you have a day job and want to build a creator business, <strong>your evenings and weekends are no longer yours.</strong> Not forever. But for the next 12–24 months, the hours between 7pm and midnight — and every Saturday and Sunday — belong to your future.</p>
+
+  <p>This isn't motivational fluff. It's arithmetic. A full-time creator spends 40–60 hours per week on their craft. If you can only give 15–20 hours per week, you're moving at one-third the speed. That means your 1-year goal becomes a 3-year goal unless you find more hours. Gary's answer: you find them.</p>
+
+  <h3 style="color:var(--accent-lighter);margin-top:2rem">The Weekly Schedule Template</h3>
+  <p>Here's a realistic weekly schedule for someone with a 9-to-5 who's building on the side:</p>
+
+  <div class="table-wrap" style="margin:1.5rem 0">
+    <table>
+      <thead>
+        <tr><th style="width:100px">Day</th><th>6–8 AM</th><th>6–9 PM</th><th>9–11 PM</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Monday</strong></td><td>Engage: reply to comments, DMs, engage on 20 posts in your niche</td><td>Create: film or write your primary content piece for the week</td><td>Edit &amp; schedule content</td></tr>
+        <tr><td><strong>Tuesday</strong></td><td>Engage: same routine</td><td>Repurpose: chop long-form into 3–5 short clips or social posts</td><td>Research: study top performers in your niche</td></tr>
+        <tr><td><strong>Wednesday</strong></td><td>Engage + publish short-form content</td><td>Create: write newsletter or secondary content piece</td><td>Community: respond to every comment, DM engaged followers</td></tr>
+        <tr><td><strong>Thursday</strong></td><td>Engage + publish</td><td>Create: batch-film or batch-write content for the weekend</td><td>Strategy: review analytics, plan adjustments</td></tr>
+        <tr><td><strong>Friday</strong></td><td>Engage + publish</td><td>Free evening — rest is not optional, it's fuel</td><td>Optional: light reading, competitor analysis</td></tr>
+        <tr><td><strong>Saturday</strong></td><td colspan="3" style="text-align:center"><strong>Deep Work Block (4–6 hours):</strong> Create next week's pillar content. Build assets (lead magnets, course modules, landing pages). Strategic collaborations and outreach.</td></tr>
+        <tr><td><strong>Sunday</strong></td><td colspan="3" style="text-align:center"><strong>Planning Block (2–3 hours):</strong> Review the week's performance. Plan next week's content calendar. Schedule everything. Rest the remaining time.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-action" style="background:rgba(245,158,11,.1);border-left-color:var(--warm)">
+    <strong style="color:var(--warm)">Total: 15–20 hours/week.</strong> That's the minimum viable hustle. Gary would tell you to find 25. But 15 consistent hours beats 30 sporadic hours every time.
+  </div>
+
+  <h3 style="color:var(--accent-lighter);margin-top:2.5rem">Mental Models for the Hard Parts</h3>
+
+  <div class="grid-2" style="margin-top:1rem">
+    <div class="card card-dark">
+      <h4 style="color:var(--warm)">Dealing with Zero Engagement</h4>
+      <p>Your first 30 posts will feel like shouting into the void. This is normal. Every creator you admire went through it. The algorithm needs data about your content before it can distribute it. Your job for the first 90 days is to generate that data — not to go viral.</p>
+    </div>
+    <div class="card card-dark">
+      <h4 style="color:var(--warm)">Dealing with Slow Growth</h4>
+      <p>Growth is not linear. You'll have flat weeks followed by sudden jumps. One piece of content can change everything. But it won't happen if you quit during the flat weeks. Gary's mantra: "Macro patience, micro speed." Be impatient about daily output. Be patient about results.</p>
+    </div>
+    <div class="card card-dark">
+      <h4 style="color:var(--warm)">Dealing with Public Failure</h4>
+      <p>You will post something you're proud of and it will get 12 views. You will get negative comments. You will feel embarrassed. This is the tax you pay for building in public. Reframe it: every piece of content that "fails" is a data point that gets you closer to what works.</p>
+    </div>
+    <div class="card card-dark">
+      <h4 style="color:var(--warm)">What "Outworking Everyone" Actually Means</h4>
+      <p>It doesn't mean 18-hour days. It means: publishing when others don't. Replying to every comment when others ignore them. Studying your analytics when others guess. Improving your craft when others coast. It's the compound interest of tiny daily advantages.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-quote" style="background:rgba(99,102,241,.1);border-left-color:var(--accent-light);margin-top:2rem">
+    <p style="color:var(--text-on-dark);margin-bottom:0">"Look yourself in the mirror and ask yourself: what do I want to do every day for the rest of my life? Do that. I promise you can monetise that shit."</p>
+    <span class="attr" style="color:var(--accent-lighter)">— Gary Vaynerchuk, Crush It!</span>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 8: COMMUNITY AND NETWORK ============ -->
+<section id="community">
+<div class="container narrow">
+  <span class="section-num">08 — Community &amp; Network Leverage</span>
+  <h2>Audience Is Who Listens. Community Is Who Belongs.</h2>
+  <div class="divider"></div>
+
+  <p>Gary draws a hard line between audience and community. An audience watches. A community participates. An audience is a number. A community is a network effect. <strong>Your audience makes you visible. Your community makes you unstoppable.</strong></p>
+
+  <p>In 2009, community meant blog comments and forum replies. In 2026, the tools are different but the principle is identical: <strong>every interaction is an opportunity to turn a passive viewer into an active participant.</strong></p>
+
+  <h3>The Three Pillars of Creator Community</h3>
+
+  <div class="grid-3" style="margin:1.5rem 0">
+    <div class="card" style="border-top:3px solid var(--accent)">
+      <h4>Engage Relentlessly</h4>
+      <p style="margin-bottom:0;font-size:.93rem">Reply to every comment for your first year. DM people who engage. Ask questions, not just broadcast. Gary spent hours daily in blog comments. This is where loyalty is built — in the 1:1 moments that don't scale. Until they do.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--warm)">
+      <h4>Collaborate Strategically</h4>
+      <p style="margin-bottom:0;font-size:.93rem">Find creators at your level (not above — they won't respond). Create together: joint lives, guest posts, podcast swaps, co-created content. Every collaboration exposes you to a pre-qualified audience that already trusts the creator vouching for you.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--emerald)">
+      <h4>Build Owned Spaces</h4>
+      <p style="margin-bottom:0;font-size:.93rem">Social media followers are rented. Email subscribers and community members are owned. Start an email list on day one. By month 6, consider a free community (Discord, Skool, Circle). This is your insurance against algorithm changes.</p>
+    </div>
+  </div>
+
+  <h3>Cross-Promotion Tactics That Actually Work</h3>
+  <ul class="content-list">
+    <li><strong>The "Value-First DM":</strong> Send a genuinely helpful message to a creator you admire — a specific compliment, a resource they'd find useful, or an insight about their content. No ask. Do this 50 times. Five will respond. Two will become collaborators.</li>
+    <li><strong>The Guest Swap:</strong> Write a guest post for someone's newsletter. Invite them to yours. Both audiences grow. Both creators gain credibility. This is the highest-ROI growth tactic at the 1K–10K follower stage.</li>
+    <li><strong>The Comment Strategy:</strong> Leave thoughtful, substantive comments on larger creators' posts — not "great post!" but a genuine insight that adds value. Their audience sees you. Some will follow. Gary built early traction by being the most valuable commenter in every wine-related thread online.</li>
+    <li><strong>The Challenge/Event:</strong> Run a free 5-day challenge, a live workshop, or a Twitter/X Space. Co-host with another creator. Challenges create urgency, engagement, and email signups simultaneously.</li>
+  </ul>
+
+  <h3>Modern Community Tools</h3>
+  <div class="grid-2" style="margin-top:1rem">
+    <div class="card">
+      <h4>Free Communities</h4>
+      <p style="margin-bottom:0;font-size:.93rem"><strong>Discord</strong> (great for tech, gaming, younger audiences), <strong>Telegram</strong> (fast, mobile-first), <strong>WhatsApp Communities</strong> (low friction, especially in India/emerging markets), <strong>X Communities</strong> (for thought-leadership niches).</p>
+    </div>
+    <div class="card">
+      <h4>Paid Communities</h4>
+      <p style="margin-bottom:0;font-size:.93rem"><strong>Skool</strong> (courses + community, $99/month), <strong>Circle</strong> (premium, brandable), <strong>Patreon</strong> (content-gated tiers), <strong>Substack Chat</strong> (built into your newsletter). Start free. Upgrade to paid once you have 200+ engaged members.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 9: LONG GAME AND LEGACY ============ -->
+<section id="legacy" class="section-dark">
+<div class="container narrow">
+  <span class="section-num">09 — Long Game &amp; Legacy</span>
+  <h2>Why Most People Quit Too Early — and What the Winners Know</h2>
+  <div class="divider" style="background:var(--accent-light)"></div>
+
+  <p>Gary Vaynerchuk's most underrated idea is not about hustle. It's about patience. He talks about building "legacy over currency" — choosing the long game over the quick win. Every creator who made it will tell you the same thing: <strong>the moment they almost quit was the moment right before the inflection point.</strong></p>
+
+  <p>The creator economy has a brutal survival curve. 90% of people who start creating content quit within 90 days. Of the remaining 10%, half quit within a year. The ones who are left — the 5% — are the ones who get the audience, the income, and the freedom. The barrier to entry is low. The barrier to persistence is everything.</p>
+
+  <h3 style="color:var(--accent-lighter);margin-top:2rem">The Creator Arc — A Realistic Timeline</h3>
+
+  <div class="card card-dark" style="margin:1.5rem 0;border-left:4px solid var(--accent-light)">
+    <h4 style="color:var(--accent-lighter)">Year 1: The Foundation Year</h4>
+    <p>You're learning your craft, finding your voice, building your first audience. Revenue: $0–$5,000. Followers: 0–5,000. This year feels like nothing is working. Everything is working — you just can't see it yet. The skills you build this year compound for the next decade.</p>
+  </div>
+  <div class="card card-dark" style="margin-bottom:1rem;border-left:4px solid var(--warm)">
+    <h4 style="color:var(--warm)">Year 2–3: The Traction Years</h4>
+    <p>Your content is sharper. The algorithm knows you. People start recommending you. Revenue: $5,000–$50,000/year. You launch your first real product. You get your first brand deal. You might be able to go part-time on your day job. This is where effort meets momentum.</p>
+  </div>
+  <div class="card card-dark" style="margin-bottom:1rem;border-left:4px solid var(--emerald)">
+    <h4 style="color:var(--emerald)">Year 3–5: The Business Years</h4>
+    <p>You're no longer "a person who makes content." You're a brand. Revenue: $50,000–$250,000+/year. You have multiple revenue streams. You might hire help. You're getting inbound opportunities — speaking, partnerships, book deals. The flywheel is spinning.</p>
+  </div>
+  <div class="card card-dark" style="border-left:4px solid var(--pink)">
+    <h4 style="color:var(--pink)">Year 5–10: The Legacy Years</h4>
+    <p>Your personal brand has equity. It opens doors to investments, companies, and opportunities that have nothing to do with content. Gary went from wine videos to a $200M+ media company. The content was never the end game — it was the engine that powered everything else.</p>
+  </div>
+
+  <h3 style="color:var(--accent-lighter);margin-top:2.5rem">Noise vs. Progress — Know the Difference</h3>
+  <p>Most creators mistake noise for progress. Here's how to tell them apart:</p>
+
+  <div class="grid-2" style="margin-top:1rem">
+    <div class="card card-dark">
+      <h4 style="color:var(--pink)">Noise (feels productive, isn't)</h4>
+      <ul class="content-list" style="margin-bottom:0">
+        <li style="color:var(--text-on-dark-sec)">Redesigning your logo for the third time</li>
+        <li style="color:var(--text-on-dark-sec)">Spending 4 hours perfecting one caption</li>
+        <li style="color:var(--text-on-dark-sec)">Comparing yourself to bigger creators</li>
+        <li style="color:var(--text-on-dark-sec)">Buying another course instead of publishing</li>
+        <li style="color:var(--text-on-dark-sec)">Waiting for the "perfect" time to start</li>
+      </ul>
+    </div>
+    <div class="card card-dark">
+      <h4 style="color:var(--emerald)">Progress (feels messy, is everything)</h4>
+      <ul class="content-list" style="margin-bottom:0">
+        <li style="color:var(--text-on-dark-sec)">Publishing imperfect content consistently</li>
+        <li style="color:var(--text-on-dark-sec)">Engaging with your audience every day</li>
+        <li style="color:var(--text-on-dark-sec)">Studying your analytics and adapting</li>
+        <li style="color:var(--text-on-dark-sec)">Building your email list one subscriber at a time</li>
+        <li style="color:var(--text-on-dark-sec)">Shipping your first product, even if it's ugly</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-quote" style="background:rgba(99,102,241,.1);border-left-color:var(--accent-light);margin-top:2.5rem">
+    <p style="color:var(--text-on-dark);margin-bottom:0">"Stop worrying about the number. Worry about the quality of the relationship with every single person who does pay attention. Do that for long enough, and the number takes care of itself."</p>
+    <span class="attr" style="color:var(--accent-lighter)">— Paraphrased from Crush It!</span>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 10: KEY VOCABULARY ============ -->
+<section id="vocabulary" class="section-accent">
+<div class="container narrow">
+  <span class="section-num">10 — Key Vocabulary</span>
+  <h2>The Creator's Lexicon — 20 Terms You Need to Own</h2>
+  <div class="divider"></div>
+
+  <div class="vocab-item">
+    <div class="term">DNA (Your Creator DNA)</div>
+    <div class="def">Gary's term for the unique combination of personality, perspective, and obsession that makes you irreplaceable. Not a skill — a fingerprint. In 2026, when AI can mimic anyone's style, your DNA is the only thing it can't replicate.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Hustle</div>
+    <div class="def">Not "grind culture." Gary's version of hustle means concentrated, strategic effort applied to work you love. It's choosing to spend 7pm–midnight building your future instead of consuming someone else's content. Hustle has an expiration date — it's the launch fuel, not the cruise speed.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Legacy Over Currency</div>
+    <div class="def">The principle of choosing long-term brand equity over short-term cash. Turning down a $5K brand deal that doesn't align with your values protects your $500K future. Every decision should pass the test: "Will I be proud of this in 10 years?"</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Personal Brand</div>
+    <div class="def">Your reputation at scale. What people say about you when you're not in the room — multiplied by every platform you're on. Not a logo, not a colour scheme. It's the promise your audience believes you'll keep.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Attention Arbitrage</div>
+    <div class="def">Gary's core strategic insight: go where attention is cheap and undervalued. In 2009, it was YouTube and Twitter. In 2026, it's emerging features on existing platforms (LinkedIn video, Threads, YouTube community posts) and new platforms before they saturate.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Content Flywheel</div>
+    <div class="def">A system where one piece of core content (a video, article, or podcast) is repurposed into 5–10 derivative pieces across platforms. The flywheel means you create once and distribute many times, maximising output without multiplying effort.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Pillar Content</div>
+    <div class="def">Your primary, high-effort content piece — typically long-form. A 15-minute YouTube video, a 2,000-word newsletter, or a 45-minute podcast episode. Everything else in your content flywheel derives from this.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Documenting vs. Creating</div>
+    <div class="def">Creating = sitting down to produce original, polished content. Documenting = sharing your real process, learnings, and journey as it happens. Documenting is faster, more authentic, and more sustainable. Start by documenting; evolve into creating.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">1,000 True Fans</div>
+    <div class="def">Kevin Kelly's concept: you don't need millions of followers to make a living. You need 1,000 people willing to spend $100/year on your work. That's $100K/year. The economics of the creator economy are about depth, not breadth.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Thank You Economy</div>
+    <div class="def">Gary's term for the business philosophy of leading with gratitude and genuine care. Reply to every comment. Over-deliver on promises. Treat every follower like a person, not a metric. In an attention economy, care is the ultimate differentiator.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Monetisation Ladder</div>
+    <div class="def">The progression from free content → audience → first dollar → digital products → sustainable income → scale. Each rung requires the one below it. Skipping rungs erodes trust and crashes conversions.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Macro Patience, Micro Speed</div>
+    <div class="def">Gary's time philosophy: be relentlessly fast in daily execution (publish now, reply now, ship now) but deeply patient about results (the audience will come, the revenue will follow — give it years, not weeks).</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Platform-Native Content</div>
+    <div class="def">Content designed for the specific platform it lives on — not cross-posted lazily. A TikTok video should feel like a TikTok, not a cropped YouTube clip. Each platform has its own language, pacing, and audience expectation. Respect them.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Owned Audience</div>
+    <div class="def">Subscribers you can reach without an algorithm's permission: email lists, SMS lists, community members. Social followers are rented from the platform. Email subscribers are yours. Every creator needs an owned audience as insurance.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Brand Funnel</div>
+    <div class="def">The journey from Stranger → Follower → Fan → Customer → Evangelist. Your content moves people through this funnel. Each stage requires different content: discovery content gets strangers, depth content creates fans, offers create customers.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Niche of One</div>
+    <div class="def">The intersection of your unique knowledge areas, delivery style, and audience — so specific that nobody else occupies it. Not "fitness." Not even "fitness for busy dads." More like: "5-minute bodyweight workouts explained through physics for office workers." That's a niche of one.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Social Currency</div>
+    <div class="def">The trust, credibility, and goodwill you accumulate with your audience through consistent, value-first content. It's an invisible bank account. Every helpful post is a deposit. Every inauthentic promotion is a withdrawal. Guard the balance.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Evergreen Content</div>
+    <div class="def">Content that remains relevant and searchable for months or years. A video explaining "how to negotiate a raise" has a longer shelf life than a video reacting to today's news. Gary's Wine Library episodes still get views 15+ years later. Build an evergreen library.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Minimum Viable Cadence</div>
+    <div class="def">The lowest content publishing frequency you can maintain indefinitely without losing audience growth momentum. Better to post 3x/week for 2 years than 7x/week for 2 months. Find your sustainable rhythm and protect it.</div>
+  </div>
+  <div class="vocab-item">
+    <div class="term">Conversion Event</div>
+    <div class="def">The specific moment a follower becomes a customer — clicking "buy," signing up for a paid tier, or booking a coaching call. Every piece of free content should subtly move your audience closer to a conversion event without feeling like a sales pitch.</div>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 11: LIFE STAGE APPLICATION TABLE ============ -->
+<section id="lifestage">
+<div class="container">
+  <span class="section-num">11 — Life Stage Application</span>
+  <h2>Same Ideas, Different Starting Points</h2>
+  <div class="divider"></div>
+  <p>Every core idea in this playbook applies to everyone — but the <em>execution</em> looks different depending on where you are in life. Here's the cheat sheet:</p>
+
+  <div class="table-wrap" style="margin-top:2rem">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:22%">Core Idea</th>
+          <th style="width:26%">Student (19–24)</th>
+          <th style="width:26%">Professional Pivoter (28–38)</th>
+          <th style="width:26%">Late Starter (45–60)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Finding Your Niche</strong></td>
+          <td>Pick what excites you most right now. You can pivot later — your youth is your runway. Test 3 niches in 3 months.</td>
+          <td>Bridge your professional expertise with your passion. "Marketing director teaching freelancers how to pitch" is a niche only you own.</td>
+          <td>Teach the hard-won lessons of your career. Your 20+ years of domain expertise is an unfair advantage no young creator can match.</td>
+        </tr>
+        <tr>
+          <td><strong>Platform Choice</strong></td>
+          <td>Start on TikTok or YouTube Shorts. You're native to short-form video. Use speed to build fast feedback loops and find what resonates.</td>
+          <td>Start on LinkedIn. Your existing professional network gives you a built-in distribution advantage. Then expand to YouTube or Substack.</td>
+          <td>Start on YouTube or Substack. Your strength is depth and authority — platforms that reward long-form content reward you.</td>
+        </tr>
+        <tr>
+          <td><strong>Content Style</strong></td>
+          <td>Document your learning journey. "I tried X for 30 days" content is compelling when you're genuinely discovering things.</td>
+          <td>Share professional frameworks and behind-the-scenes expertise. "What I learned managing a $2M budget" is content your audience can't get elsewhere.</td>
+          <td>Teach and mentor. "The 5 mistakes I see every new manager make" content leverages your pattern recognition and authority.</td>
+        </tr>
+        <tr>
+          <td><strong>Time Allocation</strong></td>
+          <td>You have the most time and fewest obligations. Go hard: 25–30 hours/week on content. Use this window before responsibilities grow.</td>
+          <td>Time is your scarcest resource. Batch-create on weekends (4–6 hours). Use weeknight sessions (1–2 hours) for engagement and scheduling.</td>
+          <td>You may have more disposable time than you think (kids grown, career stable). Dedicate 15–20 focused hours/week. Quality over quantity.</td>
+        </tr>
+        <tr>
+          <td><strong>First Monetisation</strong></td>
+          <td>Affiliate marketing or a $9 digital download. Low risk, fast feedback. Don't build a course yet — you don't have enough authority.</td>
+          <td>1:1 consulting or coaching at $100–$300/hour. You already have the expertise. Package it as a service, then productise later.</td>
+          <td>Premium coaching or a cohort-based workshop ($500+). Your experience justifies premium pricing from day one.</td>
+        </tr>
+        <tr>
+          <td><strong>Brand Positioning</strong></td>
+          <td>"The curious beginner who shares everything they learn." Relatable, energetic, unfiltered.</td>
+          <td>"The insider who's crossing over." Credible, strategic, bridge-building between worlds.</td>
+          <td>"The experienced mentor who tells it straight." Authoritative, trustworthy, no-BS.</td>
+        </tr>
+        <tr>
+          <td><strong>Risk Tolerance</strong></td>
+          <td>Maximum. You have the least to lose and the most time to recover. Take big swings — post provocative content, try new formats, experiment wildly.</td>
+          <td>Moderate. Protect your professional reputation while building. Be bold in your content but strategic about what you attach your name to.</td>
+          <td>Calculated. Your reputation is decades in the making. Be authentic but thoughtful. Your audience values wisdom, not shock value.</td>
+        </tr>
+        <tr>
+          <td><strong>Community Building</strong></td>
+          <td>Build with peers. Create a group chat of 10 fellow aspiring creators. Hold each other accountable. Grow together.</td>
+          <td>Leverage your professional network. Invite former colleagues into your audience. Host events that bridge your old and new worlds.</td>
+          <td>Build a mentorship-style community. Your audience wants access to your brain. A small, high-touch community is your superpower.</td>
+        </tr>
+        <tr>
+          <td><strong>Long-term Vision</strong></td>
+          <td>Build the brand now. Monetise later. You're playing a 10-year game with a 10-year head start on people who wait until 30.</td>
+          <td>Transition to full-time creator within 2–3 years. Use your savings as runway. Build proof of concept before quitting your job.</td>
+          <td>Build a legacy body of work. Your content becomes an asset — a library of wisdom that outlasts your active years. Think books, courses, archives.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ============ SECTION 12: 30-DAY CREATOR LAUNCH PLAN ============ -->
+<section id="launch" class="section-dark">
+<div class="container narrow">
+  <span class="section-num">12 — 4-Week Creator Launch Plan</span>
+  <h2>From Zero to Published, Engaged, and Earning — In 4 Weeks</h2>
+  <div class="divider" style="background:var(--accent-light)"></div>
+
+  <p>This plan is anchored in Gary's philosophy: speed of execution, authenticity over polish, and relentless engagement. Each week has a clear theme and a focused set of actions. No vague advice. You ship or you don't.</p>
+
+  <!-- WEEK 1 -->
+  <div class="week-header">Week 1 — Foundation</div>
+  <div class="card card-dark" style="margin-bottom:1.5rem">
+    <h4 style="color:var(--accent-lighter);margin-bottom:.75rem">Define, Research, Set Up, Publish</h4>
+    <ul class="content-list" style="margin-bottom:0">
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Niche down:</strong> Complete the Passion-Skill-Market self-audit from Section 2. Write your niche in one sentence. If you can't, you're not specific enough.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Competitor research:</strong> Find 10 creators in your niche. Study their best-performing content — topics, format, frequency, engagement style. Save this in a document.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Platform &amp; profile:</strong> Pick ONE primary platform (Section 4). Optimise your bio: who you help, what you help them with, why they should follow. Profile photo = your face, not a logo.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Positioning &amp; pillars:</strong> Write: "I make [content type] about [topic] for [audience] who want [outcome]." List 3–5 content pillars you'll rotate through.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Publish 2 pieces of content.</strong> Your first will be imperfect — that's the point. Done beats perfect. Start your engagement routine: 20+ thoughtful comments daily in your niche.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Set up your email list:</strong> ConvertKit (free), Beehiiv, or Substack. Create a simple landing page and link it in your bio. The infrastructure matters even before subscribers arrive.</li>
+    </ul>
+    <div class="callout callout-action" style="margin-top:1rem;margin-bottom:0;background:rgba(99,102,241,.1);border-left-color:var(--accent-light)">
+      <strong style="color:var(--accent-lighter)">End-of-week checkpoint:</strong> Niche defined. Profile live. 2 posts published. Email list created. Engagement routine started.
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-header">Week 2 — Consistency &amp; Feedback</div>
+  <div class="card card-dark" style="margin-bottom:1.5rem">
+    <h4 style="color:var(--accent-lighter);margin-bottom:.75rem">Batch, Publish, Repurpose, Analyse</h4>
+    <ul class="content-list" style="margin-bottom:0">
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Build a content bank:</strong> Brainstorm and draft 10 content ideas in a spreadsheet or Notion doc. Never open your app thinking "what should I post today?"</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Batch-create:</strong> Dedicate one 2–3 hour block to filming or writing 3 pieces back-to-back. Schedule them to auto-publish. Batching is the biggest productivity hack for part-time creators.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Publish 3 more pieces</strong> (5 total). Repurpose your best-performing post for a secondary platform — same idea, native format.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">DM 5 engaged followers:</strong> Thank them. Ask what they're working on. Start real conversations. These early supporters become your evangelists.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Study your analytics:</strong> Which post got the most views, saves, comments? Identify the pattern. Double down on what works. Data, not feelings, drives your strategy now.</li>
+    </ul>
+    <div class="callout callout-action" style="margin-top:1rem;margin-bottom:0;background:rgba(99,102,241,.1);border-left-color:var(--accent-light)">
+      <strong style="color:var(--accent-lighter)">End-of-week checkpoint:</strong> 5 posts published. Content bank built. Analytics reviewed. Two-platform presence started. Next week's calendar planned.
+    </div>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="week-header">Week 3 — Distribution &amp; Community</div>
+  <div class="card card-dark" style="margin-bottom:1.5rem">
+    <h4 style="color:var(--accent-lighter);margin-bottom:.75rem">Expand, Capture Emails, Collaborate</h4>
+    <ul class="content-list" style="margin-bottom:0">
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Cross-post consistently:</strong> Primary platform gets original content. Secondary gets adapted reposts. Maintain your daily engagement routine (20+ quality comments).</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Create a lead magnet:</strong> A checklist, template, mini-guide, or swipe file your audience would find valuable. Keep it simple — Canva PDF or Notion template. This is your email list growth engine.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Send your first newsletter:</strong> Even if you have 3 subscribers. Share a curated insight, a personal story, and a link to your best content. Set the cadence: weekly, same day, same time.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Publish 3 more pieces</strong> (8 total). Promote your lead magnet naturally within your content — "I put together a free checklist, link in bio."</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Reach out to 3 creators at your level</strong> for collaboration — joint live, podcast swap, co-written post. Be specific about what you'll create and how it benefits them.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Scale engagement:</strong> One day this week, comment on 50 posts. Aggressive — and it works.</li>
+    </ul>
+    <div class="callout callout-action" style="margin-top:1rem;margin-bottom:0;background:rgba(99,102,241,.1);border-left-color:var(--accent-light)">
+      <strong style="color:var(--accent-lighter)">End-of-week checkpoint:</strong> 8 posts published. Lead magnet live. First newsletter sent. Collaboration initiated. DM top 10 engaged followers and ask what content they want next.
+    </div>
+  </div>
+
+  <!-- WEEK 4 -->
+  <div class="week-header">Week 4 — First Monetisation Attempt</div>
+  <div class="card card-dark" style="margin-bottom:1.5rem">
+    <h4 style="color:var(--accent-lighter);margin-bottom:.75rem">Build, Soft-Launch, Launch, Review</h4>
+    <ul class="content-list" style="margin-bottom:0">
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Pick your first offer:</strong> An affiliate product, a digital template ($5–$19), a 1:1 consulting session ($50–$150), or a small paid workshop. Pick the one you can ship fastest.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Create your offer page:</strong> Gumroad, Lemon Squeezy, Calendly, or a clean Notion page. Include: what it is, who it's for, the outcome, price, and a buy/book button. Clarity beats design.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Soft-launch:</strong> Mention your offer casually in your content. DM 10 engaged people — don't pitch, ask for feedback. Offer it free to the first few in exchange for testimonials.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Public launch:</strong> Dedicate one post to a proper launch. Email your list. Post on all platforms. Ask engaged followers to share. You've earned this with 3 weeks of free value.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Publish 2 more pieces</strong> (10+ total). Share testimonials or your own case study as social proof.</li>
+      <li style="color:var(--text-on-dark-sec)"><strong style="color:var(--text-on-dark)">Follow up &amp; iterate:</strong> Message leads who didn't buy — ask why. Collect testimonials from buyers. Adjust pricing, description, or scope based on feedback. Iteration is where products become profitable.</li>
+    </ul>
+    <div class="callout callout-action" style="margin-top:1rem;margin-bottom:0;background:rgba(99,102,241,.1);border-left-color:var(--accent-light)">
+      <strong style="color:var(--accent-lighter)">30-Day Scorecard:</strong> 10+ posts published. Followers gained. Email subscribers. Engagement rate. Revenue generated (any amount counts). Key learnings documented. Next 30-day plan written. You are now a creator. The only question left is: will you keep going?
+    </div>
+  </div>
+
+  <div class="callout callout-quote" style="background:rgba(99,102,241,.1);border-left-color:var(--accent-light);margin-top:2.5rem">
+    <p style="color:var(--text-on-dark);margin-bottom:0">"The reason I'm here today is because I hustled for ten years straight. Not ten months. Not ten weeks. Ten years. And I'm just getting started."</p>
+    <span class="attr" style="color:var(--accent-lighter)">— Gary Vaynerchuk</span>
+  </div>
+</div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <p style="font-size:1.1rem;color:var(--white);margin-bottom:.5rem;font-weight:700">The Creator's Playbook</p>
+    <p>Based on <em>Crush It!</em> by Gary Vaynerchuk — reimagined for the 2026 creator economy.</p>
+    <p style="margin-top:1rem">Made with <span class="heart">&#10084;</span> by Gourang Sharma</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -17,6 +18,7 @@ type Scene = {
   isScene0?: boolean;
   isHero?: boolean;
   hasCTA?: boolean;
+  href?: string;
 };
 
 const scenes: Scene[] = [
@@ -27,24 +29,28 @@ const scenes: Scene[] = [
     label: "01 — PILLAR", title: "Intellect",
     tagline: "The ideas that change how you see everything else.",
     body: "Deep documentation on concepts, phenomena, and essays most people encounter but never truly understand.\nOne topic. Every week.",
+    href: "/intellect",
   },
   {
     start: 0.46, end: 0.60,
     label: "02 — PILLAR", title: "Book Summaries",
     tagline: "The book took years to write. You'll feel it in thirty minutes.",
     body: "Not what it says. What it does to you — and what you do differently after.",
+    href: "/book-summaries",
   },
   {
     start: 0.60, end: 0.72,
     label: "03 — PILLAR", title: "AI Resources",
     tagline: "AI is only as sharp as the mind behind it.",
     body: "Tools, guides, frameworks, and models for people who want to think with AI — not hand their thinking over to it.",
+    href: "/ai-resources",
   },
   {
     start: 0.72, end: 0.84,
     label: "04 — PILLAR", title: "The Log",
     tagline: "No performance. Just thinking out loud.",
     body: "A weekly record of what's being read, questioned, and reconsidered. A mind working in public.",
+    href: "/the-log",
   },
   {
     start: 0.84, end: 1.00,
@@ -52,6 +58,7 @@ const scenes: Scene[] = [
     tagline: "This is where the thinking gets loud.",
     body: "A space to discuss, disagree, and go deeper — with people who actually read before they speak.",
     hasCTA: true,
+    href: "/community",
   },
 ];
 
@@ -168,10 +175,13 @@ export default function VideoHero() {
           currentFrameRef.current = frameIndex;
           drawFrame(frameIndex);
 
-          // Scene container opacities
+          // Scene container opacities + pointer events (only active scene is clickable)
           scenes.forEach((scene, i) => {
             const el = sceneRefs.current[i];
-            if (el) el.style.opacity = String(sceneOpacity(p, scene.start, scene.end));
+            if (!el) return;
+            const op = sceneOpacity(p, scene.start, scene.end);
+            el.style.opacity = String(op);
+            el.style.pointerEvents = op > 0.5 ? "auto" : "none";
           });
 
           // ── Fire Scene 1 timeline once ────────────────────────────────────
@@ -523,11 +533,35 @@ export default function VideoHero() {
                   >
                     {scene.body}
                   </p>
+                  {!scene.hasCTA && scene.href && (
+                    <div style={{ marginTop: "2rem" }}>
+                      <Link
+                        href={scene.href}
+                        style={{
+                          display: "inline-block",
+                          border: "1px solid rgba(245,239,230,0.40)",
+                          color: "#F5EFE6",
+                          padding: "0.625rem 1.75rem",
+                          fontFamily: "var(--font-dm-sans), sans-serif",
+                          fontSize: "0.9rem",
+                          fontWeight: 400,
+                          letterSpacing: "0.06em",
+                          backgroundColor: "transparent",
+                          transition: "background-color 0.2s",
+                          textDecoration: "none",
+                        }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "rgba(245,239,230,0.10)"; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent"; }}
+                      >
+                        Explore →
+                      </Link>
+                    </div>
+                  )}
                   {scene.hasCTA && (
-                    <div style={{ marginTop: "2rem" }} className="pointer-events-auto">
+                    <div style={{ marginTop: "2rem" }}>
                       <a
                         ref={ctaRef}
-                        href="#"
+                        href={scene.href ?? "#"}
                         style={{
                           display: "inline-block",
                           border: "1px solid rgba(245,239,230,0.40)",
@@ -551,6 +585,22 @@ export default function VideoHero() {
                   )}
                 </div>
               </div>
+              {scene.hasCTA && (
+                <p
+                  style={{
+                    position: "absolute",
+                    bottom: "2rem",
+                    left: "2rem",
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "0.75rem",
+                    fontWeight: 500,
+                    letterSpacing: "0.08em",
+                    color: "rgba(245,239,230,0.45)",
+                  }}
+                >
+                  Made by Gourang Sharma
+                </p>
+              )}
             </div>
           );
         })}
