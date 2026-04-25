@@ -2,6 +2,7 @@
 // TEMPLATE: Clone this file for other pillar pages
 
 import Navbar from "@/components/Navbar";
+import { motion } from "framer-motion";
 
 // ── Featured books data ───────────────────────────────────────────────────────
 const FEATURED_BOOKS = [
@@ -157,6 +158,7 @@ export default function BookSummariesPage() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
+            objectPosition: "center 40%",
           }}
         >
           <source src="/video/Book-Summary.mp4" type="video/mp4" />
@@ -174,7 +176,10 @@ export default function BookSummariesPage() {
 
         {/* Content */}
         <div style={{ position: "relative", zIndex: 10 }}>
-          <h1
+          <motion.h1
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             style={{
               fontFamily: "var(--font-cormorant), Georgia, serif",
               fontSize: "clamp(52px, 8vw, 96px)",
@@ -187,9 +192,12 @@ export default function BookSummariesPage() {
             }}
           >
             Book Summaries
-          </h1>
+          </motion.h1>
 
-          <p
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontSize: "17px",
@@ -201,15 +209,19 @@ export default function BookSummariesPage() {
             }}
           >
             The book took years to write. You&apos;ll feel it in thirty minutes.
-          </p>
+          </motion.p>
 
-          <div
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.45 }}
             style={{
               width: "96px",
               borderTop: "1px solid rgba(245,239,230,0.40)",
               marginTop: "1.5rem",
               marginLeft: "auto",
               marginRight: "auto",
+              transformOrigin: "center",
             }}
           />
         </div>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Problem of Mindfulness</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg:        #0f0f13;
+      --surface:   #16161d;
+      --card:      #1c1c26;
+      --border:    #2a2a38;
+      --accent1:   #c8a96e;   /* warm gold  */
+      --accent2:   #7f9cf5;   /* soft indigo */
+      --accent3:   #68d8b0;   /* sage teal   */
+      --accent4:   #f28b82;   /* muted coral */
+      --text:      #e8e6e1;
+      --muted:     #8a8a9a;
+      --white:     #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ─── HERO ─────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: unset;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 52px 24px 36px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 20%, rgba(200,169,110,.13) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(127,156,245,.10) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(104,216,176,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      max-width: 820px;
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--white) 50%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 18px;
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .hero-divider {
+      margin: 20px auto 0;
+      width: 50px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    }
+
+    /* ─── SCROLL INDICATOR ─────────────────────────── */
+    .scroll-hint {
+      display: none;
+    }
+    .scroll-hint svg { opacity: .5; }
+
+    @keyframes fade-bob {
+      0%,100% { opacity:.4; transform: translateX(-50%) translateY(0); }
+      50%      { opacity:.9; transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── LAYOUT ───────────────────────────────────── */
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    /* ─── SECTION CARD ─────────────────────────────── */
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 46px 50px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s;
+    }
+    .section:hover { border-color: rgba(200,169,110,.35); }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      border-radius: 18px 0 0 18px;
+    }
+    .s1::before { background: var(--accent1); }
+    .s2::before { background: var(--accent2); }
+    .s3::before { background: var(--accent3); }
+    .s4::before { background: var(--accent4); }
+    .s5::before { background: #b590f5; }
+    .s6::before { background: linear-gradient(180deg, var(--accent1), var(--accent2)); }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .s1 .section-label { color: var(--accent1); }
+    .s2 .section-label { color: var(--accent2); }
+    .s3 .section-label { color: var(--accent3); }
+    .s4 .section-label { color: var(--accent4); }
+    .s5 .section-label { color: #b590f5; }
+    .s6 .section-label { color: var(--accent1); }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 22px;
+      line-height: 1.3;
+    }
+
+    .section p {
+      color: var(--text);
+      font-size: .97rem;
+      margin-bottom: 14px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ─── ARGUMENT STEPS ───────────────────────────── */
+    .steps { list-style: none; counter-reset: step; }
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .96rem;
+      color: var(--text);
+    }
+    .steps li:last-child { border-bottom: none; }
+    .steps li::before {
+      content: counter(step);
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent3), #3ab38f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      font-weight: 700;
+      color: #0a2a20;
+    }
+
+    /* ─── KEY CONCEPTS ─────────────────────────────── */
+    .concepts { display: flex; flex-direction: column; gap: 16px; }
+    .concept-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .concept-tag {
+      background: rgba(245,134,130,.15);
+      color: var(--accent4);
+      border: 1px solid rgba(245,134,130,.3);
+      border-radius: 6px;
+      padding: 3px 11px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .5px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .concept-def {
+      font-size: .94rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ─── DIAGRAM: MINDFULNESS MAP ─────────────────── */
+    .diagram-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 46px 50px;
+      margin-bottom: 28px;
+    }
+    .diagram-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    /* SVG DIAGRAM */
+    .diagram-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .diag-svg {
+      display: block;
+      margin: 0 auto;
+      max-width: 760px;
+      width: 100%;
+    }
+
+    /* ─── TENSION SPECTRUM ─────────────────────────── */
+    .spectrum-block {
+      margin-top: 36px;
+    }
+    .spectrum-title {
+      font-size: .8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .spectrum-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .spectrum-label {
+      font-size: .82rem;
+      color: var(--muted);
+      width: 160px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .spectrum-label.right {
+      text-align: left;
+    }
+    .spectrum-bar {
+      flex: 1;
+      height: 7px;
+      border-radius: 4px;
+      position: relative;
+    }
+    .bar-mindful {
+      background: linear-gradient(90deg, var(--accent3) 0%, var(--accent1) 100%);
+    }
+    .bar-western {
+      background: linear-gradient(90deg, var(--accent2) 0%, #b590f5 100%);
+    }
+    .bar-ideal {
+      background: linear-gradient(90deg, var(--accent1) 0%, var(--accent3) 50%, var(--accent2) 100%);
+    }
+    .bar-dot {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--bg);
+    }
+
+    /* ─── COUNTERARGUMENT ──────────────────────────── */
+    .objection-box {
+      background: rgba(181,144,245,.08);
+      border-left: 3px solid #b590f5;
+      border-radius: 0 10px 10px 0;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .objection-box p {
+      font-size: .95rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* ─── TAKEAWAY ─────────────────────────────────── */
+    .takeaway-highlight {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      line-height: 1.65;
+      color: var(--white);
+      padding: 28px 32px;
+      background: linear-gradient(135deg, rgba(200,169,110,.1), rgba(127,156,245,.08));
+      border-radius: 12px;
+      border: 1px solid rgba(200,169,110,.2);
+      font-style: italic;
+    }
+
+    /* ─── SIGNATURE ────────────────────────────────── */
+    .signature {
+      text-align: center;
+      margin-top: 60px;
+      padding: 30px;
+      border-top: 1px solid var(--border);
+    }
+    .signature p {
+      color: var(--muted);
+      font-size: .85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .signature span {
+      color: var(--accent1);
+      font-weight: 600;
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 640px) {
+      .section { padding: 30px 22px; }
+      .diagram-section { padding: 30px 22px; }
+      .spectrum-label { width: 100px; font-size: .72rem; }
+      .concept-item { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">Philosophy &amp; Ethics</div>
+  <h1>The Problem of Mindfulness</h1>
+  <p class="hero-sub">
+    Mindfulness presents itself as a universal, ideology-free tool for well-being —
+    but beneath its calm surface lie hidden metaphysical commitments that quietly
+    reshape how we understand ourselves.
+  </p>
+  <div class="hero-divider"></div>
+  <div class="scroll-hint">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+    scroll
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- ═══════════════ CORE CLAIM ═══════════════ -->
+  <div class="section s1">
+    <div class="section-label">Core Claim</div>
+    <h2>What Is Being Argued</h2>
+    <p>
+      Mindfulness is not the neutral, universally applicable wellbeing practice it
+      advertises itself to be — it is grounded in the Buddhist doctrine of <em>anattā</em>
+      (no-self), a contested metaphysical position that systematically undermines
+      the kind of deep, contextual self-understanding that genuine self-reflection requires.
+    </p>
+  </div>
+
+  <!-- ═══════════════ THE PROBLEM ═══════════════ -->
+  <div class="section s2">
+    <div class="section-label">The Problem It's Addressing</div>
+    <h2>What Question Is Being Tackled</h2>
+    <p>
+      As secular psychotherapy has displaced religion and philosophy as the dominant
+      mode of Western self-examination, mindfulness has emerged as its most prominent
+      tool — promising relief from stress, illness, and existential confusion for
+      virtually anyone, regardless of worldview.
+    </p>
+    <p>
+      Yet if mindfulness secretly imports a specific metaphysics of the self,
+      its claim to universality is false — and worse, its practice may actively obstruct
+      the very self-understanding it claims to foster. The stakes are high: millions
+      of people are being offered a diagnostic of the human condition that distorts
+      far more than it illuminates.
+    </p>
+  </div>
+
+  <!-- ═══════════════ DIAGRAM 1: ARCHITECTURE MAP ═══════════════ -->
+  <div class="diagram-section">
+    <h2>Structural Map — How Mindfulness Relates to Its Foundations</h2>
+    <div class="diagram-wrap">
+      <!-- SVG: Tree / Flow Diagram -->
+      <svg class="diag-svg" viewBox="0 0 760 490" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+
+        <!-- Background blobs -->
+        <defs>
+          <radialGradient id="gA" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#c8a96e" stop-opacity=".18"/>
+            <stop offset="100%" stop-color="#c8a96e" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="gB" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#7f9cf5" stop-opacity=".18"/>
+            <stop offset="100%" stop-color="#7f9cf5" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="gC" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#68d8b0" stop-opacity=".18"/>
+            <stop offset="100%" stop-color="#68d8b0" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L9,5 L0,9 Z" fill="#4a4a6a"/>
+          </marker>
+          <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L9,5 L0,9 Z" fill="#f28b82"/>
+          </marker>
+        </defs>
+
+        <!-- Root node: Buddhist Doctrine -->
+        <ellipse cx="380" cy="60" rx="130" ry="36" fill="#1c1c26" stroke="#c8a96e" stroke-width="1.5"/>
+        <text x="380" y="55" text-anchor="middle" fill="#c8a96e" font-size="12" font-weight="600">Buddhist Doctrine</text>
+        <text x="380" y="72" text-anchor="middle" fill="#8a8a9a" font-size="10">Anattā — No-Self</text>
+
+        <!-- Arrow down to Mindfulness core -->
+        <line x1="380" y1="96" x2="380" y2="148" stroke="#4a4a6a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Mindfulness Core -->
+        <rect x="260" y="150" width="240" height="52" rx="12" fill="#1c1c26" stroke="#7f9cf5" stroke-width="1.5"/>
+        <text x="380" y="172" text-anchor="middle" fill="#7f9cf5" font-size="12" font-weight="600">Mindfulness Practice</text>
+        <text x="380" y="190" text-anchor="middle" fill="#8a8a9a" font-size="10">Non-judgmental present awareness</text>
+
+        <!-- Three branches -->
+        <!-- Left: Impermanence -->
+        <line x1="310" y1="202" x2="155" y2="270" stroke="#4a4a6a" stroke-width="1.2" marker-end="url(#arr)"/>
+        <rect x="60" y="272" width="190" height="52" rx="10" fill="#1c1c26" stroke="#68d8b0" stroke-width="1.2"/>
+        <text x="155" y="294" text-anchor="middle" fill="#68d8b0" font-size="11" font-weight="600">Impermanence</text>
+        <text x="155" y="311" text-anchor="middle" fill="#8a8a9a" font-size="9.5">Thoughts/feelings are transient</text>
+
+        <!-- Centre: Impersonality -->
+        <line x1="380" y1="202" x2="380" y2="270" stroke="#4a4a6a" stroke-width="1.2" marker-end="url(#arr)"/>
+        <rect x="295" y="272" width="170" height="52" rx="10" fill="#1c1c26" stroke="#c8a96e" stroke-width="1.2"/>
+        <text x="380" y="294" text-anchor="middle" fill="#c8a96e" font-size="11" font-weight="600">Impersonality</text>
+        <text x="380" y="311" text-anchor="middle" fill="#8a8a9a" font-size="9.5">"You are not your thoughts"</text>
+
+        <!-- Right: De-contextualisation -->
+        <line x1="450" y1="202" x2="605" y2="270" stroke="#4a4a6a" stroke-width="1.2" marker-end="url(#arr)"/>
+        <rect x="510" y="272" width="190" height="52" rx="10" fill="#1c1c26" stroke="#b590f5" stroke-width="1.2"/>
+        <text x="605" y="294" text-anchor="middle" fill="#b590f5" font-size="11" font-weight="600">De-contextualisation</text>
+        <text x="605" y="311" text-anchor="middle" fill="#8a8a9a" font-size="9.5">Bracket social / personal context</text>
+
+        <!-- Consequence arrows -->
+        <line x1="155" y1="324" x2="155" y2="398" stroke="#f28b82" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrG)"/>
+        <line x1="380" y1="324" x2="380" y2="398" stroke="#f28b82" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrG)"/>
+        <line x1="605" y1="324" x2="605" y2="398" stroke="#f28b82" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#arrG)"/>
+
+        <!-- Consequence box -->
+        <rect x="50" y="400" width="660" height="56" rx="12" fill="rgba(242,139,130,.12)" stroke="#f28b82" stroke-width="1.2"/>
+        <text x="380" y="422" text-anchor="middle" fill="#f28b82" font-size="11" font-weight="600">Self-estrangement · Obstructed self-understanding</text>
+        <text x="380" y="442" text-anchor="middle" fill="#f28b82" font-size="11" font-weight="600">Apolitical framing of mental distress</text>
+
+        <!-- Legend -->
+        <line x1="50" y1="472" x2="75" y2="472" stroke="#4a4a6a" stroke-width="1.5" marker-end="url(#arr)"/>
+        <text x="80" y="476" fill="#8a8a9a" font-size="9.5">derives from</text>
+        <line x1="155" y1="472" x2="180" y2="472" stroke="#f28b82" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrG)"/>
+        <text x="185" y="476" fill="#8a8a9a" font-size="9.5">leads to</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ARGUMENT STEPS ═══════════════ -->
+  <div class="section s3">
+    <div class="section-label">The Argument — Step by Step</div>
+    <h2>The Logical Chain</h2>
+    <ol class="steps">
+      <li>Mindfulness positions itself as value-neutral and universally compatible with any belief system, framing itself as a mere technique rather than a doctrine.</li>
+      <li>In practice, however, mindfulness consistently trains practitioners to treat their thoughts and feelings as impermanent, impersonal events — not as expressions of a persisting self.</li>
+      <li>This mode of attention directly mirrors Buddhist exercises designed to demonstrate <em>anattā</em>, the metaphysical claim that no persistent self exists — meaning mindfulness secretly endorses a contested philosophical position.</li>
+      <li>Genuine self-understanding requires the opposite: treating thoughts and feelings as belonging to a persisting individual whose character, history, and social context explain why they arise.</li>
+      <li>By severing ownership between the individual and their mental life, mindfulness makes it impossible to distinguish between neurotic tendencies, justified emotional reactions, and responses to genuine external circumstances.</li>
+      <li>Additionally, by stripping context from mental experience, mindfulness depoliticises suffering — treating socially and structurally produced distress as a private cognitive problem to be managed inwardly.</li>
+      <li>The current promotion of mindfulness as a comprehensive remedy for modern ills therefore does not expand self-knowledge — it substitutes a metaphysically loaded, context-blind technique for the harder work of genuine reflection.</li>
+    </ol>
+  </div>
+
+  <!-- ═══════════════ DIAGRAM 2: SPECTRUM ═══════════════ -->
+  <div class="diagram-section">
+    <h2>Spectrum of Self-Engagement</h2>
+    <p style="text-align:center; color:var(--muted); font-size:.88rem; margin-bottom:28px;">
+      Where mindfulness, Western psychology, and integrated self-reflection fall on key axes
+    </p>
+
+    <div class="spectrum-block">
+      <div class="spectrum-title">Axis Comparison</div>
+
+      <!-- Row 1 -->
+      <div style="margin-bottom:24px;">
+        <p style="font-size:.82rem; color:var(--muted); text-align:center; margin-bottom:10px; letter-spacing:.5px;">OWNERSHIP OF MENTAL STATES</p>
+        <div class="spectrum-row">
+          <span class="spectrum-label">"Not mine — observe &amp; release"</span>
+          <div class="spectrum-bar bar-mindful">
+            <div class="bar-dot" style="left:8%;"></div>
+          </div>
+          <span class="spectrum-label right">"Mine — reflect &amp; interrogate"</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:0 174px; margin-top:-4px;">
+          <span style="font-size:.72rem; color:var(--accent3);">▲ Mindfulness</span>
+          <span style="font-size:.72rem; color:var(--accent2); margin-left:auto;">▲ Western Psychology</span>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div style="margin-bottom:24px;">
+        <p style="font-size:.82rem; color:var(--muted); text-align:center; margin-bottom:10px; letter-spacing:.5px;">CONTEXTUAL AWARENESS</p>
+        <div class="spectrum-row">
+          <span class="spectrum-label">Stripped — internal only</span>
+          <div class="spectrum-bar bar-western">
+            <div class="bar-dot" style="left:12%;"></div>
+            <div class="bar-dot" style="left:72%; background:#7f9cf5; border:2px solid var(--bg);"></div>
+          </div>
+          <span class="spectrum-label right">Embedded — social &amp; historical</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:0 174px; margin-top:-4px;">
+          <span style="font-size:.72rem; color:var(--accent3);">▲ Mindfulness</span>
+          <span style="font-size:.72rem; color:var(--accent2);">▲ Integrative Reflection</span>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div>
+        <p style="font-size:.82rem; color:var(--muted); text-align:center; margin-bottom:10px; letter-spacing:.5px;">POLITICAL DIMENSION OF SUFFERING</p>
+        <div class="spectrum-row">
+          <span class="spectrum-label">Individualised — inner fix</span>
+          <div class="spectrum-bar bar-ideal">
+            <div class="bar-dot" style="left:10%;"></div>
+            <div class="bar-dot" style="left:85%; background:#b590f5; border:2px solid var(--bg);"></div>
+          </div>
+          <span class="spectrum-label right">Structural — social critique</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:0 174px; margin-top:-4px;">
+          <span style="font-size:.72rem; color:var(--accent3);">▲ Mindfulness</span>
+          <span style="font-size:.72rem; color:#b590f5;">▲ Critical Psychology</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ KEY CONCEPTS ═══════════════ -->
+  <div class="section s4">
+    <div class="section-label">Key Concepts &amp; Distinctions</div>
+    <h2>Terms That Do the Work</h2>
+    <div class="concepts">
+
+      <div class="concept-item">
+        <span class="concept-tag">Anattā</span>
+        <p class="concept-def">The Buddhist metaphysical doctrine of "no-self" — the claim that there is no persistent individual subject underlying experience; consciousness is simply a stream of impermanent events with no owner.</p>
+      </div>
+
+      <div class="concept-item">
+        <span class="concept-tag">Nonjudgmental Awareness</span>
+        <p class="concept-def">The defining posture of mindfulness practice: attending to present sensations, thoughts, and feelings without evaluating, interpreting, or claiming them as one's own — a stance that smuggles in <em>anattā</em> without naming it.</p>
+      </div>
+
+      <div class="concept-item">
+        <span class="concept-tag">Impermanence</span>
+        <p class="concept-def">The Buddhist observation — reinforced in mindfulness exercises — that all mental and physical phenomena arise and dissolve rapidly; used to argue that nothing transient can constitute a stable self.</p>
+      </div>
+
+      <div class="concept-item">
+        <span class="concept-tag">Impersonality</span>
+        <p class="concept-def">The corollary of no-self: if there is no "me," then thoughts and feelings are not "mine" — they are events that occur, not expressions of a character or identity to be understood.</p>
+      </div>
+
+      <div class="concept-item">
+        <span class="concept-tag">McMindfulness</span>
+        <p class="concept-def">The critical label for the commercial, decontextualised diffusion of mindfulness — stripped of its Buddhist nuance and deployed as a generic productivity or wellness intervention.</p>
+      </div>
+
+      <div class="concept-item">
+        <span class="concept-tag">Deliberative Reflection</span>
+        <p class="concept-def">The alternative mode of self-examination — one that involves actively evaluating thoughts and feelings in light of one's character, history, and social circumstances, rather than simply observing and releasing them.</p>
+      </div>
+
+      <div class="concept-item">
+        <span class="concept-tag">Metaphysical Loading</span>
+        <p class="concept-def">The phenomenon of a supposedly neutral practice or framework quietly presupposing specific philosophical commitments — in mindfulness's case, a Buddhist ontology of the self that most Western practitioners would not consciously endorse.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════ DIAGRAM 3: VENN ═══════════════ -->
+  <div class="diagram-section">
+    <h2>What Mindfulness Can &amp; Cannot Do</h2>
+    <div class="diagram-wrap">
+      <svg class="diag-svg" viewBox="0 0 900 345" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+        <defs>
+          <clipPath id="vennLeftClip">
+            <circle cx="280" cy="165" r="160"/>
+          </clipPath>
+          <radialGradient id="vgLeft" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#68d8b0" stop-opacity=".16"/>
+            <stop offset="100%" stop-color="#68d8b0" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="vgRight" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#b590f5" stop-opacity=".16"/>
+            <stop offset="100%" stop-color="#b590f5" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Circles  (left cx=280  right cx=560  overlap zone x≈400–440) -->
+        <circle cx="280" cy="165" r="160" fill="url(#vgLeft)"  stroke="#68d8b0" stroke-width="1.6"/>
+        <circle cx="560" cy="165" r="160" fill="url(#vgRight)" stroke="#b590f5" stroke-width="1.6"/>
+        <g clip-path="url(#vennLeftClip)">
+          <circle cx="560" cy="165" r="160" fill="rgba(200,169,110,.22)"/>
+        </g>
+
+        <!-- LEFT  — centered at x=255 (midpoint of exclusive zone 120→400) -->
+        <text x="255" y="68"  text-anchor="middle" fill="#68d8b0" font-size="12" font-weight="700" letter-spacing="1">MINDFULNESS</text>
+        <text x="255" y="83"  text-anchor="middle" fill="#68d8b0" font-size="9.5" opacity=".75">Can Provide</text>
+        <text x="255" y="114" text-anchor="middle" fill="#e8e6e1" font-size="11">Stress relief</text>
+        <text x="255" y="136" text-anchor="middle" fill="#e8e6e1" font-size="11">Emotional distance</text>
+        <text x="255" y="158" text-anchor="middle" fill="#e8e6e1" font-size="11">Pattern recognition</text>
+        <text x="255" y="180" text-anchor="middle" fill="#e8e6e1" font-size="11">Present-moment calm</text>
+
+        <!-- OVERLAP — centered at x=420 -->
+        <text x="420" y="150" text-anchor="middle" fill="#c8a96e" font-size="11.5" font-weight="700">Both</text>
+        <text x="420" y="167" text-anchor="middle" fill="#c8a96e" font-size="9.5">Awareness</text>
+        <text x="420" y="181" text-anchor="middle" fill="#c8a96e" font-size="9.5">of triggers</text>
+
+        <!-- RIGHT — centered at x=585 (midpoint of exclusive zone 440→720) -->
+        <text x="585" y="68"  text-anchor="middle" fill="#b590f5" font-size="12" font-weight="700" letter-spacing="1">SELF-REFLECTION</text>
+        <text x="585" y="83"  text-anchor="middle" fill="#b590f5" font-size="9.5" opacity=".75">Requires</text>
+        <text x="585" y="114" text-anchor="middle" fill="#e8e6e1" font-size="11">Owning your feelings</text>
+        <text x="585" y="136" text-anchor="middle" fill="#e8e6e1" font-size="11">Character analysis</text>
+        <text x="585" y="158" text-anchor="middle" fill="#e8e6e1" font-size="11">Contextual reasoning</text>
+        <text x="585" y="180" text-anchor="middle" fill="#e8e6e1" font-size="11">Moral responsibility</text>
+
+        <!-- GAP INDICATOR — below circle bottom (165+160=325), lines at y=332 -->
+        <line x1="122" y1="332" x2="300" y2="332" stroke="#f28b82" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="420"  y="337" text-anchor="middle" fill="#f28b82" font-size="10" font-weight="600">← Mindfulness cannot reach this territory →</text>
+        <line x1="540" y1="332" x2="718" y2="332" stroke="#f28b82" stroke-width="1" stroke-dasharray="4,3"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════════════ COUNTERARGUMENT ═══════════════ -->
+  <div class="section s5">
+    <div class="section-label">The Strongest Counterargument</div>
+    <h2>The Most Serious Objection</h2>
+    <div class="objection-box">
+      <p>
+        A defender of mindfulness could reasonably argue that it was never designed
+        to be a complete philosophy of selfhood — it is a clinical tool, and holding
+        it responsible for failing to perform the work of psychoanalysis or moral
+        philosophy is a category error akin to criticising a scalpel for not diagnosing
+        the patient.
+      </p>
+    </div>
+    <p style="font-size:.95rem; color:var(--text);">
+      This objection has force, but it leaves the central charge intact: it is
+      <em>mindfulness advocates and institutions</em> — not abstract critics — who promote
+      it as a wholesale remedy for self-understanding, mental health, and even
+      productivity. Once that universalist claim is made, the hidden metaphysics
+      becomes a live problem. The argument here is not that mindfulness is useless,
+      but that its current framing is intellectually dishonest.
+    </p>
+  </div>
+
+  <!-- ═══════════════ TAKEAWAY ═══════════════ -->
+  <div class="section s6">
+    <div class="section-label">The Takeaway</div>
+    <h2>What to Hold After Reading</h2>
+    <div class="takeaway-highlight">
+      Any practice that instructs you to stop identifying with your thoughts is not
+      offering you a neutral technique — it is offering you a metaphysics.
+      The honest question is not whether mindfulness helps, but whether the version
+      of selfhood it quietly installs is one you would choose, if you were asked directly.
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ═══════════════ SIGNATURE ═══════════════ -->
+<div class="signature">
+  <p>Written by <span>Gourang Sharma</span></p>
+</div>
+
+</body>
+</html>

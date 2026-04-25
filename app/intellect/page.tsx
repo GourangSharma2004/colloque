@@ -1,456 +1,347 @@
 "use client";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Intellect Pillar Page
-// Template page — clone this file for Book Summaries, AI Resources, The Log,
-// and Community. Update: pillarNumber, pillarKey, title, tagline, LATEST_DROP,
-// ARCHIVE_CARDS, CURATED_READS, and the active prop on <Navbar />.
-// ─────────────────────────────────────────────────────────────────────────────
-
+import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
-// ── Pillar metadata ───────────────────────────────────────────────────────────
-const title        = "Intellect";
-const tagline      = "The ideas that change how you see everything else.";
-
-// ── Latest Drop content ───────────────────────────────────────────────────────
-const LATEST_DROP = {
-  concept: "The Overton Window",
-  subtitle:
-    "Why the ideas you're allowed to say out loud are smaller than you think",
-  description:
-    "Every era has an invisible frame that decides which ideas are acceptable in public discourse. Understanding it changes how you read news, politics, and your own conversations.",
-  readTime: "12 min read",
-};
-
-// ── Archive cards (5 placeholder concepts) ────────────────────────────────────
-const ARCHIVE_CARDS = [
+// ── Ideas data ────────────────────────────────────────────────────────────────
+const IDEAS = [
   {
-    title: "The Dunning-Kruger Effect",
-    desc: "Why the least competent are often the most confident — and what that means for self-assessment.",
-    tag: "Psychology",
-    readTime: "8 min",
+    slug: "case-against-sugar",
+    title: "The Case Against Sugar",
+    hook: "How a century of misread science may have made two of the world's most devastating chronic diseases all but inevitable.",
+    opening: "",
+    domain: "Metabolic Biology",
+    origin: "via Gary Taubes",
+    image: "/Sugar.avif",
   },
   {
-    title: "The Lindy Effect",
-    desc: "How age predicts future survival better than almost any modern forecast model.",
-    tag: "Systems Thinking",
-    readTime: "6 min",
+    slug: "why-english-is-weird",
+    title: "Why English Is Genuinely Weird",
+    hook: "English is not merely unusual in its spelling — it is structurally, historically, and grammatically unlike any other language on Earth.",
+    opening: "",
+    domain: "Linguistic History",
+    origin: "Original",
+    image: "/English Language.jpg",
   },
   {
-    title: "Goodhart's Law",
-    desc: "When a measure becomes a target, it ceases to be a good measure. The quiet corruption of metrics.",
-    tag: "Economics",
-    readTime: "5 min",
+    slug: "problem-of-mindfulness",
+    title: "The Problem of Mindfulness",
+    hook: "Mindfulness presents itself as ideology-free — but beneath its calm surface lie metaphysical commitments that quietly reshape how we understand ourselves.",
+    opening: "",
+    domain: "Philosophy & Ethics",
+    origin: "Original",
+    image: "/Mindfullness.jpg",
   },
   {
-    title: "The Mere Exposure Effect",
-    desc: "We like things more simply because we've encountered them before. Here's why that's dangerous.",
-    tag: "Cognitive Science",
-    readTime: "6 min",
+    slug: "end-of-work-crisis-of-meaning",
+    title: "The End of Work and the Crisis of Meaning",
+    hook: "Work was never just economic. It was the story we told about who we are — and automation is making that story obsolete.",
+    opening: "",
+    domain: "Labour & Political Economy",
+    origin: "Original",
+    image: "/Work.png",
   },
   {
-    title: "Survivorship Bias",
-    desc: "We study winners and draw conclusions. We forget about the invisible graveyard of losers.",
-    tag: "Logic & Reasoning",
-    readTime: "7 min",
-  },
-];
-
-// ── Curated reads (4 external essays) ────────────────────────────────────────
-const CURATED_READS = [
-  {
-    title: "The Premium Mediocre Life of Maya Millennial",
-    source: "Ribbonfarm",
-  },
-  {
-    title: "The Tyranny of Structurelessness",
-    source: "Aeon",
-  },
-  {
-    title: "A Curation of Mental Models",
-    source: "Farnam Street",
-  },
-  {
-    title: "On Being Wrong in Public",
-    source: "LessWrong",
+    slug: "golden-quarter",
+    title: "The Golden Quarter",
+    hook: "Between 1945 and 1971, humanity produced more transformative innovation than in the half-century that followed. The question is not just why it happened — it's why it stopped.",
+    opening: "",
+    domain: "History of Science",
+    origin: "Original",
+    image: "/innovation.webp",
   },
 ];
 
-// ── Shared style tokens ───────────────────────────────────────────────────────
-const sectionLabelStyle: React.CSSProperties = {
+// ── Design tokens ─────────────────────────────────────────────────────────────
+const sp = "px-6 md:px-16 lg:px-24";
+
+const labelStyle: React.CSSProperties = {
   fontFamily: "var(--font-dm-sans), sans-serif",
   fontSize: "11px",
   fontWeight: 500,
   letterSpacing: "0.2em",
   textTransform: "uppercase",
-  color: "#A8852A",  // subtle gold
+  color: "#9A8E7A",
 };
 
-const sectionPadding = "px-6 md:px-16 lg:px-24";
+// ── Idea Card ─────────────────────────────────────────────────────────────────
+function IdeaCard({ idea, isMatch = true, hasQuery = false }: { idea: (typeof IDEAS)[0]; isMatch?: boolean; hasQuery?: boolean }) {
+  const [hovered, setHovered] = useState(false);
 
-// Cream palette tokens
-const C = {
-  pageBg:    "#F5EFE6",   // main cream
-  heroBg:    "#EDE5D8",   // slightly deeper parchment for hero
-  cardBg:    "#EDE7DC",   // warm off-white card
-  cardHover: "#E3D9CC",   // card hover
-  border:    "#D4CCBF",   // warm taupe divider
-  gridGap:   "#D4CCBF",   // grid separator colour
-  textPrimary:   "#1C1914",  // near-black warm
-  textSecondary: "#4A4438",  // warm mid-tone
-  textMuted:     "#9A8E7A",  // warm muted
-  accent:        "#2C2C2C",  // charcoal accent
-  gold:          "#C4973A",  // refined gold accent
-  goldMuted:     "#A8852A",  // subtler gold for labels
-};
+  return (
+    <Link
+      href={`/intellect/${idea.slug}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        textDecoration: "none",
+        backgroundColor: hovered ? "#FFFFFF" : "#F5EFE6",
+        borderRadius: "5px",
+        boxShadow: hovered
+          ? "0 4px 24px rgba(44,44,44,0.10)"
+          : "0 2px 12px rgba(44,44,44,0.06)",
+        overflow: "hidden",
+        borderBottom: isMatch && hovered ? "2px solid #2C2C2C" : isMatch ? "2px solid transparent" : "2px solid transparent",
+        opacity: hasQuery && !isMatch ? 0.25 : 1,
+        transform: hasQuery && isMatch ? "scale(1.01)" : "scale(1)",
+        transition: "background-color 0.2s, box-shadow 0.2s, border-bottom-color 0.2s, opacity 0.3s, transform 0.3s",
+        outline: hasQuery && isMatch ? "2px solid #C9A84C" : "2px solid transparent",
+      }}
+    >
+      {idea.image && (
+        <div style={{ width: "100%", height: "340px", overflow: "hidden", flexShrink: 0 }}>
+          <img
+            src={idea.image}
+            alt={idea.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+              transition: "transform 0.4s ease, filter 0.4s ease",
+              transform: hovered ? "scale(1.04)" : "scale(1)",
+              filter: hovered ? "brightness(1.08)" : "brightness(1)",
+            }}
+          />
+        </div>
+      )}
+      <div style={{ padding: "1.75rem 2rem 1.75rem", display: "flex", flexDirection: "column", flex: 1 }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-cormorant), Georgia, serif",
+            fontSize: "24px",
+            fontStyle: "italic",
+            fontWeight: 700,
+            lineHeight: 1.2,
+            color: "#2C2C2C",
+            marginBottom: "0.6rem",
+          }}
+        >
+          {idea.title}
+        </h2>
+
+        <p
+          style={{
+            fontFamily: "var(--font-dm-sans), sans-serif",
+            fontSize: "13px",
+            fontStyle: "italic",
+            fontWeight: 400,
+            color: "#4A4035",
+            lineHeight: 1.55,
+            marginBottom: "0.9rem",
+          }}
+        >
+          {idea.hook}
+        </p>
+
+        {idea.opening && (
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "14px",
+              fontWeight: 300,
+              lineHeight: 1.75,
+              color: "rgba(44,44,44,0.70)",
+              marginBottom: "1.5rem",
+              flex: 1,
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {idea.opening}
+          </p>
+        )}
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingTop: "0.75rem",
+            borderTop: "1px solid #E0D9D0",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#9A8E7A",
+            }}
+          >
+            {idea.domain}
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "11px",
+              fontWeight: 300,
+              color: "#9A8E7A",
+            }}
+          >
+            {idea.origin}
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function IntellectPage() {
-  return (
-    <div style={{ backgroundColor: C.pageBg, minHeight: "100vh" }}>
-      {/* A. Navbar — fixed, not on landing page */}
-      <Navbar active="intellect" />
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const query = searchParams.get("q")?.toLowerCase().trim() ?? "";
+  const clearSearch = () => { if (query) router.replace("/intellect"); };
 
-      {/* ── B. Hero Section ─────────────────────────────────────────────────── */}
-      <section
-        className="relative flex items-center justify-center overflow-hidden"
+  const matchesQuery = (idea: (typeof IDEAS)[0]) => {
+    if (!query) return true;
+    return (
+      idea.title.toLowerCase().includes(query) ||
+      idea.hook.toLowerCase().includes(query) ||
+      idea.opening.toLowerCase().includes(query) ||
+      idea.domain.toLowerCase().includes(query) ||
+      idea.origin.toLowerCase().includes(query)
+    );
+  };
+
+  return (
+    <div style={{ position: "relative", minHeight: "100vh" }} onClick={clearSearch}>
+
+      {/* ── Full-page video background ── */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
         style={{
-          height: "70vh",
-          minHeight: "480px",
-          backgroundColor: C.heroBg,
+          position: "fixed",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center 70%",
+          zIndex: 0,
         }}
       >
-        {/* Subtle grain texture overlay */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E\")",
-            backgroundRepeat: "repeat",
-          }}
-        />
+        <source src="/video/Intellect.mp4" type="video/mp4" />
+      </video>
 
-        {/* Centered hero content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6">
-          {/* Title */}
+      {/* ── Dark overlay ── */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "rgba(0,0,0,0.55)",
+          zIndex: 1,
+        }}
+      />
+
+      {/* ── Page content ── */}
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <Navbar active="intellect" />
+
+        {/* ── Hero ── */}
+        <section
+          className="flex flex-col items-center justify-center text-center px-6"
+          style={{ height: "32vh", minHeight: "220px", paddingTop: "56px" }}
+        >
           <h1
             style={{
               fontFamily: "var(--font-cormorant), Georgia, serif",
-              fontSize: "clamp(60px, 9vw, 96px)",
+              fontSize: "clamp(52px, 8vw, 96px)",
               fontStyle: "italic",
               fontWeight: 700,
-              lineHeight: 1.05,
-              color: C.textPrimary,
-              letterSpacing: "-0.01em",
+              lineHeight: 1,
+              color: "#F5EFE6",
+              letterSpacing: "-0.02em",
+              textShadow: "0 2px 40px rgba(0,0,0,0.45)",
             }}
           >
-            {title}
+            Intellect
           </h1>
 
-          {/* Tagline */}
           <p
-            className="mt-5 max-w-lg"
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "18px",
+              fontSize: "17px",
               fontWeight: 300,
-              lineHeight: 1.65,
-              color: C.textSecondary,
+              color: "rgba(245,239,230,0.80)",
+              marginTop: "1.25rem",
+              lineHeight: 1.6,
+              textShadow: "0 1px 20px rgba(0,0,0,0.5)",
             }}
           >
-            {tagline}
+            Every piece starts with an idea worth thinking about.
           </p>
 
-          {/* Divider */}
           <div
-            className="mt-8"
-            style={{ width: "40px", height: "1px", backgroundColor: C.gold }}
+            style={{
+              width: "96px",
+              borderTop: "1px solid rgba(245,239,230,0.40)",
+              marginTop: "1.5rem",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
           />
-        </div>
-      </section>
+        </section>
 
-      {/* ── C. Latest Drop ──────────────────────────────────────────────────── */}
-      <section
-        className={`${sectionPadding} py-16`}
-        style={{ borderTop: `1px solid ${C.border}` }}
-      >
-        {/* Section label */}
-        <p style={sectionLabelStyle} className="mb-8">
-          Latest Drop
-        </p>
-
-        {/* Large horizontal card */}
-        <div
-          className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16 transition-all duration-300"
-          style={{
-            backgroundColor: C.cardBg,
-            borderLeft: `2px solid ${C.gold}`,
-            padding: "2rem 2.5rem",
-          }}
+        {/* ── Ideas Feed ── */}
+        <section
+          className={`${sp} pt-6 pb-16`}
+          style={{ borderTop: "none" }}
         >
-          {/* Left — concept title */}
-          <div className="flex-1">
-            <h2
-              style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
-                fontSize: "clamp(28px, 4vw, 40px)",
-                fontStyle: "italic",
-                fontWeight: 600,
-                lineHeight: 1.2,
-                color: C.textPrimary,
-              }}
-            >
-              {LATEST_DROP.concept}
-            </h2>
-            <p
-              className="mt-2"
-              style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
-                fontSize: "clamp(18px, 2.5vw, 24px)",
-                fontStyle: "italic",
-                fontWeight: 300,
-                color: C.textSecondary,
-                lineHeight: 1.35,
-              }}
-            >
-              {LATEST_DROP.subtitle}
+          <p style={{ ...labelStyle, color: "rgba(245,239,230,0.50)", marginBottom: "2rem" }}>Ideas</p>
+
+          {query && !IDEAS.some(matchesQuery) && (
+            <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "14px", fontWeight: 300, color: "rgba(245,239,230,0.50)", marginBottom: "2rem" }}>
+              No results for &ldquo;{searchParams.get("q")}&rdquo;
             </p>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" onClick={(e) => e.stopPropagation()}>
+            {IDEAS.map((idea) => (
+              <IdeaCard key={idea.slug} idea={idea} isMatch={matchesQuery(idea)} hasQuery={!!query} />
+            ))}
           </div>
+        </section>
 
-          {/* Right — description + read link */}
-          <div className="flex-1 flex flex-col gap-5">
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "15px",
-                fontWeight: 300,
-                lineHeight: 1.75,
-                color: C.textSecondary,
-              }}
-            >
-              {LATEST_DROP.description}
-            </p>
-            <div className="flex items-center gap-6">
-              <a
-                href="#"
-                className="transition-all duration-300"
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  letterSpacing: "0.08em",
-                  color: C.gold,
-                  textDecoration: "none",
-                  borderBottom: `1px solid rgba(196,151,58,0.35)`,
-                  paddingBottom: "2px",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = C.gold;
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = "rgba(196,151,58,0.35)";
-                }}
-              >
-                Read →
-              </a>
-              <span
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "12px",
-                  color: C.textMuted,
-                }}
-              >
-                {LATEST_DROP.readTime}
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── D. Archive Grid ─────────────────────────────────────────────────── */}
-      <section
-        className={`${sectionPadding} py-16`}
-        style={{ borderTop: `1px solid ${C.border}` }}
-      >
-        {/* Section label */}
-        <p style={sectionLabelStyle} className="mb-8">
-          Archive
-        </p>
-
-        {/* 3-column responsive grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
-          style={{ backgroundColor: C.gridGap }}
-        >
-          {ARCHIVE_CARDS.map((card, idx) => (
-            <a
-              key={idx}
-              href="#"
-              className="block transition-all duration-300"
-              style={{
-                backgroundColor: C.pageBg,
-                padding: "1.75rem 2rem",
-                textDecoration: "none",
-                borderLeft: "2px solid transparent",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderLeftColor = C.gold;
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = C.cardBg;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderLeftColor = "transparent";
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = C.pageBg;
-              }}
-            >
-              {/* Concept name */}
-              <h3
-                style={{
-                  fontFamily: "var(--font-cormorant), Georgia, serif",
-                  fontSize: "24px",
-                  fontStyle: "italic",
-                  fontWeight: 600,
-                  color: C.textPrimary,
-                  lineHeight: 1.2,
-                  marginBottom: "0.6rem",
-                }}
-              >
-                {card.title}
-              </h3>
-
-              {/* Description */}
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 300,
-                  lineHeight: 1.65,
-                  color: C.textSecondary,
-                  marginBottom: "1.25rem",
-                }}
-              >
-                {card.desc}
-              </p>
-
-              {/* Tag + read time */}
-              <div className="flex items-center gap-4">
-                <span
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "11px",
-                    fontWeight: 500,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: C.textMuted,
-                    border: `1px solid ${C.border}`,
-                    padding: "2px 8px",
-                  }}
-                >
-                  {card.tag}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "12px",
-                    color: C.textMuted,
-                  }}
-                >
-                  {card.readTime}
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* ── E. Curated Reads Strip ───────────────────────────────────────────── */}
-      <section
-        className={`${sectionPadding} py-16`}
-        style={{ borderTop: `1px solid ${C.border}` }}
-      >
-        {/* Section label */}
-        <p style={sectionLabelStyle} className="mb-8">
-          Curated Reads
-        </p>
-
-        {/* Horizontally scrollable row */}
-        <div
-          className="flex gap-4 overflow-x-auto pb-4"
-          style={{ scrollbarWidth: "none" }}
-        >
-          {CURATED_READS.map((item, idx) => (
-            <a
-              key={idx}
-              href="#"
-              className="flex-shrink-0 flex flex-col justify-between transition-all duration-300"
-              style={{
-                width: "240px",
-                backgroundColor: C.cardBg,
-                padding: "1.5rem",
-                textDecoration: "none",
-                borderTop: "2px solid transparent",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderTopColor = C.gold;
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = C.cardHover;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderTopColor = "transparent";
-                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = C.cardBg;
-              }}
-            >
-              {/* Essay title */}
-              <p
-                style={{
-                  fontFamily: "var(--font-cormorant), Georgia, serif",
-                  fontSize: "18px",
-                  fontStyle: "italic",
-                  fontWeight: 600,
-                  color: C.textPrimary,
-                  lineHeight: 1.35,
-                  marginBottom: "1rem",
-                }}
-              >
-                {item.title}
-              </p>
-
-              {/* Source */}
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 500,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  color: C.textMuted,
-                }}
-              >
-                {item.source}
-              </p>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* ── F. Footer ───────────────────────────────────────────────────────── */}
-      <footer
-        className={`${sectionPadding} py-10 flex items-center justify-center`}
-        style={{ borderTop: `1px solid ${C.border}` }}
-      >
-        <p
-          style={{
-            fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "12px",
-            fontWeight: 300,
-            letterSpacing: "0.06em",
-            color: C.textMuted,
-          }}
-        >
-          © Converse · Built for thinkers.
-        </p>
-      </footer>
+        {/* ── Footer ── */}
+        <footer className="py-8 px-6 md:px-16 lg:px-24 relative flex items-center justify-center">
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "12px",
+              fontWeight: 600,
+              letterSpacing: "0.12em",
+              color: "rgba(245,239,230,0.85)",
+            }}
+          >
+            © Converse · Built for thinkers.
+          </p>
+          <p
+            style={{
+              position: "absolute",
+              left: "clamp(1.5rem, 6vw, 6rem)",
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "12px",
+              fontWeight: 600,
+              letterSpacing: "0.12em",
+              color: "rgba(245,239,230,0.85)",
+            }}
+          >
+            One Topic Every Week
+          </p>
+        </footer>
+      </div>
     </div>
   );
 }

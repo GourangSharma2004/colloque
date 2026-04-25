@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Case Against Sugar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0b0d14;
+      --surface:   #12151f;
+      --surface2:  #1a1e2e;
+      --border:    #252a3a;
+      --gold:      #d4a017;
+      --gold-soft: #e8c253;
+      --amber:     #e8774a;
+      --teal:      #4abfbf;
+      --rose:      #e05c7a;
+      --text:      #e4e8f5;
+      --muted:     #7a829e;
+      --card-r:    14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ── HERO ──────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 24px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%,
+        rgba(212,160,23,.18) 0%, transparent 70%),
+        var(--bg);
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg,
+          transparent, transparent 59px,
+          rgba(212,160,23,.05) 60px),
+        repeating-linear-gradient(90deg,
+          transparent, transparent 59px,
+          rgba(212,160,23,.05) 60px);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(212,160,23,.35);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      max-width: 800px;
+      margin: 0 auto 22px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      max-width: 600px;
+      margin: 0 auto 44px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .hero-meta span {
+      font-size: .8rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+    .hero-meta span strong { color: var(--gold-soft); }
+
+    /* ── LAYOUT ────────────────────────────────────────── */
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 56px 0; }
+    .section + .section { border-top: 1px solid var(--border); }
+
+    /* ── SECTION HEADER ────────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .section-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .icon-gold  { background: rgba(212,160,23,.15); color: var(--gold); }
+    .icon-teal  { background: rgba(74,191,191,.12); color: var(--teal); }
+    .icon-amber { background: rgba(232,119,74,.12); color: var(--amber); }
+    .icon-rose  { background: rgba(224,92,122,.12); color: var(--rose); }
+
+    .section-label {
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ── TEXT CARD ─────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-r);
+      padding: 28px 32px;
+    }
+    .card p + p { margin-top: 14px; }
+    .highlight {
+      color: var(--gold-soft);
+      font-weight: 500;
+    }
+
+    /* ── NUMBERED LIST ─────────────────────────────────── */
+    .mech-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .mech-list li {
+      display: flex;
+      gap: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      align-items: flex-start;
+    }
+    .mech-num {
+      min-width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(212,160,23,.15);
+      color: var(--gold);
+      font-weight: 700;
+      font-size: .85rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .mech-list li p { font-size: .97rem; color: var(--text); }
+
+    /* ── STAKES LIST ───────────────────────────────────── */
+    .stakes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .stake-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--rose);
+      border-radius: 10px;
+      padding: 18px 22px;
+      font-size: .95rem;
+    }
+    .stake-item.teal  { border-left-color: var(--teal); }
+    .stake-item.amber { border-left-color: var(--amber); }
+    .stake-item.gold  { border-left-color: var(--gold); }
+
+    /* ── QUOTE BLOCK ───────────────────────────────────── */
+    .pullquote {
+      border-left: 4px solid var(--gold);
+      padding: 18px 26px;
+      background: rgba(212,160,23,.06);
+      border-radius: 0 10px 10px 0;
+      margin: 28px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--gold-soft);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── WONDER BOX ─────────────────────────────────────── */
+    .wonder-box {
+      background: linear-gradient(135deg,
+        rgba(212,160,23,.08) 0%,
+        rgba(74,191,191,.06) 100%);
+      border: 1px solid rgba(212,160,23,.2);
+      border-radius: var(--card-r);
+      padding: 36px 36px;
+      text-align: center;
+    }
+    .wonder-box p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.07rem;
+      color: var(--text);
+    }
+    .wonder-star {
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    /* ── TAKEAWAY ───────────────────────────────────────── */
+    .takeaway-box {
+      background: var(--surface2);
+      border: 1px solid rgba(232,119,74,.25);
+      border-radius: var(--card-r);
+      padding: 32px 36px;
+    }
+    .takeaway-box p { font-size: 1.06rem; }
+
+    /* ── SVG DIAGRAMS ──────────────────────────────────── */
+    .diagram-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-r);
+      padding: 32px 24px;
+      margin-top: 28px;
+      overflow-x: auto;
+    }
+    .diagram-title {
+      font-size: .75rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 22px;
+      text-align: center;
+    }
+    svg text { font-family: 'Inter', sans-serif; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .author-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 22px;
+    }
+    .author-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: .8rem;
+      color: #000;
+    }
+    .author-name { font-size: .9rem; color: var(--text); }
+    .author-role { font-size: .76rem; color: var(--muted); }
+    .footer-note {
+      margin-top: 20px;
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    /* ── TIMELINE ───────────────────────────────────────── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+    .tl-item:not(:last-child) .tl-line::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 36px;
+      bottom: -16px;
+      width: 2px;
+      background: var(--border);
+    }
+    .tl-left { display: flex; flex-direction: column; align-items: center; position: relative; }
+    .tl-dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .tl-connector {
+      width: 2px;
+      background: var(--border);
+      flex: 1;
+      min-height: 24px;
+    }
+    .tl-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .tl-year {
+      font-size: .7rem;
+      letter-spacing: .12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .tl-text { font-size: .93rem; color: var(--text); }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .card, .wonder-box, .takeaway-box { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-tag">Metabolism · Public Health · Science History</div>
+  <h1>The Case Against <span>Sugar</span></h1>
+  <p class="hero-sub">
+    How a century of misread science may have made two of the world's
+    most devastating chronic diseases all but inevitable.
+  </p>
+  <div class="hero-meta">
+    <span>📚 <strong>Source:</strong> Gary Taubes</span>
+    <span>🧬 <strong>Domain:</strong> Metabolic Biology</span>
+    <span>🕰 <strong>Timescale:</strong> Evolutionary &amp; Historical</span>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- ① CENTRAL OBSERVATION ────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-gold">🎯</div>
+      <div>
+        <div class="section-label">Section 01</div>
+        <div class="section-title">The Central Observation</div>
+      </div>
+    </div>
+    <div class="card">
+      <p>
+        The global epidemics of obesity and Type 2 diabetes — affecting hundreds of millions 
+        and projected to worsen — are framed here as the direct consequence of a 
+        <span class="highlight">century-long scientific error</span>: the belief that these 
+        conditions result from consuming too many calories and moving too little.
+      </p>
+      <p>
+        The central claim is that <span class="highlight">refined sugar is a metabolic toxin</span> — 
+        not because of its caloric weight, but because of its specific hormonal effects: it 
+        disrupts the body's insulin-regulated fat-storage system, directly causing both obesity 
+        and diabetes independent of total energy intake.
+      </p>
+    </div>
+
+    <!-- Diagram: Two Hypotheses -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Figure 1 — The Two Competing Hypotheses of Obesity</div>
+      <svg viewBox="0 0 820 260" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <!-- Left Box: Energy Balance -->
+        <rect x="20" y="30" width="340" height="200" rx="12" fill="#1a1e2e" stroke="#252a3a" stroke-width="1.5"/>
+        <rect x="20" y="30" width="340" height="48" rx="12" fill="rgba(74,191,191,0.15)"/>
+        <rect x="20" y="66" width="340" height="12" rx="0" fill="rgba(74,191,191,0.15)"/>
+        <text x="190" y="62" text-anchor="middle" fill="#4abfbf" font-size="13" font-weight="700" letter-spacing="0.5">ENERGY-BALANCE PARADIGM</text>
+        <text x="190" y="86" text-anchor="middle" fill="#7a829e" font-size="10" letter-spacing="1">Dominant since 1940s</text>
+        <circle cx="80" cy="128" r="22" fill="rgba(74,191,191,0.1)" stroke="#4abfbf" stroke-width="1.5"/>
+        <text x="80" y="124" text-anchor="middle" fill="#4abfbf" font-size="9" font-weight="600">Eat too</text>
+        <text x="80" y="136" text-anchor="middle" fill="#4abfbf" font-size="9" font-weight="600">much</text>
+        <text x="148" y="131" text-anchor="middle" fill="#7a829e" font-size="18">+</text>
+        <circle cx="215" cy="128" r="22" fill="rgba(74,191,191,0.1)" stroke="#4abfbf" stroke-width="1.5"/>
+        <text x="215" y="124" text-anchor="middle" fill="#4abfbf" font-size="9" font-weight="600">Exercise</text>
+        <text x="215" y="136" text-anchor="middle" fill="#4abfbf" font-size="9" font-weight="600">too little</text>
+        <text x="283" y="131" text-anchor="middle" fill="#7a829e" font-size="18">→</text>
+        <rect x="315" y="108" width="34" height="40" rx="6" fill="rgba(74,191,191,0.2)" stroke="#4abfbf" stroke-width="1.5"/>
+        <text x="332" y="133" text-anchor="middle" fill="#4abfbf" font-size="10" font-weight="700">FAT</text>
+        <text x="190" y="178" text-anchor="middle" fill="#7a829e" font-size="10">Implication: obesity is a behavioural failure</text>
+        <text x="190" y="196" text-anchor="middle" fill="#7a829e" font-size="10">Sugar = empty calories only</text>
+        <text x="190" y="214" text-anchor="middle" fill="#e05c7a" font-size="10" font-weight="600">✗ Cannot explain hormonal or genetic evidence</text>
+
+        <!-- VS -->
+        <text x="410" y="145" text-anchor="middle" fill="#d4a017" font-size="22" font-weight="900">VS</text>
+
+        <!-- Right Box: Hormonal -->
+        <rect x="460" y="30" width="340" height="200" rx="12" fill="#1a1e2e" stroke="#252a3a" stroke-width="1.5"/>
+        <rect x="460" y="30" width="340" height="48" rx="12" fill="rgba(212,160,23,0.12)"/>
+        <rect x="460" y="66" width="340" height="12" rx="0" fill="rgba(212,160,23,0.12)"/>
+        <text x="630" y="62" text-anchor="middle" fill="#d4a017" font-size="13" font-weight="700">HORMONAL / REGULATORY PARADIGM</text>
+        <text x="630" y="86" text-anchor="middle" fill="#7a829e" font-size="10" letter-spacing="1">Pre-war European science, now re-emerging</text>
+        <circle cx="520" cy="128" r="22" fill="rgba(212,160,23,0.1)" stroke="#d4a017" stroke-width="1.5"/>
+        <text x="520" y="124" text-anchor="middle" fill="#d4a017" font-size="8.5" font-weight="600">Sugar /</text>
+        <text x="520" y="136" text-anchor="middle" fill="#d4a017" font-size="8.5" font-weight="600">Carbs</text>
+        <text x="590" y="131" text-anchor="middle" fill="#7a829e" font-size="18">→</text>
+        <circle cx="655" cy="128" r="22" fill="rgba(212,160,23,0.1)" stroke="#d4a017" stroke-width="1.5"/>
+        <text x="655" y="124" text-anchor="middle" fill="#d4a017" font-size="8.5" font-weight="600">↑ Insulin</text>
+        <text x="655" y="136" text-anchor="middle" fill="#d4a017" font-size="8.5" font-weight="600">Signal</text>
+        <text x="723" y="131" text-anchor="middle" fill="#7a829e" font-size="18">→</text>
+        <rect x="755" y="108" width="34" height="40" rx="6" fill="rgba(212,160,23,0.2)" stroke="#d4a017" stroke-width="1.5"/>
+        <text x="772" y="133" text-anchor="middle" fill="#d4a017" font-size="10" font-weight="700">FAT</text>
+        <text x="630" y="178" text-anchor="middle" fill="#7a829e" font-size="10">Implication: obesity is a metabolic disorder</text>
+        <text x="630" y="196" text-anchor="middle" fill="#7a829e" font-size="10">Sugar = hormonal disruptor, not just calories</text>
+        <text x="630" y="214" text-anchor="middle" fill="#4abfbf" font-size="10" font-weight="600">✓ Explains genetic basis, gender differences, insulin data</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ② DEEP TIME ──────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-teal">⏳</div>
+      <div>
+        <div class="section-label">Section 02</div>
+        <div class="section-title">The Deep Time Dimension</div>
+      </div>
+    </div>
+    <div class="card">
+      <p>
+        This is a story operating on two interlocked timescales: the 
+        <span class="highlight">evolutionary deep time</span> in which the human body's 
+        insulin-based homeostatic system was calibrated — a system shaped across millions of 
+        years to handle food environments nothing like today's — and the 
+        <span class="highlight">150-year arc of scientific history</span> during which nutrition 
+        science chose its paradigms and then refused to abandon them.
+      </p>
+      <p>
+        The collision between these two timescales is precisely what produces the crisis: an 
+        evolutionarily ancient metabolic architecture meeting a modern food supply saturated 
+        in refined sugars for the first time, while the science meant to protect us was locked 
+        in a century-old framework built with century-old tools.
+      </p>
+      <p>
+        What deep time reveals here is that human physiology was 
+        <span class="highlight">never designed for chronic, high-level sugar exposure</span>, 
+        and that the epidemics we are now calling "complex and multifactorial" may in fact 
+        have a single, ancient, biochemical fault line at their centre.
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="diagram-wrap" style="margin-top:28px;">
+      <div class="diagram-title">Figure 2 — The Science History Timeline</div>
+      <div class="timeline" style="padding: 8px 4px;">
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-dot">1860s</div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-year">1860s</div>
+            <div class="tl-text">German researchers build calorimeters, establish thermodynamic laws as the foundation of nutrition science. Calories become the only currency that matters.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-dot" style="border-color:var(--teal);color:var(--teal);">1900s</div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-year" style="color:var(--teal);">Early 1900s</div>
+            <div class="tl-text">Gustav von Bergmann (Germany) argues obesity is a fat-trapping disorder — a hormonal fault — not an energy-balance problem. European medical consensus leans his way.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-dot" style="border-color:var(--amber);color:var(--amber);">1930s</div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-year" style="color:var(--amber);">1930s–1940s</div>
+            <div class="tl-text">Julius Bauer of Vienna refines the hormonal hypothesis. The rise of Hitler destroys the German/Austrian medical research community; the paradigm evaporates with it.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-dot" style="border-color:var(--rose);color:var(--rose);">1960s</div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-year" style="color:var(--rose);">1960s</div>
+            <div class="tl-text">Rosalyn Yalow & Solomon Berson invent radioimmunoassay — finally allowing insulin levels to be measured. Discovery: both obese people and Type 2 diabetics have chronically elevated insulin. The hormonal hypothesis is vindicated, but ignored.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-dot" style="border-color:var(--muted);color:var(--muted);">Now</div>
+          </div>
+          <div class="tl-content" style="margin-bottom:0;">
+            <div class="tl-year" style="color:var(--muted);">Today</div>
+            <div class="tl-text">1 in 11 Americans diabetic. WHO projects the crisis worsening. The energy-balance paradigm still dominates public health guidance worldwide.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ HOW THE SYSTEM WORKS ───────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-amber">⚙️</div>
+      <div>
+        <div class="section-label">Section 03</div>
+        <div class="section-title">How the System Works</div>
+      </div>
+    </div>
+    <ul class="mech-list">
+      <li>
+        <div class="mech-num">1</div>
+        <p>Insulin is the body's primary <strong>fat-storage signal</strong>: when secreted in response to rising blood sugar, it directs fat cells to store fat while simultaneously instructing muscles to burn glucose — making fat mobilisation biochemically impossible while insulin is elevated.</p>
+      </li>
+      <li>
+        <div class="mech-num">2</div>
+        <p>Consuming carbohydrates — and most powerfully, <strong>refined sugars</strong> — raises blood glucose, triggering insulin secretion; the more sugar consumed chronically, the more persistently elevated insulin remains.</p>
+      </li>
+      <li>
+        <div class="mech-num">3</div>
+        <p>The fructose component of table sugar is metabolised almost exclusively in the liver, where it is uniquely positioned to generate the <strong>liver fat accumulation</strong> that scientists now hypothesise is the trigger for insulin resistance.</p>
+      </li>
+      <li>
+        <div class="mech-num">4</div>
+        <p>Once insulin resistance develops, the pancreas compensates by secreting <em>even more</em> insulin — a feedback loop that <strong>compounds fat storage</strong>, driving obesity and simultaneously creating the conditions for Type 2 diabetes.</p>
+      </li>
+      <li>
+        <div class="mech-num">5</div>
+        <p>Obese fat tissue behaves like an <strong>independent biological agent</strong> — hoarding calories regardless of total intake, much as a tumour commandeers blood supply — which is why calorie restriction alone repeatedly fails as a treatment.</p>
+      </li>
+      <li>
+        <div class="mech-num">6</div>
+        <p>This dysregulation causes hunger and physical inactivity <em>as consequences</em> of fat-hoarding, not as causes — meaning the obese are not overeating their way to obesity but are <strong>being driven to eat more</strong> by an already-broken metabolic regulator.</p>
+      </li>
+      <li>
+        <div class="mech-num">7</div>
+        <p>The same dietary inputs — refined sugars and refined grains — that drive insulin dysregulation also directly impair blood-sugar regulation, meaning <strong>obesity and Type 2 diabetes share a single upstream cause</strong> rather than one causing the other.</p>
+      </li>
+    </ul>
+
+    <!-- Insulin Loop Diagram -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Figure 3 — The Sugar → Insulin → Fat Storage Loop</div>
+      <svg viewBox="0 0 760 200" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <!-- Node 1 -->
+        <rect x="20" y="70" width="130" height="60" rx="10" fill="rgba(212,160,23,0.12)" stroke="#d4a017" stroke-width="1.5"/>
+        <text x="85" y="96" text-anchor="middle" fill="#d4a017" font-size="11" font-weight="700">Sugar / Refined</text>
+        <text x="85" y="112" text-anchor="middle" fill="#d4a017" font-size="11" font-weight="700">Carbohydrates</text>
+        <!-- Arrow -->
+        <path d="M152 100 L182 100" stroke="#7a829e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <text x="167" y="92" text-anchor="middle" fill="#7a829e" font-size="9">↑ Blood</text>
+        <text x="167" y="116" text-anchor="middle" fill="#7a829e" font-size="9">glucose</text>
+        <!-- Node 2 -->
+        <rect x="184" y="70" width="120" height="60" rx="10" fill="rgba(74,191,191,0.1)" stroke="#4abfbf" stroke-width="1.5"/>
+        <text x="244" y="96" text-anchor="middle" fill="#4abfbf" font-size="11" font-weight="700">Pancreas</text>
+        <text x="244" y="112" text-anchor="middle" fill="#4abfbf" font-size="11" font-weight="700">secretes Insulin</text>
+        <!-- Arrow -->
+        <path d="M306 100 L336 100" stroke="#7a829e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <!-- Node 3 -->
+        <rect x="338" y="70" width="120" height="60" rx="10" fill="rgba(232,119,74,0.1)" stroke="#e8774a" stroke-width="1.5"/>
+        <text x="398" y="96" text-anchor="middle" fill="#e8774a" font-size="11" font-weight="700">Fat Cells told</text>
+        <text x="398" y="112" text-anchor="middle" fill="#e8774a" font-size="11" font-weight="700">to STORE fat</text>
+        <!-- Arrow -->
+        <path d="M460 100 L490 100" stroke="#7a829e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <!-- Node 4 -->
+        <rect x="492" y="70" width="120" height="60" rx="10" fill="rgba(224,92,122,0.1)" stroke="#e05c7a" stroke-width="1.5"/>
+        <text x="552" y="96" text-anchor="middle" fill="#e05c7a" font-size="11" font-weight="700">Insulin</text>
+        <text x="552" y="112" text-anchor="middle" fill="#e05c7a" font-size="11" font-weight="700">Resistance</text>
+        <!-- Feedback arrow back -->
+        <path d="M612 100 Q690 100 690 165 Q690 190 552 190 Q414 190 244 190 Q130 190 85 190 Q20 190 20 165 Q20 130 20 130" stroke="rgba(224,92,122,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="5,4" marker-end="url(#arr-rose)"/>
+        <text x="390" y="185" text-anchor="middle" fill="#e05c7a" font-size="9" font-weight="600">↑ Even more insulin secreted — the loop accelerates</text>
+        <!-- Arrowhead defs -->
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#7a829e"/>
+          </marker>
+          <marker id="arr-rose" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#e05c7a"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ④ HUMAN FOOTPRINT ────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-rose">🌍</div>
+      <div>
+        <div class="section-label">Section 04</div>
+        <div class="section-title">The Human Footprint</div>
+      </div>
+    </div>
+    <div class="card">
+      <p>
+        Humanity has flooded its food supply with refined sugars and processed grains at 
+        industrial scale, creating the first civilisation in evolutionary history to experience 
+        <span class="highlight">chronic, daily, multi-decade exposure</span> to the precise 
+        dietary inputs most capable of dysregulating the insulin system.
+      </p>
+      <p>
+        The sugar and food industries compounded this by funding scientific networks whose 
+        explicit purpose was to <span class="highlight">defend the caloric paradigm</span> — 
+        keeping public health attention fixed on individual behaviour and away from 
+        the biochemical properties of their products.
+      </p>
+      <p>
+        The result is a public health catastrophe operating on a civilisational scale: 
+        one in 11 Americans currently diabetic, up to one in two adults diabetic in certain 
+        populations, and the WHO's own director-general placing the probability of reversing 
+        this trajectory at <span class="highlight">virtually zero</span>.
+      </p>
+    </div>
+
+    <div class="pullquote">
+      "Thinking of obesity as an energy-balance disorder is as meaningless as calling poverty a money-balance problem."
+    </div>
+  </div>
+
+  <!-- ⑤ ETHICAL WEIGHT ──────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-gold">⚖️</div>
+      <div>
+        <div class="section-label">Section 05</div>
+        <div class="section-title">The Ethical Weight</div>
+      </div>
+    </div>
+    <div class="card">
+      <p>
+        The moral argument running through this account is that a physiological disorder — 
+        a genuine hormonal defect — was reframed as a behavioural failure, effectively 
+        <span class="highlight">blaming millions of people</span> for a disease they had 
+        been set up to develop by their food environment and the science that failed to 
+        correctly describe it.
+      </p>
+      <p>
+        There is a further ethical implication about institutional inertia: once a paradigm 
+        was embedded in American nutrition science after World War II, the community's 
+        resistance to revising it — even as contradictory evidence accumulated for decades — 
+        transformed a correctable scientific error into a 
+        <span class="highlight">multigenerational public health failure</span>.
+      </p>
+      <p>
+        The implicit charge is not against any individual researcher but against the structure 
+        of scientific authority itself: the way funding, prestige, and paradigm-loyalty can 
+        cause a research community to go on asking the wrong question for a century, while 
+        the cost is paid not in academic reputation but in <span class="highlight">human lives and suffering</span>.
+      </p>
+    </div>
+  </div>
+
+  <!-- ⑥ WHAT IS AT STAKE ───────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-rose">⚠️</div>
+      <div>
+        <div class="section-label">Section 06</div>
+        <div class="section-title">What Is at Stake</div>
+      </div>
+    </div>
+    <div class="stakes-grid">
+      <div class="stake-item">
+        <strong>The body count of misdiagnosis</strong> — a disease causing blindness, kidney failure, amputation, heart disease, and premature death was effectively untreated at its root for over a century while the wrong variable was managed.
+      </div>
+      <div class="stake-item teal">
+        <strong>The integrity of nutrition science</strong> — if the hormonal hypothesis is correct, the foundational paradigm of one of medicine's most consequential disciplines has been wrong for 100 years and remains institutionally entrenched.
+      </div>
+      <div class="stake-item amber">
+        <strong>Individual dignity</strong> — generations of obese people were told their condition was a moral and behavioural failing, not a metabolic one, with shame substituted for effective treatment.
+      </div>
+      <div class="stake-item gold">
+        <strong>The epidemiological future</strong> — with no course correction in sight, a disease virtually absent from 19th-century hospital records now affects one in two adults in some populations, with projections worsening.
+      </div>
+      <div class="stake-item">
+        <strong>The leverage of a single dietary substance</strong> — if sugar is genuinely the upstream cause, then the entire apparatus of dietary advice — portion control, calorie counting, exercise mandates — has been solving for the wrong variable.
+      </div>
+      <div class="stake-item teal">
+        <strong>Trust in public health institutions</strong> — when WHO-level guidance is built on an incorrect paradigm, the credibility of the institutions charged with protecting population health is quietly eroded.
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ SENSE OF WONDER ────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-teal">✨</div>
+      <div>
+        <div class="section-label">Section 07</div>
+        <div class="section-title">The Sense of Wonder</div>
+      </div>
+    </div>
+    <div class="wonder-box">
+      <span class="wonder-star">🔬</span>
+      <p>
+        The most astonishing thing here is the precision of the insulin system itself — 
+        an evolutionarily ancient biological traffic controller that simultaneously manages 
+        blood sugar, fat storage, energy distribution, and cellular fuel selection across 
+        every cell in the body, calibrated over millions of years to extraordinary 
+        sensitivity. That <span class="highlight">a single molecule, fructose</span>, 
+        acting through one organ (the liver), can subvert this entire architecture — quietly, 
+        over years, at the scale of a civilisation — is a fact that reframes both the 
+        fragility and the elegance of the living system we inhabit.
+      </p>
+    </div>
+  </div>
+
+  <!-- ⑧ TAKEAWAY ────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-amber">💡</div>
+      <div>
+        <div class="section-label">Section 08</div>
+        <div class="section-title">The Takeaway</div>
+      </div>
+    </div>
+    <div class="takeaway-box">
+      <p>
+        The obesity and diabetes crises are not failures of individual willpower operating 
+        inside a correctly understood biological system — they may be the entirely predictable 
+        outcome of a modern food supply colliding with an ancient hormonal architecture that 
+        was never equipped for it, while the science meant to explain and prevent that 
+        collision chose, for institutional and historical reasons, to look the other way.
+      </p>
+      <p style="margin-top:14px; color:var(--muted); font-size:.95rem;">
+        A thinking person walks away understanding that <span style="color:var(--gold-soft); font-weight:500;">the most consequential question in nutrition is not "how much?" but "what?" </span>
+        — and that the answer to that question may have been available, buried in pre-war 
+        European medical literature, for nearly a century.
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="author-badge">
+    <div class="author-avatar">GS</div>
+    <div>
+      <div class="author-name">Written by Gourang Sharma</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
