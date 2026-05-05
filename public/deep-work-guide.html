@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Deep Work — The Transformation Guide | Cal Newport</title>
+<style>:root{--cream:#faf8f3;--navy:#1a1f36;--gold:#c9a84c;--gl:#f5edd8;--coral:#e85d4a;--sl:#64748b;--w:#fff;--bd:#e2d9c8;--dk:#1e2330;--md:#404558;--gr:#2a7a4b;--grl:#eaf5ee;--bl:#1a4a7a;--bll:#e8f0f8}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--dk);font-family:Georgia,'Times New Roman',serif;line-height:1.78;font-size:17px}
+a{color:var(--navy);text-decoration:none}a:hover{color:var(--gold)}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px}.sec{padding:64px 0;border-bottom:1px solid var(--bd)}
+h1,h2,h3,h4{font-family:Georgia,serif;color:var(--navy)}
+h1{font-size:3.2em;line-height:1.15}h2{font-size:2.1em;margin-bottom:16px}
+h3{font-size:1.45em;margin-bottom:12px;margin-top:36px}h4{font-size:1.1em;margin-bottom:8px}
+p{margin-bottom:18px;color:var(--md)}strong{color:var(--dk)}
+ul,ol{padding-left:26px;margin-bottom:18px}li{margin-bottom:9px;color:var(--md)}
+.cover{background:#0d1020;color:var(--w);padding:0;position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center}
+.cover-bg{position:absolute;inset:0;z-index:0}
+.cover .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:100vh;max-width:100%;padding:0}
+.cover-left{padding:80px 60px 80px 80px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(201,168,76,.2)}
+.cover-right{padding:80px 80px 80px 60px;display:flex;flex-direction:column;justify-content:center;background:rgba(201,168,76,.03)}
+.c-eye{font-size:.68em;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:14px}
+.c-eye::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+.cover h1{color:var(--w);font-size:5.5em;line-height:1;letter-spacing:-.03em;margin-bottom:0}
+.cover h1 em{color:var(--gold);font-style:normal;display:block;font-size:.38em;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;font-family:sans-serif;font-weight:400}
+.c-sub{font-size:1.05em;color:rgba(255,255,255,.5);margin:24px 0 40px;font-style:italic;line-height:1.7;max-width:400px}
+.c-author{font-size:.78em;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.c-author::before{content:'';display:block;width:24px;height:1px;background:rgba(255,255,255,.2)}
+.c-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.15);border-radius:10px;overflow:hidden;margin-bottom:40px}
+.c-stat{background:#0d1020;padding:22px 24px}
+.c-stat-n{font-size:2.2em;color:var(--gold);font-weight:bold;line-height:1;font-family:Georgia,serif}
+.c-stat-l{font-size:.7em;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-top:5px}
+.c-div{width:40px;height:2px;background:var(--gold);margin:36px 0}
+.c-quote{font-style:italic;color:rgba(255,255,255,.65);font-size:1.05em;line-height:1.8;margin:0 0 28px}
+.c-quote cite{display:block;font-size:.72em;color:rgba(255,255,255,.3);margin-top:14px;font-style:normal;letter-spacing:.08em;text-transform:uppercase}
+.c-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:20px;padding:8px 18px;font-size:.75em;color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:680px){.cover{min-height:auto}.cover .wrap{grid-template-columns:1fr}.cover-left{padding:60px 28px 40px;border-right:none;border-bottom:1px solid rgba(201,168,76,.2)}.cover-right{padding:40px 28px 60px}.cover h1{font-size:3.8em}}
+.toc-s{background:#0f1426;padding:60px 0}.toc-s h2{color:var(--gold);font-size:.88em;letter-spacing:.2em;text-transform:uppercase;margin-bottom:36px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 48px}
+.toc-item a{color:rgba(255,255,255,.7);font-size:.91em;display:flex;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s}
+.toc-item a:hover{color:var(--gold)}.toc-num{color:var(--gold);font-size:.78em;min-width:26px;font-weight:bold}
+.toc-sep{grid-column:1/-1;color:var(--gold);font-size:.72em;letter-spacing:.2em;text-transform:uppercase;padding:20px 0 6px;font-weight:bold}
+.part{background:var(--navy);color:var(--w);padding:44px 0}.part .wrap{display:flex;align-items:center;gap:32px}
+.p-num{font-size:5em;color:var(--gold);opacity:.2;font-weight:bold;line-height:1;flex-shrink:0}
+.p-info h3{color:var(--w);font-size:1.8em;margin-bottom:8px}.p-info p{color:rgba(255,255,255,.5);margin:0;font-size:.94em}
+.ch-hdr{padding:60px 0 40px}.ch-lbl{font-size:.7em;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.ch-hdr h2{font-size:2.4em;line-height:1.18;border-bottom:3px solid var(--gold);padding-bottom:22px}
+.ch-tag{font-size:1.1em;color:var(--sl);font-style:italic;margin-top:18px;margin-bottom:0}
+.callout{border-radius:8px;padding:26px 30px;margin:34px 0}
+.c-ins{background:var(--bll);border-left:4px solid #2563ab}.c-ins .cl{color:#1a4a7a}
+.c-act{background:var(--gl);border-left:4px solid var(--gold)}.c-act .cl{color:#7a5a00}
+.c-qut{background:var(--grl);border-left:4px solid var(--gr)}.c-qut .cl{color:var(--gr)}
+.c-wrn{background:#fdf0ee;border-left:4px solid var(--coral)}.c-wrn .cl{color:var(--coral)}
+.cl{font-size:.68em;letter-spacing:.18em;text-transform:uppercase;font-weight:bold;margin-bottom:12px;display:block;font-style:normal}
+.callout p{margin:0;font-size:.96em}.callout p+p{margin-top:10px}
+.act-box{background:var(--navy);color:var(--w);border-radius:10px;padding:34px 38px;margin:44px 0}
+.act-box h4{color:var(--gold);font-size:.78em;letter-spacing:.18em;text-transform:uppercase;margin-bottom:22px}
+.act-box ul{list-style:none;padding:0;margin:0}
+.act-box li{padding:10px 0 10px 24px;border-bottom:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.82);font-size:.94em;position:relative;margin:0}
+.act-box li::before{content:'→';position:absolute;left:0;color:var(--gold)}.act-box li:last-child{border-bottom:none}
+.mindset{border:2px solid var(--coral);border-radius:8px;padding:26px 30px;margin:34px 0}
+.ms-lbl{font-size:.68em;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-bottom:16px;font-weight:bold;display:block}
+.ms-old{color:var(--coral);font-size:.95em;margin-bottom:8px;padding-left:12px;border-left:2px solid var(--coral)}
+.ms-arr{text-align:center;color:var(--sl);font-size:1.5em;margin:12px 0}
+.ms-new{color:var(--gr);font-weight:bold;font-size:.95em;margin:0;padding-left:12px;border-left:2px solid var(--gr)}
+.fml-box{background:var(--navy);border-radius:10px;padding:38px;text-align:center;margin:38px 0}
+.fml-box p{color:rgba(255,255,255,.65);margin-bottom:0}.fml{font-size:1.55em;color:var(--gold);margin:14px 0;letter-spacing:.05em}
+.fml-note{font-size:.82em;color:rgba(255,255,255,.42);margin-top:16px}
+.diagram{margin:48px 0}.d-title{font-size:.73em;text-transform:uppercase;letter-spacing:.18em;color:var(--sl);margin-bottom:18px;text-align:center}
+.diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.s-lbl{font-size:.78em;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:12px;margin:44px 0 22px;font-weight:bold}
+.stages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:40px}
+.s-card{background:var(--w);border:1px solid var(--bd);border-radius:8px;padding:22px}
+.s-age{font-size:.7em;color:var(--gold);font-weight:bold;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;display:block}
+.s-card h5{font-size:.92em;color:var(--navy);margin-bottom:8px}.s-card p{font-size:.86em;margin:0;color:var(--md);line-height:1.62}
+.vocab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0}
+.v-card{background:var(--w);border:1px solid var(--bd);border-radius:8px;padding:16px}
+.v-term{color:var(--navy);font-weight:bold;font-size:.92em;margin-bottom:4px}
+.v-orig{font-size:.66em;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:block}
+.v-def{font-size:.81em;color:var(--md);margin:0;line-height:1.58}
+.badge{display:inline-block;font-size:.7em;padding:3px 11px;border-radius:12px;white-space:nowrap;font-family:sans-serif}
+.bh{background:var(--bll);color:var(--bl)}.ba{background:var(--gl);color:#7a5a00}.br{background:var(--grl);color:var(--gr)}.bx{background:#fdf0ee;color:var(--coral)}
+.wk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0}
+.wk-card{background:var(--w);border:1px solid var(--bd);border-radius:8px;padding:20px}
+.wk-label{font-size:.82em;font-weight:bold;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wk-days{font-size:.68em;color:var(--sl);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.wk-card ul{padding-left:16px;margin:0}.wk-card li{font-size:.82em;color:var(--md);margin-bottom:8px;line-height:1.5}
+table{width:100%;border-collapse:collapse;margin:28px 0;font-size:.91em}
+th{background:var(--navy);color:var(--w);padding:13px 18px;text-align:left;font-size:.85em;letter-spacing:.06em}
+td{padding:12px 18px;border-bottom:1px solid var(--bd);vertical-align:top;color:var(--md)}
+tr:nth-child(even) td{background:rgba(201,168,76,.05)}
+.ft-logo{font-size:2em;color:var(--gold);font-family:Georgia,serif;font-weight:bold;letter-spacing:-.02em;margin-bottom:18px}
+footer{background:var(--navy);color:rgba(255,255,255,.42);text-align:center;padding:52px 28px;font-size:.87em;line-height:1.8}
+footer strong{color:var(--gold)}footer p{color:rgba(255,255,255,.42);margin-bottom:8px}
+.pb{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),#e8a83a);z-index:999;width:0;transition:width .12s}
+.btt{position:fixed;bottom:28px;right:28px;background:var(--gold);color:var(--navy);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3em;text-decoration:none;box-shadow:0 4px 22px rgba(0,0,0,.28);z-index:200;font-weight:bold;opacity:0;transition:opacity .3s}
+.btt.show{opacity:1}
+@media(max-width:680px){.cover h1{font-size:2.7em}.toc-grid,.stages-grid{grid-template-columns:1fr}.vocab-grid,.wk-grid{grid-template-columns:1fr 1fr}.part .wrap{flex-direction:column;gap:12px}.p-num{font-size:3.5em}}</style>
+</head>
+<body>
+<div id="pb" class="pb"></div>
+<a href="#top" class="btt">↑</a>
+<header class="cover" id="top">
+<svg class="cover-bg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="900" fill="#0d1020"/>
+  <line x1="700" y1="0" x2="700" y2="900" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+  <line x1="0" y1="450" x2="1400" y2="450" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+  <circle cx="700" cy="450" r="320" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+  <circle cx="700" cy="450" r="200" fill="none" stroke="rgba(201,168,76,0.04)" stroke-width="1"/>
+  <circle cx="700" cy="450" r="480" fill="none" stroke="rgba(201,168,76,0.03)" stroke-width="1"/>
+  <radialGradient id="cg1" cx="30%" cy="40%" r="60%"><stop offset="0%" stop-color="#1a2a50" stop-opacity="0.9"/><stop offset="100%" stop-color="#0d1020" stop-opacity="0"/></radialGradient>
+  <rect width="1400" height="900" fill="url(#cg1)"/>
+  <radialGradient id="cg2" cx="80%" cy="70%" r="50%"><stop offset="0%" stop-color="rgba(201,168,76,0.08)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+  <rect width="1400" height="900" fill="url(#cg2)"/>
+  <text x="80" y="820" font-size="220" font-family="Georgia,serif" fill="rgba(255,255,255,0.015)" font-weight="bold">FOCUS</text>
+</svg>
+<div class="wrap">
+  <div class="cover-left">
+    <span class="c-eye">Transformation Guide</span>
+    <h1><em>Cal Newport</em>Deep<br>Work</h1>
+    <p class="c-sub">Rules for Focused Success in a Distracted World — a complete editorial guide to the book that changes how you work.</p>
+    <p class="c-author">A Lifelong Reference</p>
+  </div>
+  <div class="cover-right">
+    <div class="c-stats">
+      <div class="c-stat"><div class="c-stat-n">4</div><div class="c-stat-l">Core Rules</div></div>
+      <div class="c-stat"><div class="c-stat-n">3</div><div class="c-stat-l">Part One Chapters</div></div>
+      <div class="c-stat"><div class="c-stat-n">20</div><div class="c-stat-l">Key Concepts</div></div>
+      <div class="c-stat"><div class="c-stat-n">30</div><div class="c-stat-l">Day Plan</div></div>
+    </div>
+    <blockquote class="c-quote">"A deep life is a good life. The ability to perform deep work is becoming increasingly rare at exactly the same time it is becoming increasingly valuable in our economy."<cite>— Cal Newport, Deep Work</cite></blockquote>
+    <span class="c-badge">&#9679;&nbsp; Complete · Actionable · Illustrated</span>
+  </div>
+</div>
+</header>
+<nav class="toc-s" id="toc">
+<div class="wrap">
+<h2>Contents</h2>
+<div class="toc-grid">
+<div class="toc-sep">Introduction</div>
+<div class="toc-item"><a href="#intro"><span class="toc-num">00</span>What This Guide Is &amp; How to Use It</a></div>
+<div class="toc-item"><a href="#intro"><span class="toc-num">→</span>The Central Thesis at a Glance</a></div>
+<div class="toc-sep">Part One — The Idea</div>
+<div class="toc-item"><a href="#ch1"><span class="toc-num">01</span>Deep Work Is Valuable</a></div>
+<div class="toc-item"><a href="#ch2"><span class="toc-num">02</span>Deep Work Is Rare</a></div>
+<div class="toc-item"><a href="#ch3"><span class="toc-num">03</span>Deep Work Is Meaningful</a></div>
+<div class="toc-sep">Part Two — The Rules</div>
+<div class="toc-item"><a href="#rule1"><span class="toc-num">04</span>Rule 1: Work Deeply</a></div>
+<div class="toc-item"><a href="#rule2"><span class="toc-num">05</span>Rule 2: Embrace Boredom</a></div>
+<div class="toc-item"><a href="#rule3"><span class="toc-num">06</span>Rule 3: Quit Social Media</a></div>
+<div class="toc-item"><a href="#rule4"><span class="toc-num">07</span>Rule 4: Drain the Shallows</a></div>
+<div class="toc-sep">Application &amp; Reference</div>
+<div class="toc-item"><a href="#vocab"><span class="toc-num">08</span>Key Vocabulary</a></div>
+<div class="toc-item"><a href="#lifestages"><span class="toc-num">09</span>Guide Across Life Stages</a></div>
+<div class="toc-item"><a href="#plan30"><span class="toc-num">10</span>30-Day Action Plan</a></div>
+</div>
+</div>
+</nav>
+<main>
+<section class="sec" id="intro">
+<div class="wrap">
+<span class="ch-lbl">Introduction</span>
+<h2>What This Guide Is &amp; How to Use It</h2>
+<p>Cal Newport's <em>Deep Work</em> (2016) makes a single, audacious claim: <strong>the ability to focus without distraction is becoming simultaneously rarer and more valuable</strong> — and those who cultivate it will dominate the next era of the knowledge economy.</p>
+<p>This guide is not a summary. It is a <strong>transformation manual</strong> — designed to be returned to at every stage of your life: as a student building foundational habits, as a professional trying to do meaningful work inside a distracted organisation, or as someone in transition seeking clarity about what to prioritise. The ideas in this book do not expire.</p>
+<p><strong>How to read this guide:</strong> Each chapter section tells you what Newport argues, why it matters, what specific mindset shift is required, and exactly what to do about it. The diagrams are original renderings of the book's key conceptual frameworks. The 30-Day Plan at the end gives you a day-by-day on-ramp. Return to this document whenever you feel your focus slipping — it will have something new to say.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 0.1 — The Deep Work Thesis: How Focus Becomes Competitive Advantage</div>
+<svg viewBox="0 0 740 340" width="740" height="340" font-family="Georgia,serif">
+  <rect x="0" y="0" width="740" height="340" fill="#faf8f3" rx="10"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5 z" fill="#c9a84c"/></marker>
+  </defs>
+
+  <!-- Box 1: Distracted World -->
+  <rect x="12" y="80" width="158" height="110" rx="8" fill="#1a1f36"/>
+  <text x="91" y="112" text-anchor="middle" fill="#c9a84c" font-size="11" letter-spacing="1.5" font-weight="bold">DISTRACTED</text>
+  <text x="91" y="130" text-anchor="middle" fill="#c9a84c" font-size="11" letter-spacing="1.5" font-weight="bold">WORLD</text>
+  <line x1="28" y1="142" x2="154" y2="142" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="91" y="164" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10.5">Shallow busyness</text>
+
+  <!-- Arrow 1 -->
+  <line x1="172" y1="135" x2="210" y2="135" stroke="#c9a84c" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Box 2: Deep Work -->
+  <rect x="212" y="64" width="168" height="142" rx="8" fill="#1a3a28"/>
+  <text x="296" y="98" text-anchor="middle" fill="#c9a84c" font-size="11" letter-spacing="1.5" font-weight="bold">DEEP WORK</text>
+  <line x1="228" y1="110" x2="364" y2="110" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="296" y="132" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">Distraction-free</text>
+  <text x="296" y="150" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">concentration</text>
+  <text x="296" y="172" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10.5">Deliberate practice</text>
+
+  <!-- Arrow 2 -->
+  <line x1="382" y1="135" x2="420" y2="135" stroke="#c9a84c" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Box 3: Mastery -->
+  <rect x="422" y="64" width="168" height="142" rx="8" fill="#1a1f36"/>
+  <text x="506" y="98" text-anchor="middle" fill="#c9a84c" font-size="11" letter-spacing="1.5" font-weight="bold">MASTERY</text>
+  <line x1="438" y1="110" x2="574" y2="110" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="506" y="132" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">Rare skills</text>
+  <text x="506" y="150" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">Elite output</text>
+  <text x="506" y="172" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10.5">Hard to replicate</text>
+
+  <!-- Arrow 3 -->
+  <line x1="592" y1="135" x2="626" y2="135" stroke="#c9a84c" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Box 4: Value -->
+  <rect x="628" y="90" width="100" height="90" rx="8" fill="#c9a84c"/>
+  <text x="678" y="124" text-anchor="middle" fill="#1a1f36" font-size="12" font-weight="bold" letter-spacing="1">VALUE</text>
+  <line x1="640" y1="134" x2="716" y2="134" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+  <text x="678" y="154" text-anchor="middle" fill="#1a1f36" font-size="10.5">Economic</text>
+  <text x="678" y="170" text-anchor="middle" fill="#1a1f36" font-size="10.5">+ Meaning</text>
+
+  <!-- Labels below boxes -->
+  <text x="91" y="218" text-anchor="middle" fill="#64748b" font-size="10.5">Most people stay here</text>
+  <text x="296" y="236" text-anchor="middle" fill="#2a7a4b" font-size="10.5" font-weight="bold">The practice Newport</text>
+  <text x="296" y="253" text-anchor="middle" fill="#2a7a4b" font-size="10.5" font-weight="bold">teaches in this book</text>
+  <text x="506" y="236" text-anchor="middle" fill="#64748b" font-size="10.5">The outcome of</text>
+  <text x="506" y="253" text-anchor="middle" fill="#64748b" font-size="10.5">sustained deep work</text>
+  <text x="678" y="210" text-anchor="middle" fill="#64748b" font-size="10.5">Your competitive</text>
+  <text x="678" y="227" text-anchor="middle" fill="#64748b" font-size="10.5">advantage</text>
+
+  <!-- Bottom rule -->
+  <rect x="12" y="282" width="716" height="42" rx="6" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="370" y="308" text-anchor="middle" fill="#7a5a00" font-size="10.5" font-weight="bold">The entire book is an argument that this chain is real, learnable, and more valuable than ever</text>
+</svg>
+</div>
+
+<div class="callout c-act">
+<span class="cl">Before You Continue</span>
+<p>Write down one thing you need to produce that requires genuine depth — a project, a skill, a creative output. Keep it in mind as you read. Every concept in this book applies directly to that thing.</p>
+</div>
+</div>
+</section>
+
+<div class="part">
+<div class="wrap">
+<div class="p-num">I</div>
+<div class="p-info">
+<h3>The Idea</h3>
+<p>Three arguments that establish why deep work is the foundational skill of the 21st-century knowledge economy</p>
+</div>
+</div>
+</div>
+<section class="sec" id="ch1">
+<div class="wrap">
+<div class="ch-hdr">
+<span class="ch-lbl">Chapter 1 · Part One</span>
+<h2>Deep Work Is Valuable</h2>
+<p class="ch-tag">"Two Core Abilities for Thriving in the New Economy"</p>
+</div>
+
+<h3>The New Economy's Ruthless Logic</h3>
+<p>Newport opens by describing three groups of workers who will thrive as intelligent machines reshape the economy: <strong>those who can work well with intelligent machines</strong> (e.g., data analysts, engineers who leverage AI tools), <strong>superstars</strong> (those who are so good at what they do that geography and institutional loyalty become irrelevant in a winner-take-all talent market), and <strong>those with access to capital</strong> (investors). Most people cannot manufacture access to capital — but the first two categories are trainable. And both require the same foundational skill: the ability to perform deep work.</p>
+
+<p>Newport draws on economist Tyler Cowen's concept of the "average is over" economy and Erik Brynjolfsson and Andrew McAfee's research in <em>Race Against the Machine</em>. The argument is not that technology will eliminate jobs, but that it will drastically increase the <strong>premium paid to those at the top</strong> of their field while eliminating the need for those in the middle. The knowledge worker who can do cognitively demanding work better than anyone else — or better than a machine — will be richly rewarded.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 1.1 — The New Economy: Three Groups Who Will Thrive</div>
+<svg viewBox="0 0 740 380" width="740" height="380" font-family="Georgia,serif">
+  <rect x="0" y="0" width="740" height="380" fill="#faf8f3" rx="10"/>
+
+  <!-- Card 1: High-Skill Workers -->
+  <rect x="16" y="30" width="218" height="220" rx="8" fill="#1a1f36"/>
+  <text x="125" y="62" text-anchor="middle" fill="#c9a84c" font-size="10.5" letter-spacing="1.5" font-weight="bold">GROUP 1</text>
+  <line x1="34" y1="74" x2="216" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="125" y="100" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">High-Skill</text>
+  <text x="125" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Workers</text>
+  <text x="125" y="150" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">Work with intelligent</text>
+  <text x="125" y="168" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">machines effectively</text>
+  <text x="125" y="198" text-anchor="middle" fill="#c9a84c" font-size="10.5">e.g. AI engineers,</text>
+  <text x="125" y="216" text-anchor="middle" fill="#c9a84c" font-size="10.5">data scientists</text>
+
+  <!-- Card 2: Superstars -->
+  <rect x="261" y="30" width="218" height="220" rx="8" fill="#1a3a28"/>
+  <text x="370" y="62" text-anchor="middle" fill="#c9a84c" font-size="10.5" letter-spacing="1.5" font-weight="bold">GROUP 2</text>
+  <line x1="279" y1="74" x2="461" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="370" y="100" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Superstars</text>
+  <text x="370" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">in their Field</text>
+  <text x="370" y="150" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">So skilled that talent</text>
+  <text x="370" y="168" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">markets go global</text>
+  <text x="370" y="198" text-anchor="middle" fill="#c9a84c" font-size="10.5">e.g. top writers,</text>
+  <text x="370" y="216" text-anchor="middle" fill="#c9a84c" font-size="10.5">designers, consultants</text>
+
+  <!-- Card 3: Capital Owners -->
+  <rect x="506" y="30" width="218" height="220" rx="8" fill="#3a3f55"/>
+  <text x="615" y="62" text-anchor="middle" fill="#c9a84c" font-size="10.5" letter-spacing="1.5" font-weight="bold">GROUP 3</text>
+  <line x1="524" y1="74" x2="706" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="615" y="100" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Capital</text>
+  <text x="615" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Owners</text>
+  <text x="615" y="150" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">Own the machines</text>
+  <text x="615" y="168" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11">and systems</text>
+  <text x="615" y="198" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="10.5">Not teachable —</text>
+  <text x="615" y="216" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="10.5">requires capital</text>
+
+  <!-- Green bracket: Groups 1 & 2 reachable via Deep Work -->
+  <line x1="16" y1="272" x2="479" y2="272" stroke="#2a7a4b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="16" y1="266" x2="16" y2="278" stroke="#2a7a4b" stroke-width="1.5"/>
+  <line x1="479" y1="266" x2="479" y2="278" stroke="#2a7a4b" stroke-width="1.5"/>
+  <text x="247" y="300" text-anchor="middle" fill="#2a7a4b" font-size="11" font-weight="bold">← Reachable via Deep Work →</text>
+
+  <!-- Grey note: Group 3 -->
+  <text x="615" y="294" text-anchor="middle" fill="#64748b" font-size="10.5">Not addressed</text>
+  <text x="615" y="312" text-anchor="middle" fill="#64748b" font-size="10.5">in this book</text>
+
+  <!-- Bottom note -->
+  <rect x="16" y="328" width="708" height="38" rx="6" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="370" y="352" text-anchor="middle" fill="#7a5a00" font-size="10.5" font-weight="bold">Newport's focus: how to join Groups 1 or 2 through deliberate deep work practice</text>
+</svg>
+</div>
+
+<h3>The Two Core Abilities Newport Identifies</h3>
+<p>To join Group 1 or Group 2, Newport says you need two specific abilities: <strong>(1) The ability to quickly master hard things</strong> and <strong>(2) The ability to produce at an elite level, in terms of both quality and speed.</strong> Both are impossible without deep work. The connection to deliberate practice — K. Anders Ericsson's research showing that expert performance requires focused, effortful training at the edge of current ability — is direct. You cannot do deliberate practice while distracted.</p>
+
+<div class="fml-box">
+<p>Newport's Core Equation — from Chapter 1</p>
+<div class="fml">High-Quality Work Produced = Time Spent × Intensity of Focus</div>
+<p class="fml-note">This is why two hours of deep, distraction-free work produces more than eight hours of fragmented, interrupted effort. Time alone is not the variable — intensity is.</p>
+</div>
+
+<h3>The Attention Residue Problem</h3>
+<p>Newport cites Sophie Leroy's research on <em>attention residue</em>: when you switch from Task A to Task B, part of your attention stays stuck on Task A. This residue degrades performance on Task B. The modern knowledge worker who checks email between writing sessions, Slack between analysis tasks, and social media between meetings is operating with a perpetually degraded cognitive state — yet measuring their busyness as productivity.</p>
+
+<div class="callout c-qut">
+<span class="cl">Newport's Argument</span>
+<p>"The ability to perform deep work is becoming increasingly rare at exactly the same time it is becoming increasingly valuable in our economy. The few who cultivate this skill, and then make it the core of their working life, will thrive."</p>
+</div>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I'm productive because I'm always busy, always available, always responding."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Busyness is not productivity. My output quality depends on my concentration intensity. Depth is the unit of professional value."</p>
+</div>
+
+<div class="act-box">
+<h4>Chapter 1 — Specific Actions to Take</h4>
+<ul>
+<li>Identify your two or three most cognitively demanding professional outputs — the work that, if done brilliantly, would matter most.</li>
+<li>Track how much uninterrupted time you actually spend on those outputs per week. Count only blocks of 60+ minutes with no context switching.</li>
+<li>Apply Newport's formula: if you spend 3 hours on a task at 30% intensity vs. 1.5 hours at 90% intensity, the second produces more. Restructure toward intensity.</li>
+<li>Research deliberate practice in your domain — what is the "edge of ability" work you need to do regularly to improve rapidly?</li>
+<li>Decide which of the two groups (high-skill worker or superstar) is your target. Name the specific skill you need to develop to reach it.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card">
+<span class="s-age">Student · Age 18–25</span>
+<h5>Master the material, not the schedule</h5>
+<p>The student who studies in 2-hour deep blocks will outperform the one who "studies" for 8 hours while distracted. Use the formula: less time, higher intensity. This is your window to build the deep work habit before professional life makes it harder.</p>
+</div>
+<div class="s-card">
+<span class="s-age">Professional · Age 30–45</span>
+<h5>Identify your rare and valuable skill</h5>
+<p>Ask yourself: what skill, if mastered at the top 10% level, would make you extraordinarily valuable? That skill requires deep work to develop. Everything else is maintenance. Structure your work week to protect time for it.</p>
+</div>
+<div class="s-card">
+<span class="s-age">In Transition · Age 50+</span>
+<h5>Deep work is how reinvention happens</h5>
+<p>Learning a new domain, pivoting careers, or building something new all require the ability to master hard things quickly. The formula still applies. The person who can focus deeply for 2 hours a day will outlearn the person who dabbles for 6.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec" id="ch2">
+<div class="wrap">
+<div class="ch-hdr">
+<span class="ch-lbl">Chapter 2 · Part One</span>
+<h2>Deep Work Is Rare</h2>
+<p class="ch-tag">"Why the business world has built itself around everything that opposes depth"</p>
+</div>
+
+<p>Having established that deep work is valuable, Newport turns to the paradox: why, if deep work is so important, do most organisations and professionals actively undermine it? He identifies three forces that conspire against depth, each backed by institutional inertia rather than real evidence of effectiveness.</p>
+
+<h3>Force 1: The Principle of Least Resistance</h3>
+<p>Without clear feedback on whether their work is producing real value, knowledge workers default to whatever is easiest in the moment. The easiest things are answering emails, attending meetings, sending status updates, and being visibly responsive. This is not laziness — it is a rational response to an irrational measurement environment. Newport argues that this principle, "protected from scrutiny by the metric black hole," is why open communication cultures persist: <em>not because they produce better results, but because they feel safer and require less individual initiative.</em></p>
+
+<h3>Force 2: Busyness as a Proxy for Productivity</h3>
+<p>In the industrial era, productivity was visible: you could count widgets. In the knowledge economy, the output is invisible — a decision, an insight, a paragraph. So knowledge workers substitute a proxy: being visibly busy. Newport calls this "busyness as a proxy for productivity" — doing lots of stuff in a visible manner, even when that stuff produces little real value. The person who replies to every email within minutes, attends every meeting, and is always reachable signals effort. But they are rarely producing their best work.</p>
+
+<div class="callout c-wrn">
+<span class="cl">The Uncomfortable Truth</span>
+<p>Most professional cultures reward the appearance of productivity over actual productivity. If you withdraw to do deep work, you may appear less engaged — even as you produce more value. This is the social risk of deep work, and Newport takes it seriously.</p>
+</div>
+
+<h3>Force 3: The Cult of the Internet</h3>
+<p>Newport notes a cultural assumption: anything related to the internet, digital connectivity, or social media is automatically treated as good and modern. To resist email, Slack, or social media is seen as technophobic or out of touch. This cult mentality — what he later calls the "Any-Benefit Mindset" — prevents honest cost-benefit analysis of digital tools. The assumption is that if a tool has any benefit, its adoption is justified. Newport argues this is irrational and costly.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 2.1 — The Three Forces Pushing Knowledge Work Toward Shallowness</div>
+<svg viewBox="0 0 740 420" width="740" height="420" font-family="Georgia,serif">
+  <rect x="0" y="0" width="740" height="420" fill="#faf8f3" rx="10"/>
+  <defs>
+    <marker id="fa" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5 z" fill="#e85d4a"/></marker>
+  </defs>
+
+  <!-- Centre circle: Deep Work -->
+  <circle cx="370" cy="210" r="68" fill="#1a1f36"/>
+  <text x="370" y="196" text-anchor="middle" fill="#c9a84c" font-size="11" letter-spacing="1.5" font-weight="bold">DEEP WORK</text>
+  <line x1="310" y1="208" x2="430" y2="208" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="370" y="226" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="10.5">The target state</text>
+  <text x="370" y="244" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="10">to protect</text>
+
+  <!-- Force 1: Left — Principle of Least Resistance -->
+  <rect x="16" y="158" width="166" height="104" rx="8" fill="#e85d4a"/>
+  <text x="99" y="188" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Principle of</text>
+  <text x="99" y="207" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Least Resistance</text>
+  <text x="99" y="230" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">Default to</text>
+  <text x="99" y="248" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">what's easiest</text>
+  <line x1="184" y1="210" x2="298" y2="210" stroke="#e85d4a" stroke-width="2.5" marker-end="url(#fa)"/>
+
+  <!-- Force 2: Top — Busyness as Proxy -->
+  <rect x="236" y="18" width="268" height="100" rx="8" fill="#e85d4a"/>
+  <text x="370" y="50" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Busyness as Proxy</text>
+  <text x="370" y="70" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">for Productivity</text>
+  <text x="370" y="96" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">Visible activity = assumed value</text>
+  <line x1="370" y1="120" x2="370" y2="138" stroke="#e85d4a" stroke-width="2.5" marker-end="url(#fa)"/>
+
+  <!-- Force 3: Right — Cult of the Internet -->
+  <rect x="558" y="158" width="166" height="104" rx="8" fill="#e85d4a"/>
+  <text x="641" y="193" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Cult of the</text>
+  <text x="641" y="212" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Internet</text>
+  <text x="641" y="235" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">Digital = good,</text>
+  <text x="641" y="253" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">disconnection = bad</text>
+  <line x1="556" y1="210" x2="442" y2="210" stroke="#e85d4a" stroke-width="2.5" marker-end="url(#fa)"/>
+
+  <!-- Force 4: Bottom — Metric Black Hole -->
+  <rect x="216" y="310" width="308" height="92" rx="8" fill="#404558"/>
+  <text x="370" y="342" text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="bold">The Metric Black Hole</text>
+  <text x="370" y="366" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">Impossible to measure the true cost</text>
+  <text x="370" y="384" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">of shallow work → no accountability</text>
+  <line x1="370" y1="308" x2="370" y2="282" stroke="#e85d4a" stroke-width="2.5" marker-end="url(#fa)"/>
+</svg>
+</div>
+
+<h3>The Metric Black Hole</h3>
+<p>Newport's insight here is subtle but crucial: these forces persist because their costs are invisible. If you could measure precisely how much value was lost because your company ran on Slack-all-day culture, the calculation would be shocking. But you can't — and so the culture continues. This unmeasurability is what Newport calls the "metric black hole." It protects shallow work cultures from ever being held accountable for what they destroy.</p>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "My company/school culture requires constant availability, and I can't change that."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "These cultures are driven by inertia and immeasurability, not evidence. I can navigate them strategically while protecting the depth I need to do meaningful work."</p>
+</div>
+
+<div class="act-box">
+<h4>Chapter 2 — Specific Actions to Take</h4>
+<ul>
+<li>Audit one week of your work. For every 30-minute block, label it Deep (cognitively demanding, focused) or Shallow (reactive, logistical, communicative). Calculate the ratio. Most professionals discover it's 80%+ shallow.</li>
+<li>Identify which shallow behaviors in your life are driven by fear (of being seen as unresponsive) rather than genuine necessity. These are negotiable.</li>
+<li>Stop equating email response speed with professionalism. Set an email response window (e.g., 11am and 4pm only) and communicate it to key contacts.</li>
+<li>Name the "metric black hole" in your organisation. What shallow work goes unmeasured and therefore unchallenged? Start measuring it privately.</li>
+<li>Study Newport's examples: how do people like Adam Grant (who does no shallow work during focus periods) structure their professional lives? Find models who've solved this problem.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card">
+<span class="s-age">Student · Age 18–25</span>
+<h5>Your campus is engineered for distraction</h5>
+<p>Group chats, constant social events, the pressure to always respond on Instagram — these are your metric black hole. Nobody measures how much GPA you lost by studying in a noisy common room. You must impose your own metrics: deep hours per week.</p>
+</div>
+<div class="s-card">
+<span class="s-age">Professional · Age 30–45</span>
+<h5>Your open-plan office is a deep work killer</h5>
+<p>The culture of perpetual availability is a design flaw, not a feature. Negotiate for protected blocks (closed-door morning hours, no-meeting Fridays). Document your output quality during deep periods as evidence. Make your case with data.</p>
+</div>
+<div class="s-card">
+<span class="s-age">In Transition · Age 50+</span>
+<h5>You finally have permission to ignore the noise</h5>
+<p>Transitions offer a rare opportunity: social pressure to be constantly available is lower. Use it. Design your days around depth without the overhead of an organisation telling you otherwise. This is the clearest window you've had.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec" id="ch3">
+<div class="wrap">
+<div class="ch-hdr">
+<span class="ch-lbl">Chapter 3 · Part One</span>
+<h2>Deep Work Is Meaningful</h2>
+<p class="ch-tag">"A deep life is not just economically lucrative, but also a life well lived"</p>
+</div>
+
+<p>Newport closes Part One with the most humanistic argument: deep work is not just valuable and rare — it is the source of genuine meaning. He builds this case on three independent pillars: neurological, psychological, and philosophical. Together they suggest that depth is not merely a productivity strategy but a way of being.</p>
+
+<h3>The Neurological Argument: What You Attend to Is Who You Are</h3>
+<p>Newport opens with journalist Winifred Gallagher, who was diagnosed with aggressive cancer and made a conscious decision to redirect her attention toward positive and constructive experiences. Her book <em>Rapt</em> summarises a body of neuroscience research with a single thesis: "Who you are, what you think, feel, and do, what you love — is the sum of what you focus on." Newport uses this to argue that a person who spends their days focused on shallow tasks — email, social feeds, trivial conversations — is literally building a shallow life. Your attentional choices construct your inner experience. Deep work, by contrast, builds a rich inner world: the satisfaction of mastery, the experience of flow, the sense that one's work matters.</p>
+
+<h3>The Psychological Argument: Flow Creates the Best Moments</h3>
+<p>Mihaly Csikszentmihalyi's decades of research on "flow" — the state of optimal experience achieved during cognitively challenging, skill-matched tasks — provides Newport's second argument. Csikszentmihalyi surveyed thousands of people about when they felt happiest and most alive. Counterintuitively, people reported more positive emotions during demanding work than during leisure. The experience of being fully absorbed in something difficult and meaningful is more satisfying than passive entertainment. Deep work reliably produces this state. Shallow work never does.</p>
+
+<div class="callout c-qut">
+<span class="cl">Csikszentmihalyi on Flow</span>
+<p>"The best moments usually occur when a person's body or mind is stretched to its limits in a voluntary effort to accomplish something difficult and worthwhile." This is the psychological architecture of deep work.</p>
+</div>
+
+<h3>The Philosophical Argument: Craftsmanship Finds the Sacred</h3>
+<p>Newport's third argument draws on Hubert Dreyfus and Sean Kelly's book <em>All Things Shining</em>, which examines how modern secular society has lost a sense of the sacred. Dreyfus and Kelly argue that craftsmen — those who develop genuine mastery in a physical or intellectual domain — experience what ancient cultures found in religion: a sense that their work participates in something larger than themselves. Newport extends this to knowledge work. The programmer who builds elegant software, the writer who perfects a sentence, the teacher who masters explanation — all are engaged in a form of craftsmanship that produces meaning through the quality of attention invested.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 3.1 — Three Independent Arguments That Deep Work Creates Meaning</div>
+<svg viewBox="0 0 720 480" width="720" height="480" font-family="Georgia,serif">
+  <rect x="0" y="0" width="720" height="480" fill="#faf8f3" rx="10"/>
+
+  <!-- Triangle connector lines -->
+  <polygon points="360,42 170,340 550,340" fill="none" stroke="#e2d9c8" stroke-width="2"/>
+
+  <!-- Node 1: top — Neurological -->
+  <circle cx="360" cy="110" r="90" fill="#1a1f36"/>
+  <text x="360" y="72" text-anchor="middle" fill="#c9a84c" font-size="10" letter-spacing="1.5" font-weight="bold">NEUROLOGICAL</text>
+  <line x1="290" y1="84" x2="430" y2="84" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="360" y="106" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Gallagher /</text>
+  <text x="360" y="124" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Attention Science</text>
+  <text x="360" y="148" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">You are what</text>
+  <text x="360" y="164" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">you attend to</text>
+
+  <!-- Node 2: bottom-left — Psychological -->
+  <circle cx="168" cy="368" r="90" fill="#1a3a28"/>
+  <text x="168" y="290" text-anchor="middle" fill="#c9a84c" font-size="10" letter-spacing="1.5" font-weight="bold">PSYCHOLOGICAL</text>
+  <line x1="100" y1="302" x2="236" y2="302" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="168" y="350" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Csikszentmihalyi</text>
+  <text x="168" y="370" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">/ Flow</text>
+  <text x="168" y="396" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">Depth creates the</text>
+  <text x="168" y="413" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">best moments in life</text>
+
+  <!-- Node 3: bottom-right — Philosophical -->
+  <circle cx="552" cy="368" r="90" fill="#5a4000"/>
+  <text x="552" y="290" text-anchor="middle" fill="#c9a84c" font-size="10" letter-spacing="1.5" font-weight="bold">PHILOSOPHICAL</text>
+  <line x1="484" y1="302" x2="620" y2="302" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="552" y="350" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Dreyfus &amp; Kelly</text>
+  <text x="552" y="370" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">/ Craftsmanship</text>
+  <text x="552" y="396" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">Mastery connects</text>
+  <text x="552" y="413" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">us to the sacred</text>
+
+  <!-- Centre label -->
+  <rect x="280" y="240" width="160" height="58" rx="8" fill="rgba(201,168,76,0.12)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="360" y="265" text-anchor="middle" fill="#1a1f36" font-size="13" font-weight="bold">DEEP WORK</text>
+  <text x="360" y="286" text-anchor="middle" fill="#64748b" font-size="11">= A Meaningful Life</text>
+</svg>
+</div>
+
+<h3>The Craftsman Mindset Applied to Knowledge Work</h3>
+<p>Newport introduces a key frame that will anchor all of Part Two: the <strong>Craftsman Mindset</strong>. Rather than asking "What does my job offer me?", the craftsman asks "What can I offer the world with my skill?" This is a fundamental orientation shift — from passive consumer of a career to active builder of excellence. The craftsman does not need external validation to find meaning. The quality of the work is the meaning. This mindset, Newport argues, is what makes deep work sustainable as a lifelong practice rather than a temporary productivity hack.</p>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I need to find a job I'm passionate about in order to do great work."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Passion follows mastery. If I build rare and valuable skill through deep work, the meaning and satisfaction emerge from the craft itself."</p>
+</div>
+
+<div class="act-box">
+<h4>Chapter 3 — Specific Actions to Take</h4>
+<ul>
+<li>Spend one week tracking your inner experience at work. Note when you feel most alive, engaged, and satisfied. Nearly always it will be during a period of focused, challenging work — not during email or meetings.</li>
+<li>Redesign your relationship with leisure. Newport does not say relax less — he says relax differently. Replace passive scrolling (which feels like rest but creates cognitive fog) with genuinely restorative rest: reading, walking, music, conversation.</li>
+<li>Identify a craft within your work — one specific thing you want to become genuinely excellent at. Commit to a craftsman's standard: not just completion but excellence.</li>
+<li>Apply Gallagher's principle: for one week, deliberately redirect your attention away from the negative and the trivial — not in denial, but as a practice. Notice how your subjective experience of the week changes.</li>
+<li>Write a "craftsman manifesto" — a paragraph describing the specific quality of work you want to be known for. Return to it whenever shallow work starts to crowd out depth.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card">
+<span class="s-age">Student · Age 18–25</span>
+<h5>Build the craftsman identity early</h5>
+<p>Most students are told to follow their passion. Newport's advice is better: build a passion through mastery. Choose one domain, go deep, and watch the meaning accrue. The student who masters something difficult has a compass for their working life.</p>
+</div>
+<div class="s-card">
+<span class="s-age">Professional · Age 30–45</span>
+<h5>Meaning is not in your job title — it's in your craft</h5>
+<p>Mid-career malaise often comes from doing surface-level work in important-sounding roles. The antidote is to find the craft within your role and pursue it with a craftsman's intensity. Deep engagement transforms ordinary work into meaningful work.</p>
+</div>
+<div class="s-card">
+<span class="s-age">In Transition · Age 50+</span>
+<h5>Depth creates the sense that life is well spent</h5>
+<p>At 55, meaning matters more than efficiency. The philosophical argument hits hardest here: the quality of your attention in the years you have left will determine the richness of your inner life. Depth is not a strategy — it is a way of aging well.</p>
+</div>
+</div>
+</div>
+</section>
+
+<div class="part">
+<div class="wrap">
+<div class="p-num">II</div>
+<div class="p-info">
+<h3>The Rules</h3>
+<p>Four concrete disciplines for integrating deep work into your professional and personal life — from philosophy selection to daily habits</p>
+</div>
+</div>
+</div>
+<section class="sec" id="rule1">
+<div class="wrap">
+<div class="ch-hdr">
+<span class="ch-lbl">Rule 1 · Part Two</span>
+<h2>Work Deeply</h2>
+<p class="ch-tag">"You have a finite amount of willpower that becomes depleted as you use it — so build systems, not reliance on motivation"</p>
+</div>
+
+<p>Newport's first rule is the most architecturally complex. It is not simply "focus more." It is a systematic re-engineering of your work life to make deep work the default, sustainable mode — not a heroic exception. He presents six strategies, each addressing a different obstacle to depth.</p>
+
+<h3>Strategy 1: Decide On Your Depth Philosophy</h3>
+<p>Newport identifies four distinct philosophies for integrating deep work, each representing a different relationship between deep and shallow work. The right philosophy depends on your occupation, autonomy, and life constraints. Choosing the wrong one is a common reason people fail at deep work — they try to be monastic when their job requires collaboration, or rhythmic when their schedule is genuinely chaotic.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 4.1 — The Four Philosophies of Deep Work (Newport's Original Spectrum)</div>
+<svg viewBox="0 0 720 460" width="720" height="460" font-family="Georgia,serif">
+  <rect x="0" y="0" width="720" height="460" fill="#faf8f3" rx="10"/>
+  <defs>
+    <linearGradient id="specGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a1f36"/>
+      <stop offset="100%" style="stop-color:#c9a84c"/>
+    </linearGradient>
+  </defs>
+  <!-- Spectrum bar -->
+  <rect x="20" y="22" width="680" height="10" rx="5" fill="url(#specGrad)"/>
+  <text x="20" y="48" fill="#1a1f36" font-size="10" font-weight="bold">MOST RESTRICTIVE</text>
+  <text x="700" y="48" fill="#c9a84c" font-size="10" font-weight="bold" text-anchor="end">MOST FLEXIBLE</text>
+
+  <!-- Card 1: Monastic -->
+  <rect x="12" y="58" width="164" height="240" rx="8" fill="#1a1f36"/>
+  <text x="94" y="84" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold" letter-spacing="1.5">MONASTIC</text>
+  <line x1="28" y1="96" x2="160" y2="96" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="94" y="118" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">Eliminate nearly all</text>
+  <text x="94" y="135" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">shallow obligations.</text>
+  <text x="94" y="158" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10">Example:</text>
+  <text x="94" y="175" text-anchor="middle" fill="#c9a84c" font-size="10.5" font-weight="bold">Donald Knuth</text>
+  <text x="94" y="192" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9.5">No email since 1990s</text>
+  <text x="94" y="220" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="10">Best for:</text>
+  <text x="94" y="237" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">Writers, academics,</text>
+  <text x="94" y="254" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">solo creators</text>
+
+  <!-- Card 2: Bimodal -->
+  <rect x="188" y="58" width="164" height="240" rx="8" fill="#1a3a28"/>
+  <text x="270" y="84" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold" letter-spacing="1.5">BIMODAL</text>
+  <line x1="204" y1="96" x2="336" y2="96" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="270" y="118" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">Divide time into deep</text>
+  <text x="270" y="135" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">and shallow seasons.</text>
+  <text x="270" y="158" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10">Example:</text>
+  <text x="270" y="175" text-anchor="middle" fill="#c9a84c" font-size="10.5" font-weight="bold">Carl Jung</text>
+  <text x="270" y="192" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9.5">Retreated to Bollingen</text>
+  <text x="270" y="208" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9.5">tower for deep work</text>
+  <text x="270" y="232" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="10">Best for:</text>
+  <text x="270" y="249" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">Those with some</text>
+  <text x="270" y="266" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">schedule control</text>
+
+  <!-- Card 3: Rhythmic -->
+  <rect x="364" y="58" width="164" height="240" rx="8" fill="#3a3f55"/>
+  <text x="446" y="84" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold" letter-spacing="1.5">RHYTHMIC</text>
+  <line x1="380" y1="96" x2="512" y2="96" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="446" y="118" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">Same time every day;</text>
+  <text x="446" y="135" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">depth as daily ritual.</text>
+  <text x="446" y="158" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10">Example:</text>
+  <text x="446" y="175" text-anchor="middle" fill="#c9a84c" font-size="10.5" font-weight="bold">Seinfeld's Chain</text>
+  <text x="446" y="192" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9.5">Write every day —</text>
+  <text x="446" y="208" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9.5">don't break the chain</text>
+  <text x="446" y="232" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="10">Best for:</text>
+  <text x="446" y="249" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">Most knowledge</text>
+  <text x="446" y="266" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">workers</text>
+
+  <!-- Card 4: Journalistic -->
+  <rect x="540" y="58" width="168" height="240" rx="8" fill="#5a4000"/>
+  <text x="624" y="84" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold" letter-spacing="1">JOURNALISTIC</text>
+  <line x1="556" y1="96" x2="692" y2="96" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="624" y="118" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">Fit deep work into</text>
+  <text x="624" y="135" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10.5">any available gap.</text>
+  <text x="624" y="158" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10">Example:</text>
+  <text x="624" y="175" text-anchor="middle" fill="#c9a84c" font-size="10.5" font-weight="bold">Walter Isaacson</text>
+  <text x="624" y="192" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9.5">Wrote in any spare</text>
+  <text x="624" y="208" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9.5">pocket of time</text>
+  <text x="624" y="232" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="10">Best for:</text>
+  <text x="624" y="249" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">Executives, parents,</text>
+  <text x="624" y="266" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">varied schedules</text>
+
+  <!-- Warning note -->
+  <rect x="12" y="314" width="696" height="132" rx="8" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1"/>
+  <text x="360" y="340" text-anchor="middle" fill="#7a5a00" font-size="11" font-weight="bold">⚠  Newport's Warning</text>
+  <line x1="30" y1="350" x2="690" y2="350" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+  <text x="360" y="373" text-anchor="middle" fill="#404558" font-size="10.5">Journalistic mode requires strong mental switching ability — it does not work for deep work novices.</text>
+  <text x="360" y="393" text-anchor="middle" fill="#404558" font-size="10.5">Start with Rhythmic. Graduate to Bimodal when ready. Attempt Journalistic only once</text>
+  <text x="360" y="411" text-anchor="middle" fill="#404558" font-size="10.5">you can switch into a state of depth almost instantly.</text>
+  <text x="360" y="435" text-anchor="middle" fill="#c9a84c" font-size="10" font-style="italic">Newport recommends Rhythmic as the default starting philosophy for most people.</text>
+</svg>
+</div>
+
+<h3>Strategy 2: Ritualize</h3>
+<p>Newport cites Charles Darwin, who had a rigid daily ritual: a morning walk to his "thinking path," fixed writing hours, afternoon rest. He argues that great minds across history did not rely on willpower to do deep work — they built rituals that made depth automatic. Your ritual should specify: <strong>Where you'll work</strong> (a fixed location trains your brain), <strong>How long</strong> (a known endpoint prevents exhaustion anxiety), <strong>Rules</strong> (no internet, phone away, specific task only), and <strong>Support</strong> (coffee, water, the right music or silence).</p>
+
+<h3>Strategy 3: Make Grand Gestures</h3>
+<p>Sometimes a radical, expensive, or dramatic commitment to a deep work project is the most effective catalyst. When J.K. Rowling was struggling to finish <em>The Deathly Hallows</em>, she checked into the Balmoral Hotel — a luxury Edinburgh hotel — and wrote in isolation. Bill Gates took "Think Weeks" twice yearly: weeks in total isolation with only books and papers. Newport argues these gestures work because they psychologically elevate the importance of the work. When you invest significantly in a project, your brain assigns it the significance that investment implies.</p>
+
+<h3>Strategy 4: Don't Work Alone — The Hub-and-Spoke Model</h3>
+<p>Newport uses MIT's Building 20 — a temporary WWII-era structure that accidentally became the most productive building in MIT history — to illustrate that deep work does not mean isolation from all collaboration. The building's layout forced researchers from different fields to constantly bump into each other, generating unexpected cross-pollinations. Newport calls the ideal structure "hub-and-spoke": shared spaces for serendipitous collaboration (the hub), combined with private spaces for focused individual work (the spokes). The key is <em>whiteboard effect</em> — working on a problem together at a whiteboard produces a distinct kind of depth inaccessible to solo work.</p>
+
+<h3>Strategy 5: Execute Like a Business — The 4DX Framework</h3>
+<p>Newport adapts the "Four Disciplines of Execution" framework from McChesney, Covey, and Huling for individual use:</p>
+
+<div class="diagram">
+<div class="d-title">Figure 4.2 — The 4DX Framework Applied to Deep Work (adapted from McChesney, Covey &amp; Huling)</div>
+<svg viewBox="0 0 600 310" width="600" height="310" font-family="Georgia,serif">
+  <rect x="0" y="0" width="600" height="310" fill="#faf8f3" rx="10"/>
+  <!-- D1 -->
+  <rect x="20" y="20" width="265" height="120" rx="8" fill="#1a1f36"/>
+  <text x="36" y="45" fill="#c9a84c" font-size="9" letter-spacing="1.5">DISCIPLINE 1</text>
+  <text x="36" y="63" fill="#fff" font-size="12" font-weight="bold">Focus on the</text>
+  <text x="36" y="79" fill="#fff" font-size="12" font-weight="bold">Wildly Important</text>
+  <text x="36" y="100" fill="rgba(255,255,255,0.65)" font-size="9">Identify 1–2 goals that matter</text>
+  <text x="36" y="115" fill="rgba(255,255,255,0.65)" font-size="9">most. Say no to everything else.</text>
+  <text x="36" y="130" fill="#c9a84c" font-size="9" font-style="italic">e.g. "Finish thesis Chapter 3"</text>
+  <!-- D2 -->
+  <rect x="315" y="20" width="265" height="120" rx="8" fill="#2a4a1e"/>
+  <text x="331" y="45" fill="#c9a84c" font-size="9" letter-spacing="1.5">DISCIPLINE 2</text>
+  <text x="331" y="63" fill="#fff" font-size="12" font-weight="bold">Act on Lead</text>
+  <text x="331" y="79" fill="#fff" font-size="12" font-weight="bold">Measures</text>
+  <text x="331" y="100" fill="rgba(255,255,255,0.65)" font-size="9">Track deep work hours, not</text>
+  <text x="331" y="115" fill="rgba(255,255,255,0.65)" font-size="9">lag measures like publications.</text>
+  <text x="331" y="130" fill="#c9a84c" font-size="9" font-style="italic">e.g. "4 deep hours today"</text>
+  <!-- D3 -->
+  <rect x="20" y="160" width="265" height="130" rx="8" fill="#404558"/>
+  <text x="36" y="185" fill="#c9a84c" font-size="9" letter-spacing="1.5">DISCIPLINE 3</text>
+  <text x="36" y="203" fill="#fff" font-size="12" font-weight="bold">Keep a Compelling</text>
+  <text x="36" y="219" fill="#fff" font-size="12" font-weight="bold">Scoreboard</text>
+  <text x="36" y="240" fill="rgba(255,255,255,0.65)" font-size="9">A physical tally of deep work</text>
+  <text x="36" y="255" fill="rgba(255,255,255,0.65)" font-size="9">hours visible in your workspace.</text>
+  <text x="36" y="275" fill="#c9a84c" font-size="9" font-style="italic">e.g. A wall chart with daily tally</text>
+  <!-- D4 -->
+  <rect x="315" y="160" width="265" height="130" rx="8" fill="#7a5a00"/>
+  <text x="331" y="185" fill="#c9a84c" font-size="9" letter-spacing="1.5">DISCIPLINE 4</text>
+  <text x="331" y="203" fill="#fff" font-size="12" font-weight="bold">Create a Cadence</text>
+  <text x="331" y="219" fill="#fff" font-size="12" font-weight="bold">of Accountability</text>
+  <text x="331" y="240" fill="rgba(255,255,255,0.65)" font-size="9">Weekly review: what worked,</text>
+  <text x="331" y="255" fill="rgba(255,255,255,0.65)" font-size="9">what failed, next week's plan.</text>
+  <text x="331" y="275" fill="#c9a84c" font-size="9" font-style="italic">e.g. Every Friday, 20 min review</text>
+</svg>
+</div>
+
+<h3>Strategy 6: Be Lazy — The Shutdown Ritual</h3>
+<p>Newport's most counterintuitive strategy: at the end of each workday, completely disengage. He calls this "be lazy" — not laziness as sloth, but a deliberate refusal to carry unfinished work into downtime. He cites two reasons: <strong>(1) Downtime aids insights</strong> — the subconscious continues processing complex problems during rest (the "unconscious thought theory" of Ap Dijksterhuis). <strong>(2) Downtime recharges the capacity for deep work</strong> — the attentional resources needed for depth are finite and deplete through the day. Forcing yourself to work past depletion produces shallow output disguised as productivity.</p>
+<p>The shutdown ritual: before closing your laptop, review all open tasks, confirm nothing is truly urgent, update your to-do list, and say aloud: <em>"Shutdown complete."</em> This verbal cue signals to your brain that the workday is genuinely over — a Zeigarnik-effect hack that prevents incomplete tasks from invading your evening.</p>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I'll do deep work when I feel motivated and have long free blocks. Willpower will get me there."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "I'll build rituals, choose a philosophy, and create systems that make depth automatic — regardless of how I feel on any given day."</p>
+</div>
+
+<div class="act-box">
+<h4>Rule 1 — Specific Actions to Take</h4>
+<ul>
+<li>Choose your philosophy. Be honest: how much schedule control do you actually have? If you have fixed meetings most of the day, Rhythmic is your starting point — not Monastic.</li>
+<li>Design your deep work ritual this week. Write it down: location, start time, duration, rules (phone off? internet off?), and support structure (coffee, music, specific desk).</li>
+<li>Start your 4DX scoreboard. A simple index card on your desk: the date, and a tally of deep hours. Review it weekly and set a target (e.g., 10 deep hours this week).</li>
+<li>Plan one Grand Gesture this quarter. Book a hotel room for a weekend. Reserve a retreat. Invest in a library membership. The investment itself creates commitment.</li>
+<li>Implement the shutdown ritual starting tonight. Write a closing-of-day checklist and end with a verbal "shutdown complete." Give it two weeks before evaluating.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card">
+<span class="s-age">Student · Age 18–25</span>
+<h5>Rhythmic is your philosophy</h5>
+<p>Choose a fixed 2-hour block daily — before class, after lunch, or in the evening — and protect it like an unmovable class. Create a ritual: same spot, phone in a drawer, specific playlist or silence. Track your deep hours on a paper chart. The scoreboard will motivate you more than any app.</p>
+</div>
+<div class="s-card">
+<span class="s-age">Professional · Age 30–45</span>
+<h5>Bimodal fits most knowledge worker lives</h5>
+<p>Protect mornings (8–11am) as your deep work block. Shift all meetings to afternoon. Use the 4DX framework at a team level: pitch your manager on lead-measure tracking for high-value projects. The shutdown ritual is non-negotiable — carry-over anxiety is the number one destroyer of evening recovery.</p>
+</div>
+<div class="s-card">
+<span class="s-age">In Transition · Age 50+</span>
+<h5>Grand Gestures are your superpower</h5>
+<p>If you're between roles, writing, building something, or learning — go full Monastic for a season. Rent a cabin, book a month at a co-working retreat, or designate a room in your home as genuinely off-limits to everything except your deep project. The investment signals that this matters.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec" id="rule2">
+<div class="wrap">
+<div class="ch-hdr">
+<span class="ch-lbl">Rule 2 · Part Two</span>
+<h2>Embrace Boredom</h2>
+<p class="ch-tag">"The ability to concentrate intensely is a skill that must be trained — not an on/off switch you flick when needed"</p>
+</div>
+
+<p>Most people treat focus like a muscle they can engage whenever needed, as long as they've had coffee. Newport argues this is wrong. The ability to sustain deep concentration is built through practice and, crucially, destroyed by the habit of seeking distraction. Every time you pick up your phone during a dull moment — in a queue, in an elevator, at a red light — you are training your brain to demand stimulation and to resist depth. Rule 2 is about reversing this training.</p>
+
+<h3>The Core Insight: Don't Take Breaks from Distraction — Take Breaks from Focus</h3>
+<p>Newport's most counterintuitive reframe: most people think of their work as inherently focused, with occasional breaks for distraction (checking phone, browsing). He inverts this. The correct structure is <strong>intense focus as the default, with scheduled distraction slots as the relief valve</strong>. Schedule specific times when you are allowed to use the internet — and outside those windows, stay offline. This applies even at home. The goal is not to avoid the internet; it is to train your brain to be comfortable not being stimulated constantly.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 5.1 — Attention Residue: The Hidden Cost of Task-Switching (Sophie Leroy, 2009)</div>
+<svg viewBox="0 0 720 360" width="720" height="360" font-family="Georgia,serif">
+  <rect x="0" y="0" width="720" height="360" fill="#faf8f3" rx="10"/>
+  <defs>
+    <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5 z" fill="#1a1f36"/></marker>
+    <marker id="ar3" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5 z" fill="#e85d4a"/></marker>
+  </defs>
+
+  <!-- Task A block -->
+  <rect x="18" y="50" width="175" height="100" rx="8" fill="#1a1f36"/>
+  <text x="105" y="82" text-anchor="middle" fill="#c9a84c" font-size="12.5" font-weight="bold">TASK A</text>
+  <line x1="34" y1="92" x2="177" y2="92" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="105" y="115" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">Deep writing session</text>
+  <text x="105" y="135" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10.5">Full attention engaged</text>
+
+  <!-- Switch arrow -->
+  <line x1="195" y1="100" x2="248" y2="100" stroke="#1a1f36" stroke-width="2.5" marker-end="url(#ar2)"/>
+  <text x="222" y="90" text-anchor="middle" fill="#e85d4a" font-size="10.5" font-weight="bold">SWITCH</text>
+
+  <!-- Task B block -->
+  <rect x="250" y="50" width="185" height="100" rx="8" fill="#1a3a28"/>
+  <text x="342" y="82" text-anchor="middle" fill="#c9a84c" font-size="12.5" font-weight="bold">TASK B</text>
+  <line x1="266" y1="92" x2="419" y2="92" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="342" y="115" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">Urgent email reply</text>
+  <text x="342" y="135" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10.5">Back within 5 min</text>
+
+  <!-- Residue curved arrow -->
+  <path d="M 105 152 Q 105 220 342 220 Q 490 220 490 155" stroke="#e85d4a" stroke-width="2.5" fill="none" stroke-dasharray="7,4" marker-end="url(#ar3)"/>
+
+  <!-- Residue label box -->
+  <rect x="60" y="238" width="340" height="62" rx="7" fill="rgba(232,93,74,0.07)" stroke="#e85d4a" stroke-width="1"/>
+  <text x="230" y="262" text-anchor="middle" fill="#e85d4a" font-size="12" font-weight="bold">ATTENTION RESIDUE</text>
+  <text x="230" y="282" text-anchor="middle" fill="#64748b" font-size="10.5">Part of your attention stays stuck on Task A</text>
+  <text x="230" y="297" text-anchor="middle" fill="#64748b" font-size="10.5">even as you work on Task B</text>
+
+  <!-- Result box -->
+  <rect x="460" y="50" width="242" height="190" rx="8" fill="#fdf0ee" stroke="#e85d4a" stroke-width="1.5"/>
+  <text x="581" y="80" text-anchor="middle" fill="#e85d4a" font-size="12" font-weight="bold">RESULT ON TASK B</text>
+  <line x1="476" y1="92" x2="686" y2="92" stroke="rgba(232,93,74,0.25)" stroke-width="1"/>
+  <text x="581" y="116" text-anchor="middle" fill="#404558" font-size="11">Cognitive performance</text>
+  <text x="581" y="134" text-anchor="middle" fill="#404558" font-size="11">is degraded</text>
+  <text x="581" y="158" text-anchor="middle" fill="#e85d4a" font-size="11">✕  Errors increase</text>
+  <text x="581" y="177" text-anchor="middle" fill="#e85d4a" font-size="11">✕  Depth is impossible</text>
+  <text x="581" y="196" text-anchor="middle" fill="#e85d4a" font-size="11">✕  Quality suffers</text>
+  <text x="581" y="228" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Even a 5-min switch</text>
+  <text x="581" y="244" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">leaves measurable residue</text>
+
+  <!-- Source note -->
+  <text x="360" y="340" text-anchor="middle" fill="#8892a4" font-size="9.5" font-style="italic">Source: Leroy, S. (2009). "Why is it so hard to do my work?" — Organisational Behaviour and Human Decision Processes</text>
+</svg>
+</div>
+
+<h3>Work Like Teddy Roosevelt</h3>
+<p>Newport recounts Roosevelt's time at Harvard: as a student, he had a packed schedule of activities — boxing, hunting, studying natural history — yet produced prodigious academic output. His method was to identify the time truly available for studying and then work with <strong>intense, almost frantic concentration</strong> during those windows. Newport calls this the "Roosevelt Dash": identify a deep work task, estimate how long it would normally take, set a deadline that is <em>significantly shorter</em>, and commit to meeting it. The artificial urgency forces a level of intensity that normal conditions don't produce.</p>
+
+<div class="callout c-act">
+<span class="cl">The Roosevelt Dash — How to Practice This</span>
+<p>Pick a task that would normally take you 2 hours. Set a timer for 75 minutes. Tell yourself you must finish it. Work with complete focus and visible urgency. No email. No phone. No bathroom break unless the timer goes off. This trains your brain to sustain high-intensity concentration — and expands what you thought was possible.</p>
+</div>
+
+<h3>Meditate Productively</h3>
+<p>Newport proposes using physically active but mentally undemanding time — running, walking, driving — for what he calls "productive meditation": focusing sustained attention on a single, well-defined professional problem. This is not daydreaming. It is disciplined, structured thinking about a hard problem. He offers three rules: (1) Identify the specific problem before you start walking. (2) When your mind wanders (it will), redirect it back without judgment. (3) Avoid "looping" — reviewing what you already know instead of pushing into what you don't.</p>
+
+<h3>Memory Training and the Concentration Dividend</h3>
+<p>Newport cites memory champion Ron White's technique — memorising a deck of cards using the Method of Loci (associating each card with a vivid image in a mental "memory palace") — not because memorising cards is useful, but because the practice trains intense, disciplined focus. He argues that any practice requiring sustained, voluntary concentration builds the same neural circuits that enable deep work. Musicians, chess players, and competitive memorisers all share this attentional capacity.</p>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "Boredom is bad. If I'm bored, something is wrong. I should check my phone."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Boredom is the training ground for focus. If I can tolerate being unstimulated, I can sustain the depth that produces elite work. Distraction is the enemy of my future self."</p>
+</div>
+
+<div class="act-box">
+<h4>Rule 2 — Specific Actions to Take</h4>
+<ul>
+<li>Schedule your internet use this week. Decide in advance: I will check email/social media at 9am, 12pm, and 4pm only. Outside these windows, the browser stays closed. Hold to this even when the urge is strong — especially when the urge is strong.</li>
+<li>Practice one Roosevelt Dash per day for two weeks. Pick a task, cut the estimated time by 30–40%, and work with maximum urgency until the timer goes off. Track your completion rate.</li>
+<li>During your next commute or walk, don't listen to anything. Think about one specific, hard professional problem. Do this for 20 minutes. This is productive meditation. Make it a daily practice.</li>
+<li>Leave your phone at home or in your car for one social occasion this week. Sit with the discomfort. Notice that nothing terrible happens — and that your attention is richer for it.</li>
+<li>Never take your phone into the bathroom. This single rule eliminates one of the most insidious daily distraction habits.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card">
+<span class="s-age">Student · Age 18–25</span>
+<h5>Your generation has the hardest battle</h5>
+<p>You grew up with a smartphone in your hand. Your default-mode network has been trained for constant stimulation. The good news: neuroplasticity means you can retrain it. Practice one phone-free hour per day, minimum. Every bored moment you tolerate is a deposit into your focus account.</p>
+</div>
+<div class="s-card">
+<span class="s-age">Professional · Age 30–45</span>
+<h5>Scheduled internet use changes everything</h5>
+<p>The email-at-two-windows-per-day rule is the single most impactful change most professionals can make. It feels impossible at first. After two weeks, it becomes normal — and your deep work output doubles because your attention is no longer fractured by anticipation of incoming messages.</p>
+</div>
+<div class="s-card">
+<span class="s-age">In Transition · Age 50+</span>
+<h5>Productive meditation makes your walks sacred</h5>
+<p>The daily walk is one of life's reliable pleasures at this stage. Newport's productive meditation reframes it as your most important thinking time. Carry a small notebook. After 30 minutes walking on a problem, write down what you've concluded. This practice alone can replace hours of office thinking time.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec" id="rule3">
+<div class="wrap">
+<div class="ch-hdr">
+<span class="ch-lbl">Rule 3 · Part Two</span>
+<h2>Quit Social Media</h2>
+<p class="ch-tag">"The Any-Benefit Mindset is a trap — replace it with the Craftsman Approach to tool selection"</p>
+</div>
+
+<p>Newport's most provocative rule is deliberately titled to provoke. He is not arguing that all social media is worthless for everyone. He is attacking the <em>mindset</em> that governs most people's relationship with digital tools — a mindset that allows adoption on trivially weak justification while ignoring real costs. This rule is about developing the rational, professional discipline to choose your tools deliberately rather than accept them by default.</p>
+
+<h3>The Any-Benefit Mindset — Why It's Flawed</h3>
+<p>The Any-Benefit Mindset holds that adopting a tool is justified if you can identify <em>any</em> possible benefit from its use, regardless of how small or how outweighed by costs. Most people adopt social media on this basis: "It helps me stay connected." "I might miss something." "Some people find it useful for networking." Newport points out the irrationality: no serious professional would apply this standard to any other tool. You would not hire a contractor because they <em>might</em> be useful. You would not run a business strategy because it had <em>some</em> benefit. The standard for mental tools should be at least as rigorous as for professional decisions.</p>
+
+<h3>The Craftsman Approach to Tool Selection</h3>
+<p>Newport proposes replacing the Any-Benefit Mindset with the Craftsman Approach: <strong>identify the core factors that determine success and happiness in your professional and personal life. Adopt a tool only if its positive impacts on those factors substantially outweigh its negative impacts.</strong> This requires two steps: (1) Clearly identify what actually matters to you — your deep goals, your core relationships, your professional output. (2) Evaluate each tool honestly against those priorities.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 6.1 — The Craftsman Tool Selection Framework (Newport's Approach)</div>
+<svg viewBox="0 0 740 420" width="740" height="420" font-family="Georgia,serif">
+  <rect x="0" y="0" width="740" height="420" fill="#faf8f3" rx="10"/>
+
+  <!-- Axis title: X -->
+  <text x="415" y="24" text-anchor="middle" fill="#1a1f36" font-size="11" font-weight="bold">DOES THIS TOOL HELP ACHIEVE YOUR MOST IMPORTANT GOALS?</text>
+  <!-- Axis title: Y (rotated) -->
+  <text x="20" y="230" text-anchor="middle" fill="#1a1f36" font-size="11" font-weight="bold" transform="rotate(-90,20,230)">BENEFITS vs HARMS RATIO</text>
+
+  <!-- Grid lines -->
+  <line x1="84" y1="38" x2="84" y2="370" stroke="#e2d9c8" stroke-width="1.5"/>
+  <line x1="84" y1="204" x2="726" y2="204" stroke="#e2d9c8" stroke-width="1.5"/>
+
+  <!-- Quadrant fills -->
+  <rect x="85" y="39" width="318" height="164" rx="5" fill="rgba(232,93,74,0.07)"/>
+  <rect x="404" y="39" width="322" height="164" rx="5" fill="rgba(42,122,75,0.09)"/>
+  <rect x="85" y="205" width="318" height="164" rx="5" fill="rgba(232,93,74,0.14)"/>
+  <rect x="404" y="205" width="322" height="164" rx="5" fill="rgba(201,168,76,0.07)"/>
+
+  <!-- Q1: top-left — LIMIT -->
+  <text x="244" y="72" text-anchor="middle" fill="#e85d4a" font-size="12" font-weight="bold">LIMIT</text>
+  <text x="244" y="96" text-anchor="middle" fill="#404558" font-size="11">Benefits present but</text>
+  <text x="244" y="114" text-anchor="middle" fill="#404558" font-size="11">harms outweigh them</text>
+  <text x="244" y="136" text-anchor="middle" fill="#e85d4a" font-size="10.5">→ Avoid or strictly cap usage</text>
+  <text x="244" y="158" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">e.g. Twitter for most</text>
+  <text x="244" y="174" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">knowledge workers</text>
+
+  <!-- Q2: top-right — ADOPT -->
+  <text x="565" y="72" text-anchor="middle" fill="#2a7a4b" font-size="13" font-weight="bold">✓  ADOPT</text>
+  <text x="565" y="96" text-anchor="middle" fill="#404558" font-size="11">Benefits substantially</text>
+  <text x="565" y="114" text-anchor="middle" fill="#404558" font-size="11">outweigh harms AND</text>
+  <text x="565" y="132" text-anchor="middle" fill="#404558" font-size="11">serves your core goals</text>
+  <text x="565" y="156" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">e.g. LinkedIn for a</text>
+  <text x="565" y="173" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">sales professional</text>
+
+  <!-- Q3: bottom-left — AVOID -->
+  <text x="244" y="240" text-anchor="middle" fill="#e85d4a" font-size="13" font-weight="bold">✕  AVOID</text>
+  <text x="244" y="264" text-anchor="middle" fill="#404558" font-size="11">Harms outweigh benefits</text>
+  <text x="244" y="282" text-anchor="middle" fill="#404558" font-size="11">AND does not serve</text>
+  <text x="244" y="300" text-anchor="middle" fill="#404558" font-size="11">your core goals</text>
+  <text x="244" y="324" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">e.g. TikTok for anyone</text>
+  <text x="244" y="341" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">doing deep work</text>
+
+  <!-- Q4: bottom-right — CONSIDER -->
+  <text x="565" y="240" text-anchor="middle" fill="#7a5a00" font-size="13" font-weight="bold">?  CONSIDER</text>
+  <text x="565" y="264" text-anchor="middle" fill="#404558" font-size="11">Might serve goals but</text>
+  <text x="565" y="282" text-anchor="middle" fill="#404558" font-size="11">costs are not yet clear</text>
+  <text x="565" y="300" text-anchor="middle" fill="#7a5a00" font-size="11">→ Run the 30-day test</text>
+  <text x="565" y="324" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">e.g. Reddit for</text>
+  <text x="565" y="341" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">domain-specific learning</text>
+
+  <!-- Axis endpoint labels -->
+  <text x="88" y="390" fill="#64748b" font-size="11">← Low</text>
+  <text x="722" y="390" fill="#64748b" font-size="11" text-anchor="end">High →</text>
+  <text x="76" y="46" fill="#64748b" font-size="11" text-anchor="end">High</text>
+  <text x="76" y="368" fill="#64748b" font-size="11" text-anchor="end">Low</text>
+</svg>
+</div>
+
+<h3>The Law of the Vital Few (The 80/20 Principle)</h3>
+<p>Newport applies the Pareto Principle to professional activities: in most knowledge work, the majority of your real value comes from a small minority of your efforts. The same applies to tools and social networks. If 80% of the professional value from your online presence comes from two platforms, then the other ten platforms are distractions consuming finite attention for marginal returns. Newport argues for finding the <em>vital few</em> tools and networks that provide the most value and abandoning the rest — not because they have no benefit, but because they crowd out the time and attention needed for work that matters far more.</p>
+
+<h3>The 30-Day Social Media Experiment</h3>
+<p>Newport proposes a simple test: stop using social media for 30 days without announcement. Do not deactivate your accounts — just stop logging in. After 30 days, ask two questions: (1) Would the past 30 days have been noticeably better if I had used this service? (2) Did anyone actually care that I wasn't present? If the answer to both is no, quit permanently. If the answer to the first is yes, return — but with boundaries. Most people who do this experiment find the answers are "no" and "no."</p>
+
+<h3>Don't Use the Internet to Entertain Yourself</h3>
+<p>Newport's final point in this chapter targets leisure time. He argues that using social media and entertainment sites during off-hours does not constitute genuine rest — it is low-quality distraction that degrades your ability to sustain attention the next day. Instead, he advocates for <strong>structured leisure</strong>: reading books, pursuing hobbies that require skill, having genuine conversations, exercising, attending live performances. Arnold Bennett's 1910 book <em>How to Live on 24 Hours a Day</em> — which argues that working men of his era wasted their after-work hours with passive entertainment when they could have been building rich inner lives — is Newport's supporting text. The argument is identical a century later.</p>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "Social media might be useful, and everyone uses it, so I should too. FOMO is real."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "I choose my tools the way a master craftsman chooses instruments — only when the benefit to my most important goals substantially outweighs the cost to my attention, time, and depth."</p>
+</div>
+
+<div class="act-box">
+<h4>Rule 3 — Specific Actions to Take</h4>
+<ul>
+<li>Write down your two or three most important professional goals and two or three most important personal priorities. These are your selection criteria. Now evaluate each digital tool you use daily against them — honestly.</li>
+<li>Start the 30-day experiment this week. Pick your most used social platform and simply stop opening it. No announcement, no deletion. Just absence. Journal what you notice.</li>
+<li>Apply the Law of the Vital Few: which two digital tools or platforms produce 80% of your professional and creative value? Keep those. Audit everything else with a craftsman's eye.</li>
+<li>Replace one hour of evening screen time this week with a skilled leisure activity — reading a book, playing an instrument, cooking seriously, drawing. Notice the difference in how rested you feel the next morning.</li>
+<li>Remove social media apps from your phone's home screen. Make them deliberately inconvenient. The goal is to make distraction require a conscious decision rather than being the default tap.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card">
+<span class="s-age">Student · Age 18–25</span>
+<h5>Social media is your generation's ambient noise</h5>
+<p>FOMO (fear of missing out) is a design feature, not a bug. Platforms are engineered to make quitting feel socially costly. Newport's 30-day test cuts through this fear. For students: your peers who do less social media and more deep study will outperform you in five years, even if they seem quieter now.</p>
+</div>
+<div class="s-card">
+<span class="s-age">Professional · Age 30–45</span>
+<h5>Apply the craftsman framework ruthlessly at work</h5>
+<p>Is Slack actually producing better work outcomes, or is it creating the illusion of collaboration while destroying concentration? Is LinkedIn generating real opportunities or just social comfort? Ask the craftsman question for every platform your company uses. Push for async-first communication policies.</p>
+</div>
+<div class="s-card">
+<span class="s-age">In Transition · Age 50+</span>
+<h5>Leisure time is precious — don't waste it on feeds</h5>
+<p>If you have more time now, that time is a gift. Newport's Arnold Bennett point hits hardest here: will you look back on this period and say you read 50 great books and developed a real skill — or that you scrolled? The 30-day test at this stage can be genuinely life-changing.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec" id="rule4">
+<div class="wrap">
+<div class="ch-hdr">
+<span class="ch-lbl">Rule 4 · Part Two</span>
+<h2>Drain the Shallows</h2>
+<p class="ch-tag">"Shallow work is inevitable — the goal is to keep it from colonising the space where deep work should live"</p>
+</div>
+
+<p>Newport's final rule is the most practical and immediately applicable. He is not asking you to eliminate all shallow work — email, meetings, administrative tasks will always exist. He is asking you to aggressively limit the amount of time shallow work consumes, and to be ruthlessly strategic about what you agree to do at all. Most knowledge workers spend 70–80% of their time on shallow work by default. Rule 4 is about flipping that ratio.</p>
+
+<h3>Schedule Every Minute of Your Day</h3>
+<p>Newport advocates for a practice he calls <strong>time-block planning</strong>: at the start of each workday, take a notebook and divide the hours into blocks, assigning every block to a specific activity. If your plan breaks — an unexpected meeting, an overrunning task — redraw the blocks for the rest of the day. The goal is not perfect adherence but <em>intentionality</em>. Without a plan, the day defaults to whatever is most immediately demanding — which is almost always shallow work. Newport is clear: spontaneity is not the enemy; mindlessness is.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 7.1 — Depth Score: How to Classify Any Work Activity (Newport's Framework)</div>
+<svg viewBox="0 0 740 400" width="740" height="400" font-family="Georgia,serif">
+  <rect x="0" y="0" width="740" height="400" fill="#faf8f3" rx="10"/>
+  <defs>
+    <linearGradient id="depthGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e85d4a"/>
+      <stop offset="50%" style="stop-color:#c9a84c"/>
+      <stop offset="100%" style="stop-color:#2a7a4b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Question banner -->
+  <rect x="16" y="16" width="708" height="62" rx="8" fill="#1a1f36"/>
+  <text x="370" y="40" text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="bold">THE DEPTH QUESTION (Newport's Test)</text>
+  <text x="370" y="62" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="11">"How many months to train a smart, motivated recent graduate to do this task?"</text>
+
+  <!-- Spectrum bar -->
+  <rect x="16" y="96" width="708" height="13" rx="6" fill="url(#depthGrad)"/>
+  <text x="16" y="124" fill="#e85d4a" font-size="10.5" font-weight="bold">SHALLOW (days to learn)</text>
+  <text x="724" y="124" fill="#2a7a4b" font-size="10.5" font-weight="bold" text-anchor="end">DEEP (months / years)</text>
+
+  <!-- Card 1: Shallow -->
+  <rect x="16" y="136" width="168" height="200" rx="7" fill="rgba(232,93,74,0.1)" stroke="#e85d4a" stroke-width="1.5"/>
+  <text x="100" y="162" text-anchor="middle" fill="#e85d4a" font-size="11" font-weight="bold">SHALLOW WORK</text>
+  <line x1="30" y1="172" x2="170" y2="172" stroke="rgba(232,93,74,0.3)" stroke-width="1"/>
+  <text x="100" y="192" text-anchor="middle" fill="#404558" font-size="10.5">Replying to emails</text>
+  <text x="100" y="212" text-anchor="middle" fill="#404558" font-size="10.5">Scheduling meetings</text>
+  <text x="100" y="232" text-anchor="middle" fill="#404558" font-size="10.5">Status updates</text>
+  <text x="100" y="252" text-anchor="middle" fill="#404558" font-size="10.5">Reformatting slides</text>
+  <text x="100" y="272" text-anchor="middle" fill="#404558" font-size="10.5">Filing / admin</text>
+  <text x="100" y="324" text-anchor="middle" fill="#e85d4a" font-size="10" font-style="italic">Days to train</text>
+
+  <!-- Card 2: Medium -->
+  <rect x="196" y="136" width="178" height="200" rx="7" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+  <text x="285" y="162" text-anchor="middle" fill="#7a5a00" font-size="11" font-weight="bold">MEDIUM DEPTH</text>
+  <line x1="210" y1="172" x2="360" y2="172" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+  <text x="285" y="192" text-anchor="middle" fill="#404558" font-size="10.5">Project planning</text>
+  <text x="285" y="212" text-anchor="middle" fill="#404558" font-size="10.5">Client communication</text>
+  <text x="285" y="232" text-anchor="middle" fill="#404558" font-size="10.5">Research summaries</text>
+  <text x="285" y="252" text-anchor="middle" fill="#404558" font-size="10.5">Team management</text>
+  <text x="285" y="272" text-anchor="middle" fill="#404558" font-size="10.5">Editing others' work</text>
+  <text x="285" y="324" text-anchor="middle" fill="#7a5a00" font-size="10" font-style="italic">Weeks–months to train</text>
+
+  <!-- Card 3: Deep -->
+  <rect x="386" y="136" width="178" height="200" rx="7" fill="rgba(42,122,75,0.1)" stroke="#2a7a4b" stroke-width="1.5"/>
+  <text x="475" y="162" text-anchor="middle" fill="#2a7a4b" font-size="11" font-weight="bold">DEEP WORK</text>
+  <line x1="400" y1="172" x2="550" y2="172" stroke="rgba(42,122,75,0.3)" stroke-width="1"/>
+  <text x="475" y="192" text-anchor="middle" fill="#404558" font-size="10.5">Original research</text>
+  <text x="475" y="212" text-anchor="middle" fill="#404558" font-size="10.5">Writing that persuades</text>
+  <text x="475" y="232" text-anchor="middle" fill="#404558" font-size="10.5">Complex coding</text>
+  <text x="475" y="252" text-anchor="middle" fill="#404558" font-size="10.5">Strategic thinking</text>
+  <text x="475" y="272" text-anchor="middle" fill="#404558" font-size="10.5">Design that innovates</text>
+  <text x="475" y="324" text-anchor="middle" fill="#2a7a4b" font-size="10" font-style="italic">Months–years to train</text>
+
+  <!-- Budget rule box -->
+  <rect x="576" y="136" width="148" height="200" rx="7" fill="#1a1f36"/>
+  <text x="650" y="163" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="bold">BUDGET RULE</text>
+  <line x1="590" y1="173" x2="710" y2="173" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="650" y="198" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">Aim for max</text>
+  <text x="650" y="228" text-anchor="middle" fill="#c9a84c" font-size="22" font-weight="bold">30–50%</text>
+  <text x="650" y="254" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">shallow work</text>
+  <text x="650" y="272" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">of your total hours</text>
+  <text x="650" y="316" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="10" font-style="italic">Newport's target</text>
+</svg>
+</div>
+
+<h3>Quantify the Depth of Every Activity</h3>
+<p>Newport introduces a simple heuristic to evaluate any work task: <em>how many months would it take to train a smart, motivated recent graduate to do this task?</em> If the answer is "a few days," it is shallow. If the answer is "over a year," it is deep. This question cuts through the noise of busyness and forces an honest assessment of where your time is going. It also reveals how much shallow work has crept into roles that are supposed to be about depth.</p>
+
+<h3>Ask Your Boss for a Shallow Work Budget</h3>
+<p>Newport's advice here is bold: have an explicit conversation with your manager or set a policy for yourself — what percentage of working time should go to shallow tasks? If your manager says 50%, you now have a clear boundary to enforce. If they say 80%, you need a different job. Newport argues this question is valuable because it forces an honest conversation that most organisations avoid. Once a percentage is agreed, you have permission — and a framework — to decline shallow requests that would bust the budget.</p>
+
+<h3>Fixed-Schedule Productivity</h3>
+<p>Newport's personal approach: he fixes his workday at a hard stop (he finishes work by 5:30pm). This is not a productivity hack — it is a forcing function. Knowing that you have until 5:30pm and no later forces you to prioritise ruthlessly: you say no to low-value meetings, you batch shallow tasks, and you protect the morning for deep work because you know the afternoon will be consumed. Newport also argues this makes rest more genuine: when work is over, it is genuinely over (see the shutdown ritual in Rule 1).</p>
+
+<h3>Become Hard to Reach</h3>
+<p>Newport's counterintuitive advice about email: don't process your inbox, manage it. He proposes three tactics: <strong>(1) Make people who send you email do more work.</strong> Before receiving email from someone, require them to fill in a brief form or answer specific questions. This dramatically reduces the volume of vague, low-effort emails. <strong>(2) Do more work when you send or reply.</strong> Instead of sending a message that will generate multiple replies, include in every email the most efficient process for closing the exchange. <strong>(3) Don't respond.</strong> Newport is direct: it is acceptable not to respond to emails that don't clearly warrant response. Most people have inherited an obligation to reply to all email that has no rational basis.</p>
+
+<div class="callout c-ins">
+<span class="cl">The Sender Filter Rule (Newport's Specific Tactic)</span>
+<p>On your contact page or email signature, add: "If your email requires a reply, please answer these three questions in your message: What is the specific request? What is the timeline? What information do I need to respond usefully?" This single filter eliminates 60–70% of low-value inbound email before it reaches you.</p>
+</div>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I owe everyone a reply. A full inbox is a sign of importance. Shallow work is still work."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Shallow work is the cost of doing business — and I will keep it at 30–50% of my time, no more. My best professional contribution comes from depth, and I will protect the time depth requires."</p>
+</div>
+
+<div class="act-box">
+<h4>Rule 4 — Specific Actions to Take</h4>
+<ul>
+<li>Start time-block planning tomorrow. Buy a small notebook. Each morning, write the day's hours in 30-minute blocks and assign each one. Redraw when plans change. Do this for 21 days before judging.</li>
+<li>Score every recurring task in your job using Newport's depth question. Anything that a recent graduate could learn in less than a month is shallow work. List it, quantify it, and set a plan to reduce or batch it.</li>
+<li>Have the shallow work budget conversation — with yourself if not with your manager. Set a hard ceiling: no more than 35% of working hours will go to shallow tasks this week. Track it.</li>
+<li>Set a hard stop on your workday — today. Choose a time (5:30pm, 6pm) and hold it. Notice what this forces: clearer priorities, faster decisions, less tolerance for useless meetings.</li>
+<li>Write a "sender filter" message and add it to your email signature or contact page. Track whether it reduces email volume over two weeks.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card">
+<span class="s-age">Student · Age 18–25</span>
+<h5>Time-block your study schedule</h5>
+<p>Most students "study" by sitting with their books and being vaguely present. Time-blocking replaces this with intentional, named blocks: 8–10am is writing the essay draft. 2–3pm is problem set 3. 4–5pm is reading chapter 6. The specificity changes everything. Try it for one exam period and compare your output.</p>
+</div>
+<div class="s-card">
+<span class="s-age">Professional · Age 30–45</span>
+<h5>The fixed-schedule rule changes your relationship with work</h5>
+<p>Finishing at 5:30pm feels impossible until you try it for a month. The forcing function of a hard stop eliminates low-priority work naturally — you simply stop doing it because there isn't time. The result: your most important work gets done, your evenings are genuinely yours, and you become more decisive about commitments.</p>
+</div>
+<div class="s-card">
+<span class="s-age">In Transition · Age 50+</span>
+<h5>The depth question clarifies what your work actually is</h5>
+<p>At a stage of life involving reorientation — retirement, new projects, portfolio careers — the depth question is a compass. What do you do that would take a bright person a year to replicate? That is your contribution. Everything else is infrastructure. Build your days around the former, systematise the latter.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec" id="vocab">
+<div class="wrap">
+<span class="ch-lbl">Reference</span>
+<h2>Key Vocabulary</h2>
+<p>Twenty essential terms from <em>Deep Work</em> that sharpen your thinking about attention, productivity, and meaningful work. These are not definitions to memorise — they are lenses to apply.</p>
+
+<div class="vocab-grid">
+<div class="v-card">
+<div class="v-term">Deep Work</div>
+<span class="v-orig">Newport's coinage · Core concept</span>
+<p class="v-def">Cognitively demanding work done in full focus, free of distraction. It creates new value, builds skill, and is hard to replicate.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Shallow Work</div>
+<span class="v-orig">Newport's coinage · Core concept</span>
+<p class="v-def">Low-effort, logistical tasks (email, scheduling, admin) done while distracted. Easy to replicate; creates little lasting value.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Attention Residue</div>
+<span class="v-orig">Sophie Leroy, 2009 · Cognitive science</span>
+<p class="v-def">When you switch tasks, part of your attention stays stuck on the previous one — degrading your performance on the new task.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Deliberate Practice</div>
+<span class="v-orig">K. Anders Ericsson · Expertise research</span>
+<p class="v-def">Practice at the edge of your ability, with immediate feedback. The mechanism behind expertise — and it requires deep, distraction-free focus.</p>
+</div>
+<div class="v-card">
+<div class="v-term">The Metric Black Hole</div>
+<span class="v-orig">Newport's coinage · Organisational critique</span>
+<p class="v-def">Because knowledge work output is hard to measure, organisations can't tell if shallow busyness is productive — so it persists unchallenged.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Principle of Least Resistance</div>
+<span class="v-orig">Newport's coinage · Behavioural economics</span>
+<p class="v-def">Without clear productivity feedback, workers default to the easiest visible behaviors (fast email replies, more meetings) rather than the most valuable ones.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Fixed-Schedule Productivity</div>
+<span class="v-orig">Newport's practice · Rule 4</span>
+<p class="v-def">Committing to a hard workday end time (e.g. 5:30pm) forces ruthless prioritisation — you can't fill the day with shallow tasks and still finish what matters.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Any-Benefit Mindset</div>
+<span class="v-orig">Newport's coinage · Rule 3</span>
+<p class="v-def">Adopting a tool because it has <em>any</em> benefit, no matter how small or outweighed. Most social media use is justified this way.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Craftsman Approach (to Tools)</div>
+<span class="v-orig">Newport's framework · Rule 3</span>
+<p class="v-def">Adopt a tool only if its benefits to your core goals <em>substantially</em> outweigh its costs to your attention and time. The rational alternative to the Any-Benefit Mindset.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Productive Meditation</div>
+<span class="v-orig">Newport's practice · Rule 2</span>
+<p class="v-def">Using walks, runs, or commutes to think deeply about one specific problem. Trains focus and turns idle time into real cognitive work.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Law of the Vital Few</div>
+<span class="v-orig">Pareto Principle / Vilfredo Pareto · Rule 3</span>
+<p class="v-def">80% of your value comes from 20% of your activities and tools. Find the vital few; cut the marginal rest.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Time-Block Planning</div>
+<span class="v-orig">Newport's practice · Rule 4</span>
+<p class="v-def">Assigning every work hour to a named task in a notebook each morning. When plans break, redraw — the goal is intentionality, not rigidity.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Grand Gesture</div>
+<span class="v-orig">Newport's concept · Rule 1</span>
+<p class="v-def">A dramatic commitment (hotel stay, rented workspace, "Think Week") that signals to yourself a project's seriousness. The investment creates the focus.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Hub-and-Spoke Model</div>
+<span class="v-orig">Newport's architecture concept · Rule 1</span>
+<p class="v-def">Shared common spaces (hub) paired with private offices (spokes) — enabling both serendipitous collaboration and uninterrupted deep work. Bell Labs' design.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Busyness as Proxy for Productivity</div>
+<span class="v-orig">Newport's coinage · Chapter 2</span>
+<p class="v-def">Using visible busyness (fast replies, packed calendars) as a stand-in for real productivity, because real output is hard to measure.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Flow</div>
+<span class="v-orig">Mihaly Csikszentmihalyi · Psychology</span>
+<p class="v-def">Total absorption in a skill-matched challenge — the brain's optimal state. More likely during deep work than during leisure.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Lead Measures vs Lag Measures</div>
+<span class="v-orig">McChesney, Covey &amp; Huling · 4DX</span>
+<p class="v-def"><strong>Lag:</strong> outcomes you can't control in the moment (revenue, grades). <strong>Lead:</strong> the daily behaviours that cause them (deep hours logged). Track the lead.</p>
+</div>
+<div class="v-card">
+<div class="v-term">The Roosevelt Dash</div>
+<span class="v-orig">Newport's practice · Rule 2</span>
+<p class="v-def">Cut your estimated task time by 30–40% and work at maximum intensity to meet the artificial deadline. Trains high-intensity concentration.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Shutdown Ritual</div>
+<span class="v-orig">Newport's practice · Rule 1</span>
+<p class="v-def">A fixed end-of-day routine: review tasks, plan tomorrow, say "Shutdown complete" aloud. The verbal signal tells your brain work is truly finished.</p>
+</div>
+<div class="v-card">
+<div class="v-term">Depth Budget</div>
+<span class="v-orig">Newport's framework · Rule 4</span>
+<p class="v-def">An agreed cap on shallow work time (Newport's target: max 30–50%). Having the number gives you permission to decline requests that exceed it.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="sec" id="lifestages">
+<div class="wrap">
+<span class="ch-lbl">Application Reference</span>
+<h2>Deep Work Across Life Stages</h2>
+<p>The ideas in this book do not expire. But their application changes as your life changes. Use this table as a quick-reference whenever you return to this guide at a different stage. Each cell answers: what does this concept specifically mean for me, right now?</p>
+
+<table>
+<thead>
+<tr>
+<th style="width:22%">Concept</th>
+<th style="width:26%">Student / Early Career<br><small style="opacity:.7">Ages 18–28</small></th>
+<th style="width:26%">Mid-Career Professional<br><small style="opacity:.7">Ages 29–50</small></th>
+<th style="width:26%">Transition / Elder<br><small style="opacity:.7">Ages 50+</small></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deep Work Philosophy</strong></td>
+<td>Start with <strong>Rhythmic</strong>. Same time, same place, every day. Build the habit before you need it.</td>
+<td><strong>Bimodal</strong>. Protect mornings; surrender afternoons to meetings and communication.</td>
+<td><strong>Monastic</strong> where possible. You have fewer obligations — use that freedom radically.</td>
+</tr>
+<tr>
+<td><strong>Daily Deep Work Target</strong></td>
+<td>2–3 hours of genuine depth per day. Track it. This is more than most students manage.</td>
+<td>3–4 hours. Newport's own target. Below 1 hour is a crisis. Above 5 is exceptional.</td>
+<td>As many as you want — and as many as your health supports. The ceiling is removed.</td>
+</tr>
+<tr>
+<td><strong>Primary Enemy of Depth</strong></td>
+<td>Smartphones, group chats, social feeds, the pressure to always be reachable to peers.</td>
+<td>Email, Slack, open-plan offices, unnecessary meetings, the culture of responsiveness.</td>
+<td>Passive entertainment, digital news, the habit of busyness acquired over decades.</td>
+</tr>
+<tr>
+<td><strong>Grand Gesture to Try</strong></td>
+<td>Spend a weekend at a library or café without wifi to finish one major project. Tell no one.</td>
+<td>Book a hotel room for one weekend per quarter. Work on your most important project. Bill it as a business expense.</td>
+<td>Take a month-long "Deep Season." Designate one room in your home as a work-only sanctuary.</td>
+</tr>
+<tr>
+<td><strong>Social Media Rule</strong></td>
+<td>Do the 30-day experiment with your most-used platform. The FOMO will pass within a week.</td>
+<td>Apply the Craftsman Approach to every platform your company uses. Push for async-first policies.</td>
+<td>Remove every platform that doesn't produce real value. Protect your attention — it's finite and precious.</td>
+</tr>
+<tr>
+<td><strong>Embracing Boredom</strong></td>
+<td>Practice sitting without your phone for 20 minutes daily. Use commutes for productive meditation.</td>
+<td>The Roosevelt Dash is your tool. Do one per day. Scheduled internet windows change your focus within weeks.</td>
+<td>Long walks without podcasts or music. Sit with a problem. Write what you've thought afterward.</td>
+</tr>
+<tr>
+<td><strong>Shutdown Ritual</strong></td>
+<td>End your study day at a fixed time. Say "shutdown complete." Don't study in bed.</td>
+<td>Non-negotiable. Work bleeds into evenings only if you allow it. The ritual protects your relationships and your recovery.</td>
+<td>The boundary between "working mode" and presence with family / self is the ritual's highest purpose at this stage.</td>
+</tr>
+<tr>
+<td><strong>Draining the Shallows</strong></td>
+<td>Time-block your study schedule in a notebook. Score every task. Protect the deep blocks.</td>
+<td>Set a hard workday end time. Have the shallow-work budget conversation. Batch email into two windows.</td>
+<td>The depth question clarifies legacy work. What would take a year to teach someone? That is your gift to the world — protect it.</td>
+</tr>
+<tr>
+<td><strong>The Craftsman Mindset</strong></td>
+<td>Choose one skill to develop at a craftsman's level. Ignore the rest for now. Mastery creates identity.</td>
+<td>Find the craft within your role. Not your title — the specific thing you do that no one else does quite like you.</td>
+<td>The philosophical argument hits hardest: the quality of your attention in the years you have left determines the richness of your inner life. Depth is not a strategy — it is a way of living well.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="callout c-qut" style="margin-top:40px">
+<span class="cl">A Note on Returning to This Guide</span>
+<p>The first time you read this, you will take 2–3 things and implement them. The second time — perhaps in five years — you will read it through the lens of a different life, and a different set of ideas will matter most. That is by design. Newport's arguments are not productivity tricks; they are a philosophy of attention that deepens in meaning as the stakes of your time increase.</p>
+</div>
+</div>
+</section>
+<section class="sec" id="plan30">
+<div class="wrap">
+<span class="ch-lbl">30-Day Implementation Plan</span>
+<h2>Your Deep Work On-Ramp</h2>
+<p>Four weeks, one layer at a time. Each week introduces new habits that build on the previous. Do not skip ahead.</p>
+
+<div class="wk-grid">
+<div class="wk-card">
+<div class="wk-label"><span class="badge bx">Week 1</span> Awareness &amp; Audit</div>
+<div class="wk-days">Days 1–7</div>
+<ul>
+<li><strong>Deep Work Audit</strong> — Label every 30-min block Deep or Shallow. Calculate your ratio. Don't change anything yet.</li>
+<li><strong>Depth Question</strong> — Score every recurring task: how long to train a graduate to do it? Shallow = days, Deep = months.</li>
+<li><strong>Social Media Audit</strong> — List every platform. For each: what's the real benefit? What's the attention cost? Does it serve your core goals?</li>
+<li><strong>Craftsman Manifesto</strong> — Write one paragraph: what skill would make you extraordinary? This is your anchor for the month.</li>
+<li><strong>Choose your Philosophy</strong> — Monastic, Bimodal, Rhythmic, or Journalistic. Pick the one that fits your actual life. Start Rhythmic if unsure.</li>
+</ul>
+</div>
+
+<div class="wk-card">
+<div class="wk-label"><span class="badge bh">Week 2</span> Build the Foundations</div>
+<div class="wk-days">Days 8–14</div>
+<ul>
+<li><strong>Design your Ritual</strong> — Write it in detail: when, where, how long, what rules. The ritual makes depth automatic.</li>
+<li><strong>First Deep Block</strong> — Execute the ritual. 90-minute timer. Full focus on your most important task. Track distractions.</li>
+<li><strong>Start the Scoreboard</strong> — Tally deep work hours daily on an index card. This is your lead measure. Visible. Always.</li>
+<li><strong>Internet Windows</strong> — Email and social media only at 10am, 1pm, 4pm. Closed browser outside those slots. Hold it.</li>
+<li><strong>Shutdown Ritual</strong> — Review tasks, plan tomorrow, say "Shutdown complete" aloud. Every evening from now on.</li>
+</ul>
+</div>
+
+<div class="wk-card">
+<div class="wk-label"><span class="badge ba">Week 3</span> Deepen &amp; Challenge</div>
+<div class="wk-days">Days 15–21</div>
+<ul>
+<li><strong>Roosevelt Dash</strong> — Take a 2-hour task, set a 75-min timer, finish it. Maximum urgency. Phone in another room.</li>
+<li><strong>Social Media Experiment</strong> — Pick one platform. Stop opening it. No announcement. Journal what you notice.</li>
+<li><strong>Time-Block Planning</strong> — Every morning: write the day's hours in 30-min blocks, assign each one, redraw when plans change.</li>
+<li><strong>Fixed End Time</strong> — Commit to a hard workday stop (Newport's: 5:30pm). What you cut reveals your true priorities.</li>
+<li><strong>Phone-Free Mornings</strong> — Phone in another room during your deep block. Presence alone reduces cognitive capacity.</li>
+</ul>
+</div>
+
+<div class="wk-card">
+<div class="wk-label"><span class="badge br">Week 4</span> Integrate &amp; Elevate</div>
+<div class="wk-days">Days 22–30</div>
+<ul>
+<li><strong>Grand Gesture</strong> — Book a hotel day, library weekend, or "Think Day" for your most important project this quarter.</li>
+<li><strong>Structured Leisure</strong> — No screens after 7pm. Read, cook, play, converse. Notice how you feel the next morning.</li>
+<li><strong>Sender Filter</strong> — Add response expectations to your email signature. Reduces inbound volume immediately.</li>
+<li><strong>Shallow Work Budget</strong> — Agree a cap with your manager or yourself: max 35–50% shallow. Use it to decline requests.</li>
+<li><strong>Build your System</strong> — One page: philosophy, ritual, deep hours target, internet windows, shutdown time, social media policy. Your operating system.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">
+<div class="ft-logo">Deep Work</div>
+<p>A complete transformation guide based on <em>Deep Work: Rules for Focused Success in a Distracted World</em> by Cal Newport (Grand Central Publishing, 2016).</p>
+<p>This guide is an independent educational synthesis. All conceptual frameworks, diagrams, and quoted text are attributed to Cal Newport. Original book figures have been redrawn as SVGs for clarity and reference.</p>
+<p style="margin-top:28px"><strong>Made with love by Gourang Sharma</strong></p>
+<p>Return to this guide at every stage of your life. The ideas do not expire — only your relationship to them changes.</p>
+<p style="margin-top:20px; font-size:0.82em; opacity:0.4">All rights to the original work belong to Cal Newport. This guide is for personal educational use only.</p>
+</div>
+</footer>
+<script>
+(function(){
+  var pb=document.getElementById('pb');
+  var btt=document.querySelector('.btt');
+  function upd(){
+    var s=document.documentElement;
+    var pct=(s.scrollTop||document.body.scrollTop)/(s.scrollHeight-s.clientHeight)*100;
+    pb.style.width=pct+'%';
+    if((s.scrollTop||document.body.scrollTop)>400){btt.classList.add('show')}else{btt.classList.remove('show')}
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.querySelector(this.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+    });
+  });
+})();
+</script>
+</body>
+</html>

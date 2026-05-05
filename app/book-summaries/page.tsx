@@ -51,6 +51,69 @@ const FEATURED_BOOKS = [
     href: "/book-summaries/crush-it",
     coverBg: "#E2DAD0",
   },
+  {
+    title: "Diary of a CEO",
+    author: "Steven Bartlett",
+    tags: "Business · Leadership",
+    quote: "Your story is the most powerful thing you own. Build the brand before you build the empire.",
+    cover: "/DIARY.jpg",
+    href: "/diary-of-a-ceo-guide.html",
+    coverBg: "#D6CFC6",
+  },
+  {
+    title: "Someday is Today",
+    author: "Matthew Dicks",
+    tags: "Productivity · Creativity",
+    quote: "Someday is not a day of the week. The only thing between you and your creative work is time you haven't claimed.",
+    cover: "/SOMEDAY.jpg",
+    href: "/someday-is-today-guide.html",
+    coverBg: "#DDD7CF",
+  },
+  {
+    title: "Men Are from Mars, Women Are from Venus",
+    author: "John Gray",
+    tags: "Relationships · Psychology",
+    quote: "Understanding the fundamental differences between men and women is the first step to a fulfilling relationship.",
+    cover: "/MEN.jpg",
+    href: "/mars-venus-guide.html",
+    coverBg: "#D6CFC6",
+  },
+  {
+    title: "Deep Work",
+    author: "Cal Newport",
+    tags: "Productivity · Focus",
+    quote: "In an economy defined by distraction, the ability to focus without interruption is becoming both rare and enormously valuable.",
+    cover: "/DeepWork.JPEG",
+    href: "/deep-work-guide.html",
+    coverBg: "#DDD7CF",
+  },
+  {
+    title: "The Psychology of Money",
+    author: "Morgan Housel",
+    tags: "Finance · Behaviour",
+    quote: "Getting wealthy is about earning more. Staying wealthy is about behaviour — and that has nothing to do with intelligence.",
+    cover: "/money.png",
+    href: "/psychology-of-money-guide.html",
+    coverBg: "#D6CFC6",
+  },
+  {
+    title: "The Subtle Art of Not Giving a F*ck",
+    author: "Mark Manson",
+    tags: "Self-Help · Philosophy",
+    quote: "The desire for more positive experience is itself a negative experience. Embrace the struggle.",
+    cover: "/art.jpg",
+    href: "/subtle-art-complete.html",
+    coverBg: "#DDD7CF",
+  },
+  {
+    title: "How to Sell Anything to Anybody",
+    author: "Joe Girard",
+    tags: "Sales · Business",
+    quote: "Every single person you meet is a potential customer — if you treat them like a human being first.",
+    cover: "/sell.jpg",
+    href: "/book-summaries/how-to-sell-anything",
+    coverBg: "#D6CFC6",
+  },
 ];
 
 // ── Library placeholder data ──────────────────────────────────────────────────
@@ -237,7 +300,7 @@ export default function BookSummariesPage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
+            gridTemplateColumns: "repeat(4, 1fr)",
             gap: "1.5rem",
           }}
         >
@@ -262,16 +325,73 @@ export default function BookSummariesPage() {
                   height: "260px",
                 }}
               >
-                <img
-                  src={book.cover}
-                  alt={book.title}
-                  style={{
-                    maxHeight: "220px",
-                    width: "auto",
-                    objectFit: "contain",
-                    display: "block",
-                  }}
-                />
+                {book.cover ? (
+                  <img
+                    src={book.cover}
+                    alt={book.title}
+                    style={{
+                      maxHeight: "220px",
+                      width: "auto",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: "140px",
+                      height: "210px",
+                      backgroundColor: "#1C1A17",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "1.25rem 1rem",
+                      boxShadow: "4px 4px 16px rgba(0,0,0,0.25)",
+                      gap: "0.75rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "32px",
+                        height: "1px",
+                        backgroundColor: "#C9A84C",
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontFamily: "var(--font-cormorant), Georgia, serif",
+                        fontSize: "15px",
+                        fontStyle: "italic",
+                        fontWeight: 700,
+                        color: "#F5EFE6",
+                        textAlign: "center",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {book.title}
+                    </p>
+                    <div
+                      style={{
+                        width: "32px",
+                        height: "1px",
+                        backgroundColor: "#C9A84C",
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "10px",
+                        fontWeight: 300,
+                        color: "#9A8E7E",
+                        textAlign: "center",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      {book.author}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Text area */}

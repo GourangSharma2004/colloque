@@ -47,18 +47,18 @@ const scenes: Scene[] = [
   },
   {
     start: 0.72, end: 0.84,
-    label: "04 — PILLAR", title: "The Log",
-    tagline: "No performance. Just thinking out loud.",
-    body: "A weekly record of what's being read, questioned, and reconsidered. A mind working in public.",
-    href: "/the-log",
-  },
-  {
-    start: 0.84, end: 1.00,
-    label: "05 — PILLAR", title: "Community",
+    label: "04 — PILLAR", title: "Community",
     tagline: "This is where the thinking gets loud.",
     body: "A space to discuss, disagree, and go deeper — with people who actually read before they speak.",
     hasCTA: true,
     href: "/community",
+  },
+  {
+    start: 0.84, end: 1.00,
+    title: "The Log",
+    tagline: "No performance. Just thinking out loud.",
+    body: "A weekly record of what's being read, questioned, and reconsidered. A mind working in public.",
+    href: "/the-log",
   },
 ];
 
@@ -473,21 +473,24 @@ export default function VideoHero() {
                 <div ref={(el) => { barRefs.current[i] = el; }} style={{ display: "none" }} />
                 {/* Text block */}
                 <div style={{ textAlign: "center" }}>
-                  <p
-                    ref={(el) => { labelRefs.current[i] = el; }}
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.8rem",
-                      fontWeight: 500,
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                      color: "#F5EFE6",
-                      marginBottom: "0.6rem",
-                      opacity: 0,
-                    }}
-                  >
-                    {scene.label}
-                  </p>
+                  {scene.label && (
+                    <p
+                      ref={(el) => { labelRefs.current[i] = el; }}
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "0.8rem",
+                        fontWeight: 500,
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase",
+                        color: "#F5EFE6",
+                        marginBottom: "0.6rem",
+                        opacity: 0,
+                      }}
+                    >
+                      {scene.label}
+                    </p>
+                  )}
+                  {!scene.label && <div ref={(el) => { labelRefs.current[i] = el; }} style={{ display: "none" }} />}
                   <h2
                     ref={(el) => { headingRefs.current[i] = el; }}
                     style={{

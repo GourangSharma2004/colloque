@@ -1,9 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Bookmark, Search, User, X } from "lucide-react";
+
+type BookmarkItem = {
+  key: string;
+  label: string;
+  href: string;
+  savedAt: number;
+};
+
+const STORAGE_KEY = "converse_bookmarks";
+
+function loadBookmarks(): BookmarkItem[] {
+  if (typeof window === "undefined") return [];
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+  catch { return []; }
+}
+
+function saveBookmarks(bm: BookmarkItem[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(bm));
+}
 
 type NavLink = {
   label: string;
@@ -28,7 +47,39 @@ export default function Navbar({ active }: NavbarProps) {
   const [loginOpen, setLoginOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [bookmarkOpen, setBookmarkOpen] = useState(false);
+  const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
+  const bookmarkBtnRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    setBookmarks(loadBookmarks());
+  }, []);
+
+  const currentPage = active ? NAV_LINKS.find((l) => l.key === active) : null;
+  const isBookmarked = !!currentPage && bookmarks.some((b) => b.key === currentPage.key);
+
+  const toggleBookmark = () => {
+    if (!currentPage) { setBookmarkOpen((o) => !o); return; }
+    let updated: BookmarkItem[];
+    if (isBookmarked) {
+      updated = bookmarks.filter((b) => b.key !== currentPage.key);
+    } else {
+      updated = [
+        { key: currentPage.key, label: currentPage.label, href: currentPage.href, savedAt: Date.now() },
+        ...bookmarks,
+      ];
+    }
+    setBookmarks(updated);
+    saveBookmarks(updated);
+    if (!isBookmarked) setBookmarkOpen(true);
+  };
+
+  const removeBookmark = (key: string) => {
+    const updated = bookmarks.filter((b) => b.key !== key);
+    setBookmarks(updated);
+    saveBookmarks(updated);
+  };
 
   return (
     <>
@@ -125,12 +176,27 @@ export default function Navbar({ active }: NavbarProps) {
       {/* ── Right: Icons ── */}
       <div className="flex items-center gap-5">
         <button
+          ref={bookmarkBtnRef}
           aria-label="Bookmark"
-          style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(245,239,230,0.55)", padding: 0, transition: "color 0.2s" }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#F5EFE6"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(245,239,230,0.55)"; }}
+          onClick={toggleBookmark}
+          style={{
+            background: "none", border: "none", cursor: "pointer", padding: 0,
+            color: isBookmarked ? "#C4973A" : bookmarkOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)",
+            transition: "color 0.2s",
+            position: "relative",
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = isBookmarked ? "#D4A843" : "#F5EFE6"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = isBookmarked ? "#C4973A" : bookmarkOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)"; }}
         >
-          <Bookmark size={18} strokeWidth={1.5} />
+          <Bookmark size={18} strokeWidth={1.5} fill={isBookmarked ? "#C4973A" : "none"} />
+          {bookmarks.length > 0 && !isBookmarked && (
+            <span style={{
+              position: "absolute", top: "-4px", right: "-5px",
+              width: "8px", height: "8px", borderRadius: "50%",
+              backgroundColor: "#C4973A",
+              border: "1.5px solid rgba(26,26,26,0.95)",
+            }} />
+          )}
         </button>
         <button
           aria-label="Search"
@@ -152,6 +218,115 @@ export default function Navbar({ active }: NavbarProps) {
         </button>
       </div>
     </nav>
+
+    {/* ── Bookmark Panel ── */}
+    {bookmarkOpen && (
+      <>
+        <div onClick={() => setBookmarkOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
+        <div
+          style={{
+            position: "fixed",
+            top: "56px",
+            right: "1.5rem",
+            zIndex: 99,
+            width: "300px",
+            backgroundColor: "rgba(20,20,20,0.97)",
+            border: "1px solid rgba(245,239,230,0.12)",
+            borderRadius: "6px",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.50)",
+            overflow: "hidden",
+          }}
+        >
+          {/* Panel header */}
+          <div style={{
+            padding: "0.85rem 1rem 0.75rem",
+            borderBottom: "1px solid rgba(245,239,230,0.08)",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+          }}>
+            <span style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "11px", fontWeight: 500,
+              letterSpacing: "0.14em", textTransform: "uppercase",
+              color: "rgba(245,239,230,0.45)",
+            }}>Bookmarks</span>
+            {currentPage && (
+              <button
+                onClick={toggleBookmark}
+                style={{
+                  background: "none", border: "none", cursor: "pointer",
+                  display: "flex", alignItems: "center", gap: "0.35rem",
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "11px", fontWeight: 500,
+                  color: isBookmarked ? "#C4973A" : "rgba(245,239,230,0.55)",
+                  padding: 0, transition: "color 0.2s",
+                }}
+              >
+                <Bookmark size={13} strokeWidth={1.5} fill={isBookmarked ? "#C4973A" : "none"} />
+                {isBookmarked ? "Saved" : "Save this page"}
+              </button>
+            )}
+          </div>
+
+          {/* Bookmark list */}
+          {bookmarks.length === 0 ? (
+            <div style={{
+              padding: "1.5rem 1rem",
+              textAlign: "center",
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "13px", fontWeight: 300,
+              color: "rgba(245,239,230,0.30)",
+            }}>
+              No bookmarks yet
+            </div>
+          ) : (
+            <ul style={{ listStyle: "none", margin: 0, padding: "0.4rem 0", maxHeight: "320px", overflowY: "auto" }}>
+              {bookmarks.map((bm) => (
+                <li
+                  key={bm.key}
+                  style={{
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    padding: "0.55rem 1rem",
+                    borderBottom: "1px solid rgba(245,239,230,0.05)",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <Link
+                    href={bm.href}
+                    onClick={() => setBookmarkOpen(false)}
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: "13px", fontWeight: 400,
+                      color: active === bm.key ? "#C4973A" : "rgba(245,239,230,0.80)",
+                      textDecoration: "none",
+                      flex: 1,
+                      transition: "color 0.15s",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#F5EFE6"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = active === bm.key ? "#C4973A" : "rgba(245,239,230,0.80)"; }}
+                  >
+                    {bm.label}
+                  </Link>
+                  <button
+                    onClick={() => removeBookmark(bm.key)}
+                    title="Remove bookmark"
+                    style={{
+                      background: "none", border: "none", cursor: "pointer",
+                      color: "rgba(245,239,230,0.25)", padding: 0,
+                      display: "flex", alignItems: "center",
+                      transition: "color 0.15s", flexShrink: 0,
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(245,239,230,0.75)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(245,239,230,0.25)"; }}
+                  >
+                    <X size={13} strokeWidth={1.5} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </>
+    )}
 
     {/* ── Search Dropdown ── */}
     {searchOpen && (

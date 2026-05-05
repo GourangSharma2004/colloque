@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Diary of a CEO — Complete Transformation Guide</title>
+<style>:root{
+  --ink:#0c0f1a;--body:#1e293b;--muted:#64748b;--cream:#f9f8f4;--border:#e4ddd0;
+  --blue:#1d4ed8;--blue-l:#eff6ff;--gold:#c9961a;--gold-l:#fef9ec;
+  --red:#dc2626;--red-l:#fff1f0;--green:#15803d;--green-l:#f0fdf4;
+  --w:#ffffff;--dk:#0c0f1a;--card:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--body);font-family:Georgia,'Times New Roman',serif;line-height:1.8;font-size:17px}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--gold)}
+.wrap{max-width:900px;margin:0 auto;padding:0 32px}
+.sec{padding:28px 0;border-bottom:1px solid var(--border)}
+h1,h2,h3,h4,h5{font-family:Georgia,serif;color:var(--ink);line-height:1.2}
+h1{font-size:3.4em}h2{font-size:2.2em;margin-bottom:18px}
+h3{font-size:1.5em;margin-bottom:14px;margin-top:38px}
+h4{font-size:1.15em;margin-bottom:10px}h5{font-size:1em;margin-bottom:6px}
+p{margin-bottom:18px;color:var(--body)}
+strong{color:var(--ink)}em{font-style:italic}
+ul,ol{padding-left:28px;margin-bottom:18px}li{margin-bottom:10px;color:var(--body)}
+
+/* ── Cover ── */
+.cover{background:#080b14;color:var(--w);padding:0;position:relative;overflow:hidden;min-height:100vh;display:flex;flex-direction:column}
+.cover-bg{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+.cover-inner{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100vh;width:100%;max-width:1200px;margin:0 auto;padding:0 64px}
+.cover-topbar{display:flex;justify-content:space-between;align-items:center;padding:30px 0;border-bottom:1px solid rgba(201,150,26,.22)}
+.cover-author-label{font-size:.7em;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.cover-tag{font-size:.66em;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);border:1px solid rgba(201,150,26,.22);padding:7px 16px;border-radius:20px}
+.cover-main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:56px 0}
+.cover-eyebrow{font-size:.7em;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:flex;align-items:center;gap:16px}
+.cover-eyebrow::before{content:'';display:block;width:44px;height:1px;background:var(--gold)}
+.cover h1{color:var(--w);font-size:6.8em;line-height:.88;letter-spacing:-.03em;margin-bottom:0}
+.cover h1 span{color:var(--gold);display:block}
+.cover-subtitle{font-size:1.3em;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-family:sans-serif;font-weight:400;margin-top:16px}
+.cover-gold-line{width:90px;height:3px;background:linear-gradient(90deg,var(--gold),transparent);margin:28px 0 28px}
+.cover-desc{font-size:1.1em;color:rgba(255,255,255,.48);line-height:1.75;max-width:620px;margin-bottom:50px;font-style:italic}
+.cover-pillars-row{display:flex;flex-wrap:wrap;gap:10px}
+.cover-pill{font-size:.67em;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);border:1px solid rgba(201,150,26,.28);padding:9px 18px;border-radius:3px;background:rgba(201,150,26,.05);transition:all .2s}
+.cover-pill:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,150,26,.1)}
+.cover-footer{padding:28px 0;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center}
+.cover-stats-row{display:flex;align-items:center}
+.cs{display:flex;flex-direction:column;padding:0 36px;border-right:1px solid rgba(255,255,255,.1)}
+.cs:first-child{padding-left:0}
+.cs:last-child{border-right:none}
+.cs-n{font-size:2.1em;color:var(--gold);font-weight:bold;line-height:1;font-family:Georgia,serif}
+.cs-l{font-size:.63em;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.15em;margin-top:5px}
+.cover-scroll{font-size:.67em;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.22);animation:cvpulse 2.4s ease-in-out infinite}
+@keyframes cvpulse{0%,100%{opacity:.22}50%{opacity:.65}}
+
+/* ── TOC ── */
+.toc-s{background:#0e1220;padding:64px 0}
+.toc-s h2{color:var(--gold);font-size:.88em;letter-spacing:.2em;text-transform:uppercase;margin-bottom:36px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 52px}
+.toc-item a{color:rgba(255,255,255,.68);font-size:.91em;display:flex;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s}
+.toc-item a:hover{color:var(--gold)}
+.toc-num{color:var(--gold);font-size:.78em;min-width:28px;font-weight:bold}
+.toc-sep{grid-column:1/-1;color:var(--gold);font-size:.72em;letter-spacing:.2em;text-transform:uppercase;padding:22px 0 7px;font-weight:bold;border-top:1px solid rgba(201,150,26,.2);margin-top:14px}
+.toc-sep:first-child{border-top:none;margin-top:0}
+
+/* ── Pillar dividers ── */
+.pillar-hdr{background:var(--ink);color:var(--w);padding:52px 0}
+.pillar-hdr .wrap{display:flex;align-items:center;gap:36px}
+.p-num{font-size:5.5em;color:var(--gold);opacity:.18;font-weight:bold;line-height:1;flex-shrink:0;font-family:Georgia,serif}
+.p-info h3{color:var(--w);font-size:1.9em;margin-bottom:8px}
+.p-info p{color:rgba(255,255,255,.46);margin:0;font-size:.95em;line-height:1.6}
+
+/* ── Law header ── */
+.law-hdr{padding:56px 0 36px}
+.law-tag{font-size:.68em;letter-spacing:.24em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:block}
+.law-hdr h2{font-size:2.3em;line-height:1.18;border-bottom:3px solid var(--gold);padding-bottom:20px}
+.law-quote{background:var(--ink);color:rgba(255,255,255,.72);border-left:3px solid var(--gold);padding:18px 24px;margin-bottom:0;font-style:italic;font-size:.97em;line-height:1.72}
+.law-quote cite{display:block;font-size:.74em;color:rgba(255,255,255,.35);margin-top:10px;font-style:normal;letter-spacing:.06em}
+
+/* ── Callout boxes ── */
+.callout{border-radius:8px;padding:22px 26px;margin:28px 0}
+.callout .cl{display:block;font-size:.72em;letter-spacing:.2em;text-transform:uppercase;font-weight:bold;margin-bottom:10px}
+.c-act{background:var(--blue-l);border-left:4px solid var(--blue)}.c-act .cl{color:var(--blue)}
+.c-warn{background:var(--red-l);border-left:4px solid var(--red)}.c-warn .cl{color:var(--red)}
+.c-ins{background:var(--gold-l);border-left:4px solid var(--gold)}.c-ins .cl{color:var(--gold)}
+.c-key{background:var(--green-l);border-left:4px solid var(--green)}.c-key .cl{color:var(--green)}
+
+/* ── Action box ── */
+.act-box{background:var(--ink);color:var(--w);border-radius:10px;padding:28px 32px;margin:32px 0}
+.act-box h4{color:var(--gold);font-size:1em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.act-box li{color:rgba(255,255,255,.75);margin-bottom:12px}
+.act-box strong{color:var(--w)}
+
+/* ── Mindset shift ── */
+.mindset{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin:28px 0}
+.ms-lbl{display:block;font-size:.7em;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:bold;margin-bottom:14px}
+.ms-old{color:var(--red);font-style:italic;margin-bottom:10px;padding-left:16px;border-left:3px solid var(--red)}
+.ms-arr{text-align:center;font-size:1.4em;color:var(--muted);margin:10px 0}
+.ms-new{color:var(--green);font-style:italic;margin-bottom:0;padding-left:16px;border-left:3px solid var(--green)}
+
+/* ── Diagram ── */
+.diagram{margin:36px 0;overflow-x:auto}
+.d-title{font-size:.78em;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-style:italic}
+.diagram svg{max-width:100%;height:auto;display:block}
+
+/* ── Stages ── */
+.s-lbl{font-size:.72em;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:bold;margin:36px 0 16px}
+.stages-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:28px}
+.s-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px}
+.s-age{display:block;font-size:.7em;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.s-card h5{color:var(--ink);margin-bottom:8px}
+.s-card p{font-size:.9em;color:var(--muted);margin:0;line-height:1.6}
+
+/* ── Vocabulary ── */
+.vocab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.v-term{font-size:.88em;font-weight:bold;color:var(--ink);margin-bottom:4px}
+.v-orig{display:block;font-size:.68em;color:var(--gold);letter-spacing:.06em;margin-bottom:8px}
+.v-def{font-size:.82em;color:var(--muted);margin:0;line-height:1.55}
+
+.wk-days{font-size:.85em;color:var(--body);line-height:1.65}
+
+/* ── Life stages table ── */
+.ls-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.88em}
+.ls-table th{background:var(--ink);color:var(--gold);padding:12px 16px;text-align:left;letter-spacing:.08em;font-size:.78em;text-transform:uppercase}
+.ls-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--body);vertical-align:top}
+.ls-table tr:nth-child(even) td{background:rgba(0,0,0,.02)}
+
+/* ── Footer ── */
+footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:52px 28px;font-size:.87em;line-height:1.8}
+footer strong{color:var(--gold)}footer p{color:rgba(255,255,255,.4);margin-bottom:8px}
+
+/* ── Progress bar + back to top ── */
+.pb{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--gold));z-index:999;width:0;transition:width .12s}
+.btt{position:fixed;bottom:28px;right:28px;background:var(--gold);color:var(--ink);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3em;text-decoration:none;box-shadow:0 4px 22px rgba(0,0,0,.28);z-index:200;font-weight:bold;opacity:0;transition:opacity .3s}
+.btt.show{opacity:1}
+
+/* ── Responsive ── */
+@media(max-width:720px){
+  .cover .wrap{grid-template-columns:1fr}
+  .cover-left{padding:56px 28px 36px;border-right:none;border-bottom:1px solid rgba(201,150,26,.2)}
+  .cover-right{padding:36px 28px 60px}
+  .cover h1{font-size:3.4em}
+  .toc-grid,.stages-grid{grid-template-columns:1fr}
+  .vocab-grid,.wk-grid{grid-template-columns:1fr 1fr}
+  .pillar-hdr .wrap{flex-direction:column;gap:12px}
+  .p-num{font-size:3.5em}
+  .wrap{padding:0 20px}
+}</style>
+</head>
+<body>
+<div id="pb" class="pb"></div>
+<a href="#top" class="btt" id="bttBtn">↑</a>
+<header class="cover" id="top">
+<svg class="cover-bg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cg1" cx="12%" cy="44%" r="58%"><stop offset="0%" stop-color="#1a2a50" stop-opacity="0.85"/><stop offset="100%" stop-color="#080b14" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cg2" cx="88%" cy="52%" r="52%"><stop offset="0%" stop-color="rgba(201,150,26,0.1)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+    <radialGradient id="cg3" cx="50%" cy="100%" r="50%"><stop offset="0%" stop-color="rgba(201,150,26,0.06)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+  </defs>
+  <rect width="1400" height="900" fill="#080b14"/>
+  <!-- Giant ghosted 33 -->
+  <text x="1100" y="860" font-size="860" font-family="Georgia,serif" fill="rgba(255,255,255,0.025)" font-weight="bold" text-anchor="middle">33</text>
+  <!-- Concentric gold rings -->
+  <circle cx="1100" cy="450" r="640" fill="none" stroke="rgba(201,150,26,0.045)" stroke-width="1"/>
+  <circle cx="1100" cy="450" r="480" fill="none" stroke="rgba(201,150,26,0.065)" stroke-width="1"/>
+  <circle cx="1100" cy="450" r="330" fill="none" stroke="rgba(201,150,26,0.09)" stroke-width="1.5"/>
+  <circle cx="1100" cy="450" r="190" fill="none" stroke="rgba(201,150,26,0.14)" stroke-width="1.5"/>
+  <circle cx="1100" cy="450" r="72" fill="rgba(201,150,26,0.05)" stroke="rgba(201,150,26,0.3)" stroke-width="2"/>
+  <!-- Diagonal accent lines -->
+  <line x1="0" y1="120" x2="560" y2="900" stroke="rgba(201,150,26,0.04)" stroke-width="1"/>
+  <line x1="80" y1="0" x2="680" y2="900" stroke="rgba(201,150,26,0.025)" stroke-width="1"/>
+  <!-- Left gold vertical bar -->
+  <rect x="0" y="0" width="5" height="900" fill="rgba(201,150,26,0.45)"/>
+  <!-- Top gold bar -->
+  <rect x="0" y="0" width="1400" height="3" fill="rgba(201,150,26,0.38)"/>
+  <!-- Bottom gold bar -->
+  <rect x="0" y="897" width="1400" height="3" fill="rgba(201,150,26,0.15)"/>
+  <!-- Atmospheric gradients -->
+  <rect width="1400" height="900" fill="url(#cg1)"/>
+  <rect width="1400" height="900" fill="url(#cg2)"/>
+  <rect width="1400" height="900" fill="url(#cg3)"/>
+</svg>
+<div class="cover-inner">
+  <div class="cover-topbar">
+    <span class="cover-author-label">Steven Bartlett</span>
+    <span class="cover-tag">Complete Editorial Transformation Guide</span>
+  </div>
+  <div class="cover-main">
+    <div class="cover-eyebrow">Steven Bartlett</div>
+    <h1>The Diary<span>of a CEO</span></h1>
+    <div class="cover-subtitle">33 Laws of Business &amp; Life</div>
+    <div class="cover-gold-line"></div>
+    <p class="cover-desc">Every law, every principle, every diagram — distilled into one premium reference guide to the book that rewires how exceptional people think, lead, and build.</p>
+    <div class="cover-pillars-row">
+      <div class="cover-pill">I &middot; The Self</div>
+      <div class="cover-pill">II &middot; The Story</div>
+      <div class="cover-pill">III &middot; The Philosophy</div>
+      <div class="cover-pill">IV &middot; The Team</div>
+      <div class="cover-pill">V &middot; The Business</div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <div class="cover-stats-row">
+      <div class="cs"><span class="cs-n">33</span><span class="cs-l">Laws</span></div>
+      <div class="cs"><span class="cs-n">5</span><span class="cs-l">Pillars</span></div>
+      <div class="cs"><span class="cs-n">20+</span><span class="cs-l">Diagrams</span></div>
+      <div class="cs"><span class="cs-n">&infin;</span><span class="cs-l">Actionable</span></div>
+    </div>
+    <div class="cover-scroll">Scroll to begin &darr;</div>
+  </div>
+</div>
+</header>
+
+<nav class="toc-s" id="toc">
+<div class="wrap">
+<h2>Contents</h2>
+<div class="toc-grid">
+<div class="toc-sep">Introduction</div>
+<div class="toc-item"><a href="#intro"><span class="toc-num">00</span>The 33 Laws at a Glance — How to Use This Guide</a></div>
+
+<div class="toc-sep">Pillar I — The Self</div>
+<div class="toc-item"><a href="#law1"><span class="toc-num">01</span>Fill Your Five Buckets in the Right Order</a></div>
+<div class="toc-item"><a href="#law2"><span class="toc-num">02</span>To Master It, You Must Make It</a></div>
+<div class="toc-item"><a href="#law3"><span class="toc-num">03</span>You Must Out-Fail the Competition</a></div>
+<div class="toc-item"><a href="#law4"><span class="toc-num">04</span>You Don't Get to Choose Your Hard</a></div>
+<div class="toc-item"><a href="#law5"><span class="toc-num">05</span>Ask Yourself This Every Day</a></div>
+<div class="toc-item"><a href="#law6"><span class="toc-num">06</span>The Power of Your Signals</a></div>
+<div class="toc-item"><a href="#law7"><span class="toc-num">07</span>Write Your Life's Story in Advance</a></div>
+<div class="toc-item"><a href="#law8"><span class="toc-num">08</span>Lean Into Your Oddness</a></div>
+<div class="toc-item"><a href="#law9"><span class="toc-num">09</span>Useless Absences Are Deadly</a></div>
+<div class="toc-item"><a href="#law10"><span class="toc-num">10</span>A Small Leak Will Sink a Great Ship</a></div>
+
+<div class="toc-sep">Pillar II — The Story</div>
+<div class="toc-item"><a href="#law11"><span class="toc-num">11</span>Control the Context, Control the Conclusion</a></div>
+<div class="toc-item"><a href="#law12"><span class="toc-num">12</span>Capture Attention Before Changing Minds</a></div>
+<div class="toc-item"><a href="#law13"><span class="toc-num">13</span>Don't Tell Me, Show Me</a></div>
+<div class="toc-item"><a href="#law14"><span class="toc-num">14</span>Master the First Three Seconds</a></div>
+<div class="toc-item"><a href="#law15"><span class="toc-num">15</span>Every Gift Comes With a Tax</a></div>
+<div class="toc-item"><a href="#law16"><span class="toc-num">16</span>The Story You Tell Becomes the Life You Live</a></div>
+<div class="toc-item"><a href="#law17"><span class="toc-num">17</span>Seek Discomfort as Your Compass</a></div>
+
+<div class="toc-sep">Pillar III — The Philosophy</div>
+<div class="toc-item"><a href="#law18"><span class="toc-num">18</span>Never Debate the Unimportant</a></div>
+<div class="toc-item"><a href="#law19"><span class="toc-num">19</span>Be in a Relationship With the Truth</a></div>
+<div class="toc-item"><a href="#law20"><span class="toc-num">20</span>Treat Yourself Like Someone You're Responsible For</a></div>
+<div class="toc-item"><a href="#law21"><span class="toc-num">21</span>Never Compromise the Relationship With Yourself</a></div>
+<div class="toc-item"><a href="#law22"><span class="toc-num">22</span>Live for the Years, Not the Days</a></div>
+<div class="toc-item"><a href="#law23"><span class="toc-num">23</span>Invest in Things That Compound</a></div>
+<div class="toc-item"><a href="#law24"><span class="toc-num">24</span>The Power of One Extra</a></div>
+
+<div class="toc-sep">Pillar IV — The Team</div>
+<div class="toc-item"><a href="#law25"><span class="toc-num">25</span>Culture Is Not What You Say — It's What You Tolerate</a></div>
+<div class="toc-item"><a href="#law26"><span class="toc-num">26</span>Hire Slow, Fire Fast</a></div>
+<div class="toc-item"><a href="#law27"><span class="toc-num">27</span>Create a Culture That's Impossible to Leave</a></div>
+<div class="toc-item"><a href="#law28"><span class="toc-num">28</span>Give Context, Not Instructions</a></div>
+<div class="toc-item"><a href="#law29"><span class="toc-num">29</span>Fight for Your Mission</a></div>
+
+<div class="toc-sep">Pillar V — The Business</div>
+<div class="toc-item"><a href="#law30"><span class="toc-num">30</span>Customer Obsession Beats Everything</a></div>
+<div class="toc-item"><a href="#law31"><span class="toc-num">31</span>Make Your Product the Marketing</a></div>
+<div class="toc-item"><a href="#law32"><span class="toc-num">32</span>Never Grow a Bad Product</a></div>
+<div class="toc-item"><a href="#law33"><span class="toc-num">33</span>Play Infinite Games</a></div>
+
+<div class="toc-sep">Reference</div>
+<div class="toc-item"><a href="#vocab"><span class="toc-num">→</span>Key Vocabulary</a></div>
+</div>
+</div>
+</nav>
+<section class="sec" id="intro">
+<div class="wrap">
+<span class="law-tag">Introduction</span>
+<h2>The 33 Laws at a Glance — How to Use This Guide</h2>
+<p>Steven Bartlett built one of the UK's fastest-growing social media agencies from a university bedroom, took it public at 27, became the youngest Dragon on BBC's <em>Dragons' Den</em>, and hosts the world's most-listened-to business podcast. <em>The Diary of a CEO</em> is not a memoir — it is a distillation of the mental operating system behind that trajectory: 33 laws, organized into five foundational pillars, that govern how exceptional people think, communicate, lead, and build.</p>
+<p>What separates this book from conventional business advice is its insistence on the internal before the external. Before marketing, product, or team — there is the self. Before strategy, there is story. Before growth, there is philosophy. Bartlett's argument is that most failures are not failures of strategy; they are failures of character, consistency, and self-awareness. Fix the internal architecture, and the external results follow.</p>
+<p><strong>How to use this guide:</strong> Each law gets full editorial treatment — what it means, why it matters, the mindset shift it demands, specific actions to take, and how it applies differently at each stage of life. Return to it whenever you are stuck, scaling, or searching for direction. Different laws will hit differently depending on where you are.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 0.1 — The Five Pillars: Architecture of the 33 Laws</div>
+<svg viewBox="0 0 740 240" width="740" height="240" font-family="Georgia,serif">
+  <rect width="740" height="240" fill="#f9f8f4" rx="10"/>
+  <defs>
+    <marker id="pa" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#c9961a"/></marker>
+  </defs>
+  <!-- Pillar 1 -->
+  <rect x="12" y="24" width="124" height="168" rx="8" fill="#0c0f1a"/>
+  <text x="74" y="60" text-anchor="middle" fill="#c9961a" font-size="12" font-weight="bold" letter-spacing="1">PILLAR I</text>
+  <line x1="26" y1="74" x2="122" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="74" y="104" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">The Self</text>
+  <text x="74" y="128" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="12">Laws 1–10</text>
+  <text x="74" y="152" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="11.5">Identity &amp; habits</text>
+  <!-- Arrow -->
+  <line x1="138" y1="108" x2="152" y2="108" stroke="#c9961a" stroke-width="2" marker-end="url(#pa)"/>
+  <!-- Pillar 2 -->
+  <rect x="154" y="24" width="124" height="168" rx="8" fill="#1a3a28"/>
+  <text x="216" y="60" text-anchor="middle" fill="#c9961a" font-size="12" font-weight="bold" letter-spacing="1">PILLAR II</text>
+  <line x1="168" y1="74" x2="264" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="216" y="104" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">The Story</text>
+  <text x="216" y="128" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="12">Laws 11–17</text>
+  <text x="216" y="152" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="11.5">Narrative &amp; attention</text>
+  <!-- Arrow -->
+  <line x1="280" y1="108" x2="294" y2="108" stroke="#c9961a" stroke-width="2" marker-end="url(#pa)"/>
+  <!-- Pillar 3 -->
+  <rect x="296" y="24" width="148" height="168" rx="8" fill="#1d3a6e"/>
+  <text x="370" y="60" text-anchor="middle" fill="#c9961a" font-size="12" font-weight="bold" letter-spacing="1">PILLAR III</text>
+  <line x1="310" y1="74" x2="430" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="370" y="104" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">The Philosophy</text>
+  <text x="370" y="128" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="12">Laws 18–24</text>
+  <text x="370" y="152" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="11.5">Thinking &amp; values</text>
+  <!-- Arrow -->
+  <line x1="446" y1="108" x2="460" y2="108" stroke="#c9961a" stroke-width="2" marker-end="url(#pa)"/>
+  <!-- Pillar 4 -->
+  <rect x="462" y="24" width="124" height="168" rx="8" fill="#4a1a00"/>
+  <text x="524" y="60" text-anchor="middle" fill="#c9961a" font-size="12" font-weight="bold" letter-spacing="1">PILLAR IV</text>
+  <line x1="476" y1="74" x2="572" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="524" y="104" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">The Team</text>
+  <text x="524" y="128" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="12">Laws 25–29</text>
+  <text x="524" y="152" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="11.5">Culture &amp; people</text>
+  <!-- Arrow -->
+  <line x1="588" y1="108" x2="602" y2="108" stroke="#c9961a" stroke-width="2" marker-end="url(#pa)"/>
+  <!-- Pillar 5 -->
+  <rect x="604" y="24" width="124" height="168" rx="8" fill="#3a1a4a"/>
+  <text x="666" y="60" text-anchor="middle" fill="#c9961a" font-size="12" font-weight="bold" letter-spacing="1">PILLAR V</text>
+  <line x1="618" y1="74" x2="714" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="666" y="104" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">The Business</text>
+  <text x="666" y="128" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="12">Laws 30–33</text>
+  <text x="666" y="152" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="11.5">Product &amp; growth</text>
+</svg>
+</div>
+
+<div class="callout c-ins">
+<span class="cl">Bartlett's Core Thesis</span>
+<p>Most people try to build a great business before they've built a great self. They chase distribution before they have something worth distributing. They hire teams before they understand culture. Bartlett's 33 laws are sequenced deliberately: <strong>self first, story second, philosophy third, team fourth, business fifth.</strong> The order is the lesson.</p>
+</div>
+</div>
+</section>
+
+<!-- PILLAR I -->
+<div class="pillar-hdr" id="pillar1">
+<div class="wrap">
+<div class="p-num">I</div>
+<div class="p-info">
+<h3>Pillar One: The Self</h3>
+<p>Laws 1–10 &nbsp;·&nbsp; The internal architecture that makes everything else possible. Before you can build, lead, or persuade — you must become someone worth following, starting with yourself.</p>
+</div>
+</div>
+</div>
+
+<!-- LAW 1 -->
+<section class="sec" id="law1">
+<div class="wrap">
+<div class="law-hdr">
+<span class="law-tag">Pillar I · Law 1</span>
+<h2>Fill Your Five Buckets in the Right Order</h2>
+</div>
+<blockquote class="law-quote">"Most people try to fill the wrong buckets first — they chase money before they have skills, and fame before they have knowledge. The order is everything."<cite>— Steven Bartlett</cite></blockquote>
+
+<p style="margin-top:28px">Bartlett opens with what he considers the most foundational law of success: there are five resources every person needs to build a meaningful, successful life, but the order in which you fill them determines whether you ever actually get there. Almost everyone gets the sequence wrong — and pays for it for years.</p>
+
+<p>The five buckets are <strong>Knowledge</strong> (what you know and understand), <strong>Skills</strong> (what you can actually do), <strong>Network</strong> (who knows you and what you can offer them), <strong>Resources</strong> (money, tools, capital), and <strong>Reputation</strong> (what the world says about you when you're not in the room). These are not equally accessible at every stage of life — and critically, filling them out of order is not just inefficient, it's self-defeating.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 1.1 — The Five Buckets Framework: The Correct Sequence to Build Everything</div>
+<svg viewBox="0 0 740 320" width="740" height="320" font-family="Georgia,serif">
+  <rect width="740" height="320" fill="#f9f8f4" rx="10"/>
+  <defs>
+    <marker id="ba" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5 z" fill="#c9961a"/></marker>
+  </defs>
+  <!-- Bucket 1: Knowledge -->
+  <rect x="12" y="40" width="126" height="180" rx="8" fill="#0c0f1a"/>
+  <text x="75" y="68" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold" letter-spacing="1">01</text>
+  <line x1="26" y1="80" x2="124" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="75" y="106" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Knowledge</text>
+  <text x="75" y="130" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">What you know</text>
+  <text x="75" y="150" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">and understand</text>
+  <text x="75" y="178" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">Books, study,</text>
+  <text x="75" y="195" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">curiosity</text>
+  <!-- Cost label -->
+  <rect x="12" y="228" width="126" height="34" rx="6" fill="rgba(21,128,61,0.15)" stroke="#15803d" stroke-width="1"/>
+  <text x="75" y="250" text-anchor="middle" fill="#15803d" font-size="10" font-weight="bold">FREE to acquire</text>
+  <!-- Arrow -->
+  <line x1="140" y1="130" x2="158" y2="130" stroke="#c9961a" stroke-width="2.5" marker-end="url(#ba)"/>
+  <!-- Bucket 2: Skills -->
+  <rect x="160" y="40" width="126" height="180" rx="8" fill="#1a3a28"/>
+  <text x="223" y="68" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold" letter-spacing="1">02</text>
+  <line x1="174" y1="80" x2="272" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="223" y="106" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Skills</text>
+  <text x="223" y="130" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">What you can</text>
+  <text x="223" y="150" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">actually do</text>
+  <text x="223" y="178" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">Practice, output,</text>
+  <text x="223" y="195" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">repetition</text>
+  <rect x="160" y="228" width="126" height="34" rx="6" fill="rgba(21,128,61,0.15)" stroke="#15803d" stroke-width="1"/>
+  <text x="223" y="250" text-anchor="middle" fill="#15803d" font-size="10" font-weight="bold">Low cost</text>
+  <!-- Arrow -->
+  <line x1="288" y1="130" x2="306" y2="130" stroke="#c9961a" stroke-width="2.5" marker-end="url(#ba)"/>
+  <!-- Bucket 3: Network -->
+  <rect x="308" y="40" width="126" height="180" rx="8" fill="#1d3a6e"/>
+  <text x="371" y="68" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold" letter-spacing="1">03</text>
+  <line x1="322" y1="80" x2="420" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="371" y="106" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Network</text>
+  <text x="371" y="130" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">Who knows you</text>
+  <text x="371" y="150" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">and trusts you</text>
+  <text x="371" y="178" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">Relationships,</text>
+  <text x="371" y="195" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">value exchange</text>
+  <rect x="308" y="228" width="126" height="34" rx="6" fill="rgba(201,150,26,0.15)" stroke="#c9961a" stroke-width="1"/>
+  <text x="371" y="250" text-anchor="middle" fill="#c9961a" font-size="10" font-weight="bold">Earned by Skill</text>
+  <!-- Arrow -->
+  <line x1="436" y1="130" x2="454" y2="130" stroke="#c9961a" stroke-width="2.5" marker-end="url(#ba)"/>
+  <!-- Bucket 4: Resources -->
+  <rect x="456" y="40" width="126" height="180" rx="8" fill="#4a1a00"/>
+  <text x="519" y="68" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold" letter-spacing="1">04</text>
+  <line x1="470" y1="80" x2="568" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="519" y="106" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Resources</text>
+  <text x="519" y="130" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">Money, tools,</text>
+  <text x="519" y="150" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">capital</text>
+  <text x="519" y="178" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">Follows skill</text>
+  <text x="519" y="195" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">+ network</text>
+  <rect x="456" y="228" width="126" height="34" rx="6" fill="rgba(201,150,26,0.15)" stroke="#c9961a" stroke-width="1"/>
+  <text x="519" y="250" text-anchor="middle" fill="#c9961a" font-size="10" font-weight="bold">Unlocked by Network</text>
+  <!-- Arrow -->
+  <line x1="584" y1="130" x2="602" y2="130" stroke="#c9961a" stroke-width="2.5" marker-end="url(#ba)"/>
+  <!-- Bucket 5: Reputation -->
+  <rect x="604" y="40" width="124" height="180" rx="8" fill="#3a1a4a"/>
+  <text x="666" y="68" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold" letter-spacing="1">05</text>
+  <line x1="618" y1="80" x2="714" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="666" y="106" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Reputation</text>
+  <text x="666" y="130" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">What the world</text>
+  <text x="666" y="150" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10.5">says about you</text>
+  <text x="666" y="178" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">Compound interest</text>
+  <text x="666" y="195" text-anchor="middle" fill="#c9961a" font-size="10" font-style="italic">of the other four</text>
+  <rect x="604" y="228" width="124" height="34" rx="6" fill="rgba(220,38,38,0.1)" stroke="#dc2626" stroke-width="1"/>
+  <text x="666" y="250" text-anchor="middle" fill="#dc2626" font-size="10" font-weight="bold">Never directly built</text>
+</svg>
+</div>
+
+<p>The insight that changes how young people think about their careers: <strong>Buckets 1 and 2 are nearly free to fill.</strong> Knowledge costs nothing but time and attention — books, podcasts, online courses, observing skilled people. Skills cost only repetition and the willingness to produce output before you're ready. Yet most people in their twenties skip these and try to acquire Resources (take a high-paying job they're not ready for) or build a Network before they've earned the right to anyone's serious attention.</p>
+
+<p>Bartlett's own story illustrates this. Before he had money or connections, he spent years obsessively filling his knowledge and skills buckets — studying psychology, marketing, consumer behaviour, content creation. By the time he launched Social Chain, he was not a young entrepreneur who got lucky. He was a highly skilled operator in a domain most executives didn't yet understand. The network and resources followed inevitably.</p>
+
+<div class="callout c-warn">
+<span class="cl">The Most Common Mistake</span>
+<p>Chasing Resources (a high salary, investment, a business idea) before Skills are developed creates fragility. When the money runs out or the opportunity disappears, there is nothing underneath. The person who fills Buckets 1 and 2 first is never truly stranded — their value travels with them everywhere they go.</p>
+</div>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I need money and connections to get started. Once I have resources, I'll build skills."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Skills and knowledge are my capital — and they're free to acquire. I will pour everything into Buckets 1 and 2 right now. Everything else will follow from that foundation."</p>
+</div>
+
+<div class="act-box">
+<h4>Law 1 — Actions to Take Now</h4>
+<ul>
+<li><strong>Audit your five buckets today.</strong> Rate each from 1–10. Where are you actually investing your time — and which bucket does that fill? Most people find they're accidentally investing in Bucket 4 (jobs) before Buckets 1 and 2 are solid.</li>
+<li><strong>Choose one Knowledge domain to go deep on this month.</strong> Not broadly "read more" — pick the single field most relevant to where you want to be in 5 years and consume everything you can find: books, papers, interviews, podcasts.</li>
+<li><strong>Build a public Skills trail.</strong> Bartlett is explicit: the best way to build a network is to produce visible work at the intersection of your knowledge and skills. Write, create, publish, build. Let the evidence accumulate.</li>
+<li><strong>Stop optimising for salary alone.</strong> Early career, the relevant question is not "what does this pay?" but "what skills and knowledge will I accumulate here, and how fast?" The job with the steepest learning curve is almost always the better investment.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How This Applies Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card"><span class="s-age">Student · Age 18–25</span><h5>Spend everything on Buckets 1 & 2</h5><p>You have the one resource no one else can give you: time with zero obligations. Use it to become genuinely skilled and deeply knowledgeable. The network and money will come. Don't shortcut this phase.</p></div>
+<div class="s-card"><span class="s-age">Professional · Age 30–45</span><h5>Audit: which bucket are you neglecting?</h5><p>Most professionals at this stage have Resources but are coasting on stale skills. Re-invest in Buckets 1 and 2 — especially in emerging areas of your field. Your network is only as valuable as what you still bring to it.</p></div>
+<div class="s-card"><span class="s-age">Transition · Age 50+</span><h5>Reputation compounds — use it as leverage</h5><p>By now, Bucket 5 is your most powerful asset. Leverage it by associating it with new skills and knowledge, not just past accomplishments. Reputation applied to yesterday's problems depreciates fast.</p></div>
+</div>
+</div>
+</section>
+
+<!-- LAW 2 -->
+<section class="sec" id="law2">
+<div class="wrap">
+<div class="law-hdr">
+<span class="law-tag">Pillar I · Law 2</span>
+<h2>To Master It, You Must Make It</h2>
+</div>
+<blockquote class="law-quote">"The gap between consuming information and producing output is the gap between knowing and mastering. You close it only by making things — imperfect, public, real things."<cite>— Steven Bartlett</cite></blockquote>
+
+<p style="margin-top:28px">There is a seductive illusion at the heart of modern self-improvement culture: that consuming more information is the same as becoming more capable. It is not. Bartlett draws a sharp distinction between passive knowledge acquisition and the active, often uncomfortable process of making things — writing, building, launching, presenting, creating. Only the latter produces real mastery.</p>
+
+<p>The mechanism is neurological. When you produce output — even flawed, early-stage output — you engage with material at a level of depth that passive consumption never reaches. You encounter the exact gaps in your understanding, the moments where theory meets reality and breaks down. Every time you write, you discover what you actually think. Every time you build, you discover what you don't yet know how to do.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 1.2 — The Knowledge-Mastery Gap: Why Consumption Alone Never Gets You There</div>
+<svg viewBox="0 0 740 340" width="740" height="340" font-family="Georgia,serif">
+  <rect width="740" height="340" fill="#f9f8f4" rx="10"/>
+  <defs>
+    <marker id="km1" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5 z" fill="#c9961a"/></marker>
+    <marker id="km2" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5 z" fill="#c9961a"/></marker>
+  </defs>
+  <!-- Left: Consumer path -->
+  <rect x="12" y="28" width="210" height="258" rx="8" fill="#fff1f0" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="117" y="60" text-anchor="middle" fill="#dc2626" font-size="14" font-weight="bold">Consumer Path</text>
+  <line x1="28" y1="72" x2="206" y2="72" stroke="rgba(220,38,38,0.3)" stroke-width="1"/>
+  <text x="117" y="102" text-anchor="middle" fill="#1e293b" font-size="12.5">Read about marketing</text>
+  <text x="117" y="128" text-anchor="middle" fill="#1e293b" font-size="12.5">Watch more videos</text>
+  <text x="117" y="154" text-anchor="middle" fill="#1e293b" font-size="12.5">Take another course</text>
+  <text x="117" y="180" text-anchor="middle" fill="#1e293b" font-size="12.5">Highlight the book</text>
+  <text x="117" y="206" text-anchor="middle" fill="#1e293b" font-size="12.5">Save the article</text>
+  <text x="117" y="242" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">Result: Informed</text>
+  <text x="117" y="266" text-anchor="middle" fill="#dc2626" font-size="12.5">but not capable</text>
+  <!-- Gap label -->
+  <rect x="232" y="108" width="106" height="110" rx="8" fill="rgba(201,150,26,0.1)" stroke="#c9961a" stroke-width="1.5"/>
+  <text x="285" y="152" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">THE</text>
+  <text x="285" y="172" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">MAKING</text>
+  <text x="285" y="192" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">GAP</text>
+  <line x1="220" y1="163" x2="230" y2="163" stroke="#c9961a" stroke-width="2" marker-end="url(#km1)"/>
+  <line x1="340" y1="163" x2="350" y2="163" stroke="#c9961a" stroke-width="2" marker-end="url(#km2)"/>
+  <!-- Right: Maker path -->
+  <rect x="350" y="28" width="378" height="258" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="539" y="60" text-anchor="middle" fill="#15803d" font-size="14" font-weight="bold">Maker Path</text>
+  <line x1="366" y1="72" x2="712" y2="72" stroke="rgba(21,128,61,0.3)" stroke-width="1"/>
+  <text x="539" y="102" text-anchor="middle" fill="#1e293b" font-size="12.5">Write a real marketing piece</text>
+  <text x="539" y="128" text-anchor="middle" fill="#1e293b" font-size="12.5">Launch something (anything)</text>
+  <text x="539" y="154" text-anchor="middle" fill="#1e293b" font-size="12.5">Build a prototype and ship it</text>
+  <text x="539" y="180" text-anchor="middle" fill="#1e293b" font-size="12.5">Teach someone what you know</text>
+  <text x="539" y="206" text-anchor="middle" fill="#1e293b" font-size="12.5">Get rejected, iterate, improve</text>
+  <text x="539" y="242" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Result: Capable</text>
+  <text x="539" y="266" text-anchor="middle" fill="#15803d" font-size="12.5">and getting better</text>
+</svg>
+</div>
+
+<p>Bartlett applied this personally. When building Social Chain, he didn't study social media management academically — he ran campaigns, made mistakes, fixed them, and ran more. Every piece of content he created for his own channels was a live experiment. He learned what audiences respond to not by reading about it, but by producing content daily and studying the results. By the time brands were paying millions for his company's services, he had a skill set forged in real repetition — not theory.</p>
+
+<div class="callout c-act">
+<span class="cl">The Maker's Challenge</span>
+<p>Identify the one thing you have been learning about for more than six months without producing anything from it. This week, produce <em>one real piece of output</em> from that knowledge — a written post, a built prototype, a lesson taught to someone else, a pitch given to a real person. The discomfort you feel is exactly why you haven't done it yet. That discomfort is where mastery lives.</p>
+</div>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I'll start making things once I know enough. I don't want to put out work that isn't ready."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Imperfect output is the tuition fee of mastery. The embarrassment of early work is exactly what teaches me what I don't yet know. I start making today."</p>
+</div>
+
+<div class="act-box">
+<h4>Law 2 — Actions to Take Now</h4>
+<ul>
+<li><strong>Set a "make ratio."</strong> For every hour you spend consuming (reading, watching, listening), commit to producing 20 minutes of output in that domain. Write notes as if for an audience. Build a prototype. Record a short explanation. The ratio forces application.</li>
+<li><strong>Start a public output trail.</strong> A newsletter, a portfolio, a GitHub repo, a social account dedicated to a specific skill — something that creates accountability and captures your progression publicly. Bartlett credits his early public content work with building the network and reputation that launched his career.</li>
+<li><strong>Teach what you're learning.</strong> The best test of whether you understand something is whether you can explain it clearly to someone who doesn't. Teaching forces you to confront every gap in your knowledge.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- LAW 3 -->
+<section class="sec" id="law3">
+<div class="wrap">
+<div class="law-hdr">
+<span class="law-tag">Pillar I · Law 3</span>
+<h2>You Must Out-Fail the Competition</h2>
+</div>
+<blockquote class="law-quote">"The person who takes the most shots at goal, who collects the most rejections, who ships the most imperfect things — that person wins. Not because they are better, but because they learn faster."<cite>— Steven Bartlett</cite></blockquote>
+
+<p style="margin-top:28px">Bartlett reframes failure entirely. In conventional culture, failure is something to be minimised and concealed — a sign of inadequacy. In Bartlett's framework, failure is a <em>data collection strategy</em>. Every failed attempt produces real feedback that no course or book can replicate. The entrepreneur who has launched five failed products knows more about their market than the one who has spent five years planning the perfect launch.</p>
+
+<p>The key insight is competitive: if you are willing to fail more often than your competitors, you will accumulate more real-world data points, develop a more calibrated intuition, and iterate to better solutions faster. Willingness to fail is not recklessness — it is a deliberate competitive strategy. Bartlett calls this "out-failing" the competition.</p>
+
+<div class="callout c-key">
+<span class="cl">The Failure CV</span>
+<p>Bartlett recommends keeping a "Failure CV" — a running document of every major failure, rejection, and setback, alongside what you learned from each. This practice has two effects: it normalises failure as a natural part of the process, and it forces you to extract the learning rather than just absorb the emotional damage. Over time, your Failure CV becomes your most valuable document — a map of how you became who you are.</p>
+</div>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I need to avoid failure and protect my reputation by only attempting things I'm likely to succeed at."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Failure is data. I will deliberately take more shots than anyone around me, because the person who collects the most real-world feedback wins. I will out-fail everyone in my field."</p>
+</div>
+
+<div class="act-box">
+<h4>Law 3 — Actions to Take Now</h4>
+<ul>
+<li><strong>Start your Failure CV today.</strong> List every significant failure or rejection of the last three years. For each: what did you try, what happened, what did you learn, how did it change you? Keep updating it monthly.</li>
+<li><strong>Set a rejection target.</strong> In sales, this is called "rejection therapy" — set a target of, say, ten rejections per month. The goal shifts from "get a yes" to "collect feedback." This fundamentally changes your relationship with outreach and risk.</li>
+<li><strong>Shorten your experiment cycles.</strong> Instead of spending three months planning a launch, ship something in three weeks, gather real data, and iterate. The goal is maximum learning per unit of time — not maximum polish before release.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- LAW 4 -->
+<section class="sec" id="law4">
+<div class="wrap">
+<div class="law-hdr">
+<span class="law-tag">Pillar I · Law 4</span>
+<h2>You Don't Get to Choose Your Hard</h2>
+</div>
+<blockquote class="law-quote">"Life will be hard regardless of the path you choose. The only real question is: which hard do you want? The hard of discipline, or the hard of regret?"<cite>— Steven Bartlett</cite></blockquote>
+
+<p style="margin-top:28px">This is one of Bartlett's most psychologically clarifying ideas. People routinely avoid difficult choices by imagining that the alternative — inaction, comfort, delay — is somehow easier. It isn't. Every path has a cost. The cost of building something difficult is effort, uncertainty, and sacrifice. The cost of not building it is regret, stagnation, and the slow erosion of self-belief. These are both hard. The difference is that discipline produces something; regret produces nothing.</p>
+
+<p>Bartlett grounds this in his own experience of leaving university without a degree, living briefly on next to nothing in Manchester, and betting everything on a business that could easily have failed. The hard of that period was real. But he argues it was categorically preferable to the alternative hard — the hard of spending a career in work that doesn't mean anything to you, wondering what might have been.</p>
+
+<div class="diagram">
+<div class="d-title">Figure 1.3 — Two Kinds of Hard: The Choice That Isn't Really a Choice</div>
+<svg viewBox="0 0 740 300" width="740" height="300" font-family="Georgia,serif">
+  <rect width="740" height="300" fill="#f9f8f4" rx="10"/>
+  <!-- Left: Hard of Discipline -->
+  <rect x="12" y="20" width="338" height="252" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="181" y="56" text-anchor="middle" fill="#15803d" font-size="14" font-weight="bold">Hard of Discipline</text>
+  <line x1="28" y1="70" x2="334" y2="70" stroke="rgba(21,128,61,0.25)" stroke-width="1"/>
+  <text x="181" y="100" text-anchor="middle" fill="#1e293b" font-size="12.5">Early mornings, late nights</text>
+  <text x="181" y="126" text-anchor="middle" fill="#1e293b" font-size="12.5">Rejection and uncertainty</text>
+  <text x="181" y="152" text-anchor="middle" fill="#1e293b" font-size="12.5">Delayed gratification</text>
+  <text x="181" y="178" text-anchor="middle" fill="#1e293b" font-size="12.5">Short-term sacrifice</text>
+  <rect x="40" y="208" width="282" height="46" rx="6" fill="rgba(21,128,61,0.12)" stroke="#15803d" stroke-width="1"/>
+  <text x="181" y="237" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Outcome: Something built</text>
+  <!-- vs -->
+  <text x="370" y="158" text-anchor="middle" fill="#64748b" font-size="16" font-weight="bold">vs</text>
+  <!-- Right: Hard of Regret -->
+  <rect x="390" y="20" width="338" height="252" rx="8" fill="#fff1f0" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="559" y="56" text-anchor="middle" fill="#dc2626" font-size="14" font-weight="bold">Hard of Regret</text>
+  <line x1="406" y1="70" x2="712" y2="70" stroke="rgba(220,38,38,0.25)" stroke-width="1"/>
+  <text x="559" y="100" text-anchor="middle" fill="#1e293b" font-size="12.5">The question "what if?"</text>
+  <text x="559" y="126" text-anchor="middle" fill="#1e293b" font-size="12.5">Watching others take the leap</text>
+  <text x="559" y="152" text-anchor="middle" fill="#1e293b" font-size="12.5">Comfort that slowly hollows out</text>
+  <text x="559" y="178" text-anchor="middle" fill="#1e293b" font-size="12.5">Safety that feels like a cage</text>
+  <rect x="418" y="208" width="282" height="46" rx="6" fill="rgba(220,38,38,0.1)" stroke="#dc2626" stroke-width="1"/>
+  <text x="559" y="237" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">Outcome: Nothing built</text>
+</svg>
+</div>
+
+<div class="act-box">
+<h4>Law 4 — Actions to Take Now</h4>
+<ul>
+<li><strong>Apply Bezos's Regret Minimisation Framework.</strong> Project yourself to age 80 and ask: "Which will I regret more — trying this and failing, or never trying?" Most decisions that feel impossible in the present become obvious from this vantage point.</li>
+<li><strong>Reframe avoidance.</strong> The next time you catch yourself choosing comfort over action, name it explicitly: "I am choosing the hard of regret." This simple verbal shift makes the real cost of inaction visible.</li>
+<li><strong>Name your specific hard.</strong> Write down the hardest thing you're currently avoiding. Then write down what life looks like in ten years if you keep avoiding it. The hard of regret becomes much more concrete when given a specific shape.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- LAW 5 -->
+<section class="sec" id="law5">
+<div class="wrap">
+<div class="law-hdr">
+<span class="law-tag">Pillar I · Law 5</span>
+<h2>Ask Yourself This Every Day</h2>
+</div>
+<blockquote class="law-quote">"The most important question you can ask yourself is not 'what do I want?' — it's 'are my daily actions aligned with who I say I want to become?'"<cite>— Steven Bartlett</cite></blockquote>
+
+<p style="margin-top:28px">Most people have a clear picture of who they want to be and what they want to achieve. Most people also live days that bear little relationship to that picture. The gap between stated aspiration and daily behaviour is where dreams go to die. Bartlett's fifth law is a daily audit practice: a single question, asked honestly each morning or evening, that closes this gap over time.</p>
+
+<p>The question is not motivational. It is confrontational. Answering it honestly requires you to acknowledge that scrolling for forty minutes instead of writing, skipping your workout because you were tired, or avoiding the difficult conversation that needed to happen — these are not neutral acts. They are small votes cast against the person you say you want to become. Bartlett argues that identity is not declared; it is accumulated in the micro-choices of daily life.</p>
+
+<div class="callout c-act">
+<span class="cl">The Daily Alignment Audit</span>
+<p>Each evening, before sleep: write down three things you did today that were consistent with who you want to become, and one thing that was not. This is not a judgment — it is a data collection practice. Over weeks, patterns emerge. The drift becomes visible. And once it's visible, it becomes correctable.</p>
+</div>
+
+<div class="mindset">
+<span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I'll become the person I want to be when the big moment arrives — when I get the opportunity, the funding, the right circumstances."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "I am becoming the person I want to be or drifting away from them right now, in this decision, in this hour. There is no future moment. There is only today's alignment."</p>
+</div>
+
+<div class="act-box">
+<h4>Law 5 — Actions to Take Now</h4>
+<ul>
+<li><strong>Write your identity statement.</strong> Not a goal ("I want to run a company") but a present-tense identity ("I am a disciplined creator who ships work daily"). Then ask: what would this person do today that I'm not doing?</li>
+<li><strong>Design your environment for alignment.</strong> If your identity statement includes "I am a writer," your desk should be set up for writing. If it includes "I am someone who exercises daily," your workout gear should be visible. Environment shapes behaviour more reliably than willpower.</li>
+<li><strong>Track your vote ratio.</strong> Each day, count the number of decisions where you voted for your desired identity versus against it. Aim to shift the ratio, not achieve perfection.</li>
+</ul>
+</div>
+
+<div class="s-lbl">How Laws 1–5 Apply Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card"><span class="s-age">Student · Age 18–25</span><h5>Build the architecture early</h5><p>Laws 1–5 are most powerful when installed young. Fill knowledge and skills buckets aggressively. Make things constantly. Collect failures as data. Ask the daily question before habits calcify into character.</p></div>
+<div class="s-card"><span class="s-age">Professional · Age 30–45</span><h5>Course-correct before drift becomes direction</h5><p>Mid-career drift is real and quiet. The daily alignment question is especially powerful here — most professionals find that five years of small misalignments have compounded into a career that no longer reflects who they want to be.</p></div>
+<div class="s-card"><span class="s-age">Transition · Age 50+</span><h5>It's never too late to re-fill the buckets</h5><p>The order of the five buckets is just as valid at 55 as at 22. Knowledge and skills can still be built. The daily audit is still the mechanism. The only difference is urgency — there is less time to waste on misalignment.</p></div>
+</div>
+</div>
+</section>
+<!-- LAW 6 -->
+<section class="sec" id="law6">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar I · Law 6</span><h2>The Power of Your Signals</h2></div>
+<blockquote class="law-quote">"Every standard you walk past without addressing is the standard you have set. Every behaviour you tolerate becomes the behaviour you endorse."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">We communicate expectations not through what we say but through what we allow. Every time you tolerate a late delivery without comment, accept mediocre work without pushback, or let a broken promise pass unremarked, you are broadcasting a signal: this is what I accept. People read these signals far more carefully than they read your stated values.</p>
+<p>This law applies as much to the signals you send yourself. Every time you let your own standard slip — snooze when you said you'd wake early, avoid the hard task, break a personal commitment — you are broadcasting to your own subconscious about what you are actually committed to. Identity is the accumulated result of the signals you send yourself, daily, over years.</p>
+<div class="diagram">
+<div class="d-title">Figure 1.4 — The Signal Matrix: What You Tolerate Becomes What You Normalise</div>
+<svg viewBox="0 0 740 320" width="740" height="320" font-family="Georgia,serif">
+  <rect width="740" height="320" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="16" width="340" height="40" rx="6" fill="#1a1f36"/>
+  <text x="182" y="42" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Signal: You Address It</text>
+  <rect x="388" y="16" width="340" height="40" rx="6" fill="#4a1a00"/>
+  <text x="558" y="42" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Signal: You Ignore It</text>
+  <rect x="12" y="66" width="340" height="58" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="182" y="90" text-anchor="middle" fill="#15803d" font-size="12.5">Someone misses a deadline →</text>
+  <text x="182" y="112" text-anchor="middle" fill="#1e293b" font-size="12.5" font-weight="bold">Direct conversation. Standards hold.</text>
+  <rect x="388" y="66" width="340" height="58" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="558" y="90" text-anchor="middle" fill="#dc2626" font-size="12.5">Someone misses a deadline →</text>
+  <text x="558" y="112" text-anchor="middle" fill="#1e293b" font-size="12.5" font-weight="bold">Everyone learns deadlines are optional.</text>
+  <rect x="12" y="134" width="340" height="58" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="182" y="158" text-anchor="middle" fill="#15803d" font-size="12.5">Work is average, not excellent →</text>
+  <text x="182" y="180" text-anchor="middle" fill="#1e293b" font-size="12.5" font-weight="bold">Returned with feedback. Bar rises.</text>
+  <rect x="388" y="134" width="340" height="58" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="558" y="158" text-anchor="middle" fill="#dc2626" font-size="12.5">Work is average, not excellent →</text>
+  <text x="558" y="180" text-anchor="middle" fill="#1e293b" font-size="12.5" font-weight="bold">Average becomes the unspoken ceiling.</text>
+  <rect x="12" y="202" width="340" height="58" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="182" y="226" text-anchor="middle" fill="#15803d" font-size="12.5">Someone is rude in a meeting →</text>
+  <text x="182" y="248" text-anchor="middle" fill="#1e293b" font-size="12.5" font-weight="bold">Named. Psychological safety protected.</text>
+  <rect x="388" y="202" width="340" height="58" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="558" y="226" text-anchor="middle" fill="#dc2626" font-size="12.5">Someone is rude in a meeting →</text>
+  <text x="558" y="248" text-anchor="middle" fill="#1e293b" font-size="12.5" font-weight="bold">Rudeness becomes normal. Trust erodes.</text>
+  <rect x="12" y="270" width="716" height="36" rx="6" fill="rgba(201,150,26,0.1)" stroke="#c9961a" stroke-width="1"/>
+  <text x="370" y="294" text-anchor="middle" fill="#7a5a00" font-size="12" font-weight="bold">Culture is built by the standards you enforce in small, daily moments — not by speeches.</text>
+</svg>
+</div>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "It's not worth making a big deal of small things. I'll address the important issues when they arise."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Every small thing I walk past without addressing is a vote for the standard I'm willing to live with. I address things immediately, directly, and with care."</p></div>
+<div class="act-box"><h4>Law 6 — Actions to Take Now</h4><ul>
+<li><strong>Audit your personal signals this week.</strong> What standards are you tolerating in yourself that contradict your stated identity? List three. Address one immediately — not dramatically, but directly.</li>
+<li><strong>Name the tolerance pattern.</strong> When you notice yourself about to let something slide, say internally: "I am setting a standard right now." This makes the signal conscious rather than habitual.</li>
+<li><strong>For leaders:</strong> Have one direct conversation this week about a standard that's been silently slipping. Keep it specific, non-personal, and future-focused.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 7 -->
+<section class="sec" id="law7">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar I · Law 7</span><h2>Write Your Life's Story in Advance</h2></div>
+<blockquote class="law-quote">"The most important story you will ever tell is the one you tell about yourself — to yourself. That story, believed deeply enough, becomes a self-fulfilling architecture of your life."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">The narrative you hold about your own life is not merely descriptive — it is generative. Most people inherit their self-narrative from childhood, failures, and social environment, then live inside it for decades without questioning whether it is accurate or chosen. The transformative move is to deliberately author a prospective narrative: not a fantasy, but a coherent, emotionally real story of the person you are in the process of becoming.</p>
+<div class="callout c-key"><span class="cl">The Prospective Narrative Exercise</span>
+<p>Write a detailed first-person account of your life three years from now — in the present tense, as though it has already happened. Be specific: where do you live, what do you do, what have you built, how do you feel, who surrounds you? The specificity is the point. Vague aspirations produce vague results. A fully-rendered story produces a clear decision filter: "Does this choice move me toward or away from that person?"</p></div>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I'll figure out who I am as life unfolds. I don't want to limit myself by committing to a specific vision."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "A chosen story is not a cage — it is a compass. Without a story I author, I am living someone else's by default."</p></div>
+<div class="act-box"><h4>Law 7 — Actions to Take Now</h4><ul>
+<li><strong>Write your prospective narrative today.</strong> 500 words, present tense, three years out. Read it every Sunday morning. Let the gap between it and your current life become uncomfortable — then correctable.</li>
+<li><strong>Identify your inherited narrative.</strong> What story did your upbringing give you about what kind of person you are and what you deserve? Write it out. Then ask: is this mine, or was it assigned to me?</li>
+<li><strong>Apply the narrative filter daily.</strong> When facing any significant decision, ask: "What would the person in my three-year narrative do here?"</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 8 -->
+<section class="sec" id="law8">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar I · Law 8</span><h2>Lean Into Your Oddness</h2></div>
+<blockquote class="law-quote">"The things that make you weird are the things that will make you valuable. Every trait you've been told to suppress is a competitive asset waiting to be unlocked."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Every person who has built something genuinely original has done so by amplifying what made them different, not by sanding it off to fit the mould. Bartlett is specific and personal: he was the kid who was too intense, too obsessive, too willing to deviate. These qualities made him difficult to manage in conventional settings — and extraordinarily effective as a founder. The market is saturated with people who've competently done what was expected. It is nearly empty of people who built something only they could have built.</p>
+<div class="diagram">
+<div class="d-title">Figure 1.5 — The Oddness Spectrum: From Liability to Competitive Advantage</div>
+<svg viewBox="0 0 740 200" width="740" height="200" font-family="Georgia,serif">
+  <rect width="740" height="200" fill="#f9f8f4" rx="10"/>
+  <defs><linearGradient id="specG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#dc2626"/><stop offset="50%" stop-color="#c9961a"/><stop offset="100%" stop-color="#15803d"/></linearGradient></defs>
+  <text x="370" y="36" text-anchor="middle" fill="#1e293b" font-size="11" font-weight="bold">Where are you on the Oddness Spectrum?</text>
+  <rect x="40" y="56" width="660" height="24" rx="12" fill="url(#specG)"/>
+  <line x1="40" y1="86" x2="40" y2="98" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="370" y1="86" x2="370" y2="98" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="700" y1="86" x2="700" y2="98" stroke="#64748b" stroke-width="1.5"/>
+  <text x="40" y="118" text-anchor="middle" fill="#dc2626" font-size="10.5" font-weight="bold">Suppressed</text>
+  <text x="40" y="135" text-anchor="middle" fill="#dc2626" font-size="10">Conforming at</text>
+  <text x="40" y="150" text-anchor="middle" fill="#dc2626" font-size="10">cost of identity</text>
+  <text x="370" y="118" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold">Aware but Hidden</text>
+  <text x="370" y="135" text-anchor="middle" fill="#c9961a" font-size="10">Knows what's different</text>
+  <text x="370" y="150" text-anchor="middle" fill="#c9961a" font-size="10">but hides it</text>
+  <text x="700" y="118" text-anchor="middle" fill="#15803d" font-size="10.5" font-weight="bold">Amplified</text>
+  <text x="700" y="135" text-anchor="middle" fill="#15803d" font-size="10">Oddness as core</text>
+  <text x="700" y="150" text-anchor="middle" fill="#15803d" font-size="10">competitive identity</text>
+  <rect x="12" y="166" width="716" height="26" rx="6" fill="rgba(201,150,26,0.1)" stroke="#c9961a" stroke-width="1"/>
+  <text x="370" y="184" text-anchor="middle" fill="#7a5a00" font-size="10.5" font-weight="bold">Most people live between Suppressed and Aware. The exceptional live at Amplified.</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 8 — Actions to Take Now</h4><ul>
+<li><strong>Identify your three biggest "oddnesses."</strong> The obsessions others didn't share, the traits that felt like problems growing up. Now ask: in what context is each a competitive advantage?</li>
+<li><strong>Find the market for your oddness.</strong> The most successful people don't suppress their weird — they find (or build) the environment where it is the most valuable thing in the room.</li>
+<li><strong>Stop performing normality.</strong> In your next significant professional interaction, let one authentic, unusual perspective be genuinely visible. Authenticity is rare — and rare things attract attention.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 9 -->
+<section class="sec" id="law9">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar I · Law 9</span><h2>Useless Absences Are Deadly</h2></div>
+<blockquote class="law-quote">"Being present is not enough. Being <em>useful</em> while present is what compounds. The person who shows up and adds genuine value every time becomes irreplaceable. The person who merely shows up becomes wallpaper."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Presence without contribution is invisible. Bartlett distinguishes sharply between people who physically show up in a room, a team, a relationship — and those who bring genuine value each time they do. The latter are remembered, trusted, and promoted. The former gradually fade from others' consciousness regardless of how often they appear. Quality of presence compounds; quantity without quality depreciates.</p>
+<div class="callout c-act"><span class="cl">The Useful Presence Test</span>
+<p>After each meeting, conversation, or professional interaction this week, ask: "Did I add something that wouldn't have happened without me?" If the honest answer is no — not because you had nothing to contribute, but because you held back — that's the data point. One genuinely useful contribution per interaction redefines how people think of you over time.</p></div>
+<div class="act-box"><h4>Law 9 — Actions to Take Now</h4><ul>
+<li><strong>Prepare one insight before every meeting.</strong> Spend five minutes beforehand identifying one specific, useful thing you can contribute. Remove the excuse of improvisation.</li>
+<li><strong>Audit your absences.</strong> Where do you show up physically but not mentally? Name it, then either invest in genuine presence or stop attending. Half-presence is worse than acknowledged absence.</li>
+<li><strong>Practise full-presence in conversations.</strong> No phone visible, no half-listening. Full, unhurried attention is rare in a world of chronic distraction — and it differentiates you immediately.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 10 -->
+<section class="sec" id="law10">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar I · Law 10</span><h2>A Small Leak Will Sink a Great Ship</h2></div>
+<blockquote class="law-quote">"It is never the dramatic disasters that destroy potential. It is the small, tolerated leaks — the habits slowly draining energy, the commitments quietly broken, the standards gradually lowered — that compound into catastrophe."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Every person who has fallen significantly short of their potential has a clear origin story — and it is almost never a single dramatic failure. It is an accumulation of small leaks: the daily habit broken once then regularly, the relationship ignored in small ways until it collapsed, the standard dropped slightly then never restored. Small leaks are dangerous precisely because they are invisible in the short term. The ship does not sink on the day of the first leak — it sinks months later, when the accumulated water becomes overwhelming.</p>
+<div class="diagram">
+<div class="d-title">Figure 1.6 — The Compound Leak: How Small Tolerances Accumulate Into Large Failures</div>
+<svg viewBox="0 0 740 300" width="740" height="300" font-family="Georgia,serif">
+  <rect width="740" height="300" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="14" width="716" height="40" rx="6" fill="rgba(220,38,38,0.08)" stroke="#dc2626" stroke-width="1"/>
+  <text x="370" y="39" text-anchor="middle" fill="#dc2626" font-size="12.5" font-weight="bold">The ship never sinks on the day of the first leak. It sinks when accumulated leaks become unmanageable.</text>
+  <line x1="40" y1="220" x2="700" y2="220" stroke="#e4ddd0" stroke-width="2"/>
+  <circle cx="100" cy="220" r="8" fill="#c9961a"/>
+  <circle cx="220" cy="220" r="8" fill="#c9961a"/>
+  <circle cx="340" cy="220" r="8" fill="#c9961a"/>
+  <circle cx="460" cy="220" r="8" fill="#dc2626"/>
+  <circle cx="580" cy="220" r="8" fill="#dc2626"/>
+  <circle cx="680" cy="220" r="11" fill="#dc2626"/>
+  <text x="100" y="246" text-anchor="middle" fill="#64748b" font-size="11.5">Week 1</text>
+  <text x="100" y="264" text-anchor="middle" fill="#1e293b" font-size="11">"Just this once"</text>
+  <text x="220" y="246" text-anchor="middle" fill="#64748b" font-size="11.5">Week 3</text>
+  <text x="220" y="264" text-anchor="middle" fill="#1e293b" font-size="11">Twice more</text>
+  <text x="340" y="246" text-anchor="middle" fill="#64748b" font-size="11.5">Month 2</text>
+  <text x="340" y="264" text-anchor="middle" fill="#1e293b" font-size="11">New normal</text>
+  <text x="460" y="246" text-anchor="middle" fill="#dc2626" font-size="11.5">Month 4</text>
+  <text x="460" y="264" text-anchor="middle" fill="#dc2626" font-size="11">Standard gone</text>
+  <text x="580" y="246" text-anchor="middle" fill="#dc2626" font-size="11.5">Month 6</text>
+  <text x="580" y="264" text-anchor="middle" fill="#dc2626" font-size="11">Trust erodes</text>
+  <text x="680" y="246" text-anchor="middle" fill="#dc2626" font-size="11.5">Month 9</text>
+  <text x="680" y="264" text-anchor="middle" fill="#dc2626" font-size="11">Crisis visible</text>
+  <polyline points="100,152 220,166 340,186 460,208 580,226 680,244" stroke="#dc2626" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+  <rect x="58" y="136" width="88" height="26" rx="4" fill="#1a1f36"/>
+  <text x="102" y="154" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Your Ship</text>
+</svg>
+</div>
+<div class="callout c-warn"><span class="cl">Common Small Leaks to Watch For</span>
+<p>Arriving slightly late, then more late. Checking the phone during conversations, then always. Skipping one workout, then many. Making one exception to a personal rule, then finding there are no rules left. None feel significant in the moment. All compound.</p></div>
+<div class="act-box"><h4>Law 10 — Actions to Take Now</h4><ul>
+<li><strong>Run a leak audit.</strong> List every standard, habit, or commitment you've let slip gradually over the past year. Pick the one causing the most drag and plug it this week — immediately, not gradually.</li>
+<li><strong>Create non-negotiables.</strong> Identify two or three behaviours not subject to "just this once." Once you allow exceptions they are no longer non-negotiables — they are preferences.</li>
+<li><strong>Build repair rituals.</strong> When you do slip, use a same-day repair protocol. The danger is not the first breach — it's allowing the breach to become the new standard.</li>
+</ul></div>
+<div class="s-lbl">How Laws 6–10 Apply Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card"><span class="s-age">Student · Age 18–25</span><h5>Build standards before they're tested</h5><p>The habits installed in your twenties become the defaults of your thirties. The leaks you tolerate now will feel natural in ten years. Set the standard while it's still easy to hold.</p></div>
+<div class="s-card"><span class="s-age">Professional · Age 30–45</span><h5>Your signals define your culture</h5><p>At this stage you are almost certainly managing others. Every standard you walk past shapes the environment your team lives in daily. Your micro-responses matter more than your speeches.</p></div>
+<div class="s-card"><span class="s-age">Transition · Age 50+</span><h5>Identify the accumulated leaks</h5><p>Mid-life transitions often reveal the cost of tolerated leaks across decades — in health, relationships, career direction. Identifying and sealing leaks works at any age. It just requires honesty about where the water is coming from.</p></div>
+</div>
+</div></section>
+
+<!-- PILLAR II -->
+<div class="pillar-hdr" id="pillar2">
+<div class="wrap">
+<div class="p-num">II</div>
+<div class="p-info">
+<h3>Pillar Two: The Story</h3>
+<p>Laws 11–17 &nbsp;·&nbsp; How you frame, communicate, and present ideas determines whether they move people. Great work ignored is failed work. The Story pillar is about earning and holding attention — at scale.</p>
+</div>
+</div>
+</div>
+
+<!-- LAW 11 -->
+<section class="sec" id="law11">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar II · Law 11</span><h2>Control the Context, Control the Conclusion</h2></div>
+<blockquote class="law-quote">"People rarely respond to facts alone. They respond to facts inside a frame. Control the frame and you control the meaning. Lose the frame and even your best evidence works against you."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Every piece of information arrives to a human brain pre-interpreted by context. The same statistic — "our prices are 20% higher than competitors" — produces entirely different responses depending on whether it arrives in a frame of "expensive and hard to justify" or "premium quality with demonstrably better outcomes." The facts don't change. The frame does. And frames, not facts, drive decisions.</p>
+<p>This is not manipulation — it is understanding how human cognition actually works and communicating accordingly. The most important thing you can do before presenting any idea, data, or request is to deliberately set the context that will shape how everything you say is received. Professionals who master this move get yes far more often than those who rely on content quality alone.</p>
+<div class="diagram">
+<div class="d-title">Figure 2.1 — The Frame Effect: Same Fact, Opposite Conclusions</div>
+<svg viewBox="0 0 740 290" width="740" height="290" font-family="Georgia,serif">
+  <rect width="740" height="290" fill="#f9f8f4" rx="10"/>
+  <rect x="256" y="96" width="228" height="72" rx="8" fill="#0c0f1a"/>
+  <text x="370" y="126" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">THE SAME FACT</text>
+  <text x="370" y="152" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="12.5">"Our failure rate is 15%"</text>
+  <rect x="12" y="72" width="222" height="120" rx="8" fill="#fff1f0" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="123" y="104" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">Negative Frame</text>
+  <text x="123" y="128" text-anchor="middle" fill="#1e293b" font-size="12.5">"We fail 15% of the time —</text>
+  <text x="123" y="148" text-anchor="middle" fill="#1e293b" font-size="12.5">that's a quality problem."</text>
+  <text x="123" y="172" text-anchor="middle" fill="#dc2626" font-size="12" font-style="italic">→ Reject / doubt</text>
+  <line x1="236" y1="132" x2="254" y2="132" stroke="#dc2626" stroke-width="1.5"/>
+  <rect x="506" y="72" width="222" height="120" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="617" y="104" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Positive Frame</text>
+  <text x="617" y="128" text-anchor="middle" fill="#1e293b" font-size="12.5">"85% of our work exceeds</text>
+  <text x="617" y="148" text-anchor="middle" fill="#1e293b" font-size="12.5">industry benchmarks."</text>
+  <text x="617" y="172" text-anchor="middle" fill="#15803d" font-size="12" font-style="italic">→ Trust / invest</text>
+  <line x1="486" y1="132" x2="504" y2="132" stroke="#15803d" stroke-width="1.5"/>
+  <rect x="12" y="210" width="716" height="62" rx="6" fill="rgba(201,150,26,0.1)" stroke="#c9961a" stroke-width="1"/>
+  <text x="370" y="248" text-anchor="middle" fill="#7a5a00" font-size="12.5" font-weight="bold">The frame — set before the fact is delivered — determines the emotional response.</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 11 — Actions to Take Now</h4><ul>
+<li><strong>Before any pitch or request, set the frame first.</strong> Open by establishing the context in which your information should be interpreted — before you give the information. "Before I show you the numbers, I want to give you the context that makes them make sense."</li>
+<li><strong>Identify the frames being set on you.</strong> In negotiations and daily conversations, notice who is setting the frame and what conclusion it is designed to produce. You can always reframe before engaging with content.</li>
+<li><strong>Reframe your own story.</strong> How do you frame your career gap, failed business, or unconventional background? Write an alternative frame for the same facts that makes them an asset rather than a liability.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 12 -->
+<section class="sec" id="law12">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar II · Law 12</span><h2>Capture Attention Before Changing Minds</h2></div>
+<blockquote class="law-quote">"You cannot persuade a mind that isn't paying attention. Before you can educate, convince, or inspire — you must earn the most scarce resource in the modern world: someone's focused attention."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Bartlett built a nine-figure media company on this single insight. Attention is the precursor to everything: sales, influence, learning, leadership. Without it, your best content is unseen, your most compelling argument unheard. The battle for attention is not merely a marketing problem — it is the fundamental challenge of communication in the modern world, and most people are losing it by default.</p>
+<p>The tactics for capturing attention are learnable: open with tension rather than context; place the most compelling element first rather than building to it; match the emotional register of your audience before attempting to shift it. Most people communicate like a university essay — context, argument, conclusion. Attention demands the opposite: lead with the most arresting element, then earn the right to explain it.</p>
+<div class="callout c-ins"><span class="cl">The Attention Hierarchy</span>
+<p><strong>Captured attention</strong> (they stopped scrolling) → <strong>Held attention</strong> (they stayed for the next line) → <strong>Invested attention</strong> (they leaned in, asked a question) → <strong>Changed mind.</strong> Most communicators try to start at "changed mind" without earning each step before it. Every step must be earned separately, in sequence.</p></div>
+<div class="act-box"><h4>Law 12 — Actions to Take Now</h4><ul>
+<li><strong>Audit your opening lines.</strong> Take the last three emails, presentations, or pieces of content you produced. Where did you open? With context, or with a hook? Rewrite each opening to lead with the most interesting or tension-laden element.</li>
+<li><strong>Learn the open loop technique.</strong> Introduce a question or unresolved tension at the very start that can only be resolved by continuing to engage. Human brains are compelled to close open loops — use this deliberately.</li>
+<li><strong>Match before you lead.</strong> In conversations, match the emotional energy and concern of your audience before attempting to take them somewhere. People follow communicators who first make them feel understood.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 13 -->
+<section class="sec" id="law13">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar II · Law 13</span><h2>Don't Tell Me, Show Me</h2></div>
+<blockquote class="law-quote">"Declaration without demonstration is just noise. The world is full of people who say they are great. The scarcest thing is someone who proves it, visibly, repeatedly, and without being asked."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Demonstration is the most powerful form of persuasion. Telling people you are reliable, creative, or exceptional creates a claim they must verify. Demonstrating these qualities — in public, over time — creates evidence they don't need to question. This is the law behind Bartlett's obsession with content and visible output: not for ego, but because demonstrated credibility compounds in a way that asserted credibility never can.</p>
+<p>This law applies equally to leadership, sales, and parenting. The manager who says "I believe in work-life balance" while emailing at 11pm has demonstrated the opposite of what they declared. The gap between declaration and demonstration is where trust is destroyed — quietly and irreversibly.</p>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I'll build my reputation by telling people what I'm capable of and letting them decide to believe me."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "I will demonstrate everything I claim, in public, before I'm asked. Evidence is more persuasive than assertion, and it compounds over time. I let my work speak before I do."</p></div>
+<div class="act-box"><h4>Law 13 — Actions to Take Now</h4><ul>
+<li><strong>Audit your claims vs. demonstrations.</strong> List three things you claim to be true about yourself professionally. For each, identify the specific, visible evidence someone else could point to confirming it. If none exists, create it.</li>
+<li><strong>Show your process publicly.</strong> Document the thinking behind a decision, the draft before the final, the experiment that failed. People trust those who show their working — not just their results.</li>
+<li><strong>Close the declaration-demonstration gap.</strong> Identify one place where your stated values and demonstrated behaviour are inconsistent. Close that gap this week — behaviourally, not verbally.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 14 -->
+<section class="sec" id="law14">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar II · Law 14</span><h2>Master the First Three Seconds</h2></div>
+<blockquote class="law-quote">"You have three seconds. In those three seconds, a human brain decides whether to invest further attention or move on. Master the three seconds or lose the audience."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">The brain makes a "continue or disengage" decision within seconds of encountering any new stimulus — this is an evolutionary mechanism for filtering signal from noise. The implication for anyone who creates content, gives presentations, or begins conversations is direct: the first three seconds are not an introduction. They are the audition. Every episode of Bartlett's podcast opens with the most arresting moment — not a slow build, not a sponsor read, not an introduction. The hook comes first, always.</p>
+<div class="diagram">
+<div class="d-title">Figure 2.2 — The Three-Second Audit: What Fails vs. What Passes</div>
+<svg viewBox="0 0 740 280" width="740" height="280" font-family="Georgia,serif">
+  <rect width="740" height="280" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="14" width="716" height="52" rx="8" fill="#0c0f1a"/>
+  <text x="370" y="40" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">THE FIRST THREE SECONDS — Every Format, Every Medium</text>
+  <text x="370" y="58" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="12">Email subject · Video opener · First sentence spoken · Slide 1 · Conversation opener</text>
+  <rect x="12" y="78" width="354" height="184" rx="8" fill="#fff1f0" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="189" y="110" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">Fails the Three-Second Test</text>
+  <line x1="28" y1="122" x2="350" y2="122" stroke="rgba(220,38,38,0.25)" stroke-width="1"/>
+  <text x="189" y="152" text-anchor="middle" fill="#1e293b" font-size="12.5">"Hi, I hope you're well. I'm reaching out</text>
+  <text x="189" y="174" text-anchor="middle" fill="#1e293b" font-size="12.5">because I wanted to discuss something..."</text>
+  <text x="189" y="212" text-anchor="middle" fill="#dc2626" font-size="12" font-style="italic">Result: Deleted before the point arrives</text>
+  <rect x="374" y="78" width="354" height="184" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="551" y="110" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Passes the Three-Second Test</text>
+  <line x1="390" y1="122" x2="712" y2="122" stroke="rgba(21,128,61,0.25)" stroke-width="1"/>
+  <text x="551" y="152" text-anchor="middle" fill="#1e293b" font-size="12.5">"Most founders fail for a reason</text>
+  <text x="551" y="174" text-anchor="middle" fill="#1e293b" font-size="12.5">no one talks about. Here it is."</text>
+  <text x="551" y="212" text-anchor="middle" fill="#15803d" font-size="12" font-style="italic">Result: Audience leans forward</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 14 — Actions to Take Now</h4><ul>
+<li><strong>Apply the three-second test to everything you send this week.</strong> Before sending any email or opening any presentation, ask: if someone saw only the first three seconds, would they stay? If no, rewrite the opening.</li>
+<li><strong>Lead with the most interesting thing.</strong> Move whatever is currently your strongest point to the beginning. Most people bury their best material mid-way. Audiences who are lost by then never reach it.</li>
+<li><strong>Study your own disengagement.</strong> Notice the exact moment you disengage from a video or article. Reverse-engineer those moments into a checklist of what not to do in your own openings.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 15 -->
+<section class="sec" id="law15">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar II · Law 15</span><h2>Every Gift Comes With a Tax</h2></div>
+<blockquote class="law-quote">"Every advantage has a corresponding disadvantage. Your greatest strength, taken to its extreme, becomes your greatest weakness. The question is not whether you have the gift — it is whether you are paying the tax it demands."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Every trait that makes someone exceptional in one context creates a corresponding cost in another. The founder's obsessive drive that builds a company also strains every relationship outside it. The communicator's instinct for storytelling that inspires thousands can drift into manipulation if unexamined. The self-reliance that allows someone to survive great adversity can become an inability to trust or delegate. Understanding your tax allows you to manage it, rather than be managed by it.</p>
+<div class="diagram">
+<div class="d-title">Figure 2.3 — The Gift-Tax Table: Common Gifts and Their Hidden Costs</div>
+<svg viewBox="0 0 740 360" width="740" height="360" font-family="Georgia,serif">
+  <rect width="740" height="360" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="12" width="356" height="40" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="190" y="38" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">The Gift</text>
+  <rect x="372" y="12" width="356" height="40" rx="6" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="550" y="38" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">The Tax</text>
+  <rect x="12" y="60" width="356" height="46" fill="rgba(21,128,61,0.06)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="190" y="89" text-anchor="middle" fill="#1e293b" font-size="12.5">High ambition and relentless drive</text>
+  <rect x="372" y="60" width="356" height="46" fill="rgba(220,38,38,0.05)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="550" y="89" text-anchor="middle" fill="#dc2626" font-size="12.5">Inability to switch off · Neglected relationships</text>
+  <rect x="12" y="106" width="356" height="46" fill="rgba(21,128,61,0.06)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="190" y="135" text-anchor="middle" fill="#1e293b" font-size="12.5">Obsessive focus and deep conviction</text>
+  <rect x="372" y="106" width="356" height="46" fill="rgba(220,38,38,0.05)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="550" y="135" text-anchor="middle" fill="#dc2626" font-size="12.5">Difficulty hearing contradictory evidence</text>
+  <rect x="12" y="152" width="356" height="46" fill="rgba(21,128,61,0.06)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="190" y="181" text-anchor="middle" fill="#1e293b" font-size="12.5">Self-reliance and fierce independence</text>
+  <rect x="372" y="152" width="356" height="46" fill="rgba(220,38,38,0.05)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="550" y="181" text-anchor="middle" fill="#dc2626" font-size="12.5">Inability to delegate · Trust issues</text>
+  <rect x="12" y="198" width="356" height="46" fill="rgba(21,128,61,0.06)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="190" y="227" text-anchor="middle" fill="#1e293b" font-size="12.5">High empathy and emotional intelligence</text>
+  <rect x="372" y="198" width="356" height="46" fill="rgba(220,38,38,0.05)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="550" y="227" text-anchor="middle" fill="#dc2626" font-size="12.5">Emotional exhaustion · Difficulty with hard calls</text>
+  <rect x="12" y="244" width="356" height="46" fill="rgba(21,128,61,0.06)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="190" y="273" text-anchor="middle" fill="#1e293b" font-size="12.5">Charisma and storytelling ability</text>
+  <rect x="372" y="244" width="356" height="46" fill="rgba(220,38,38,0.05)" stroke="#e4ddd0" stroke-width="1"/>
+  <text x="550" y="273" text-anchor="middle" fill="#dc2626" font-size="12.5">Reliance on narrative over substance</text>
+  <rect x="12" y="300" width="716" height="44" rx="6" fill="rgba(201,150,26,0.1)" stroke="#c9961a" stroke-width="1"/>
+  <text x="370" y="328" text-anchor="middle" fill="#7a5a00" font-size="12.5" font-weight="bold">Self-knowledge means knowing both columns. Managing your tax is as important as leveraging your gift.</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 15 — Actions to Take Now</h4><ul>
+<li><strong>Name your gift and its tax.</strong> Write down your two or three greatest strengths. For each, write the corresponding cost that you or people around you pay. The tax is usually visible to others before it becomes visible to you.</li>
+<li><strong>Ask someone who knows you well.</strong> "What do you think my greatest strength costs me?" The answers will be uncomfortable and clarifying in equal measure.</li>
+<li><strong>Build structural antidotes.</strong> If your gift is drive and your tax is neglected relationships, schedule protected time for those relationships with the same rigour you schedule work. Don't rely on willpower — build the antidote into the system.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 16 -->
+<section class="sec" id="law16">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar II · Law 16</span><h2>The Story You Tell Becomes the Life You Live</h2></div>
+<blockquote class="law-quote">"Narrative is not decoration. It is architecture. The stories you tell about your past create the lens through which you see your present — and that lens determines every future decision you make."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Two people can live through identical circumstances and emerge with entirely different self-narratives — and those narratives create functionally different people going forward. A difficult childhood can be narrated as "I was a victim of circumstances beyond my control" or as "Those circumstances were hard, and surviving them is evidence of my resilience — my greatest asset." Both describe the same events. Only one of them is generative. Both are interpretations, not facts. You choose which interpretation to live inside.</p>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "My story is what happened to me. It is fixed. I cannot change the facts."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "My story is the interpretation I place on what happened to me. The facts are fixed. The meaning I assign to them is mine to choose — and the meaning I choose shapes every future decision I make."</p></div>
+<div class="act-box"><h4>Law 16 — Actions to Take Now</h4><ul>
+<li><strong>Identify your limiting story.</strong> What narrative do you tell about a past failure or hardship that keeps you in a smaller version of yourself? Write it out, then write an alternative interpretation of the same events that generates agency rather than limitation.</li>
+<li><strong>Reframe your biography.</strong> Write a 200-word professional bio that reframes every "negative" — the dropout, the failed business, the unconventional path — as evidence of something useful: resilience, range, risk tolerance.</li>
+<li><strong>Notice the stories you tell casually.</strong> The stories we repeat in daily conversation are the constant reinforcement of our self-narrative. Which ones do you keep telling? Do they serve you, or hold you in place?</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 17 -->
+<section class="sec" id="law17">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar II · Law 17</span><h2>Seek Discomfort as Your Compass</h2></div>
+<blockquote class="law-quote">"The feeling of discomfort you experience before a brave act is not a warning to stop. It is a signal that you are approaching something that matters. It is your compass, not your brake."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Most people interpret discomfort as a signal to retreat. In the domain of growth and meaningful action, discomfort almost always indicates proximity to something important. The conversation you are avoiding is probably the one that needs to happen. The project that makes you nervous is probably the one that will matter most. Bartlett distinguishes between the discomfort of growth — productive, directional — and the discomfort of genuine harm. The discipline is learning to tell them apart, and to stop using the latter as an excuse to avoid the former.</p>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "Discomfort means I am in the wrong situation. I should move toward what feels natural and comfortable."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Growth-discomfort is a navigational signal — it tells me I am approaching something that matters. I treat it as a compass pointing toward the right direction, not a brake."</p></div>
+<div class="act-box"><h4>Law 17 — Actions to Take Now</h4><ul>
+<li><strong>Map your avoidances.</strong> Write down the three things you have been consistently avoiding — conversations, decisions, creative risks. These are almost certainly where your greatest near-term growth lives. Pick one and do it this week.</li>
+<li><strong>Use discomfort as a decision signal.</strong> For the next 30 days, when you feel the specific discomfort of avoidance, treat it as directional: this is worth doing. Act toward it, not away from it.</li>
+<li><strong>Track your brave acts.</strong> Keep a running note of every moment this month when you acted despite discomfort. Over time, this log becomes evidence that you are the kind of person who does hard things — and identity follows evidence.</li>
+</ul></div>
+<div class="s-lbl">How Pillar II Laws Apply Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card"><span class="s-age">Student · Age 18–25</span><h5>Learn to tell stories before you need to</h5><p>Framing, narrative, and attention are learnable skills. Build them now — write publicly, pitch ideas, practise uncomfortable conversations. The person who can tell a compelling story has a perpetual advantage in every arena they enter.</p></div>
+<div class="s-card"><span class="s-age">Professional · Age 30–45</span><h5>Communication is the multiplier</h5><p>At this stage your competence is often already high. The gap between you and the next level is frequently a storytelling and influence gap — not a knowledge gap. Invest in how you communicate your ideas, not just their quality.</p></div>
+<div class="s-card"><span class="s-age">Transition · Age 50+</span><h5>Reframe your narrative for the next chapter</h5><p>Career transitions require a new story about who you are and what you offer. The experience that looks like obsolescence in an old frame looks like wisdom in a new one. Your past is your greatest asset — if you learn to tell it right.</p></div>
+</div>
+</div></section>
+
+<!-- PILLAR III -->
+<div class="pillar-hdr" id="pillar3">
+<div class="wrap">
+<div class="p-num">III</div>
+<div class="p-info">
+<h3>Pillar Three: The Philosophy</h3>
+<p>Laws 18–24 &nbsp;·&nbsp; The mental models, values, and thinking frameworks that determine the quality of every decision you make. Philosophy is not abstract — it is the operating system beneath every action.</p>
+</div>
+</div>
+</div>
+
+<!-- LAW 18 -->
+<section class="sec" id="law18">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar III · Law 18</span><h2>Never Debate the Unimportant</h2></div>
+<blockquote class="law-quote">"The energy you spend defending a position that doesn't matter is energy stolen from building something that does. Most arguments are auditions for who is right. Most of what we argue about is irrelevant to our goals."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Every debate, argument, or prolonged discussion has an opportunity cost. While you are defending a position on something that doesn't materially advance your goals or values, you are not building, creating, or improving. The ability to selectively disengage from unimportant debates is a high-leverage mental discipline — one that protects both time and energy for what genuinely matters. The person who wins every irrelevant argument loses the larger game to the person who saved that energy for meaningful output.</p>
+<div class="callout c-ins"><span class="cl">The "Does It Matter?" Filter</span>
+<p>Before engaging in any debate or conflict, ask: "If I win this argument, does anything important change?" If the answer is no — if the outcome does not alter a significant decision, relationship, or trajectory — disengage. Not because you lack opinions, but because you have better uses for your cognitive resources. Reserve your conviction and energy for things genuinely worth them.</p></div>
+<div class="act-box"><h4>Law 18 — Actions to Take Now</h4><ul>
+<li><strong>Apply the importance filter to every conflict this week.</strong> Before engaging in any argument, ask: "Does winning this change anything important?" If no, let it go — explicitly, with intention.</li>
+<li><strong>Notice your debate triggers.</strong> What kinds of arguments pull you in automatically, regardless of importance? These are usually ego-driven — defending identity rather than pursuing goals. Identify them. Disengage from them first.</li>
+<li><strong>Reserve your conviction for things that matter.</strong> The person who disagrees loudly about everything is ignored. The person who rarely argues but speaks with conviction when they do is listened to. Save your debates for what genuinely deserves them.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 19 -->
+<section class="sec" id="law19">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar III · Law 19</span><h2>Be in a Relationship With the Truth</h2></div>
+<blockquote class="law-quote">"Most people have a complicated, strategic relationship with the truth — they tell it when it's convenient and manage it when it's not. The people who build truly great things insist on it even when it costs them something."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Bartlett frames honesty not as a moral virtue but as a strategic one. The business that cannot accurately assess its own problems cannot fix them. The leader who cannot hear difficult feedback makes increasingly poor decisions with increasingly poor information. The person who manages their self-image by avoiding uncomfortable truths gradually loses the ability to see themselves clearly — and with it, their most important competitive tool: accurate self-knowledge.</p>
+<p>Being in a relationship with truth means actively seeking feedback that challenges you, creating environments where others feel safe to tell you what they actually think, and consistently distinguishing between what you want to be true and what the evidence suggests is true. Most people do the opposite — they gather data confirming their existing beliefs and dismiss data that doesn't.</p>
+<div class="callout c-warn"><span class="cl">The Confirmation Trap</span>
+<p>Confirmation bias is present in everyone — it is not a weakness but a feature of human cognition. The antidote is not willpower but system design: deliberately seek sources that challenge your view, create feedback mechanisms that reward honesty rather than agreement, and regularly ask: "What would have to be true for me to be wrong about this?"</p></div>
+<div class="act-box"><h4>Law 19 — Actions to Take Now</h4><ul>
+<li><strong>Schedule uncomfortable feedback quarterly.</strong> Ask someone who knows your work to tell you the one thing you most need to hear that you probably don't want to. Create conditions for truth by making clear you want it — and not punishing it when it arrives.</li>
+<li><strong>Distinguish "feels true" from "is true."</strong> When making any significant decision, list the assumptions it rests on. Then ask: which have I tested? Which am I assuming because they're convenient? Test the most important untested assumption first.</li>
+<li><strong>Create truth-telling rituals.</strong> Regular retrospectives and structured feedback sessions are mechanisms for keeping your information environment accurate. Without them, you gradually drift into a bubble of managed reality.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 20 -->
+<section class="sec" id="law20">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar III · Law 20</span><h2>Treat Yourself Like Someone You're Responsible For</h2></div>
+<blockquote class="law-quote">"You would not let someone you love go without sleep, skip their health, and push through on empty. And yet you do exactly that to yourself, and call it ambition."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">High performers frequently apply standards of care to others — their teams, families, clients — that they systematically deny to themselves. The result is depletion, burnout, and decisions made from a degraded cognitive and emotional baseline. Bartlett draws on the clinical insight that people are often better at looking after others than themselves, and applies it practically: if a person you deeply cared about came to you with your current lifestyle — your sleep patterns, stress levels, recovery time — what would you tell them to change? Then ask why you haven't changed it for yourself.</p>
+<div class="diagram">
+<div class="d-title">Figure 3.1 — The Self-Care Standard: What You Demand of Others vs. What You Accept for Yourself</div>
+<svg viewBox="0 0 740 310" width="740" height="310" font-family="Georgia,serif">
+  <rect width="740" height="310" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="16" width="340" height="42" rx="6" fill="#1a3a28"/>
+  <text x="182" y="43" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Standard You Apply to Others</text>
+  <rect x="388" y="16" width="340" height="42" rx="6" fill="#4a1a00"/>
+  <text x="558" y="43" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Standard You Accept for Yourself</text>
+  <rect x="12" y="68" width="340" height="48" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="182" y="97" text-anchor="middle" fill="#1e293b" font-size="12.5">"You need 7–8 hours of sleep. Rest."</text>
+  <rect x="388" y="68" width="340" height="48" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="558" y="97" text-anchor="middle" fill="#dc2626" font-size="12.5">5 hours. "I'll sleep when I'm successful."</text>
+  <rect x="12" y="116" width="340" height="48" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="182" y="145" text-anchor="middle" fill="#1e293b" font-size="12.5">"Take time to recover. Don't push through."</text>
+  <rect x="388" y="116" width="340" height="48" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="558" y="145" text-anchor="middle" fill="#dc2626" font-size="12.5">Works sick. No days off. Pride in the grind.</text>
+  <rect x="12" y="164" width="340" height="48" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="182" y="193" text-anchor="middle" fill="#1e293b" font-size="12.5">"You deserve joy, not just productivity."</text>
+  <rect x="388" y="164" width="340" height="48" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="558" y="193" text-anchor="middle" fill="#dc2626" font-size="12.5">Leisure = guilt. Worth tied to output only.</text>
+  <rect x="12" y="224" width="716" height="70" rx="6" fill="rgba(201,150,26,0.1)" stroke="#c9961a" stroke-width="1"/>
+  <text x="370" y="265" text-anchor="middle" fill="#7a5a00" font-size="12.5" font-weight="bold">The gap between these columns is where burnout is manufactured — slowly, quietly, daily.</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 20 — Actions to Take Now</h4><ul>
+<li><strong>Apply the friend test to your own lifestyle.</strong> Write down your current sleep, exercise, recovery, and social patterns. Then ask: if a close friend described this lifestyle to you, what would you tell them? Whatever that answer is — take that advice yourself.</li>
+<li><strong>Identify one non-negotiable recovery practice.</strong> Not a luxury — a structural requirement for sustained performance. Sleep, exercise, time in nature, genuine rest. Build it in as a system, not an aspiration.</li>
+<li><strong>Decouple your worth from your output.</strong> High performance is sustainable only when the person performing is not chronically depleted. Rest is not a reward for productivity — it is the precondition for it.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 21 -->
+<section class="sec" id="law21">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar III · Law 21</span><h2>Never Compromise the Relationship With Yourself</h2></div>
+<blockquote class="law-quote">"Every time you make a commitment to yourself and break it — every time you promise yourself something and don't follow through — you are eroding the most important relationship you will ever have."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Self-trust is the foundation of every other kind of confidence. When you consistently keep commitments to yourself — wake at the time you said, finish the work you promised, act on the decision you made — you accumulate evidence that you are a reliable actor. Over time, this produces a deep, unshakeable confidence that no external validation can replicate: the knowledge that when you decide to do something, you do it.</p>
+<p>The inverse is equally true and equally powerful: every broken self-commitment is a small withdrawal from the account of self-trust. Over time, these withdrawals compound. The person who has broken hundreds of small promises to themselves finds it increasingly difficult to trust their own decisions — and increasingly dependent on external validation, momentum, or circumstances to generate the will to act.</p>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "It's only myself I'm letting down. It doesn't really count if I don't follow through on things I promised only myself."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "The relationship I have with myself is the most important one I will ever manage. Every kept self-commitment builds trust. Every broken one erodes it. I keep my promises to myself first."</p></div>
+<div class="act-box"><h4>Law 21 — Actions to Take Now</h4><ul>
+<li><strong>Make fewer, better self-commitments.</strong> Rather than a list of ambitious intentions you rarely follow through on, make two or three specific commitments you will definitely keep this week. Small and kept beats large and broken — every time.</li>
+<li><strong>Track your self-promise record.</strong> For one month, note every commitment you make to yourself and whether you kept it. The ratio, made visible, is often alarming. And what can be measured can be improved.</li>
+<li><strong>Build a repair protocol.</strong> When you break a self-commitment, the danger is rationalising why it was okay — and the rationalisation becoming a pattern. Instead, acknowledge it, name what got in the way, and recommit explicitly. No self-punishment. Just honesty and re-commitment.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 22 -->
+<section class="sec" id="law22">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar III · Law 22</span><h2>Live for the Years, Not the Days</h2></div>
+<blockquote class="law-quote">"Almost every bad decision I've ever made was made optimising for the next 24 hours. Almost every good decision was made optimising for the next ten years."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">The operating time horizon of a decision is perhaps its most important variable — and most people operate on far too short a horizon. The choice to skip the workout today is sensible on a 24-hour horizon (you're tired, there are other things to do) and catastrophic on a ten-year horizon (the accumulated cost of years of inconsistency). The choice to stay in a comfortable but stagnant role is reasonable on a six-month horizon and devastating on a decade-long one.</p>
+<p>Bartlett practices and recommends a simple discipline: before any significant decision, explicitly ask "What does the ten-year version of this choice look like?" The answer often reverses the decision you would have made on a shorter horizon. Long-horizon thinking is not optimism — it is clarity.</p>
+<div class="diagram">
+<div class="d-title">Figure 3.2 — Time Horizon Decision Matrix: Same Choice, Different Timeframes</div>
+<svg viewBox="0 0 740 320" width="740" height="320" font-family="Georgia,serif">
+  <rect width="740" height="320" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="14" width="716" height="44" rx="8" fill="#0c0f1a"/>
+  <text x="370" y="42" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Decision: "Should I do the difficult thing today?"</text>
+  <!-- 3 columns -->
+  <rect x="12" y="70" width="220" height="224" rx="8" fill="#fff1f0" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="122" y="102" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">24-Hour Horizon</text>
+  <line x1="28" y1="114" x2="216" y2="114" stroke="rgba(220,38,38,0.25)" stroke-width="1"/>
+  <text x="122" y="142" text-anchor="middle" fill="#1e293b" font-size="12.5">I'm tired.</text>
+  <text x="122" y="166" text-anchor="middle" fill="#1e293b" font-size="12.5">There's no urgent need.</text>
+  <text x="122" y="190" text-anchor="middle" fill="#1e293b" font-size="12.5">I'll do it tomorrow.</text>
+  <text x="122" y="268" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">Answer: No</text>
+  <rect x="260" y="70" width="220" height="224" rx="8" fill="rgba(201,150,26,0.08)" stroke="#c9961a" stroke-width="1.5"/>
+  <text x="370" y="102" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">1-Year Horizon</text>
+  <line x1="276" y1="114" x2="464" y2="114" stroke="rgba(201,150,26,0.25)" stroke-width="1"/>
+  <text x="370" y="142" text-anchor="middle" fill="#1e293b" font-size="12.5">A year of daily skips</text>
+  <text x="370" y="166" text-anchor="middle" fill="#1e293b" font-size="12.5">creates a pattern</text>
+  <text x="370" y="190" text-anchor="middle" fill="#1e293b" font-size="12.5">I can't easily break.</text>
+  <text x="370" y="268" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Answer: Uncertain</text>
+  <rect x="508" y="70" width="220" height="224" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
+  <text x="618" y="102" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">10-Year Horizon</text>
+  <line x1="524" y1="114" x2="712" y2="114" stroke="rgba(21,128,61,0.25)" stroke-width="1"/>
+  <text x="618" y="142" text-anchor="middle" fill="#1e293b" font-size="12.5">10 years of this daily</text>
+  <text x="618" y="166" text-anchor="middle" fill="#1e293b" font-size="12.5">choice determines</text>
+  <text x="618" y="190" text-anchor="middle" fill="#1e293b" font-size="12.5">who I become entirely.</text>
+  <text x="618" y="268" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Answer: Yes, always</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 22 — Actions to Take Now</h4><ul>
+<li><strong>Apply the ten-year question to your three biggest current decisions.</strong> What does each choice look like compounded over a decade? This question alone often clarifies decisions that feel impossible in the present tense.</li>
+<li><strong>Identify your short-horizon traps.</strong> Which recurring decisions do you consistently make on a 24-hour horizon that your ten-year self would reverse? Name them. Then design a pre-commitment strategy that makes the long-horizon choice the path of least resistance.</li>
+<li><strong>Write a ten-year letter.</strong> Write a letter to yourself from ten years in the future, describing the life you're living. Make it specific. Then work backwards: what would today's you need to do — consistently — for that letter to become true?</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 23 -->
+<section class="sec" id="law23">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar III · Law 23</span><h2>Invest in Things That Compound</h2></div>
+<blockquote class="law-quote">"Compound interest is not a financial principle. It is a life principle. Every investment you make in the right thing — knowledge, health, relationships, skills — grows exponentially if you start early and never stop."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">The power of compounding is well understood in finance and radically under-applied in life. The person who reads one genuinely useful book per month compounds their understanding of the world at a rate that produces, over decades, an almost incomprehensible intellectual advantage over the person who reads none. The person who trains consistently for thirty years produces a body and a discipline that cannot be purchased or shortcut. The person who invests in relationships daily, over years, builds a network that operates more like a force multiplier than a contacts list.</p>
+<p>The critical insight: compound investments often feel insignificant in the short term and transformative in the long. This is exactly why most people underinvest in them. The payoff is invisible until it suddenly becomes overwhelming.</p>
+<div class="callout c-key"><span class="cl">What Compounds (and What Doesn't)</span>
+<p><strong>Compounds:</strong> knowledge, health, skills, relationships, reputation, financial assets, creative habits, discipline. <strong>Does not compound:</strong> entertainment consumed without reflection, status signals, borrowed confidence, shallow networking. The test for any investment of time or energy: "Does this get more valuable the longer I do it, or does it reset to zero?"</p></div>
+<div class="act-box"><h4>Law 23 — Actions to Take Now</h4><ul>
+<li><strong>Audit where your daily time is going.</strong> What percentage goes into compounding investments (learning, building, relationships, health) versus non-compounding consumption (passive entertainment, reactive email, anxiety scrolling)? Shift the ratio by 10% this month.</li>
+<li><strong>Start one compound habit you have been delaying.</strong> Reading 20 pages daily. Writing 200 words. A morning walk. A weekly call with someone important. The specific habit matters less than starting — and never stopping.</li>
+<li><strong>Think in decades, not months.</strong> When evaluating any habit or investment, ask: "What does this look like compounded over ten years?" The answer almost always clarifies whether it deserves your time.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 24 -->
+<section class="sec" id="law24">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar III · Law 24</span><h2>The Power of One Extra</h2></div>
+<blockquote class="law-quote">"The difference between good and exceptional is almost always one extra — one more attempt, one more revision, one more honest look at whether this is really as good as it can be."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Bartlett closes Pillar III with the simplest and most actionable law in the book. The distance between good and memorable is almost never vast — it is one more attempt, one more revision, one extra degree of effort applied consistently. The podcast guest who does one extra hour of preparation before an interview. The founder who reads the pitch deck one more time the night before. The manager who has one more honest conversation instead of letting something drift.</p>
+<p>The power of one extra is compounded by rarity. Most people stop at good enough — at the point where the work is acceptable and the effort required to improve it further feels disproportionate to the visible difference it will make. The person who consistently applies one extra is operating in territory almost no one else occupies.</p>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "This is good enough. The extra effort will make only a marginal difference — not worth it."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "The gap between good and exceptional lives in the one extra I'm about to skip. That's exactly where I will go — because it's where almost no one else does."</p></div>
+<div class="act-box"><h4>Law 24 — Actions to Take Now</h4><ul>
+<li><strong>Identify your "one extra" in one current project.</strong> What is the one additional thing you could do — one more revision, one more call, one more iteration — that would take this from good to genuinely excellent? Do that thing today.</li>
+<li><strong>Build "one extra" into your review process.</strong> Before closing any significant piece of work, build in one mandatory pass: "Is there one extra I haven't done yet?" This question alone consistently surfaces improvements that the tired, satisfied brain misses.</li>
+<li><strong>Apply it to relationships too.</strong> One extra message, one extra minute of genuine listening, one extra occasion to express appreciation. These compound in relationships exactly as they do in work.</li>
+</ul></div>
+<div class="s-lbl">How Pillar III Laws Apply Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card"><span class="s-age">Student · Age 18–25</span><h5>Install your philosophy now</h5><p>Laws 18–24 are the mental operating system. Installing them early means every subsequent decision runs on a better processor. Truth-seeking, long-horizon thinking, and compounding are most powerful when started young — the earlier the base, the larger the compound.</p></div>
+<div class="s-card"><span class="s-age">Professional · Age 30–45</span><h5>Philosophy separates the plateau from the peak</h5><p>Mid-career professionals who plateau often find the issue is not skill — it is philosophy. Short-horizon thinking, aversion to uncomfortable truth, and self-compromise accumulate into ceilings. These laws are the tools for breaking through them.</p></div>
+<div class="s-card"><span class="s-age">Transition · Age 50+</span><h5>Compound what you already have</h5><p>By this stage, significant assets already exist — knowledge, experience, relationships, perspective. The philosophy laws are especially relevant here: invest in compounding what you have, maintain your relationship with truth, and extend your time horizon past the conventional retirement horizon.</p></div>
+</div>
+</div></section>
+
+<!-- PILLAR IV -->
+<div class="pillar-hdr" id="pillar4">
+<div class="wrap">
+<div class="p-num">IV</div>
+<div class="p-info">
+<h3>Pillar Four: The Team</h3>
+<p>Laws 25–29 &nbsp;·&nbsp; The principles behind building, leading, and sustaining high-performance teams and organisations. No individual compounds without people who amplify them.</p>
+</div>
+</div>
+</div>
+
+<!-- LAW 25 -->
+<section class="sec" id="law25">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar IV · Law 25</span><h2>Culture Is Not What You Say — It's What You Tolerate</h2></div>
+<blockquote class="law-quote">"You can write your values on every wall in the building. If the behaviours you actually tolerate contradict those values, the culture is defined by the behaviours — not the words."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Culture is one of the most discussed and least understood concepts in business. Bartlett cuts through the ambiguity with a single operative definition: culture is the collection of behaviours that are rewarded, punished, or tolerated within a group. Everything else — the stated values, the mission posters, the culture decks — is aspiration until it is enforced by consistent behaviour at every level of leadership.</p>
+<p>The critical implication: you cannot declare a culture into existence. You build it by what you do in the thousand small moments when standards are tested — when a value is compromised for expediency, when a high performer behaves badly and is not held accountable, when a brave act is punished rather than rewarded. Social Chain's culture was not built by Bartlett writing down what he wanted it to be. It was built by how he responded to every instance where the culture was tested.</p>
+<div class="diagram">
+<div class="d-title">Figure 4.1 — The Culture Equation: What Gets Built vs. What Gets Declared</div>
+<svg viewBox="0 0 740 200" width="740" height="200" font-family="Georgia,serif">
+  <rect width="740" height="200" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="20" width="218" height="140" rx="8" fill="#0c0f1a"/>
+  <text x="121" y="52" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold">REWARDED</text>
+  <line x1="28" y1="64" x2="214" y2="64" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="121" y="90" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">What behaviours</text>
+  <text x="121" y="108" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">earn recognition,</text>
+  <text x="121" y="126" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">promotion, praise?</text>
+  <text x="246" y="98" text-anchor="middle" fill="#c9961a" font-size="18" font-weight="bold">+</text>
+  <rect x="262" y="20" width="218" height="140" rx="8" fill="#0c0f1a"/>
+  <text x="371" y="52" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold">PUNISHED</text>
+  <line x1="278" y1="64" x2="464" y2="64" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="371" y="90" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">What behaviours</text>
+  <text x="371" y="108" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">cause friction,</text>
+  <text x="371" y="126" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">consequence, exit?</text>
+  <text x="496" y="98" text-anchor="middle" fill="#c9961a" font-size="18" font-weight="bold">+</text>
+  <rect x="512" y="20" width="218" height="140" rx="8" fill="#0c0f1a"/>
+  <text x="621" y="52" text-anchor="middle" fill="#c9961a" font-size="10.5" font-weight="bold">TOLERATED</text>
+  <line x1="528" y1="64" x2="714" y2="64" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="621" y="90" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">What behaviours</text>
+  <text x="621" y="108" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">pass without</text>
+  <text x="621" y="126" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10.5">comment or cost?</text>
+  <rect x="12" y="172" width="716" height="22" rx="6" fill="rgba(201,150,26,0.12)" stroke="#c9961a" stroke-width="1"/>
+  <text x="370" y="187" text-anchor="middle" fill="#7a5a00" font-size="10.5" font-weight="bold">These three columns together = your actual culture. Not your values document.</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 25 — Actions to Take Now</h4><ul>
+<li><strong>Map your actual culture using the three columns.</strong> Write down three things currently rewarded, three things punished, and three things tolerated in your team or workplace. The tolerated column reveals your culture's true ceiling.</li>
+<li><strong>Address one tolerated behaviour this week.</strong> Choose the most important thing currently being silently accepted that contradicts the culture you want. Address it directly, once, clearly. Culture shifts happen one addressed moment at a time.</li>
+<li><strong>Align recognition with stated values.</strong> Audit the last ten times you publicly praised or rewarded someone in your team. What behaviours did those recognitions reinforce? Were they the behaviours that define the culture you're trying to build?</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 26 -->
+<section class="sec" id="law26">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar IV · Law 26</span><h2>Hire Slow, Fire Fast</h2></div>
+<blockquote class="law-quote">"The single most expensive mistake a company makes is a bad hire kept too long. The second most expensive is a good hire not made quickly enough when you find them."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Hiring decisions are among the highest-leverage choices any leader makes — and among the most consistently botched. Bartlett identifies two distinct failure modes: hiring too quickly (optimising for urgency, filling a seat rather than finding the right person) and keeping bad hires too long (optimising for comfort, avoiding the difficult conversation, hoping things will improve). Both are expensive. Both are avoidable. The discipline required is patience in the search and decisiveness in the exit.</p>
+<p>Bartlett's observation from scaling Social Chain: every bad hire that was kept more than six months after the signs appeared cost the business approximately three times what it would have cost to exit them at the first clear signal. The cost is not just their salary — it is the culture they degrade, the decisions they make, the talented people they cause to leave, and the opportunity cost of the seat remaining occupied by someone who shouldn't be in it.</p>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I'll give them more time. Maybe they'll improve. It's hard to let someone go — it feels cruel, and we're so busy."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "Keeping a wrong hire in place is unfair to them, to the team around them, and to the mission. Honest, compassionate exits done promptly are kinder than prolonged mismatches. I act on clear signals quickly."</p></div>
+<div class="act-box"><h4>Law 26 — Actions to Take Now</h4><ul>
+<li><strong>Audit your hiring process for speed vs. rigour.</strong> Where does your process optimise for filling the seat quickly versus finding the genuinely right person? Build in at least one additional assessment touchpoint that reveals character and working style — not just competence.</li>
+<li><strong>Name the hire you've been avoiding a decision about.</strong> Most leaders have at least one person in their team about whom they have unresolved doubt. The fact that the doubt persists is itself a signal. Make the assessment explicit — and act on it.</li>
+<li><strong>Design a clear probationary standard.</strong> Before anyone joins your team, be explicit about what success looks like in 90 days. Review against it honestly at the 90-day mark. Most prolonged bad hires could be identified and addressed within this window if the standard is applied honestly.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 27 -->
+<section class="sec" id="law27">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar IV · Law 27</span><h2>Create a Culture That's Impossible to Leave</h2></div>
+<blockquote class="law-quote">"The goal is not to hire great people. The goal is to keep them. And great people stay not because of the salary — they stay because of how the work makes them feel, how they are seen, and what they are becoming."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Retention is the output of culture — and in the modern economy, retention is a critical competitive advantage. When exceptional people leave, they take not just their skills but their relationships, their institutional knowledge, and their potential future contributions. Building a culture that exceptional people don't want to leave is both the most humanistic and the most commercially intelligent investment a leader can make.</p>
+<p>Bartlett identifies three things that make great people stay: feeling genuinely seen and valued as individuals (not just as headcount), having a clear sense that they are growing — becoming better, more capable versions of themselves — and believing in the mission they are serving. The third matters more than most leaders assume: talented people will take a salary cut for work they believe matters.</p>
+<div class="callout c-key"><span class="cl">The Three Retention Pillars</span>
+<p><strong>1. Seen:</strong> Do people feel genuinely recognised — as individuals, not just as performers of a role? <strong>2. Growing:</strong> Are they becoming better? Is the work stretching them in ways that produce genuine capability? <strong>3. Believing:</strong> Do they believe in the mission — not just the product, but what it ultimately means? All three must be present. One absent makes the others fragile.</p></div>
+<div class="act-box"><h4>Law 27 — Actions to Take Now</h4><ul>
+<li><strong>Audit your team against the three pillars this week.</strong> For each person you're responsible for, honestly assess: do they feel seen, are they growing, do they believe? Any "no" is a retention risk — and a leadership responsibility.</li>
+<li><strong>Individualise your recognition.</strong> Generic praise is less effective than specific, personal recognition that makes someone feel genuinely seen. This week, give one specific, personal piece of recognition to every person in your immediate team.</li>
+<li><strong>Build growth into the role, not just the review cycle.</strong> Don't wait for the annual review to discuss someone's development. Make it a monthly conversation: "What did you get better at this month? What do you want to get better at next month?"</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 28 -->
+<section class="sec" id="law28">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar IV · Law 28</span><h2>Give Context, Not Instructions</h2></div>
+<blockquote class="law-quote">"If you give people instructions, you get compliance. If you give people context — why this matters, what success looks like, what we're ultimately trying to achieve — you get judgment. And judgment scales. Instructions don't."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">The most common failure mode in leadership is also the most well-intentioned: micromanagement. When leaders give detailed instructions rather than rich context, they create dependency — their teams become skilled at executing what they're told but unable to navigate situations the leader didn't anticipate. In a fast-moving environment, this is fatal. The leader becomes the bottleneck for every decision, and the team stops exercising the judgment that makes them genuinely valuable.</p>
+<p>The alternative is context-led leadership: explaining the why, the what-success-looks-like, the constraints, and the values that should guide decisions — then trusting people to navigate within that frame. People given genuine context and genuine autonomy consistently outperform people given detailed instructions and close supervision. And unlike instructions, context scales: it operates even when the leader is not in the room.</p>
+<div class="diagram">
+<div class="d-title">Figure 4.2 — Instructions vs. Context: What Each Creates at Scale</div>
+<svg viewBox="0 0 740 290" width="740" height="290" font-family="Georgia,serif">
+  <rect width="740" height="290" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="16" width="340" height="42" rx="6" fill="#4a1a00"/>
+  <text x="182" y="43" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Instruction-Led Leadership</text>
+  <rect x="388" y="16" width="340" height="42" rx="6" fill="#1a3a28"/>
+  <text x="558" y="43" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Context-Led Leadership</text>
+  <rect x="12" y="68" width="340" height="198" rx="6" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="182" y="100" text-anchor="middle" fill="#1e293b" font-size="12.5">Compliance · Not judgment</text>
+  <text x="182" y="126" text-anchor="middle" fill="#1e293b" font-size="12.5">Dependent on leader's presence</text>
+  <text x="182" y="152" text-anchor="middle" fill="#1e293b" font-size="12.5">Breaks down in novel situations</text>
+  <text x="182" y="178" text-anchor="middle" fill="#1e293b" font-size="12.5">Leader becomes the bottleneck</text>
+  <text x="182" y="244" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">Does not scale</text>
+  <rect x="388" y="68" width="340" height="198" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="558" y="100" text-anchor="middle" fill="#1e293b" font-size="12.5">Judgment · Genuine ownership</text>
+  <text x="558" y="126" text-anchor="middle" fill="#1e293b" font-size="12.5">Operates without supervision</text>
+  <text x="558" y="152" text-anchor="middle" fill="#1e293b" font-size="12.5">Navigates novel situations well</text>
+  <text x="558" y="178" text-anchor="middle" fill="#1e293b" font-size="12.5">Leader freed for high-leverage work</text>
+  <text x="558" y="244" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Scales with the team</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 28 — Actions to Take Now</h4><ul>
+<li><strong>Audit your last five delegations.</strong> Did you give instructions (do this, then this, then this) or context (here's why this matters, here's what success looks like, here are the constraints — you decide how)? Rewrite one current delegation in context-led terms.</li>
+<li><strong>Stop answering every question with an answer.</strong> When a team member brings you a problem for which they could find the answer themselves, respond with: "What do you think?" Then coach the answer. This builds judgment — which is what you actually need at scale.</li>
+<li><strong>Share more strategic context than you think necessary.</strong> Most leaders under-share the why. The more your team understands the mission, the constraints, and the values, the better the decisions they make independently.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 29 -->
+<section class="sec" id="law29">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar IV · Law 29</span><h2>Fight for Your Mission</h2></div>
+<blockquote class="law-quote">"The best teams are not held together by contracts or compensation. They are held together by a shared belief that what they are doing matters — and a leader who proves, daily, that they believe it too."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Mission is not a marketing asset. It is a retention strategy, a decision-making framework, and the most powerful force multiplier available to any leader. Teams that genuinely believe in what they are doing are willing to push through obstacles that stop teams motivated only by pay. They make better decisions in the leader's absence. They attract other mission-aligned people. They forgive imperfect processes and difficult periods. The mission is not decoration — it is the load-bearing wall of the whole structure.</p>
+<p>Fighting for the mission means two things in practice: ensuring the mission is specific, meaningful, and genuinely believed rather than corporate-generic — and then demonstrating through your own behaviour, visibly and consistently, that you believe it. Leadership that doesn't demonstrate conviction in the mission produces teams that mimic that ambivalence exactly.</p>
+<div class="act-box"><h4>Law 29 — Actions to Take Now</h4><ul>
+<li><strong>Test your mission statement for specificity.</strong> Could any company in your industry use the same mission statement? If yes, it's not a mission — it's a platitude. Rewrite it to describe something only you are trying to do, for someone specific, in a way that matters uniquely.</li>
+<li><strong>Connect daily work to the mission explicitly.</strong> In the next team meeting, explicitly connect at least one piece of work currently in progress to the ultimate mission. "This matters because…" said regularly by the leader, normalises mission-awareness in the team.</li>
+<li><strong>Demonstrate your own conviction.</strong> What is one thing you could do this week that would visibly demonstrate to your team that you believe in what you're collectively building — not as a performance, but as a genuine act of commitment?</li>
+</ul></div>
+<div class="s-lbl">How Pillar IV Laws Apply Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card"><span class="s-age">Student · Age 18–25</span><h5>Learn to lead before you have a title</h5><p>Leadership begins in informal contexts — study groups, projects, social circles. Practise context-giving, standard-holding, and mission-articulating now. The habits of leadership installed before responsibility arrives are the ones that will define your style when stakes are higher.</p></div>
+<div class="s-card"><span class="s-age">Professional · Age 30–45</span><h5>Your culture is your leverage</h5><p>At this stage you are almost certainly leading people, formally or informally. The team laws are most immediately applicable here. Culture, retention, and context-giving are not HR concerns — they are the primary levers of your professional impact.</p></div>
+<div class="s-card"><span class="s-age">Transition · Age 50+</span><h5>Mission becomes more important, not less</h5><p>Later-career transitions often involve moving from execution to stewardship — from building to enabling others to build. The mission laws are especially relevant: what do you believe in enough to fight for? That question, answered clearly, is the foundation of the next chapter.</p></div>
+</div>
+</div></section>
+
+<!-- PILLAR V -->
+<div class="pillar-hdr" id="pillar5">
+<div class="wrap">
+<div class="p-num">V</div>
+<div class="p-info">
+<h3>Pillar Five: The Business</h3>
+<p>Laws 30–33 &nbsp;·&nbsp; The strategic principles that govern how great businesses are built, grown, and sustained — and the mindset required to play the long game.</p>
+</div>
+</div>
+</div>
+
+<!-- LAW 30 -->
+<section class="sec" id="law30">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar V · Law 30</span><h2>Find Your One Thing</h2></div>
+<blockquote class="law-quote">"The greatest companies and the greatest individuals are not defined by how many things they do. They are defined by how exceptional they become at the one thing that matters most — and their relentless refusal to be distracted from it."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Focus is not a productivity strategy — it is a business strategy. The companies that win are almost never the ones that do the most things. They are the ones that identify the single most important thing they need to do better than anyone else, and then direct their resources at becoming definitively best at that one thing. Everything else is prioritised below it, or eliminated.</p>
+<p>This principle is easy to understand and notoriously difficult to execute, because the pressure in any growing organisation is to expand — to add products, services, channels, markets. Each individual expansion seems reasonable. The cumulative effect is diffusion: the organisation loses the clarity of purpose that made it exceptional in the first place and becomes mediocre at many things instead of extraordinary at one.</p>
+<div class="diagram">
+<div class="d-title">Figure 5.1 — The Focus Funnel: From Many Opportunities to One Excellence</div>
+<svg viewBox="0 0 740 260" width="740" height="260" font-family="Georgia,serif">
+  <rect width="740" height="260" fill="#f9f8f4" rx="10"/>
+  <!-- Funnel shape -->
+  <polygon points="40,30 700,30 600,130 480,200 370,240 260,200 140,130" fill="rgba(201,150,26,0.08)" stroke="#c9961a" stroke-width="1.5"/>
+  <!-- Top label -->
+  <text x="370" y="22" text-anchor="middle" fill="#64748b" font-size="10.5" font-style="italic">All available opportunities, ideas, markets, products</text>
+  <!-- Narrowing labels -->
+  <text x="370" y="80" text-anchor="middle" fill="#1e293b" font-size="10.5">Filter: What do we do better than anyone?</text>
+  <text x="370" y="140" text-anchor="middle" fill="#1e293b" font-size="10.5">Filter: What do customers most value us for?</text>
+  <text x="370" y="190" text-anchor="middle" fill="#1e293b" font-size="10.5">Filter: What, if removed, destroys our identity?</text>
+  <!-- Bottom point -->
+  <circle cx="370" cy="238" r="14" fill="#0c0f1a"/>
+  <text x="370" y="243" text-anchor="middle" fill="#c9961a" font-size="10" font-weight="bold">ONE THING</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 30 — Actions to Take Now</h4><ul>
+<li><strong>Define your one thing explicitly.</strong> For your business or career: what is the one thing you do, or could do, better than anyone? Write it as a specific sentence — not a category, but a specific capability. If you cannot write it clearly, you haven't found it yet.</li>
+<li><strong>Audit your current activity against your one thing.</strong> What percentage of your time, resources, and energy is directed at becoming definitively excellent at your one thing? What is consuming the rest? Make a deliberate cut this week.</li>
+<li><strong>Say no to adjacent opportunities.</strong> Every time you decline something that doesn't serve your one thing, you are making a deposit into your focused excellence account. Practise the discipline of saying no to good opportunities in order to preserve space for the one that defines you.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 31 -->
+<section class="sec" id="law31">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar V · Law 31</span><h2>Become a Marketing Genius</h2></div>
+<blockquote class="law-quote">"The best product does not win. The best-marketed product wins. Marketing is not decoration on top of a business — it is the mechanism by which your value reaches the people who need it. Without it, nothing else matters."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Bartlett argues that marketing is the most undervalued discipline in most businesses — treated as a cost to be minimised or a department to be managed, rather than as the primary engine of growth and, ultimately, survival. The best product without marketing is an irrelevance. A good product with exceptional marketing is a market leader. This is not a cynical observation — it is a description of how markets actually work.</p>
+<p>The marketing genius is not the person who spends the most on advertising. It is the person who most deeply understands the customer: their fears, desires, language, beliefs, and triggers — and then communicates with them in a way that feels personal, true, and worth their attention. Bartlett built a media empire on this understanding. Every piece of content The Diary of a CEO produces is marketing — not because it sells something, but because it builds the relationship that makes selling unnecessary.</p>
+<div class="callout c-ins"><span class="cl">The Marketing Genius Framework</span>
+<p><strong>Know:</strong> What does your customer fear, desire, believe, and aspire to? <strong>Speak:</strong> Use their language, not your industry jargon. <strong>Show:</strong> Demonstrate value before asking for it. <strong>Trust:</strong> Build the relationship first; the transaction follows naturally. Most businesses reverse this sequence — they sell before they've built trust, and wonder why conversion is low.</p></div>
+<div class="act-box"><h4>Law 31 — Actions to Take Now</h4><ul>
+<li><strong>Interview three of your best customers this week.</strong> Not a survey — an actual conversation. Ask: what were you struggling with before you found us? How do you describe what we do to others? What almost stopped you from buying? The answers will rewrite your marketing.</li>
+<li><strong>Create one piece of genuinely useful content this week.</strong> Not a promotion, not a product announcement — something that provides real value to your target customer whether or not they ever buy from you. This is how trust is built at scale.</li>
+<li><strong>Audit your marketing language for jargon.</strong> Replace every industry term in your current marketing copy with the exact language your customers use when describing their problem. If you're unsure what that language is, re-read step one.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 32 -->
+<section class="sec" id="law32">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar V · Law 32</span><h2>Create Systems, Not Goals</h2></div>
+<blockquote class="law-quote">"Goals tell you where you want to go. Systems determine whether you get there. A brilliant goal with no system is a wish. A modest goal with an excellent system is a guarantee."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">Bartlett draws a sharp distinction between goals — the targets we aim at — and systems — the processes, habits, and structures that determine whether we hit them. Most people spend enormous energy setting goals and minimal energy designing systems. The result is that their performance is entirely dependent on motivation, willpower, and circumstances, all of which are unreliable. The person with a great system reaches their destination even on the days they don't feel like it — because the system runs independently of their emotional state.</p>
+<p>This is not to say goals are unimportant — they provide direction. But the goal is the destination; the system is the vehicle. You can want to arrive in a new city as much as you like. Without a functioning vehicle and a clear route, wanting changes nothing.</p>
+<div class="diagram">
+<div class="d-title">Figure 5.2 — Goals vs. Systems: What Actually Drives Outcomes</div>
+<svg viewBox="0 0 740 300" width="740" height="300" font-family="Georgia,serif">
+  <rect width="740" height="300" fill="#f9f8f4" rx="10"/>
+  <rect x="12" y="16" width="340" height="44" rx="6" fill="#4a1a00"/>
+  <text x="182" y="44" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">Goal Without System</text>
+  <rect x="388" y="16" width="340" height="44" rx="6" fill="#1a3a28"/>
+  <text x="558" y="44" text-anchor="middle" fill="#c9961a" font-size="13" font-weight="bold">System Without Goal</text>
+  <rect x="12" y="70" width="340" height="210" rx="6" fill="#fff1f0" stroke="#dc2626" stroke-width="1"/>
+  <text x="182" y="104" text-anchor="middle" fill="#1e293b" font-size="12.5">"I want to write a book."</text>
+  <text x="182" y="132" text-anchor="middle" fill="#64748b" font-size="12" font-style="italic">No daily writing habit, no time blocked.</text>
+  <text x="182" y="158" text-anchor="middle" fill="#64748b" font-size="12" font-style="italic">Relies on inspiration and motivation.</text>
+  <text x="182" y="184" text-anchor="middle" fill="#64748b" font-size="12" font-style="italic">Gets written when circumstances align.</text>
+  <text x="182" y="254" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="bold">Result: Rarely achieves goal</text>
+  <rect x="388" y="70" width="340" height="210" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1"/>
+  <text x="558" y="104" text-anchor="middle" fill="#1e293b" font-size="12.5">"I write 500 words before 8am, daily."</text>
+  <text x="558" y="132" text-anchor="middle" fill="#64748b" font-size="12" font-style="italic">Runs regardless of motivation.</text>
+  <text x="558" y="158" text-anchor="middle" fill="#64748b" font-size="12" font-style="italic">Creates output through consistency.</text>
+  <text x="558" y="184" text-anchor="middle" fill="#64748b" font-size="12" font-style="italic">The book emerges as a by-product.</text>
+  <text x="558" y="254" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Result: Book is written</text>
+</svg>
+</div>
+<div class="act-box"><h4>Law 32 — Actions to Take Now</h4><ul>
+<li><strong>Convert your most important goal into a system.</strong> Take one major goal currently sitting on your list. Identify the daily or weekly behaviour that, if done consistently, makes achieving it almost inevitable. That behaviour is your system. Schedule it.</li>
+<li><strong>Remove reliance on willpower.</strong> For any system to work, the friction of not doing it must be higher than the friction of doing it. Design your environment so that the system-consistent choice is the path of least resistance: lay out the workout clothes, block the writing time, close the distracting tabs.</li>
+<li><strong>Measure the system, not just the goal.</strong> Track whether you performed the system behaviour each day, not just whether you achieved the goal. This shifts your identity from "someone trying to achieve X" to "someone who does Y every day" — and the latter is the person who actually achieves X.</li>
+</ul></div>
+</div></section>
+
+<!-- LAW 33 -->
+<section class="sec" id="law33">
+<div class="wrap">
+<div class="law-hdr"><span class="law-tag">Pillar V · Law 33</span><h2>Build in the Long Term</h2></div>
+<blockquote class="law-quote">"The people who change industries, change cultures, change the world — they are never the ones playing the quarterly game. They are the ones who chose to play a longer game than almost everyone else was willing to play."<cite>— Steven Bartlett</cite></blockquote>
+<p style="margin-top:28px">The final law is a synthesis and a commitment. Everything in this book — the discipline of self, the mastery of story, the rigour of philosophy, the excellence of team-building, the strategic clarity of business — only produces its full return when applied over a long time horizon. The short-term game is crowded, noisy, and ultimately self-defeating. The long game is almost empty — because it requires the discipline to sacrifice short-term gains for long-term position, and most people are unwilling to make that trade.</p>
+<p>Bartlett's career is itself the case study: he did not build Social Chain for a quick exit, or The Diary of a CEO for immediate revenue. He built each for what it could become over years and decades — making decisions optimised for the long term even when they cost him in the short. The compounding of that approach, sustained over time, is what produced results that appear "overnight" to people who didn't see the years of quiet, consistent building that preceded them.</p>
+<div class="callout c-key"><span class="cl">The Long Game Commitment</span>
+<p>The long game is not patience — it is a strategy. It means making decisions today that sacrifice short-term comfort or reward in order to build a larger, more valuable, more durable position in the future. It means measuring yourself on a time horizon that most competitors are not willing to hold. And it means having the self-knowledge and the philosophy (Pillar III) to sustain that commitment through the periods when the compounding is invisible and the short-term temptations are loudest.</p></div>
+<div class="mindset"><span class="ms-lbl">Mindset Shift Required</span>
+<p class="ms-old">Old: "I need to see results soon. If this isn't working quickly, I should pivot, change strategy, or try something else."</p>
+<div class="ms-arr">↓</div>
+<p class="ms-new">New: "I am playing a game that most people exit before it pays. My patience and consistency are themselves competitive advantages — because almost no one else maintains them. I measure my progress in years, not weeks."</p></div>
+<div class="act-box"><h4>Law 33 — Actions to Take Now</h4><ul>
+<li><strong>Define your long game explicitly.</strong> What are you building — in your career, your business, your relationships, your health — that will not fully pay off for ten or more years? Write it down as a clear, specific vision. Then identify the one thing you need to do consistently, every week, to build toward it.</li>
+<li><strong>Identify where you are currently playing the short game.</strong> Where are you making choices that optimise for the next month at the cost of the next decade? Name one. Make a different choice this week.</li>
+<li><strong>Build a review ritual for the long game.</strong> Quarterly, review your progress not against short-term metrics but against the trajectory you want to be on in ten years. Are you moving in the right direction? Is your pace appropriate? Are you making the sacrifices the long game requires? Adjust where necessary.</li>
+</ul></div>
+<div class="s-lbl">How Pillar V Laws Apply Across Life Stages</div>
+<div class="stages-grid">
+<div class="s-card"><span class="s-age">Student · Age 18–25</span><h5>Choose your long game early</h5><p>The earlier you identify the one thing you want to build and begin building systems to support it, the more compounding you access. The student who begins playing the long game at 22 arrives at 35 having compounded for thirteen years. Their peer who started at 32 has three. This gap cannot be closed by talent alone.</p></div>
+<div class="s-card"><span class="s-age">Professional · Age 30–45</span><h5>Systems and focus determine your ceiling</h5><p>At this stage, the business laws are most operationally relevant. The professionals who outperform their peers are almost always those who have found their one thing, built systems around it, and are willing to play a longer game than the incentive structures around them reward.</p></div>
+<div class="s-card"><span class="s-age">Transition · Age 50+</span><h5>The long game still has decades left</h5><p>The false belief that the long game ends at 50 is one of the most expensive misconceptions in modern life. With appropriate health and engagement, the most impactful decades of many people's lives are those after 50 — when accumulated wisdom, relationships, and resources meet a long game with clear direction.</p></div>
+</div>
+</div></section>
+<!-- KEY VOCABULARY -->
+<section class="sec" id="vocab">
+<div class="wrap">
+<h2 style="border-bottom:3px solid var(--gold);padding-bottom:14px;margin-bottom:28px">Key Vocabulary</h2>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L5, 23, 33</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Compound Effect</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Small consistent actions accumulate exponentially. Invisible short-term, transformative long-term.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L7</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Prospective Narrative</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">A deliberately authored future-self story, written in present tense. Serves as identity scaffold and decision filter.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L11</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Framing</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">The context around information that shapes how it's received. Same facts, different frames = opposite responses.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L15</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Gift-Tax Dynamic</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Every great strength carries a corresponding cost. Self-awareness means knowing both sides.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L19</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Confirmation Bias</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">We seek data confirming what we already believe. Antidote is system design, not willpower.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L12</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Open Loop</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Unresolved tension introduced at the start of communication, compelling the audience to keep engaging.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L6, 13</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Signal Integrity</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Alignment between what you say and what you do. When they diverge, behaviour always wins.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L28</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Context-Led Leadership</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Give people the why and success criteria — not instructions. Produces judgment that scales.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L21</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Self-Trust</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Confidence built by consistently keeping commitments to yourself. Evidence-based, not externally granted.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L18, 23, 30</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Opportunity Cost</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Every yes is a no to something else. The value of the best foregone alternative.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L13</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">Declaration-Demo Gap</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">The distance between stated values and demonstrated behaviour. Where trust is quietly destroyed.</p>
+</div>
+<div style="background:#fff;border-top:3px solid var(--gold);border-radius:0 0 8px 8px;padding:14px 15px">
+<div style="font-size:0.78em;font-weight:bold;color:var(--gold);letter-spacing:.04em;margin-bottom:5px">L33</div>
+<h5 style="color:var(--ink);margin-bottom:5px;font-size:0.92em">The Long Game</h5>
+<p style="margin:0;font-size:0.82em;color:var(--muted);line-height:1.5">Prioritising long-term position over short-term gain. A strategy, not just patience.</p>
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- FOOTER -->
+<footer style="background:var(--ink);color:rgba(255,255,255,0.6);padding:56px 0 40px;text-align:center">
+<div class="wrap">
+<div style="font-size:2em;color:var(--gold);font-family:Georgia,serif;margin-bottom:8px">✦</div>
+<p style="color:rgba(255,255,255,0.9);font-size:1.15em;font-style:italic;margin-bottom:6px">"The best investment you will ever make is in the person who will be responsible for every other investment you make — yourself."</p>
+<p style="font-size:0.9em;margin-bottom:32px">— Steven Bartlett, <em>The Diary of a CEO</em></p>
+<div style="width:60px;height:2px;background:var(--gold);margin:0 auto 28px"></div>
+<p style="font-size:0.95em;color:rgba(255,255,255,0.5);margin-bottom:4px">This transformation guide covers all 33 laws across the five pillars of The Diary of a CEO.</p>
+<p style="font-size:0.95em;color:rgba(255,255,255,0.5);margin-bottom:28px">Return to it at different stages of your life — it will have something new to say each time.</p>
+<a href="#top" style="display:inline-block;background:var(--gold);color:var(--ink);padding:11px 28px;border-radius:6px;font-weight:bold;font-size:0.95em;text-decoration:none;margin-bottom:36px">↑ Back to Top</a>
+<p style="font-size:0.88em;color:rgba(255,255,255,0.3)">Made with love by Gourang Sharma</p>
+</div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+</script>
+</body>
+</html>

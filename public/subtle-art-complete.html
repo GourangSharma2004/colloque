@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Subtle Art of Not Giving a F*ck — Complete Transformation Guide</title>
+<style>
+
+  :root{--bg:#0e0e0f;--surface:#181819;--card:#1f1f21;--gold:#c9a84c;--red:#e05c4b;--cream:#f0ede6;--muted:#9a9a9a;--border:#2a2a2d;--blue:#4b8fe0;--purple:#9b7fe0;--green:#50b98a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--cream);font-family:'Georgia',serif;line-height:1.75;font-size:17px}
+  a{color:var(--gold);text-decoration:none}
+  /* ── COVER ── */
+  .cover{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;overflow:hidden;background:#0a0a0b;border-bottom:1px solid var(--border)}
+  .cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,0.18) 0%,transparent 65%),radial-gradient(ellipse 60% 40% at 20% 100%,rgba(224,92,75,0.10) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(75,143,224,0.08) 0%,transparent 60%);pointer-events:none}
+  .cover-asterisk{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.035;pointer-events:none;width:min(700px,110vw);height:min(700px,110vw)}
+  .cover-top-rule{width:48px;height:2px;background:var(--gold);margin:0 auto 28px;opacity:0.8}
+  .cover-eyebrow{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:32px}
+  .cover-eyebrow-text{font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+  .cover-eyebrow-line{flex:1;max-width:60px;height:1px;background:var(--gold);opacity:0.4}
+  .cover-title{font-size:clamp(2.8rem,7vw,5.2rem);line-height:1.08;letter-spacing:-0.02em;max-width:720px;margin:0 auto 12px;font-weight:normal}
+  .cover-title .line1{display:block;color:#c8c4bc;font-size:0.52em;letter-spacing:0.04em;text-transform:uppercase;font-family:'Helvetica Neue',sans-serif;font-weight:300;margin-bottom:12px}
+  .cover-title em{font-style:normal;color:var(--gold);display:block}
+  .cover-title .fword{color:var(--red)}
+  .cover-ruleset{display:flex;align-items:center;gap:20px;justify-content:center;margin:36px auto}
+  .cover-ruleset span{width:40px;height:1px;background:var(--border)}
+  .cover-ruleset svg{flex-shrink:0}
+  .cover-quote{font-size:1.05rem;color:#c8c4bc;font-style:italic;max-width:480px;margin:0 auto;line-height:1.7;border-left:none;padding:0}
+  .cover-quote cite{display:block;font-size:11px;font-style:normal;color:var(--muted);margin-top:10px;font-family:'Helvetica Neue',sans-serif;letter-spacing:2px;text-transform:uppercase}
+  .cover-stats{display:flex;gap:0;margin:44px auto 0;border:1px solid var(--border);border-radius:4px;overflow:hidden;max-width:420px;width:100%}
+  .cover-stat{flex:1;padding:18px 12px;text-align:center;border-right:1px solid var(--border)}
+  .cover-stat:last-child{border-right:none}
+  .stat-num{display:block;font-size:2rem;font-weight:700;color:var(--gold);font-family:'Helvetica Neue',sans-serif;line-height:1}
+  .stat-label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Helvetica Neue',sans-serif;margin-top:6px}
+  .cover-bottom{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .cover-scroll-hint{font-family:'Helvetica Neue',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);animation:pulse 2.5s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+  .cover-scroll-arrow{width:1px;height:36px;background:linear-gradient(to bottom,var(--gold),transparent);margin:0 auto}
+
+
+
+
+
+  /* ── LAYOUT ── */
+  .container{max-width:760px;margin:0 auto;padding:0 24px}
+  section{padding:72px 0}
+  section+section{border-top:1px solid var(--border)}
+  /* ── TOC ── */
+  .toc{background:var(--surface);border-left:3px solid var(--gold);padding:32px 36px;border-radius:0 8px 8px 0}
+  .toc h2{font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .toc ol{list-style:none;counter-reset:toc}
+  .toc ol li{counter-increment:toc;padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:12px;font-size:15px}
+  .toc ol li::before{content:counter(toc,decimal-leading-zero);font-family:'Helvetica Neue',sans-serif;color:var(--gold);font-size:12px;min-width:24px}
+  /* ── CHAPTER HEADER ── */
+  .ch-header{margin-bottom:40px}
+  .ch-num{font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .ch-header h2{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2}
+  .ch-header .tagline{color:var(--muted);font-size:1rem;margin-top:10px;font-style:italic}
+  /* ── PROSE ── */
+  p{margin-bottom:1.2em;color:#d8d4cc}
+  h3{font-size:1.2rem;color:var(--cream);margin:2em 0 0.6em;font-family:'Helvetica Neue',sans-serif;font-weight:600}
+  /* ── CALLOUT ── */
+  .callout{background:var(--card);border-left:3px solid var(--red);padding:20px 24px;border-radius:0 6px 6px 0;margin:28px 0}
+  .callout-label{font-family:'Helvetica Neue',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+  .callout p{color:var(--cream);margin:0;font-size:1rem}
+  .callout-gold{border-left-color:var(--gold)}
+  .callout-gold .callout-label{color:var(--gold)}
+  /* ── QUOTE ── */
+  blockquote{margin:32px 0;padding:0 0 0 24px;border-left:2px solid var(--gold);font-size:1.15rem;color:var(--cream);font-style:italic}
+  blockquote cite{display:block;font-size:12px;font-style:normal;color:var(--muted);margin-top:8px;font-family:'Helvetica Neue',sans-serif;letter-spacing:1px}
+  /* ── ACTION BOX ── */
+  .action-box{background:linear-gradient(135deg,#1a1f10,#1a1a0f);border:1px solid var(--gold);border-radius:8px;padding:28px 32px;margin:32px 0}
+  .action-box h4{font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .action-box ul{list-style:none;padding:0}
+  .action-box ul li{padding:7px 0;border-bottom:1px solid #2a2a1a;font-size:15px;padding-left:20px;position:relative;color:#d8d4cc}
+  .action-box ul li:last-child{border:none}
+  .action-box ul li::before{content:"→";position:absolute;left:0;color:var(--gold)}
+  /* ── LIFE STAGES ── */
+  .life-stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:28px 0}
+  .stage-card{background:var(--card);border-radius:6px;padding:20px;border-top:2px solid}
+  .stage-card.student{border-color:#4b8fe0}
+  .stage-card.pro{border-color:var(--gold)}
+  .stage-card.elder{border-color:#9b7fe0}
+  .stage-card h5{font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+  .stage-card.student h5{color:#4b8fe0}
+  .stage-card.pro h5{color:var(--gold)}
+  .stage-card.elder h5{color:#9b7fe0}
+  .stage-card p{font-size:14px;color:#b8b4ac;margin:0}
+  /* ── SVG WRAPPER ── */
+  .diagram{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;margin:32px 0;overflow-x:auto}
+  .diagram-title{font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;text-align:center}
+  svg text{font-family:'Helvetica Neue',Arial,sans-serif}
+  /* ── KEY VOCAB ── */
+  .vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:24px 0}
+  .vocab-card{background:var(--card);border-radius:6px;padding:18px 20px}
+  .vocab-card .term{font-weight:700;color:var(--gold);font-size:15px;margin-bottom:6px}
+  .vocab-card .def{font-size:14px;color:#b8b4ac}
+  /* ── DIVIDER ── */
+  .ornament{text-align:center;color:var(--border);font-size:24px;margin:40px 0;letter-spacing:8px}
+  /* 30-DAY PLAN */
+  .plan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:24px 0}
+  .day-card{background:var(--card);border-radius:6px;padding:14px;border-top:2px solid var(--border)}
+  .day-card.focus1{border-color:var(--red)}.day-card.focus2{border-color:var(--blue)}.day-card.focus3{border-color:var(--gold)}.day-card.focus4{border-color:#9b7fe0}.day-card.focus5{border-color:#50b98a}
+  .day-num{font-family:'Helvetica Neue',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .day-title{font-size:13px;font-weight:600;color:var(--cream);margin-bottom:4px;font-family:'Helvetica Neue',sans-serif}
+  .day-task{font-size:12px;color:#b8b4ac}
+  .week-label{font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:10px 0;color:var(--gold);border-bottom:1px solid var(--border);margin-bottom:12px;margin-top:28px}
+  .plan-legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-family:'Helvetica Neue',sans-serif}
+  .legend-dot{width:10px;height:10px;border-radius:50%}
+  .closing-card{background:linear-gradient(135deg,#0a0a1a,#1a0a0a);border:1px solid var(--border);border-radius:12px;padding:48px 40px;text-align:center;margin:40px 0}
+  .closing-card h2{font-size:1.8rem;margin-bottom:16px}
+  .closing-card p{color:var(--muted);max-width:520px;margin:0 auto}
+  .callout-purple{border-left-color:#9b7fe0}.callout-purple .callout-label{color:#9b7fe0}
+  /* ── FOOTER ── */
+  footer{text-align:center;padding:48px 24px;color:var(--muted);font-size:14px;border-top:1px solid var(--border);font-family:'Helvetica Neue',sans-serif}
+  footer span{color:var(--red)}
+  /* ── PART BADGE TOP ── */
+  .part-header{background:var(--surface);padding:16px 24px;text-align:center;font-family:'Helvetica Neue',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--border)}
+  /* ── TABLE ── */
+  .data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:15px}
+  .data-table th{background:var(--card);color:var(--gold);font-family:'Helvetica Neue',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:12px 16px;text-align:left;border-bottom:2px solid var(--border)}
+  .data-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:#d8d4cc;vertical-align:top}
+  .data-table tr:last-child td{border-bottom:none}
+
+</style>
+</head>
+<body>
+
+<div class="part-header">The Subtle Art of Not Giving a F*ck · Complete Transformation Guide</div>
+
+<div class="cover">
+
+  <!-- Giant decorative asterisk SVG background -->
+  <svg class="cover-asterisk" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g transform="translate(200,200)" stroke="#c9a84c" stroke-width="1" fill="none">
+      <line x1="0" y1="-190" x2="0" y2="190"/>
+      <line x1="-190" y1="0" x2="190" y2="0"/>
+      <line x1="-134" y1="-134" x2="134" y2="134"/>
+      <line x1="134" y1="-134" x2="-134" y2="134"/>
+      <circle cx="0" cy="0" r="80" stroke-dasharray="6 6"/>
+      <circle cx="0" cy="0" r="150" stroke-dasharray="2 10"/>
+      <circle cx="0" cy="0" r="190" opacity="0.4"/>
+      <polygon points="0,-12 10.4,6 -10.4,6" fill="#c9a84c" opacity="0.6"/>
+      <polygon points="0,12 10.4,-6 -10.4,-6" fill="#c9a84c" opacity="0.6"/>
+      <polygon points="-12,0 6,10.4 6,-10.4" fill="#c9a84c" opacity="0.6"/>
+      <polygon points="12,0 -6,10.4 -6,-10.4" fill="#c9a84c" opacity="0.6"/>
+    </g>
+  </svg>
+
+  <div class="cover-top-rule"></div>
+
+  <div class="cover-eyebrow">
+    <span class="cover-eyebrow-line"></span>
+    <span class="cover-eyebrow-text">Mark Manson</span>
+    <span class="cover-eyebrow-line"></span>
+  </div>
+
+  <h1 class="cover-title">
+    <span class="line1">The Subtle Art of</span>
+    <em>Not Giving<br>a <span class="fword">F*ck</span></em>
+  </h1>
+
+  <div class="cover-ruleset">
+    <span></span>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 2 L10 18 M2 10 L18 10 M4.1 4.1 L15.9 15.9 M15.9 4.1 L4.1 15.9" stroke="#c9a84c" stroke-width="1.2"/>
+      <circle cx="10" cy="10" r="2.5" fill="#c9a84c"/>
+    </svg>
+    <span></span>
+  </div>
+
+  <p class="cover-quote">
+    "Who you are is defined by what you're willing to struggle for."
+    <cite>— Mark Manson</cite>
+  </p>
+
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <span class="stat-num">9</span>
+      <span class="stat-label">Chapters</span>
+    </div>
+    <div class="cover-stat">
+      <span class="stat-num">15</span>
+      <span class="stat-label">Diagrams</span>
+    </div>
+    <div class="cover-stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Life Stages</span>
+    </div>
+    <div class="cover-stat">
+      <span class="stat-num">12</span>
+      <span class="stat-label">Key Terms</span>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <span class="cover-scroll-hint">Scroll to begin</span>
+    <div class="cover-scroll-arrow"></div>
+  </div>
+
+</div>
+
+<div class="container">
+
+<section>
+  <div class="toc">
+    <h2>Complete Contents</h2>
+    <ol>
+      <li>Don't Try — The Counterintuitive Path to a Good Life</li>
+      <li>Happiness Is a Problem — The Struggle Equation</li>
+      <li>You Are Not Special — The Entitlement Trap</li>
+      <li>The Value of Suffering — Choosing Better Metrics</li>
+      <li>You Are Always Choosing — Fault vs. Responsibility</li>
+      <li>You're Wrong About Everything (But So Am I) — Uncertainty as a Tool</li>
+      <li>Failure Is the Way Forward — The Do Something Principle</li>
+      <li>The Importance of Saying No — Commitment, Depth &amp; Rejection</li>
+      <li>…And Then You Die — Mortality as the Final Teacher</li>
+    </ol>
+  </div>
+  <p style="margin-top:24px;color:var(--muted);font-size:14px;font-family:'Helvetica Neue',sans-serif">Also includes: Key Vocabulary · Closing Synthesis</p>
+</section>
+
+<section id="ch1">
+  <div class="ch-header">
+    <div class="ch-num">Chapter 01</div>
+    <h2>Don't Try</h2>
+    <p class="tagline">The more desperately you chase feeling good, the worse you feel.</p>
+  </div>
+
+  <p>Mark Manson opens by invoking Charles Bukowski — a man who failed spectacularly, repeatedly, and made no pretense of success. Bukowski's epitaph reads: <em>"Don't try."</em> Not laziness. An entirely different philosophy: <strong>stop performing contentment and start being honest about your life.</strong></p>
+
+  <blockquote>
+    "The desire for more positive experience is itself a negative experience. The acceptance of one's negative experience is itself a positive experience."
+    <cite>— Mark Manson, paraphrasing Alan Watts</cite>
+  </blockquote>
+
+  <p>The modern self-help industry is built on a paradox: it tells you to feel amazing about yourself constantly, which signals to your brain that something is wrong because you don't. Wanting to be confident implies you feel inadequate. Wanting to be rich implies you feel poor. Manson calls this the <strong>Feedback Loop from Hell.</strong></p>
+
+  <div class="diagram">
+    <div class="diagram-title">Fig 1.1 — The Feedback Loop from Hell</div>
+    <svg viewBox="0 0 560 260" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- Boxes -->
+      <rect x="30" y="30" width="140" height="54" rx="6" fill="#2a1a1a" stroke="#e05c4b" stroke-width="1.5"/>
+      <text x="100" y="53" text-anchor="middle" fill="#f0ede6" font-size="12">Feel Anxious</text>
+      <text x="100" y="71" text-anchor="middle" fill="#9a9a9a" font-size="11">about something</text>
+
+      <rect x="210" y="30" width="140" height="54" rx="6" fill="#2a1a1a" stroke="#e05c4b" stroke-width="1.5"/>
+      <text x="280" y="53" text-anchor="middle" fill="#f0ede6" font-size="12">Notice Anxiety</text>
+      <text x="280" y="71" text-anchor="middle" fill="#9a9a9a" font-size="11">feel bad about it</text>
+
+      <rect x="390" y="30" width="140" height="54" rx="6" fill="#2a1a1a" stroke="#e05c4b" stroke-width="1.5"/>
+      <text x="460" y="53" text-anchor="middle" fill="#f0ede6" font-size="12">Anxious About</text>
+      <text x="460" y="71" text-anchor="middle" fill="#9a9a9a" font-size="11">being anxious</text>
+
+      <!-- Arrow 1→2 -->
+      <line x1="170" y1="57" x2="208" y2="57" stroke="#e05c4b" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- Arrow 2→3 -->
+      <line x1="350" y1="57" x2="388" y2="57" stroke="#e05c4b" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- Loop back arrow -->
+      <path d="M530,84 Q530,180 280,200 Q30,200 30,84" fill="none" stroke="#e05c4b" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+      <text x="280" y="225" text-anchor="middle" fill="#9a9a9a" font-size="11">Loop intensifies — you're now anxious about being anxious</text>
+
+      <!-- Break box -->
+      <rect x="175" y="105" width="210" height="40" rx="6" fill="#1a1f10" stroke="#c9a84c" stroke-width="1.5"/>
+      <text x="280" y="122" text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="bold">Exit: Accept the anxiety</text>
+      <text x="280" y="138" text-anchor="middle" fill="#9a9a9a" font-size="11">don't give it a f*ck</text>
+
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#e05c4b"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h3>The "Giving a F*ck" Hierarchy</h3>
+  <p>Manson argues the problem is never that people care about things — it's that they care about the <em>wrong</em> things. We are all allocating limited "f*cks" every day. The question is not <em>how to stop caring</em>, but <em>what to care about deliberately</em>. This is the entire thesis of the book.</p>
+
+  <div class="callout">
+    <div class="callout-label">Core Reframe</div>
+    <p>Not giving a f*ck does NOT mean indifference. It means finding what truly matters to you and refusing to let trivial discomforts divert your attention from it.</p>
+  </div>
+
+  <h3>What Needs to Change</h3>
+  <p><strong>Stop optimizing for the absence of pain.</strong> The pursuit of a permanently positive emotional state is the source of most modern misery. Instead, optimize for meaning — which always includes difficulty.</p>
+
+  <div class="life-stages">
+    <div class="stage-card student">
+      <h5>At 22 — Student</h5>
+      <p>You're surrounded by curated success on social media. You're comparing your internal chaos to others' external highlight reel. This chapter says: stop performing okay-ness. Your struggle is the material.</p>
+    </div>
+    <div class="stage-card pro">
+      <h5>At 35 — Professional</h5>
+      <p>You've been told that confidence and positivity are prerequisites for success. This chapter inverts it: stop chasing the feeling of confidence and just act. The feeling follows, not precedes, the doing.</p>
+    </div>
+    <div class="stage-card elder">
+      <h5>At 55 — In Transition</h5>
+      <p>You may have spent decades performing fine-ness. This is the permission slip to stop. The things you genuinely care about at this stage deserve your f*cks — not the opinions of people who won't matter in 10 years.</p>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <h4>Chapter 1 — Action Steps</h4>
+    <ul>
+      <li>Write down 10 things you spent emotional energy on last week. Circle the ones that actually mattered. That gap is your "f*ck budget" problem.</li>
+      <li>Next time you feel anxious, say aloud: "I'm feeling anxious, and that's okay." Do not add a second layer of anxiety about feeling anxious.</li>
+      <li>Identify one thing you've been "trying very hard" to feel good about. Ask whether the effort itself is making it worse.</li>
+      <li>Stop one low-value social media habit this week. Notice how much cognitive space returns.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch2">
+  <div class="ch-header">
+    <div class="ch-num">Chapter 02</div>
+    <h2>Happiness Is a Problem</h2>
+    <p class="tagline">Happiness is not something you find. It's something you solve for — and then solve again.</p>
+  </div>
+
+  <p>Manson uses the lens of Buddhist philosophy and evolutionary biology: our brains are <strong>not built to make us happy</strong>. They are built to keep us alive and pursuing. Once a problem is solved, another one appears. This is not a bug — it is the mechanism of human progress.</p>
+
+  <p>The key insight: <strong>suffering is not something that happens to you on the way to happiness. Suffering IS the path.</strong> What you choose to suffer for defines who you are.</p>
+
+  <blockquote>
+    "Don't hope for a life without problems. Hope for a life full of good problems."
+    <cite>— Mark Manson</cite>
+  </blockquote>
+
+  <h3>The Hedonic Treadmill — Illustrated</h3>
+
+  <div class="diagram">
+    <div class="diagram-title">Fig 2.1 — The Hedonic Adaptation Treadmill</div>
+    <svg viewBox="0 0 560 200" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- Baseline -->
+      <line x1="40" y1="120" x2="520" y2="120" stroke="#2a2a2d" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <text x="30" y="124" fill="#9a9a9a" font-size="11" text-anchor="middle">0</text>
+      <text x="30" y="40" fill="#9a9a9a" font-size="10" text-anchor="middle">+</text>
+      <text x="30" y="185" fill="#9a9a9a" font-size="10" text-anchor="middle">−</text>
+
+      <!-- Happiness spikes then returns -->
+      <polyline points="40,120 90,120 130,55 170,100 200,120 240,55 280,100 310,120 360,55 400,100 430,120 520,120"
+        fill="none" stroke="#c9a84c" stroke-width="2"/>
+
+      <!-- Labels for spikes -->
+      <text x="130" y="45" text-anchor="middle" fill="#c9a84c" font-size="10">Raise</text>
+      <text x="240" y="45" text-anchor="middle" fill="#c9a84c" font-size="10">New car</text>
+      <text x="360" y="45" text-anchor="middle" fill="#c9a84c" font-size="10">Dream job</text>
+
+      <!-- Baseline label -->
+      <text x="520" y="114" fill="#9a9a9a" font-size="11" text-anchor="end">Happiness Baseline</text>
+      <text x="280" y="155" fill="#e05c4b" font-size="12" text-anchor="middle" font-weight="bold">You always return to baseline</text>
+      <text x="280" y="172" fill="#9a9a9a" font-size="11" text-anchor="middle">External wins = temporary spikes only</text>
+    </svg>
+  </div>
+
+  <h3>The Equation That Changes Everything</h3>
+
+  <div class="diagram">
+    <div class="diagram-title">Fig 2.2 — The Struggle Equation</div>
+    <svg viewBox="0 0 560 130" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="30" width="150" height="70" rx="8" fill="#1a1f10" stroke="#c9a84c" stroke-width="1.5"/>
+      <text x="95" y="62" text-anchor="middle" fill="#c9a84c" font-size="13" font-weight="bold">What you</text>
+      <text x="95" y="80" text-anchor="middle" fill="#c9a84c" font-size="13" font-weight="bold">choose to struggle with</text>
+
+      <text x="205" y="73" text-anchor="middle" fill="#f0ede6" font-size="28">+</text>
+
+      <rect x="220" y="30" width="150" height="70" rx="8" fill="#1a1a2a" stroke="#4b8fe0" stroke-width="1.5"/>
+      <text x="295" y="62" text-anchor="middle" fill="#4b8fe0" font-size="13" font-weight="bold">What you</text>
+      <text x="295" y="80" text-anchor="middle" fill="#4b8fe0" font-size="13" font-weight="bold">are willing to lose</text>
+
+      <text x="390" y="73" text-anchor="middle" fill="#f0ede6" font-size="28">=</text>
+
+      <rect x="405" y="30" width="135" height="70" rx="8" fill="#1a0a0a" stroke="#e05c4b" stroke-width="1.5"/>
+      <text x="472" y="62" text-anchor="middle" fill="#e05c4b" font-size="13" font-weight="bold">Your life's</text>
+      <text x="472" y="80" text-anchor="middle" fill="#e05c4b" font-size="13" font-weight="bold">actual shape</text>
+    </svg>
+  </div>
+
+  <p>Manson's famous question: <em>"What pain do you want in your life? What are you willing to struggle for?"</em> Everyone wants a great body. Not everyone wants to endure the diet and training. Everyone wants a successful business. Not everyone is willing to risk failure, work 80-hour weeks, and watch relationships strain.</p>
+
+  <div class="callout callout-gold">
+    <div class="callout-label">The Real Question</div>
+    <p>Don't ask "What do I want?" Ask: <strong>"What am I willing to suffer for?"</strong> The answer reveals what you actually value versus what you merely desire.</p>
+  </div>
+
+  <div class="life-stages">
+    <div class="stage-card student">
+      <h5>At 22 — Student</h5>
+      <p>You want a meaningful career. Ask: what unglamorous, boring, difficult work are you willing to do for years without recognition? That's where your real path lives.</p>
+    </div>
+    <div class="stage-card pro">
+      <h5>At 35 — Professional</h5>
+      <p>You've achieved some goals and feel hollow. This is normal — you solved the first-order problem. Now identify the next real struggle worth choosing, not the next comfort worth buying.</p>
+    </div>
+    <div class="stage-card elder">
+      <h5>At 55 — In Transition</h5>
+      <p>Retirement or post-career life feels purposeless because you've removed struggle. Choose a new problem: a cause, a project, a relationship to repair. Struggle chosen deliberately = meaning.</p>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <h4>Chapter 2 — Action Steps</h4>
+    <ul>
+      <li>Write your answer to: "What pain am I willing to sustain consistently?" Be ruthlessly honest.</li>
+      <li>List a goal you've wanted for 2+ years but not pursued. Identify exactly what struggle it requires — and decide if you actually want that struggle.</li>
+      <li>Stop framing negative emotions as problems to eliminate. This week, when something difficult arises, ask: "What is this struggle asking me to grow toward?"</li>
+      <li>Identify one area where you've been on the hedonic treadmill. What external win have you been chasing? What internal shift would actually change the baseline?</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch3">
+  <div class="ch-header">
+    <div class="ch-num">Chapter 03</div>
+    <h2>You Are Not Special</h2>
+    <p class="tagline">The entitlement epidemic — and the quiet freedom of being ordinary.</p>
+  </div>
+
+  <p>The self-esteem movement of the 1970s–90s produced a generation told they were exceptional, destined for greatness, uniquely gifted. The result: a measurable rise in narcissism and a collapse in resilience. When everyone is special, <strong>no one is.</strong></p>
+
+  <p>Manson identifies two types of entitlement, both equally toxic:</p>
+
+  <div class="diagram">
+    <div class="diagram-title">Fig 3.1 — The Entitlement Spectrum</div>
+    <svg viewBox="0 0 560 160" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- Spectrum bar -->
+      <defs>
+        <linearGradient id="specGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#4b8fe0"/>
+          <stop offset="50%" stop-color="#1f1f21"/>
+          <stop offset="100%" stop-color="#e05c4b"/>
+        </linearGradient>
+      </defs>
+      <rect x="60" y="60" width="440" height="24" rx="12" fill="url(#specGrad)"/>
+
+      <!-- Left label -->
+      <text x="60" y="45" text-anchor="middle" fill="#4b8fe0" font-size="12" font-weight="bold">Exceptionalism</text>
+      <text x="60" y="58" text-anchor="middle" fill="#9a9a9a" font-size="10">"I'm better than others"</text>
+
+      <!-- Right label -->
+      <text x="500" y="45" text-anchor="middle" fill="#e05c4b" font-size="12" font-weight="bold">Victimhood</text>
+      <text x="500" y="58" text-anchor="middle" fill="#9a9a9a" font-size="10">"The world owes me"</text>
+
+      <!-- Center -->
+      <circle cx="280" cy="72" r="10" fill="#c9a84c"/>
+      <text x="280" y="110" text-anchor="middle" fill="#c9a84c" font-size="13" font-weight="bold">Grounded Ordinariness</text>
+      <text x="280" y="128" text-anchor="middle" fill="#9a9a9a" font-size="11">I'm average in most things — and that's the foundation</text>
+      <text x="280" y="145" text-anchor="middle" fill="#9a9a9a" font-size="11">for doing genuinely extraordinary things</text>
+    </svg>
+  </div>
+
+  <p>The exceptionalist feels entitled because they believe they're naturally superior. The victim feels entitled because they believe they've suffered uniquely. Both avoid responsibility. Both stay stuck.</p>
+
+  <blockquote>
+    "The vast majority of your life will be boring and average and that's okay."
+    <cite>— Mark Manson</cite>
+  </blockquote>
+
+  <h3>Why Average Is the Real Starting Point</h3>
+  <p>Accepting that you are mediocre at most things — and that this is completely normal — is not defeatism. It's the prerequisite for genuine improvement. The person who accepts they are a poor public speaker can work on it. The person who believes they're naturally gifted at speaking never practices.</p>
+
+  <div class="callout">
+    <div class="callout-label">Mindset Shift</div>
+    <p>Exceptionalism as an identity is fragile. Ordinariness as a foundation is unshakeable. Build from the second, not the first.</p>
+  </div>
+
+  <h3>The Technology Amplification Problem</h3>
+  <p>Social media algorithmically promotes extremes — the most beautiful, most outraged, most successful. This creates a false reality where everyone else appears to be living at the extremes, making normal feel like failure. <strong>This is a perceptual distortion, not reality.</strong></p>
+
+  <div class="life-stages">
+    <div class="stage-card student">
+      <h5>At 22 — Student</h5>
+      <p>You've been told you're destined for greatness since childhood. The gap between that expectation and reality at 22 creates depression and paralysis. Permission: you don't need to be exceptional to live well.</p>
+    </div>
+    <div class="stage-card pro">
+      <h5>At 35 — Professional</h5>
+      <p>You compare your career to LinkedIn's best-case scenarios. Accepting you're in the middle of the distribution frees you to compete on depth and contribution, not external validation.</p>
+    </div>
+    <div class="stage-card elder">
+      <h5>At 55 — In Transition</h5>
+      <p>Looking back, you may see an "ordinary" life and feel it lacked significance. This chapter argues the opposite: a life of consistent, honest, caring relationships and work IS the exceptional life.</p>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <h4>Chapter 3 — Action Steps</h4>
+    <ul>
+      <li>Audit your self-narrative: are you operating from exceptionalism ("I deserve more") or victimhood ("I've been held back")? Write it down — honesty is the only entry point.</li>
+      <li>Pick one skill where you've avoided practicing because you "should already be good at it." Start practicing. Accept the beginner stage.</li>
+      <li>Unfollow or mute 5 accounts that consistently make you feel inadequate by comparison. This is not weakness — it's calibrating your input.</li>
+      <li>Write one honest paragraph about an area where you are average. Practice saying it aloud without shame or self-deprecation.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch4">
+  <div class="ch-header">
+    <div class="ch-num">Chapter 04</div>
+    <h2>The Value of Suffering</h2>
+    <p class="tagline">You will suffer regardless. The only question is whether it will be for something worth it.</p>
+  </div>
+
+  <p>Manson introduces his most operationally powerful concept: <strong>values as metrics.</strong> The quality of your life is not determined by how happy you feel — it's determined by the quality of the metrics you use to measure yourself. Bad metrics generate bad, endless suffering. Good metrics generate meaningful, productive struggle.</p>
+
+  <h3>Bad Values vs. Good Values</h3>
+
+  <div class="diagram">
+    <div class="diagram-title">Fig 4.1 — Values Quality Matrix</div>
+    <svg viewBox="0 0 560 280" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- Header row -->
+      <rect x="20" y="20" width="250" height="36" rx="4" fill="#1a1a1a"/>
+      <text x="145" y="44" text-anchor="middle" fill="#e05c4b" font-size="13" font-weight="bold">BAD VALUES</text>
+      <rect x="290" y="20" width="250" height="36" rx="4" fill="#1a1a1a"/>
+      <text x="415" y="44" text-anchor="middle" fill="#c9a84c" font-size="13" font-weight="bold">GOOD VALUES</text>
+
+      <!-- Bad values list -->
+      <rect x="20" y="64" width="250" height="196" rx="4" fill="#2a1a1a" stroke="#e05c4b" stroke-width="1"/>
+      <text x="40" y="90" fill="#d8d4cc" font-size="13">• Pleasure</text>
+      <text x="40" y="112" fill="#d8d4cc" font-size="13">• Material success</text>
+      <text x="40" y="134" fill="#d8d4cc" font-size="13">• Always being right</text>
+      <text x="40" y="156" fill="#d8d4cc" font-size="13">• Staying positive</text>
+      <text x="40" y="178" fill="#d8d4cc" font-size="13">• Being liked / popular</text>
+      <text x="40" y="200" fill="#d8d4cc" font-size="13">• Others' approval</text>
+      <text x="40" y="232" fill="#9a9a9a" font-size="11" font-style="italic">External, socially dependent,</text>
+      <text x="40" y="248" fill="#9a9a9a" font-size="11" font-style="italic">outside your control</text>
+
+      <!-- Good values list -->
+      <rect x="290" y="64" width="250" height="196" rx="4" fill="#1a1f10" stroke="#c9a84c" stroke-width="1"/>
+      <text x="310" y="90" fill="#d8d4cc" font-size="13">• Honesty</text>
+      <text x="310" y="112" fill="#d8d4cc" font-size="13">• Creativity &amp; contribution</text>
+      <text x="310" y="134" fill="#d8d4cc" font-size="13">• Vulnerability</text>
+      <text x="310" y="156" fill="#d8d4cc" font-size="13">• Standing up for others</text>
+      <text x="310" y="178" fill="#d8d4cc" font-size="13">• Curiosity</text>
+      <text x="310" y="200" fill="#d8d4cc" font-size="13">• Humility</text>
+      <text x="310" y="232" fill="#9a9a9a" font-size="11" font-style="italic">Internal, process-based,</text>
+      <text x="310" y="248" fill="#9a9a9a" font-size="11" font-style="italic">within your control</text>
+    </svg>
+  </div>
+
+  <p>Manson's key insight: bad values create problems that can never be solved, because they're defined by external factors you can't control. If your value is "being liked," you can never be finished. If your value is "being honest," you can act on it right now, today, in any circumstance.</p>
+
+  <h3>Dave Mustaine and Pete Best — The Fame Trap</h3>
+  <p>Manson uses two rock musicians as case studies. Dave Mustaine (fired from Metallica, formed Megadeth, sold 25 million records) spent decades feeling like a failure because his metric was "being bigger than Metallica." Pete Best (original Beatles drummer) found peace after processing his ejection because he eventually grounded his identity in something other than fame. Same external outcome, radically different inner experience — <strong>determined entirely by the metric used.</strong></p>
+
+  <div class="callout callout-gold">
+    <div class="callout-label">The Metric Test</div>
+    <p>Ask of any goal or value: <strong>Is success or failure in this metric primarily within my control?</strong> If no, it will generate chronic anxiety. If yes, it can generate meaningful, actionable effort.</p>
+  </div>
+
+  <h3>Shitty Values in Modern Form</h3>
+  <table class="data-table">
+    <thead><tr><th>Modern Manifestation</th><th>Hidden Bad Value</th><th>Replacement Good Value</th></tr></thead>
+    <tbody>
+      <tr><td>Obsessing over follower count</td><td>Social validation</td><td>Quality of what I create</td></tr>
+      <tr><td>Avoiding hard conversations</td><td>Being liked / comfort</td><td>Honesty in relationships</td></tr>
+      <tr><td>Staying in wrong job for salary</td><td>Material security at any cost</td><td>Contribution &amp; growth</td></tr>
+      <tr><td>Never admitting mistakes</td><td>Always being right</td><td>Learning from being wrong</td></tr>
+      <tr><td>Toxic positivity</td><td>Absence of negative emotion</td><td>Emotional honesty</td></tr>
+    </tbody>
+  </table>
+
+  <div class="life-stages">
+    <div class="stage-card student">
+      <h5>At 22 — Student</h5>
+      <p>Your metrics are being set right now — largely by your environment. Consciously audit them. GPA, follower count, job offer prestige — are these the metrics you want to build a life on?</p>
+    </div>
+    <div class="stage-card pro">
+      <h5>At 35 — Professional</h5>
+      <p>You've succeeded by bad-value metrics and wonder why it feels hollow. This is the moment to replace "title and salary" with "impact and integrity" as your primary scorecard.</p>
+    </div>
+    <div class="stage-card elder">
+      <h5>At 55 — In Transition</h5>
+      <p>Looking back is a values audit. What suffering was it for? Was it worth it? This chapter lets you redesign the remaining decades with explicitly chosen metrics rather than inherited ones.</p>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <h4>Chapter 4 — Action Steps</h4>
+    <ul>
+      <li>Write your top 3 current life metrics (how you measure whether you're doing well). Then run each through the metric test: is success within my control? Replace those that fail.</li>
+      <li>Identify one area where you've been suffering productively (for a good value) and one where you've been suffering pointlessly (for a bad value). Reduce the second.</li>
+      <li>Have one honest conversation this week that you've been avoiding to preserve being liked. Note how it feels after versus before.</li>
+      <li>Rewrite your definition of "successful day" using only internally controllable metrics.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch5">
+  <div class="ch-header">
+    <div class="ch-num">Chapter 05</div>
+    <h2>You Are Always Choosing</h2>
+    <p class="tagline">Fault and responsibility are not the same thing — and confusing them is keeping you stuck.</p>
+  </div>
+
+  <p>This is the chapter that transforms victimhood into agency — without dismissing real pain. Manson introduces a critical distinction that most people spend their entire lives confusing:</p>
+
+  <div class="diagram">
+    <div class="diagram-title">Fig 5.1 — Fault vs. Responsibility (Core Distinction)</div>
+    <svg viewBox="0 0 560 200" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left: Fault -->
+      <rect x="20" y="30" width="240" height="130" rx="8" fill="#2a1a1a" stroke="#e05c4b" stroke-width="1.5"/>
+      <text x="140" y="58" text-anchor="middle" fill="#e05c4b" font-size="16" font-weight="bold">FAULT</text>
+      <text x="140" y="80" text-anchor="middle" fill="#9a9a9a" font-size="12">Who caused this to happen?</text>
+      <text x="140" y="100" text-anchor="middle" fill="#d8d4cc" font-size="12">Looks backward</text>
+      <text x="140" y="118" text-anchor="middle" fill="#d8d4cc" font-size="12">About the past</text>
+      <text x="140" y="136" text-anchor="middle" fill="#d8d4cc" font-size="12">Cannot be changed</text>
+      <text x="140" y="155" text-anchor="middle" fill="#9a9a9a" font-size="11" font-style="italic">May not be yours</text>
+
+      <!-- Right: Responsibility -->
+      <rect x="300" y="30" width="240" height="130" rx="8" fill="#1a1f10" stroke="#c9a84c" stroke-width="1.5"/>
+      <text x="420" y="58" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="bold">RESPONSIBILITY</text>
+      <text x="420" y="80" text-anchor="middle" fill="#9a9a9a" font-size="12">Who will choose what to do next?</text>
+      <text x="420" y="100" text-anchor="middle" fill="#d8d4cc" font-size="12">Looks forward</text>
+      <text x="420" y="118" text-anchor="middle" fill="#d8d4cc" font-size="12">About the future</text>
+      <text x="420" y="136" text-anchor="middle" fill="#d8d4cc" font-size="12">Always yours to take</text>
+      <text x="420" y="155" text-anchor="middle" fill="#9a9a9a" font-size="11" font-style="italic">Always your choice</text>
+
+      <!-- Bridge -->
+      <text x="280" y="100" text-anchor="middle" fill="#f0ede6" font-size="20">≠</text>
+    </svg>
+  </div>
+
+  <p>The example Manson uses: a baby left on a doorstep. It is not the baby's <em>fault</em> it was abandoned. But as the baby grows into an adult, <em>how they respond to that abandonment</em> — the story they tell about it, the choices they make because of it — becomes entirely their <strong>responsibility.</strong></p>
+
+  <blockquote>
+    "We are responsible for everything in our lives, not because bad things didn't happen to us, but because we are always responsible for our own responses — and those responses become our lives."
+    <cite>— Mark Manson (paraphrased)</cite>
+  </blockquote>
+
+  <h3>The Responsibility Choice Architecture</h3>
+
+  <div class="diagram">
+    <div class="diagram-title">Fig 5.2 — The Choice Architecture</div>
+    <svg viewBox="0 0 560 220" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#c9a84c"/>
+        </marker>
+        <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#e05c4b"/>
+        </marker>
+      </defs>
+
+      <!-- Event box -->
+      <rect x="200" y="10" width="160" height="44" rx="6" fill="#1a1a2a" stroke="#4b8fe0" stroke-width="1.5"/>
+      <text x="280" y="37" text-anchor="middle" fill="#4b8fe0" font-size="13">Something Bad Happens</text>
+
+      <!-- Arrow down -->
+      <line x1="280" y1="54" x2="280" y2="76" stroke="#c9a84c" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <text x="305" y="69" fill="#9a9a9a" font-size="10">choice point</text>
+
+      <!-- Left branch: victim -->
+      <rect x="30" y="80" width="180" height="50" rx="6" fill="#2a1a1a" stroke="#e05c4b" stroke-width="1.5"/>
+      <text x="120" y="101" text-anchor="middle" fill="#e05c4b" font-size="12">Deny responsibility</text>
+      <text x="120" y="118" text-anchor="middle" fill="#9a9a9a" font-size="11">"Not my fault, not my problem"</text>
+
+      <!-- Right branch: agency -->
+      <rect x="350" y="80" width="180" height="50" rx="6" fill="#1a1f10" stroke="#c9a84c" stroke-width="1.5"/>
+      <text x="440" y="101" text-anchor="middle" fill="#c9a84c" font-size="12">Take responsibility</text>
+      <text x="440" y="118" text-anchor="middle" fill="#9a9a9a" font-size="11">"Not my fault, but my choice"</text>
+
+      <!-- Branch arrows -->
+      <line x1="240" y1="76" x2="160" y2="80" stroke="#e05c4b" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <line x1="320" y1="76" x2="400" y2="80" stroke="#c9a84c" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+      <!-- Outcomes -->
+      <rect x="30" y="155" width="180" height="44" rx="6" fill="#1a1a1a" stroke="#2a2a2d" stroke-width="1"/>
+      <text x="120" y="174" text-anchor="middle" fill="#9a9a9a" font-size="12">Stuck. Waiting for the</text>
+      <text x="120" y="191" text-anchor="middle" fill="#9a9a9a" font-size="12">world to change first.</text>
+
+      <rect x="350" y="155" width="180" height="44" rx="6" fill="#1a1f10" stroke="#c9a84c" stroke-width="1"/>
+      <text x="440" y="174" text-anchor="middle" fill="#c9a84c" font-size="12">Agency. Moving forward</text>
+      <text x="440" y="191" text-anchor="middle" fill="#c9a84c" font-size="12">from where you stand.</text>
+
+      <line x1="120" y1="130" x2="120" y2="153" stroke="#e05c4b" stroke-width="1" marker-end="url(#arr3)"/>
+      <line x1="440" y1="130" x2="440" y2="153" stroke="#c9a84c" stroke-width="1" marker-end="url(#arr2)"/>
+    </svg>
+  </div>
+
+  <h3>Why People Resist This</h3>
+  <p>Taking responsibility for your life is painful because it requires accepting that you have been choosing your situation — even passively. Victimhood, counterintuitively, feels safer: if it's not your fault, you don't have to do anything about it. <strong>Responsibility is harder than blame.</strong></p>
+
+  <div class="callout">
+    <div class="callout-label">Uncomfortable Truth</div>
+    <p>If you are unhappy with your life and you refuse to accept responsibility for changing it, you are not a victim of circumstances — you are choosing your unhappiness. That's the harder truth. It's also the more empowering one.</p>
+  </div>
+
+  <div class="life-stages">
+    <div class="stage-card student">
+      <h5>At 22 — Student</h5>
+      <p>Your family, school system, or financial situation may have genuinely disadvantaged you. This is real. What you do with that reality — the choices you make from here — is where your life begins to be yours.</p>
+    </div>
+    <div class="stage-card pro">
+      <h5>At 35 — Professional</h5>
+      <p>You blame your company, your boss, the economy for your career stagnation. Even if all of that is true, <em>what will you choose to do about it</em> is the only question that moves things forward.</p>
+    </div>
+    <div class="stage-card elder">
+      <h5>At 55 — In Transition</h5>
+      <p>Regret is fault-based (looking backward). Wisdom is responsibility-based (looking forward). This chapter is the permission to stop judging the past and start authoring the next chapter.</p>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <h4>Chapter 5 — Action Steps</h4>
+    <ul>
+      <li>Identify the top 3 areas of your life where you are waiting for someone or something else to change first. For each, write one action you could take this week regardless of what they do.</li>
+      <li>Practice the phrase: "It wasn't my fault, AND it is my responsibility." Say it about something painful this week. Notice how it shifts from victim to agent without denying the pain.</li>
+      <li>Stop explaining your limitations with origin stories. For one week, replace "because of X that happened to me" with "I choose to work on this by doing Y."</li>
+      <li>Do a weekly "choice audit": list 5 things in your life right now. For each, write whether you are actively choosing it or passively accepting it.</li>
+    </ul>
+  </div>
+</section>
+
+
+
+<section>
+
+<section id="vocab">
+  <div class="ch-header">
+    <div class="ch-num">Reference</div>
+    <h2>Key Vocabulary</h2>
+    <p class="tagline">The complete conceptual toolkit — 12 terms worth internalizing as permanent mental tools.</p>
+  </div>
+  <div class="vocab-grid">
+    <div class="vocab-card">
+      <div class="term">Feedback Loop from Hell</div>
+      <div class="def">The recursive anxiety created when you feel anxious about feeling anxious — the basic mechanism by which self-help culture worsens the problem it claims to solve.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">The Struggle Equation</div>
+      <div class="def">The idea that the quality of your life is determined not by what you want, but by what you are willing to suffer for. What you tolerate shapes what you achieve.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Hedonic Adaptation</div>
+      <div class="def">The psychological mechanism by which humans return to a stable happiness baseline after positive or negative events. External achievements produce only temporary spikes.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Entitlement (two-sided)</div>
+      <div class="def">The belief that you deserve special treatment — either because you're exceptionally great (narcissism) or exceptionally victimized (martyrdom). Both generate the same avoidance of responsibility.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Values as Metrics</div>
+      <div class="def">The framework that every human judges their own life against a set of implicit measurements. Upgrading your values = upgrading the criteria by which you score your own life.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Fault vs. Responsibility</div>
+      <div class="def">Fault is historical (who caused it). Responsibility is forward-facing (who will respond). Conflating the two keeps people stuck in victimhood when the door to agency is open.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Manson's Law of Avoidance</div>
+      <div class="def">The more something threatens your identity, the more aggressively you will avoid confronting it — even when confronting it would be beneficial. Identity protection overrides self-improvement.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">The Do Something Principle</div>
+      <div class="def">The insight that motivation follows action, not precedes it. The smallest possible action in the right direction generates the feedback and energy needed for continued movement.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Immortality Projects</div>
+      <div class="def">Ernest Becker's term for the symbolic extensions of self that humans build to deny mortality — careers, religions, ideologies, legacies, wealth. The quality of your immortality project determines the quality of your life's meaning.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Chosen Commitment</div>
+      <div class="def">A deliberate, values-based narrowing of options that creates depth and meaning. Contrasted with fearful commitment (staying because you're afraid to leave) and non-commitment (keeping all options open).</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">Process-Based Identity</div>
+      <div class="def">Defining yourself by how you engage with experience (curious, honest, persistent) rather than by outcomes or titles. Process-based identity survives failure; outcome-based identity collapses with it.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="term">The Deathbed Test</div>
+      <div class="def">A clarifying question applied to any current activity or anxiety: "On my deathbed, will this have mattered?" An affirmative answer is a signal to protect and prioritize; a negative answer is a signal to release.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="closing-card">
+    <h2>The Whole Book in One Sentence</h2>
+    <p style="font-size:1.2rem;color:var(--cream);margin-top:16px;margin-bottom:24px"><em>"Choose your struggles deliberately, accept that you are ordinary, take responsibility for your response to everything, and use the awareness of your own death as the compass for what actually deserves your care."</em></p>
+    <p>Every chapter is a different lens on this single idea. Every action step is a different way to practice it. The reader who works through these pages is not becoming someone new — they are removing the accumulated noise that was obscuring who they already are.</p>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  Made with <span>&#9829;</span> by Gourang Sharma &nbsp;·&nbsp; The Subtle Art of Not Giving a F*ck — Complete Transformation Guide &nbsp;·&nbsp; Based on the work of Mark Manson
+</footer>
+</body>
+</html>
