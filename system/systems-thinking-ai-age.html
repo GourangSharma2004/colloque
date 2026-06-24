@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thinking in Systems — A Field Guide for the AI Age</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE6;
+    --cream-dim: #EDE4D4;
+    --charcoal: #2C2C2C;
+    --charcoal-light: #3D3D3D;
+    --gold: #C9A84C;
+    --gold-dim: #a88932;
+    --gold-pale: rgba(201,168,76,0.12);
+    --white: #FDFAF5;
+    --muted: #7A7060;
+    --ink: #1A1A1A;
+    --paper: #F0E9DC;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── COVER ─────────────────────────────────── */
+  .cover {
+    min-height: 100vh;
+    background: #0D0D0D; /* Deeper ink */
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .cover-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  .cover-top-bar {
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+  }
+
+  .cover-top-bar .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .cover-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    z-index: 5;
+  }
+
+  .cover-body .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .cover-content {
+    max-width: 680px;
+  }
+
+  .cover-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .cover-eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 300;
+    line-height: 0.95;
+    color: var(--cream);
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .cover-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 4rem;
+    font-weight: 300;
+    opacity: 0.9;
+  }
+
+  .cover-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cover-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .cover-meta-item .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .cover-meta-item .meta-value {
+    font-size: 0.95rem;
+    color: var(--cream-dim);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .cover-diagram-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .cover-diagram {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    opacity: 1;
+    right: auto;
+    top: auto;
+    transform: none;
+    filter: drop-shadow(0 0 40px rgba(201,168,76,0.08));
+  }
+
+  .cover-bottom {
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+  }
+
+  .cover-bottom .pg { 
+    font-family: 'DM Mono', monospace; 
+    font-size: 0.6rem; 
+    color: var(--muted); 
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ── NAV ─────────────────────────────────────── */
+  .toc-section {
+    background: var(--charcoal-light);
+    padding: 4rem 4rem;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(201,168,76,0.12);
+    margin-top: 2rem;
+  }
+
+  .toc-item {
+    background: var(--charcoal-light);
+    padding: 1.4rem 1.8rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+  }
+  .toc-item:hover { background: rgba(201,168,76,0.06); }
+
+  .toc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    padding-top: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  .toc-text .toc-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--cream); line-height: 1.2; }
+  .toc-text .toc-desc { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.5; }
+
+  /* ── SECTION SHELL ────────────────────────────── */
+  .section {
+    padding: 6rem 4rem;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    position: relative;
+  }
+
+  .section-alt { background: rgba(0,0,0,0.2); }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    padding-top: 0.5rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .section-title-block {}
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ── PROSE ─────────────────────────────────────── */
+  .prose {
+    max-width: 800px;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(245,239,230,0.8);
+  }
+  .prose p + p { margin-top: 1.2em; }
+  .prose strong { color: var(--cream); font-weight: 500; }
+  .prose em { color: var(--gold); font-style: italic; }
+
+  .lead-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--cream);
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  /* ── CALLOUT ───────────────────────────────────── */
+  .callout {
+    border-left: 2px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    background: var(--gold-pale);
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .callout p { font-size: 0.9rem; color: var(--cream-dim); line-height: 1.7; }
+
+  /* ── DEFINITION BOX ────────────────────────────── */
+  .def-box {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 6px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  .def-term {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+  .def-text { font-size: 0.9rem; color: rgba(245,239,230,0.75); line-height: 1.7; }
+
+  /* ── EXAMPLE CARDS ─────────────────────────────── */
+  .example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .example-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .example-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-2px); }
+  .example-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .card-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+  .card-title { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .card-body { font-size: 0.85rem; color: rgba(245,239,230,0.7); line-height: 1.65; }
+
+  /* ── DIAGRAMS ──────────────────────────────────── */
+  .diagram-wrap {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 10px;
+    padding: 2.5rem;
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .diagram-caption {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 1.2rem;
+  }
+
+  /* ── TWO-COL LAYOUT ─────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin: 2rem 0;
+  }
+
+  .two-col-wide { grid-template-columns: 3fr 2fr; }
+  .two-col-rev { grid-template-columns: 2fr 3fr; }
+
+  /* ── ARCHETYPE CARDS ──────────────────────────── */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .arch-card {
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .arch-card-head {
+    background: rgba(201,168,76,0.1);
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .arch-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--gold); }
+  .arch-tagline { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+  .arch-card-body { padding: 1.2rem 1.4rem; }
+  .arch-card-body p { font-size: 0.83rem; color: rgba(245,239,230,0.7); line-height: 1.65; }
+  .arch-tech { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); margin-top: 0.8rem; padding: 0.4rem 0.7rem; background: var(--gold-pale); border-radius: 3px; display: inline-block; }
+
+  /* ── LEVERAGE TABLE ───────────────────────────── */
+  .leverage-list {
+    margin: 2rem 0;
+  }
+  .leverage-item {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 1.2rem;
+    align-items: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .leverage-item:last-child { border-bottom: none; }
+  .lev-rank {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    padding-top: 0.15rem;
+  }
+  .lev-body {}
+  .lev-name { font-weight: 500; color: var(--cream); font-size: 0.88rem; margin-bottom: 0.25rem; }
+  .lev-desc { font-size: 0.78rem; color: rgba(245,239,230,0.55); line-height: 1.55; }
+  .lev-power {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+    padding-top: 0.2rem;
+  }
+  .lev-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .lev-dot.filled { background: var(--gold); }
+  .lev-dot.empty { background: rgba(201,168,76,0.2); }
+
+  /* ── PRINCIPLE PILLARS ───────────────────────── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+  }
+
+  .pillar {
+    background: var(--charcoal);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .pillar-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+  .pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
+  .pillar-text { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── QUOTE ───────────────────────────────────── */
+  .pull-quote {
+    padding: 2.5rem 3rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    margin: 3rem 0;
+    position: relative;
+  }
+  .pull-quote::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    color: rgba(201,168,76,0.15);
+    position: absolute;
+    top: -1rem; left: 2rem;
+    line-height: 1;
+  }
+  .pull-quote blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.55;
+    max-width: 700px;
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  /* ── STEP FLOW ────────────────────────────────── */
+  .step-flow {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .step-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 1.5rem;
+    position: relative;
+  }
+  .step-row:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 44px;
+    bottom: -8px;
+    width: 2px;
+    background: rgba(201,168,76,0.2);
+  }
+  .step-num-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.3rem;
+  }
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    background: var(--gold-pale);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .step-content { padding: 0.3rem 0 2rem; }
+  .step-title { font-weight: 500; color: var(--cream); font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .step-text { font-size: 0.82rem; color: rgba(245,239,230,0.6); line-height: 1.65; }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  .doc-footer {
+    background: var(--ink);
+    padding: 3rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 2rem;
+  }
+  .footer-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--cream); }
+  .footer-subtitle { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+  .footer-meta { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.15em; text-align: right; line-height: 2; }
+
+  /* ── UTILITY ─────────────────────────────────── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .mt1 { margin-top: 1rem; }
+  .mt2 { margin-top: 2rem; }
+  .mt3 { margin-top: 3rem; }
+  .mb2 { margin-bottom: 2rem; }
+
+  .section-divider {
+    text-align: center;
+    padding: 1rem 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: rgba(201,168,76,0.3);
+  }
+
+  /* ── TAG ─────────────────────────────────────── */
+  .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  @media (max-width: 768px) {
+    .cover-diagram { display: none; }
+    .two-col, .two-col-wide, .two-col-rev, .arch-grid, .pillars { grid-template-columns: 1fr; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .cover-body, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .section-header { flex-direction: column; gap: 1rem; }
+    .section-num { writing-mode: horizontal-tb; }
+    .doc-footer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ COVER ═══════════════════ -->
+<div class="cover">
+  <div class="cover-noise"></div>
+  <div class="cover-grid-bg"></div>
+
+
+  <div class="cover-body">
+    <div class="container">
+      <div class="cover-content">
+        <div class="cover-eyebrow">Core Principles for Builders</div>
+
+        <h1 class="cover-title">
+          Thinking<br>in <em>Systems</em><br>— AI Age
+        </h1>
+
+        <p class="cover-subtitle">
+          A field guide to understanding the invisible architecture behind how products scale, AI models improve, teams fail, and creators compound — told through the systems that actually govern your work today.
+        </p>
+
+      </div>
+
+      <div class="cover-diagram-wrap">
+        <!-- Recreated System Loop Illustration from Image -->
+        <svg class="cover-diagram" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Multiple Concentric Background Circles -->
+          <circle cx="200" cy="200" r="170" fill="none" stroke="rgba(201,168,76,0.03)" stroke-width="1" />
+          <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="1" stroke-dasharray="2,4" />
+          <circle cx="200" cy="200" r="110" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1" stroke-dasharray="8,8" />
+          <circle cx="200" cy="200" r="80" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="1" />
+
+          <!-- Main Dashed Loop Path -->
+          <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.5" stroke-dasharray="10,6" />
+
+          <!-- Arrowheads (Triangular, pointing clockwise) -->
+          <!-- Top-Right -->
+          <polygon points="315,105 325,125 305,120" fill="rgba(201,168,76,0.8)" transform="rotate(15, 315, 105)" filter="url(#soft-glow)" />
+          <!-- Bottom-Right -->
+          <polygon points="315,295 295,285 305,305" fill="rgba(201,168,76,0.8)" transform="rotate(15, 315, 295)" filter="url(#soft-glow)" />
+          <!-- Bottom-Left -->
+          <polygon points="85,295 75,275 95,280" fill="rgba(201,168,76,0.8)" transform="rotate(15, 85, 295)" filter="url(#soft-glow)" />
+          <!-- Top-Left -->
+          <polygon points="85,105 105,115 95,95" fill="rgba(201,168,76,0.8)" transform="rotate(15, 85, 105)" filter="url(#soft-glow)" />
+
+          <!-- Center "System LOOP" Element -->
+          <circle cx="200" cy="200" r="50" fill="rgba(13,13,13,0.8)" stroke="rgba(201,168,76,0.2)" stroke-width="1" />
+          <text x="200" y="195" text-anchor="middle" fill="rgba(245,239,230,0.8)" font-family="Cormorant Garamond, serif" font-size="16" font-style="italic">System</text>
+          <text x="200" y="215" text-anchor="middle" fill="rgba(201,168,76,0.6)" font-family="DM Mono, monospace" font-size="9" letter-spacing="4">LOOP</text>
+
+          <!-- Nodes (STOCK, FLOW, DELAY, FEEDBACK) -->
+          <!-- STOCK (Top) -->
+          <g transform="translate(160, 40)">
+            <rect x="0" y="0" width="80" height="34" rx="6" fill="rgba(20,20,20,0.9)" stroke="var(--gold)" stroke-width="1.5" filter="url(#soft-glow)" />
+            <text x="40" y="21" text-anchor="middle" fill="var(--gold)" font-family="DM Mono, monospace" font-size="10" font-weight="600" letter-spacing="1.5">STOCK</text>
+            <circle cx="40" cy="34" r="3" fill="var(--gold)" filter="url(#soft-glow)" />
+          </g>
+
+          <!-- FLOW (Right) -->
+          <g transform="translate(305, 183)">
+            <rect x="0" y="0" width="80" height="34" rx="6" fill="rgba(20,20,20,0.9)" stroke="var(--gold)" stroke-width="1.5" filter="url(#soft-glow)" />
+            <text x="40" y="21" text-anchor="middle" fill="var(--gold)" font-family="DM Mono, monospace" font-size="10" font-weight="600" letter-spacing="1.5">FLOW</text>
+            <circle cx="0" cy="17" r="3" fill="var(--gold)" filter="url(#soft-glow)" />
+          </g>
+
+          <!-- DELAY (Bottom) -->
+          <g transform="translate(160, 326)">
+            <rect x="0" y="0" width="80" height="34" rx="6" fill="rgba(20,20,20,0.9)" stroke="var(--gold)" stroke-width="1.5" filter="url(#soft-glow)" />
+            <text x="40" y="21" text-anchor="middle" fill="var(--gold)" font-family="DM Mono, monospace" font-size="10" font-weight="600" letter-spacing="1.5">DELAY</text>
+            <circle cx="40" cy="0" r="3" fill="var(--gold)" filter="url(#soft-glow)" />
+          </g>
+
+          <!-- FEEDBACK (Left) -->
+          <g transform="translate(15, 183)">
+            <rect x="0" y="0" width="90" height="34" rx="6" fill="rgba(20,20,20,0.9)" stroke="var(--gold)" stroke-width="1.5" filter="url(#soft-glow)" />
+            <text x="45" y="21" text-anchor="middle" fill="var(--gold)" font-family="DM Mono, monospace" font-size="10" font-weight="600" letter-spacing="1.5">FEEDBACK</text>
+            <circle cx="90" cy="17" r="3" fill="var(--gold)" filter="url(#soft-glow)" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <span class="pg">01</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ TOC ═══════════════════ -->
+<div class="toc-section">
+  <div class="container">
+    <div class="section-label">Contents</div>
+    <div class="toc-grid">
+      <a href="#s1" class="toc-item">
+        <span class="toc-num">01</span>
+        <div class="toc-text">
+          <div class="toc-title">What Is a System?</div>
+          <div class="toc-desc">Stocks, flows, and the hidden structure behind every product</div>
+        </div>
+      </a>
+      <a href="#s2" class="toc-item">
+        <span class="toc-num">02</span>
+        <div class="toc-text">
+          <div class="toc-title">The Two Loops</div>
+          <div class="toc-desc">Reinforcing vs. balancing feedback — how growth and stability work</div>
+        </div>
+      </a>
+      <a href="#s3" class="toc-item">
+        <span class="toc-num">03</span>
+        <div class="toc-text">
+          <div class="toc-title">Delays — The Silent Killer</div>
+          <div class="toc-desc">Why systems overshoot, oscillate, and why your AI model feels "stuck"</div>
+        </div>
+      </a>
+      <a href="#s4" class="toc-item">
+        <span class="toc-num">04</span>
+        <div class="toc-text">
+          <div class="toc-title">System Archetypes</div>
+          <div class="toc-desc">Four failure patterns that repeat everywhere — including your team</div>
+        </div>
+      </a>
+      <a href="#s5" class="toc-item">
+        <span class="toc-num">05</span>
+        <div class="toc-text">
+          <div class="toc-title">Leverage Points</div>
+          <div class="toc-desc">Where to intervene for maximum impact with minimum effort</div>
+        </div>
+      </a>
+      <a href="#s6" class="toc-item">
+        <span class="toc-num">06</span>
+        <div class="toc-text">
+          <div class="toc-title">Your Work as a System</div>
+          <div class="toc-desc">Applying systems thinking to content, code, and productivity</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ S1: WHAT IS A SYSTEM ═══════════════════ -->
+<div class="section" id="s1">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01 · Foundation</div>
+      <div class="section-title-block">
+        <div class="section-label">Core Concept</div>
+        <h2 class="section-title">What is a <em>System?</em></h2>
+      </div>
+    </div>
+
+    <p class="lead-text">"A system is a set of elements interconnected in such a way that they produce their own pattern of behavior over time."</p>
+
+    <div class="two-col two-col-wide">
+      <div>
+        <div class="prose">
+          <p>Most people look at a failing product launch and blame the marketing team. Or look at a buggy codebase and blame one engineer. <strong>I've found that you're usually looking at events, not the system.</strong> Events are the visible surface. The system is the invisible engine underneath.</p>
+          <p>Every system has three things: <strong>stocks</strong> (what accumulates), <strong>flows</strong> (what changes the stock), and <strong>feedback loops</strong> (information that controls the flows). Once you can see these three things in any situation — a startup, an AI pipeline, your creative output — you stop reacting to events and start designing the system.</p>
+        </div>
+
+        <div class="callout mt3">
+          <div class="callout-label">Mental Model</div>
+          <p>Think of a <strong>stock</strong> as a bathtub. The inflow tap fills it; the drain empties it. The <em>level of water</em> is the stock. The <em>rate of filling/draining</em> is the flow. The thermostat (sensor + goal) is the feedback loop. Simple. Powerful. Universal.</p>
+        </div>
+      </div>
+
+      <div>
+        <!-- Stock & Flow Diagram -->
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" width="100%">
+            <defs>
+              <marker id="a1" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#C9A84C"/>
+              </marker>
+              <marker id="a2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="rgba(201,168,76,0.5)"/>
+              </marker>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Background grid hint -->
+            <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="rgba(201,168,76,0.08)"/>
+            </pattern>
+            <rect width="100%" height="100%" fill="url(#smallGrid)"/>
+
+            <!-- INFLOW section (left) -->
+            <g transform="translate(20, 80)">
+              <circle cx="30" cy="50" r="35" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"/>
+              <text x="30" y="45" text-anchor="middle" fill="#C9A84C" font-family="DM Sans, sans-serif" font-size="9" font-weight="600">INFLOW</text>
+              <text x="30" y="58" text-anchor="middle" fill="rgba(245,239,230,0.5)" font-family="DM Mono, monospace" font-size="7">Accumulates</text>
+              <text x="30" y="68" text-anchor="middle" fill="rgba(245,239,230,0.4)" font-family="DM Mono, monospace" font-size="6">↑ Stock</text>
+            </g>
+
+            <!-- Arrow from Inflow to Stock -->
+            <line x1="85" y1="130" x2="135" y2="130" stroke="#C9A84C" stroke-width="2.5" marker-end="url(#a1)" filter="url(#glow)"/>
+            <text x="110" y="122" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="8">+</text>
+
+            <!-- STOCK (center) - main element -->
+            <g transform="translate(140, 70)">
+              <rect x="0" y="0" width="120" height="120" rx="12" fill="rgba(201,168,76,0.12)" stroke="#C9A84C" stroke-width="2"/>
+              <!-- Inner detail -->
+              <rect x="8" y="8" width="104" height="104" rx="8" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+              
+              <text x="60" y="50" text-anchor="middle" fill="#C9A84C" font-family="Cormorant Garamond, serif" font-size="18" font-weight="600">STOCK</text>
+              <text x="60" y="68" text-anchor="middle" fill="rgba(245,239,230,0.6)" font-family="DM Mono, monospace" font-size="8">What Accumulates</text>
+              
+              <!-- Stock level indicator -->
+              <rect x="20" y="80" width="80" height="8" rx="4" fill="rgba(201,168,76,0.3)"/>
+              <rect x="20" y="80" width="55" height="8" rx="4" fill="#C9A84C"/>
+              <text x="60" y="98" text-anchor="middle" fill="rgba(245,239,230,0.4)" font-family="DM Mono, monospace" font-size="6">Current Level</text>
+            </g>
+
+            <!-- Arrow from Stock to Outflow -->
+            <line x1="260" y1="130" x2="310" y2="130" stroke="rgba(201,168,76,0.6)" stroke-width="2.5" marker-end="url(#a2)"/>
+            <text x="285" y="122" text-anchor="middle" fill="rgba(201,168,76,0.5)" font-family="DM Mono, monospace" font-size="8">−</text>
+
+            <!-- OUTFLOW section (right) -->
+            <g transform="translate(315, 80)">
+              <circle cx="30" cy="50" r="35" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.25)" stroke-width="1.5"/>
+              <text x="30" y="45" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Sans, sans-serif" font-size="9" font-weight="600">OUTFLOW</text>
+              <text x="30" y="58" text-anchor="middle" fill="rgba(245,239,230,0.5)" font-family="DM Mono, monospace" font-size="7">Depletes</text>
+              <text x="30" y="68" text-anchor="middle" fill="rgba(245,239,230,0.4)" font-family="DM Mono, monospace" font-size="6">↓ Stock</text>
+            </g>
+
+            <!-- FEEDBACK LOOP (bottom arc) -->
+            <path d="M 200 190 Q 200 230 110 230 Q 30 230 30 185 Q 30 165 30 155" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#a2)"/>
+            <circle cx="115" cy="230" r="4" fill="rgba(201,168,76,0.6)"/>
+            <text x="115" y="245" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="8" letter-spacing="1">FEEDBACK SIGNAL</text>
+            <text x="115" y="254" text-anchor="middle" fill="rgba(245,239,230,0.4)" font-family="DM Mono, monospace" font-size="6">Information Flow</text>
+
+            <!-- DELAY indicator on feedback -->
+            <rect x="60" y="220" width="30" height="16" rx="3" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.3)"/>
+            <text x="75" y="231" text-anchor="middle" fill="rgba(201,168,76,0.6)" font-family="DM Mono, monospace" font-size="6">⏱️</text>
+
+            <!-- Top labels -->
+            <text x="200" y="30" text-anchor="middle" fill="rgba(245,239,230,0.6)" font-family="Cormorant Garamond, serif" font-size="12" font-style="italic">System Core</text>
+            <text x="200" y="45" text-anchor="middle" fill="rgba(201,168,76,0.4)" font-family="DM Mono, monospace" font-size="7">STOCK + FLOW + FEEDBACK</text>
+
+            <!-- Example callout -->
+            <rect x="280" y="15" width="100" height="40" rx="5" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.2)"/>
+            <text x="330" y="28" text-anchor="middle" fill="rgba(201,168,76,0.6)" font-family="DM Mono, monospace" font-size="7">EXAMPLE:</text>
+            <text x="330" y="38" text-anchor="middle" fill="rgba(245,239,230,0.5)" font-family="DM Sans, sans-serif" font-size="6">Users → Churn</text>
+            <text x="330" y="47" text-anchor="middle" fill="rgba(245,239,230,0.4)" font-family="DM Sans, sans-serif" font-size="6">→ Retention</text>
+          </svg>
+          <div class="diagram-caption">Fig 1.1 — The universal building block of any system</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Iceberg Model — full-width below the two columns -->
+    <div class="diagram-wrap mt3">
+      <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <path d="M 300 20 L 520 180 L 80 180 Z" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+        <!-- Water line -->
+        <line x1="40" y1="70" x2="560" y2="70" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="8,4"/>
+        <text x="490" y="65" fill="rgba(255,255,255,0.3)" font-family="DM Mono, monospace" font-size="8">WATER LINE</text>
+
+        <!-- Levels -->
+        <text x="300" y="50" text-anchor="middle" fill="#F5EFE6" font-family="DM Sans, sans-serif" font-weight="600" font-size="11">EVENTS</text>
+        <text x="300" y="63" text-anchor="middle" fill="rgba(245,239,230,0.5)" font-family="DM Mono, monospace" font-size="8">What we see</text>
+
+        <text x="300" y="110" text-anchor="middle" fill="#C9A84C" font-family="DM Sans, sans-serif" font-weight="600" font-size="11">PATTERNS</text>
+        <text x="300" y="123" text-anchor="middle" fill="rgba(201,168,76,0.6)" font-family="DM Mono, monospace" font-size="8">Trends over time</text>
+
+        <text x="300" y="158" text-anchor="middle" fill="#C9A84C" font-family="DM Sans, sans-serif" font-weight="700" font-size="13">STRUCTURE</text>
+        <text x="300" y="171" text-anchor="middle" fill="rgba(201,168,76,0.8)" font-family="DM Mono, monospace" font-size="8">The System Design</text>
+
+        <!-- Connection arrows -->
+        <path d="M 400 165 Q 480 110 480 50" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1" marker-end="url(#a2)"/>
+        <text x="497" y="110" text-anchor="middle" fill="rgba(201,168,76,0.3)" font-family="DM Mono, monospace" font-size="7" transform="rotate(-90 497 110)">CAUSALITY</text>
+      </svg>
+      <div class="diagram-caption">Fig 1.2 — The Iceberg Model: Events are only the tip of the system</div>
+    </div>
+
+    <div class="example-grid">
+      <div class="example-card">
+        <div class="card-icon">🤖</div>
+        <div class="card-title">AI Model Training</div>
+        <div class="card-body"><strong>Stock:</strong> Model accuracy. <strong>Inflow:</strong> Quality training data. <strong>Outflow:</strong> Model drift, data staleness. <strong>Feedback:</strong> Evaluation metrics (BLEU, F1) that determine next training run. The model "knows" how good it is and self-corrects.</div>
+      </div>
+      <div class="example-card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">SaaS Product Growth</div>
+        <div class="card-body"><strong>Stock:</strong> Active subscribers. <strong>Inflow:</strong> New sign-ups (via SEO, ads, word of mouth). <strong>Outflow:</strong> Churn rate. <strong>Feedback:</strong> NPS scores, support tickets → triggers retention features. Classic leaky bucket.</div>
+      </div>
+      <div class="example-card">
+        <div class="card-icon">🎬</div>
+        <div class="card-title">YouTube Channel</div>
+        <div class="card-body"><strong>Stock:</strong> Subscribers + watch hours (trust). <strong>Inflow:</strong> New videos, shares, algorithm pushes. <strong>Outflow:</strong> Unsubscribes, irrelevant content drift. <strong>Feedback:</strong> CTR + watch time signals that reshape your content strategy.</div>
+      </div>
+      <div class="example-card">
+        <div class="card-icon">💡</div>
+        <div class="card-title">Developer Knowledge</div>
+        <div class="card-body"><strong>Stock:</strong> Technical capability. <strong>Inflow:</strong> Learning, shipping, code review. <strong>Outflow:</strong> Skill obsolescence (React → RSC → AI-native). <strong>Feedback:</strong> Compilation errors, PR comments, prod incidents — all signals that adjust learning.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ S2: FEEDBACK LOOPS ═══════════════════ -->
+<div class="section section-alt" id="s2">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02 · Dynamics</div>
+      <div class="section-title-block">
+        <div class="section-label">Core Mechanism</div>
+        <h2 class="section-title">The Two <em>Loops</em></h2>
+      </div>
+    </div>
+
+    <p class="lead-text">There are only two kinds of feedback loops in the universe. Everything you've ever seen grow, crash, stabilize, or spiral — came from these two.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="def-box">
+          <div class="def-term">Reinforcing Loop (R+)</div>
+          <div class="def-text">A change in stock A causes more of the same change. Growth amplifies growth. Collapse amplifies collapse. Also called a "positive feedback loop" — not positive as in good, positive as in <em>amplifying</em>.</div>
+        </div>
+
+        <div class="prose">
+          <p><strong>Real example: LLM Adoption.</strong> More users → more revenue → better GPUs → smarter model → more users. OpenAI's growth loop is a textbook R+ loop. Once it tips, it compounds.</p>
+          <p><strong>Dangerous example: Technical Debt.</strong> More shortcuts taken → more bugs → more firefighting → fewer hours to write clean code → more shortcuts. This is also an R+ loop. It amplifies in the wrong direction.</p>
+        </div>
+      </div>
+      <div>
+        <div class="def-box">
+          <div class="def-term">Balancing Loop (B–)</div>
+          <div class="def-text">A change in stock A creates pressure to bring it back toward a goal. It resists change. All goal-seeking behavior — thermostats, immune systems, KPI dashboards — is a balancing loop.</div>
+        </div>
+
+        <div class="prose">
+          <p><strong>Real example: Alert Fatigue.</strong> Error alerts spike → engineers get paged → they fix issues → alerts drop → fewer engineers monitoring → errors spike again. Every on-call rotation is a B– loop.</p>
+          <p><strong>Real example: Content Moderation.</strong> Bad content increases → moderation ramps up → bad content decreases → moderation scales back → bad content increases. Platforms are stuck managing this oscillation permanently.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback Loop Diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <defs>
+          <marker id="arr3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#C9A84C"/>
+          </marker>
+          <marker id="arr4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(120,190,120,0.7)"/>
+          </marker>
+        </defs>
+
+        <!-- LEFT: Reinforcing Loop -->
+        <text x="120" y="22" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="9" letter-spacing="2">REINFORCING (R+)</text>
+
+        <ellipse cx="60" cy="110" rx="46" ry="28" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.35)" stroke-width="1.2"/>
+        <text x="60" y="108" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">USER</text>
+        <text x="60" y="120" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">GROWTH</text>
+
+        <ellipse cx="190" cy="110" rx="46" ry="28" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.35)" stroke-width="1.2"/>
+        <text x="190" y="108" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">PRODUCT</text>
+        <text x="190" y="120" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">QUALITY</text>
+
+        <path d="M 106 97 Q 125 60 174 97" fill="none" stroke="rgba(201,168,76,0.7)" stroke-width="1.5" marker-end="url(#arr3)"/>
+        <text x="125" y="56" text-anchor="middle" fill="rgba(201,168,76,0.8)" font-family="DM Mono, monospace" font-size="9">+</text>
+
+        <path d="M 174 123 Q 125 160 106 123" fill="none" stroke="rgba(201,168,76,0.7)" stroke-width="1.5" marker-end="url(#arr3)"/>
+        <text x="125" y="168" text-anchor="middle" fill="rgba(201,168,76,0.8)" font-family="DM Mono, monospace" font-size="9">+</text>
+
+        <text x="120" y="115" text-anchor="middle" fill="rgba(201,168,76,0.35)" font-family="Cormorant Garamond, serif" font-size="14" font-style="italic">R</text>
+
+        <!-- Divider -->
+        <line x1="280" y1="30" x2="280" y2="175" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="4,4"/>
+
+        <!-- RIGHT: Balancing Loop -->
+        <text x="440" y="22" text-anchor="middle" fill="rgba(120,200,140,0.7)" font-family="DM Mono, monospace" font-size="9" letter-spacing="2">BALANCING (B–)</text>
+
+        <ellipse cx="350" cy="110" rx="50" ry="28" fill="rgba(100,180,120,0.06)" stroke="rgba(120,200,140,0.35)" stroke-width="1.2"/>
+        <text x="350" y="108" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">ACTUAL</text>
+        <text x="350" y="120" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">PERF</text>
+
+        <ellipse cx="490" cy="110" rx="50" ry="28" fill="rgba(100,180,120,0.06)" stroke="rgba(120,200,140,0.35)" stroke-width="1.2"/>
+        <text x="490" y="108" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">GOAL /</text>
+        <text x="490" y="120" text-anchor="middle" fill="rgba(245,239,230,0.7)" font-family="DM Mono, monospace" font-size="8">TARGET</text>
+
+        <path d="M 400 97 Q 420 58 478 97" fill="none" stroke="rgba(120,200,140,0.6)" stroke-width="1.5" marker-end="url(#arr4)"/>
+        <text x="420" y="54" text-anchor="middle" fill="rgba(120,200,140,0.8)" font-family="DM Mono, monospace" font-size="9">GAP</text>
+
+        <path d="M 478 123 Q 420 162 400 123" fill="none" stroke="rgba(120,200,140,0.6)" stroke-width="1.5" marker-end="url(#arr4)"/>
+        <text x="420" y="168" text-anchor="middle" fill="rgba(120,200,140,0.8)" font-family="DM Mono, monospace" font-size="9">– corrects</text>
+
+        <text x="420" y="115" text-anchor="middle" fill="rgba(120,200,140,0.3)" font-family="Cormorant Garamond, serif" font-size="14" font-style="italic">B</text>
+      </svg>
+      <div class="diagram-caption">Fig 2.1 — Reinforcing loop amplifies change · Balancing loop resists change toward a goal</div>
+    </div>
+
+    <div class="pull-quote">
+      <blockquote>"The world is filled with powerful reinforcing loops. But there is no such thing as unlimited growth. Every reinforcing loop eventually runs into a balancing loop."</blockquote>
+      <cite>Core Principle of System Dynamics</cite>
+    </div>
+
+    <div class="prose">
+      <p><strong>Why this matters for AI builders:</strong> Most AI product teams only manage R+ loops (growth, model improvement). They neglect the B– loops — rate limiting, content filters, user fatigue, regulatory pressure — until those balancing forces crash the party. <em>Design both, or the system designs you.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ S3: DELAYS ═══════════════════ -->
+<div class="section" id="s3">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03 · Time Gaps</div>
+      <div class="section-title-block">
+        <div class="section-label">Hidden Mechanic</div>
+        <h2 class="section-title">Delays — The <em>Silent Killer</em></h2>
+      </div>
+    </div>
+
+    <p class="lead-text">A delay is the gap between cause and effect. It's the most misunderstood component of any system — and the root cause of most overreactions.</p>
+
+    <div class="two-col two-col-rev">
+      <div>
+        <!-- Delay Diagram -->
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%">
+            <defs>
+              <marker id="a5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#C9A84C"/>
+              </marker>
+            </defs>
+
+            <!-- Timeline base -->
+            <line x1="20" y1="120" x2="285" y2="120" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+
+            <!-- Cause event -->
+            <circle cx="50" cy="120" r="6" fill="rgba(201,168,76,0.8)"/>
+            <text x="50" y="140" text-anchor="middle" fill="rgba(245,239,230,0.5)" font-family="DM Mono, monospace" font-size="8">t=0</text>
+            <text x="50" y="108" text-anchor="middle" fill="rgba(201,168,76,0.8)" font-family="DM Mono, monospace" font-size="8">CAUSE</text>
+
+            <!-- Delay zone -->
+            <rect x="56" y="105" width="130" height="30" rx="3" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="121" y="124" text-anchor="middle" fill="rgba(201,168,76,0.35)" font-family="DM Mono, monospace" font-size="8" letter-spacing="2">DELAY ···</text>
+
+            <!-- Effect event -->
+            <circle cx="210" cy="120" r="6" fill="rgba(120,200,140,0.8)"/>
+            <text x="210" y="140" text-anchor="middle" fill="rgba(245,239,230,0.5)" font-family="DM Mono, monospace" font-size="8">t+n</text>
+            <text x="210" y="108" text-anchor="middle" fill="rgba(120,200,140,0.8)" font-family="DM Mono, monospace" font-size="8">EFFECT</text>
+
+            <!-- Overreaction arrow going down -->
+            <path d="M 50 68 Q 90 30 140 30 Q 190 30 210 68" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#a5)"/>
+            <text x="130" y="22" text-anchor="middle" fill="rgba(245,239,230,0.3)" font-family="DM Mono, monospace" font-size="7" letter-spacing="1">IMPATIENT INTERVENTION</text>
+
+            <!-- Wave pattern to show oscillation -->
+            <path d="M 50 155 Q 75 148 100 155 Q 125 162 150 155 Q 175 148 200 155 Q 225 162 250 155" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1.5"/>
+            <text x="150" y="175" text-anchor="middle" fill="rgba(245,239,230,0.25)" font-family="DM Mono, monospace" font-size="7" letter-spacing="1">OSCILLATION · CAUSED BY DELAY</text>
+          </svg>
+          <div class="diagram-caption">Fig 3.1 — Delays create oscillation when decision-makers act before the effect arrives</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="prose">
+          <p>When you can't see the effect of your action immediately, you do one of two things: you <strong>over-apply the fix</strong> (because nothing seems to be working) or you <strong>abandon the strategy</strong> (because you don't see results). Both are wrong. Both are caused by ignoring delays.</p>
+          <p>I believe most political, organizational, and personal disasters come from people not accounting for delays — pushing harder on a solution that was already working, or giving up on one that just hadn't kicked in yet.</p>
+        </div>
+
+        <div class="callout mt2">
+          <div class="callout-label">Delay Types in Tech</div>
+          <p><strong>Perception delay</strong> — time before you notice something changed (data pipeline lag). <strong>Response delay</strong> — time to decide and act (approval chains, sprint planning). <strong>Effect delay</strong> — time before your action produces results (SEO, model fine-tuning).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-grid mt2">
+      <div class="example-card">
+        <div class="card-icon">🧠</div>
+        <div class="card-title">LLM Fine-tuning Delay</div>
+        <div class="card-body">You inject new training data today. The model improvement shows up in eval metrics in 2–3 weeks. Teams that don't track this keep changing the data pipeline before the first intervention even had a chance to work. Result: chaotic, untraceable model degradation.</div>
+      </div>
+      <div class="example-card">
+        <div class="card-icon">📈</div>
+        <div class="card-title">SEO Content Lag</div>
+        <div class="card-body">Google indexes a page in days, but domain authority takes 3–6 months to materialize in rankings. Startups that stop publishing after "nothing happened in 60 days" kill their own compounding loop. The cause happened. The effect is just delayed.</div>
+      </div>
+      <div class="example-card">
+        <div class="card-icon">🏗️</div>
+        <div class="card-title">Hiring Decisions</div>
+        <div class="card-body">You hire 5 engineers to meet current demand. By the time they're onboarded and productive (90–180 days), demand has already shifted. Every engineering org in a hypergrowth phase has hired for yesterday's problem because they couldn't see the delay.</div>
+      </div>
+    </div>
+
+    <div class="prose mt2">
+      <p><strong>The fix:</strong> Don't increase the rate of action — increase the accuracy of your information. Know your system's delay time. Set a waiting period before changing strategy. A pipeline with a 6-week delay needs a 6-week patience window before you call it a failure.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ S4: ARCHETYPES ═══════════════════ -->
+<div class="section section-alt" id="s4">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04 · Patterns</div>
+      <div class="section-title-block">
+        <div class="section-label">Recurring Failures</div>
+        <h2 class="section-title">System <em>Archetypes</em></h2>
+      </div>
+    </div>
+
+    <p class="lead-text">I've identified patterns that repeat across industries, centuries, and contexts. Once you see them, you see them everywhere. Here are four that are actively destroying products, teams, and careers right now.</p>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-card-head">
+          <div class="arch-name">Limits to Growth</div>
+          <div class="arch-tagline">The R+ loop that always hits a wall</div>
+        </div>
+        <div class="arch-card-body">
+          <!-- Mini sparkline for Limits to Growth -->
+          <svg viewBox="0 0 100 30" width="80" height="24" style="margin-bottom: 0.8rem; display: block;">
+            <path d="M 5 25 Q 25 22 40 15 Q 55 5 70 5 L 95 5" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"/>
+            <line x1="65" y1="0" x2="65" y2="30" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="2,2"/>
+          </svg>
+          <p>A system grows, then slows — not because of bad strategy, but because it hit an unnoticed constraint. Removing the constraint restores growth. Ignoring it and pushing harder makes it worse.</p>
+          <p style="margin-top:0.7rem;"><strong>Tech example:</strong> Startup scales its AI API — users grow fast, then DAU plateaus. Teams double down on marketing. But the real limit? <em>Response latency</em> hit 8 seconds at scale and users silently churned. The constraint was infrastructure, not demand.</p>
+          <span class="arch-tech">// Fix: find the limiting constraint, don't push the accelerator</span>
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-card-head">
+          <div class="arch-name">Shifting the Burden</div>
+          <div class="arch-tagline">Symptomatic fixes that make root causes worse</div>
+        </div>
+        <div class="arch-card-body">
+          <!-- Mini sparkline for Shifting the Burden -->
+          <svg viewBox="0 0 100 30" width="80" height="24" style="margin-bottom: 0.8rem; display: block;">
+            <path d="M 5 15 L 25 15 L 25 25 L 50 25 L 50 15 L 75 15 L 75 25 L 95 25" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"/>
+          </svg>
+          <p>A problem creates pressure. You apply a quick fix (symptomatic solution) instead of a hard fix (fundamental solution). The quick fix works temporarily, reducing urgency for the real fix — so the root cause grows.</p>
+          <p style="margin-top:0.7rem;"><strong>Tech example:</strong> App crashes under load. Team adds more caching (quick fix). This masks the problem — the real bug is an N+1 query that's getting worse. The more caching they add, the less motivated they are to find the actual query. One day caching can't save them.</p>
+          <span class="arch-tech">// Fix: invest in fundamental solutions, not just symptomatic patches</span>
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-card-head">
+          <div class="arch-name">Tragedy of the Commons</div>
+          <div class="arch-tagline">When individual rationality destroys collective resources</div>
+        </div>
+        <div class="arch-card-body">
+          <!-- Mini sparkline for Tragedy of the Commons -->
+          <svg viewBox="0 0 100 30" width="80" height="24" style="margin-bottom: 0.8rem; display: block;">
+            <path d="M 5 5 Q 40 7 70 15 Q 85 22 90 30" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"/>
+          </svg>
+          <p>Each individual rationally exploits a shared resource. Collectively, the resource is destroyed. No single actor is "wrong" — the system design is wrong.</p>
+          <p style="margin-top:0.7rem;"><strong>Tech example:</strong> API rate limits shared across a team. Every developer adds just a few more calls. Nobody individually exceeds their "fair share." Together they hit the ceiling, break production, and spend a sprint debugging. The shared GPU cluster, the shared CI/CD pipeline, shared Slack channels — all commons tragedies in waiting.</p>
+          <span class="arch-tech">// Fix: define individual quotas + make the shared resource visible</span>
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-card-head">
+          <div class="arch-name">Escalation</div>
+          <div class="arch-tagline">Two R+ loops in opposition</div>
+        </div>
+        <div class="arch-card-body">
+          <!-- Mini sparkline for Escalation -->
+          <svg viewBox="0 0 100 30" width="80" height="24" style="margin-bottom: 0.8rem; display: block;">
+            <path d="M 5 25 L 30 15 L 55 5 L 85 0" fill="none" stroke="rgba(201,168,76,0.7)" stroke-width="1.5"/>
+            <path d="M 5 25 L 30 20 L 55 25 L 85 30" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.5" stroke-dasharray="3,2"/>
+          </svg>
+          <p>Party A acts. Party B responds with more. A escalates further. Each party is just reacting — but the system spirals. The most common outcome: both lose.</p>
+          <p style="margin-top:0.7rem;"><strong>Tech example:</strong> Google and OpenAI racing to release models faster. Each announcement makes the other accelerate. Safety tests get shorter. Alignment work gets delayed. Neither company wanted a race — but the system structure created one. Also visible in: ad bidding wars, VC valuation inflation, open-source one-upmanship.</p>
+          <span class="arch-tech">// Fix: one party must unilaterally de-escalate or introduce a governor</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Archetype visual summary -->
+    <div class="diagram-wrap mt3">
+      <svg viewBox="0 0 580 120" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <!-- Labels across top -->
+        <text x="70" y="18" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="8" letter-spacing="1">LIMITS TO GROWTH</text>
+        <text x="210" y="18" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="8" letter-spacing="1">SHIFTING BURDEN</text>
+        <text x="370" y="18" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="8" letter-spacing="1">COMMONS</text>
+        <text x="510" y="18" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="8" letter-spacing="1">ESCALATION</text>
+
+        <!-- Limits to Growth: S-curve -->
+        <path d="M 20 105 Q 40 100 55 85 Q 68 70 72 52 Q 76 38 82 33 Q 95 28 120 28" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"/>
+        <text x="70" y="115" text-anchor="middle" fill="rgba(245,239,230,0.25)" font-family="DM Mono, monospace" font-size="7">growth → plateau</text>
+
+        <!-- Shifting Burden: dip then oscillate -->
+        <path d="M 155 55 Q 165 80 180 78 Q 195 76 205 55 Q 215 32 230 33 Q 245 34 260 55" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"/>
+        <text x="208" y="115" text-anchor="middle" fill="rgba(245,239,230,0.25)" font-family="DM Mono, monospace" font-size="7">fix → bounce → worse</text>
+
+        <!-- Commons: exponential collapse -->
+        <path d="M 300 28 Q 330 30 350 40 Q 365 52 368 70 Q 370 88 372 105" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="2"/>
+        <text x="370" y="115" text-anchor="middle" fill="rgba(245,239,230,0.25)" font-family="DM Mono, monospace" font-size="7">overshoot → collapse</text>
+
+        <!-- Escalation: two diverging lines -->
+        <path d="M 455 80 Q 480 65 510 38 Q 530 24 555 18" fill="none" stroke="rgba(201,168,76,0.6)" stroke-width="1.5"/>
+        <path d="M 455 80 Q 480 88 510 95 Q 530 100 555 105" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="510" y="115" text-anchor="middle" fill="rgba(245,239,230,0.25)" font-family="DM Mono, monospace" font-size="7">A escalates · B responds</text>
+
+        <!-- Dividers -->
+        <line x1="140" y1="15" x2="140" y2="108" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+        <line x1="295" y1="15" x2="295" y2="108" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+        <line x1="440" y1="15" x2="440" y2="108" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+      </svg>
+      <div class="diagram-caption">Fig 4.1 — Behavioral signature of the four most common system archetypes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ S5: LEVERAGE POINTS ═══════════════════ -->
+<div class="section" id="s5">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">05 · Intervention</div>
+      <div class="section-title-block">
+        <div class="section-label">Where to Push</div>
+        <h2 class="section-title">Leverage <em>Points</em></h2>
+      </div>
+    </div>
+
+    <p class="lead-text">One of the most counterintuitive insights I follow: the places where small changes produce large effects are rarely where you'd expect to find them.</p>
+
+    <div class="prose mb2">
+      <p>I rank leverage points from <strong>least to most effective</strong>. Most organizations spend all their time at the bottom of this list — tweaking numbers and parameters — when the highest leverage is in <em>changing the goal of the system</em> or <em>changing the paradigm</em> the system operates under.</p>
+    </div>
+
+    <!-- Leverage Hierarchy Diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <!-- Pyramid Layers -->
+        <path d="M 200 20 L 260 80 L 140 80 Z" fill="rgba(201,168,76,0.3)" stroke="var(--gold)" stroke-width="1.5"/>
+        <path d="M 140 80 L 260 80 L 300 140 L 100 140 Z" fill="rgba(201,168,76,0.15)" stroke="var(--gold)" stroke-width="1"/>
+        <path d="M 100 140 L 300 140 L 360 210 L 40 210 Z" fill="rgba(201,168,76,0.05)" stroke="var(--gold)" stroke-width="1"/>
+        
+        <!-- Labels -->
+        <text x="200" y="62" text-anchor="middle" fill="var(--cream)" font-family="DM Sans, sans-serif" font-weight="600" font-size="9">PARADIGMS</text>
+        <text x="200" y="72" text-anchor="middle" fill="var(--gold)" font-family="DM Mono, monospace" font-size="6">Highest Leverage</text>
+
+        <text x="200" y="112" text-anchor="middle" fill="var(--cream-dim)" font-family="DM Sans, sans-serif" font-weight="600" font-size="9">GOALS & RULES</text>
+        <text x="200" y="122" text-anchor="middle" fill="var(--muted)" font-family="DM Mono, monospace" font-size="6">Structural Change</text>
+
+        <text x="200" y="175" text-anchor="middle" fill="var(--muted)" font-family="DM Sans, sans-serif" font-weight="600" font-size="9">NUMBERS & PARAMETERS</text>
+        <text x="200" y="185" text-anchor="middle" fill="rgba(201,168,76,0.4)" font-family="DM Mono, monospace" font-size="6">Easiest but Weakest</text>
+
+        <!-- Power Indicator -->
+        <line x1="30" y1="210" x2="30" y2="20" stroke="rgba(201,168,76,0.3)" stroke-width="1" marker-end="url(#a1)"/>
+        <text x="22" y="115" text-anchor="middle" fill="var(--gold)" font-family="DM Mono, monospace" font-size="7" transform="rotate(-90 22 115)">INTERVENTION POWER</text>
+      </svg>
+      <div class="diagram-caption">Fig 5.1 — The Leverage Hierarchy: Where small changes produce large effects</div>
+    </div>
+
+    <div class="leverage-list">
+
+      <div class="leverage-item">
+        <div class="lev-rank">12</div>
+        <div class="lev-body">
+          <div class="lev-name">Constants & Parameters (Numbers)</div>
+          <div class="lev-desc"><strong>Tech example:</strong> Changing your API rate limit from 100 to 150 req/min. Tweaking a model's temperature from 0.7 to 0.9. These feel like work. They rarely change outcomes significantly. Almost all A/B testing lives here.</div>
+        </div>
+        <div class="lev-power">
+          <div class="lev-dot filled"></div>
+          <div class="lev-dot empty"></div><div class="lev-dot empty"></div><div class="lev-dot empty"></div><div class="lev-dot empty"></div>
+        </div>
+      </div>
+
+      <div class="leverage-item">
+        <div class="lev-rank">9</div>
+        <div class="lev-body">
+          <div class="lev-name">Feedback Loop Strength</div>
+          <div class="lev-desc"><strong>Tech example:</strong> Adding real-time model eval dashboards. Shortening the sprint review cycle from 2 weeks to 1 week. Making feedback loops faster and stronger is dramatically more impactful than adjusting the numbers they measure.</div>
+        </div>
+        <div class="lev-power">
+          <div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div>
+          <div class="lev-dot empty"></div><div class="lev-dot empty"></div>
+        </div>
+      </div>
+
+      <div class="leverage-item">
+        <div class="lev-rank">6</div>
+        <div class="lev-body">
+          <div class="lev-name">Information Flows (Who gets to see what)</div>
+          <div class="lev-desc"><strong>Tech example:</strong> Making production error logs visible to every engineer, not just the on-call team. Publishing your API cost breakdown to all internal stakeholders. Information visibility is one of the most underused leverage points in most companies.</div>
+        </div>
+        <div class="lev-power">
+          <div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div>
+          <div class="lev-dot empty"></div>
+        </div>
+      </div>
+
+      <div class="leverage-item">
+        <div class="lev-rank">3</div>
+        <div class="lev-body">
+          <div class="lev-name">The Goal of the System</div>
+          <div class="lev-desc"><strong>Tech example:</strong> Changing what an AI product optimizes for — from "engagement time" to "user-reported wellbeing." Instagram optimized for time-on-app and got a mental health crisis. Changing the goal from engagement to connection would restructure every sub-system beneath it. This is why mission statements actually matter.</div>
+        </div>
+        <div class="lev-power">
+          <div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div>
+        </div>
+      </div>
+
+      <div class="leverage-item">
+        <div class="lev-rank">1</div>
+        <div class="lev-body">
+          <div class="lev-name">The Mindset — The Paradigm of the System</div>
+          <div class="lev-desc"><strong>Tech example:</strong> The shift from "software is a product you sell" → "software is a service you continuously operate" restructured the entire SaaS industry. The shift from "AI is a research project" → "AI is infrastructure" is restructuring every company today. Paradigm shifts are the most powerful leverage point. They change everything, all at once.</div>
+        </div>
+        <div class="lev-power">
+          <div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div><div class="lev-dot filled"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">The Counterintuitive Warning</div>
+      <p>I often note that <strong>high-leverage points can work in the wrong direction.</strong> Optimizing hard for a misaligned goal (engagement → addiction) is worse than having no goal at all. The power of the leverage point amplifies whatever direction you push it. This is why "move fast and break things" breaks real things when the goal isn't carefully designed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ S6: YOUR WORK AS A SYSTEM ═══════════════════ -->
+<div class="section section-alt" id="s6">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">06 · Application</div>
+      <div class="section-title-block">
+        <div class="section-label">Personal Operating System</div>
+        <h2 class="section-title">Your Work as a <em>System</em></h2>
+      </div>
+    </div>
+
+    <p class="lead-text">You don't manage tasks. You operate a system. Once you see it that way, you stop asking "how do I get more done?" and start asking "where is the bottleneck, and what's the feedback signal I'm missing?"</p>
+
+    <div class="two-col two-col-wide">
+      <div>
+        <div class="prose">
+          <p>Take any creator, engineer, or founder managing multiple workstreams simultaneously — content creation, client delivery, learning, health. The natural instinct is to make a better to-do list. That's tweaking a parameter (Leverage Point #12). The systems thinker asks different questions entirely:</p>
+          <p><strong>What is the stock I'm building?</strong> (reputation, skill, audience, codebase) <strong>What are the inflows and outflows?</strong> (output rate, consistency vs. distraction, skill decay) <strong>What's the feedback loop telling me?</strong> (engagement metrics, client satisfaction, test results) <strong>What's the delay I need to respect?</strong> (audience building takes 12–18 months; don't read last week's analytics as signal)</p>
+        </div>
+
+        <!-- Mini system map for personal work -->
+        <div class="diagram-wrap mt2">
+          <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+            <defs>
+              <marker id="a6" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill="rgba(201,168,76,0.6)"/>
+              </marker>
+            </defs>
+
+            <!-- Central stock: REPUTATION / OUTPUT -->
+            <rect x="140" y="75" width="120" height="50" rx="6" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+            <text x="200" y="96" text-anchor="middle" fill="rgba(201,168,76,0.9)" font-family="Cormorant Garamond, serif" font-size="13" font-weight="600">REPUTATION</text>
+            <text x="200" y="112" text-anchor="middle" fill="rgba(245,239,230,0.4)" font-family="DM Mono, monospace" font-size="8">+ Output Quality</text>
+
+            <!-- Inflows -->
+            <text x="30" y="80" text-anchor="middle" fill="rgba(245,239,230,0.55)" font-family="DM Mono, monospace" font-size="7">DEEP WORK</text>
+            <line x1="30" y1="83" x2="138" y2="97" stroke="rgba(201,168,76,0.5)" stroke-width="1.2" marker-end="url(#a6)"/>
+
+            <text x="30" y="118" text-anchor="middle" fill="rgba(245,239,230,0.55)" font-family="DM Mono, monospace" font-size="7">CONSISTENCY</text>
+            <line x1="55" y1="116" x2="138" y2="108" stroke="rgba(201,168,76,0.5)" stroke-width="1.2" marker-end="url(#a6)"/>
+
+            <!-- Outflows -->
+            <text x="370" y="80" text-anchor="middle" fill="rgba(245,239,230,0.55)" font-family="DM Mono, monospace" font-size="7">DISTRACTION</text>
+            <line x1="262" y1="97" x2="340" y2="85" stroke="rgba(201,168,76,0.25)" stroke-width="1.2" marker-end="url(#a6)"/>
+
+            <text x="370" y="118" text-anchor="middle" fill="rgba(245,239,230,0.55)" font-family="DM Mono, monospace" font-size="7">SKILL DECAY</text>
+            <line x1="262" y1="108" x2="340" y2="115" stroke="rgba(201,168,76,0.25)" stroke-width="1.2" marker-end="url(#a6)"/>
+
+            <!-- Feedback loops -->
+            <path d="M 200 125 Q 200 160 130 165 Q 60 170 40 130 Q 30 112 30 96" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#a6)"/>
+            <text x="100" y="178" text-anchor="middle" fill="rgba(201,168,76,0.4)" font-family="DM Mono, monospace" font-size="7">SIGNAL: ENGAGEMENT</text>
+
+            <!-- Delay annotation -->
+            <text x="200" y="20" text-anchor="middle" fill="rgba(245,239,230,0.3)" font-family="DM Mono, monospace" font-size="7" letter-spacing="1">⏳ DELAY: 6–18 MONTHS TO COMPOUND</text>
+          </svg>
+          <div class="diagram-caption">Fig 6.1 — Personal output as a stock-and-flow system</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="step-flow">
+          <div class="step-row">
+            <div class="step-num-wrap"><div class="step-num">01</div></div>
+            <div class="step-content">
+              <div class="step-title">Map your stocks</div>
+              <div class="step-text">What are you actually accumulating? Audience trust, code quality, domain expertise, client relationships. Be specific. These are your real assets — not tasks completed.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num-wrap"><div class="step-num">02</div></div>
+            <div class="step-content">
+              <div class="step-title">Identify your inflows and outflows</div>
+              <div class="step-text">What fills your stock? What drains it? For a developer: inflow = shipping, learning, code reviews. Outflow = context switching, meetings without decisions, technical debt accumulation.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num-wrap"><div class="step-num">03</div></div>
+            <div class="step-content">
+              <div class="step-title">Design your feedback loops</div>
+              <div class="step-text">What signals tell you when something is off? If you have no feedback mechanism, you're flying blind. Weekly reviews, engagement metrics, peer feedback — these aren't optional. They're the nervous system of your work system.</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num-wrap"><div class="step-num">04</div></div>
+            <div class="step-content">
+              <div class="step-title">Respect delays — build patience into your system</div>
+              <div class="step-text">Know the delay for each system you operate. Content: 6 months. Skill building: 90 days minimum. Product-market fit: 12–18 months. Build decision rules: "I will not change strategy until I've waited [delay period] after the last change."</div>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num-wrap"><div class="step-num">05</div></div>
+            <div class="step-content">
+              <div class="step-title">Find your leverage point — and act there</div>
+              <div class="step-text">Don't optimize tasks. Find the one structural change that changes everything. For most builders: it's information flow (who sees what, when). For most creators: it's the goal (create for learning vs. for validation).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillars mt3">
+      <div class="pillar">
+        <span class="pillar-icon">⚙️</span>
+        <div class="pillar-title">Think in Structures</div>
+        <div class="pillar-text">Events are symptoms. Patterns are clues. Structure is the cause. Stop managing events — design structures.</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🔁</span>
+        <div class="pillar-title">Close the Loop</div>
+        <div class="pillar-text">Every system without feedback is running open-loop. An open loop cannot self-correct. Every process needs a signal and a response.</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">⏳</span>
+        <div class="pillar-title">Honor Delays</div>
+        <div class="pillar-text">Patience is not passive. It is the active recognition that cause and effect are separated in time. React to the right time horizon.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FINAL THOUGHT ═══════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">∞ · Closing</div>
+      <div class="section-title-block">
+        <div class="section-label">The Meta-Point</div>
+        <h2 class="section-title">The <em>Real</em> Shift</h2>
+      </div>
+    </div>
+
+    <div class="two-col two-col-wide">
+      <div>
+        <p class="lead-text">Systems thinking isn't a tool you deploy on Fridays. It's a lens you can never fully take off once you've put it on.</p>
+
+        <div class="prose">
+          <p>I strongly believe in the principle of staying humble and staying a learner when navigating these systems. The most radical advice I follow: <strong>"Stay humble. Stay a learner."</strong> Because systems are complex. Our models of them are always incomplete. The best systems thinkers are those who hold their understanding loosely — continuously updating as new information arrives.</p>
+          <p>In the AI age, this is more urgent than ever. The systems we build (products, models, organizations) now move faster than our ability to observe them. The feedback loops are shorter. The delays are smaller. The reinforcing loops are more vicious.</p>
+          <p>But the core insight remains unchanged: <em>you cannot manage what you cannot see the structure of.</em> Learn the structure. Build feedback. Respect delays. Intervene at leverage points. And when you find yourself tweaking a parameter for the third time without results — stop. Look for the system.</p>
+        </div>
+
+        <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:0.5rem;">
+          <span class="tag">systems thinking</span>
+          <span class="tag">feedback loops</span>
+          <span class="tag">AI products</span>
+          <span class="tag">leverage points</span>
+          <span class="tag">delays</span>
+          <span class="tag">complexity</span>
+          <span class="tag">mental models</span>
+        </div>
+
+        <!-- Suggested Reading -->
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(201,168,76,0.1);">
+          <div class="callout-label" style="margin-bottom: 1rem;">Suggested Reading</div>
+          <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">
+            Many of these principles are detailed in the foundational work <strong>"Thinking in Systems"</strong> by <strong>Donella H. Meadows</strong>. It is highly recommended for anyone looking to go deeper into the invisible architecture of the world.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <!-- Final summary SVG -->
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg" width="100%">
+            <!-- Vertical stack of concepts -->
+            <rect x="10" y="10" width="240" height="40" rx="5" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+            <text x="130" y="27" text-anchor="middle" fill="rgba(201,168,76,0.9)" font-family="DM Mono, monospace" font-size="8" letter-spacing="2">PARADIGM SHIFT</text>
+            <text x="130" y="42" text-anchor="middle" fill="rgba(245,239,230,0.4)" font-family="DM Mono, monospace" font-size="7">highest leverage · hardest to change</text>
+
+            <line x1="130" y1="50" x2="130" y2="65" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <rect x="20" y="65" width="220" height="35" rx="5" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+            <text x="130" y="80" text-anchor="middle" fill="rgba(201,168,76,0.8)" font-family="DM Mono, monospace" font-size="8">GOALS OF THE SYSTEM</text>
+            <text x="130" y="93" text-anchor="middle" fill="rgba(245,239,230,0.35)" font-family="DM Mono, monospace" font-size="7">what the system is optimizing for</text>
+
+            <line x1="130" y1="100" x2="130" y2="115" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <rect x="30" y="115" width="200" height="35" rx="5" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+            <text x="130" y="130" text-anchor="middle" fill="rgba(201,168,76,0.7)" font-family="DM Mono, monospace" font-size="8">INFORMATION FLOWS</text>
+            <text x="130" y="143" text-anchor="middle" fill="rgba(245,239,230,0.3)" font-family="DM Mono, monospace" font-size="7">who knows what, when</text>
+
+            <line x1="130" y1="150" x2="130" y2="165" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <rect x="40" y="165" width="180" height="35" rx="5" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+            <text x="130" y="180" text-anchor="middle" fill="rgba(201,168,76,0.6)" font-family="DM Mono, monospace" font-size="8">FEEDBACK STRENGTH</text>
+            <text x="130" y="193" text-anchor="middle" fill="rgba(245,239,230,0.25)" font-family="DM Mono, monospace" font-size="7">speed + quality of correction signals</text>
+
+            <line x1="130" y1="200" x2="130" y2="215" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <rect x="50" y="215" width="160" height="35" rx="5" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+            <text x="130" y="230" text-anchor="middle" fill="rgba(201,168,76,0.45)" font-family="DM Mono, monospace" font-size="8">DELAYS · BUFFERS</text>
+            <text x="130" y="243" text-anchor="middle" fill="rgba(245,239,230,0.2)" font-family="DM Mono, monospace" font-size="7">timing & resilience in the structure</text>
+
+            <line x1="130" y1="250" x2="130" y2="265" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <rect x="60" y="265" width="140" height="12" rx="3" fill="rgba(201,168,76,0.12)" stroke="none"/>
+            <text x="130" y="275" text-anchor="middle" fill="rgba(245,239,230,0.35)" font-family="DM Mono, monospace" font-size="7" letter-spacing="1">PARAMETERS · NUMBERS</text>
+          </svg>
+          <div class="diagram-caption">Fig 6.2 — Leverage hierarchy: where most teams act vs. where they should</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<div class="doc-footer">
+  <div class="container" style="display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem;">
+    <div>
+      <div class="footer-title">Thinking in Systems — AI Age</div>
+      <div class="footer-subtitle">An internal knowledge brief on the systems that govern modern work</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windsurf Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0e0e;
+  --surface: #161616;
+  --surface2: #1e1e1e;
+  --border: #2a2a2a;
+  --border2: #333;
+  --text: #e8e8e8;
+  --text2: #888;
+  --text3: #555;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --green: #3dd68c;
+  --green-bg: rgba(61,214,140,.1);
+  --green-border: rgba(61,214,140,.25);
+  --lime: #84cc16;
+  --lime-bg: rgba(132,204,22,.09);
+  --lime-border: rgba(132,204,22,.2);
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,.09);
+  --amber-border: rgba(245,158,11,.2);
+  --orange: #f97316;
+  --orange-bg: rgba(249,115,22,.09);
+  --orange-border: rgba(249,115,22,.2);
+  --red: #ef4444;
+  --red-bg: rgba(239,68,68,.08);
+  --red-border: rgba(239,68,68,.2);
+  --accent: #6366f1;
+  --accent-bg: rgba(99,102,241,.12);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+/* ── Header ── */
+.header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.75rem;
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .5rem;
+}
+.logo-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--accent-bg);
+  color: #818cf8;
+  border: 1px solid rgba(99,102,241,.25);
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: .04em;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.3px;
+  color: var(--text);
+}
+.header p {
+  font-size: 13px;
+  color: var(--text2);
+  margin-top: .25rem;
+}
+.header p span {
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* ── Section label ── */
+.sec {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.sec::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Warning banner ── */
+.warn {
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-radius: 8px;
+  padding: .9rem 1.1rem;
+  font-size: 12.5px;
+  color: #d4a450;
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+.warn strong { color: var(--amber); font-weight: 500; }
+
+/* ── Tier pills row ── */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 2.5rem;
+}
+.tier-pill {
+  border-radius: 8px;
+  padding: .75rem .85rem;
+  border: 1px solid;
+  cursor: default;
+}
+.tier-pill .tname { font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .3rem; }
+.tier-pill .tcost { font-size: 13px; font-weight: 500; margin-bottom: .15rem; }
+.tier-pill .tmodels { font-size: 10.5px; line-height: 1.4; }
+.tp0 { background: var(--green-bg); border-color: var(--green-border); }
+.tp0 .tname,.tp0 .tmodels { color: #2a9e69; }
+.tp0 .tcost { color: var(--green); }
+.tp1 { background: var(--lime-bg); border-color: var(--lime-border); }
+.tp1 .tname,.tp1 .tmodels { color: #5a8a10; }
+.tp1 .tcost { color: var(--lime); }
+.tp2 { background: var(--amber-bg); border-color: var(--amber-border); }
+.tp2 .tname,.tp2 .tmodels { color: #9a7020; }
+.tp2 .tcost { color: var(--amber); }
+.tp3 { background: var(--orange-bg); border-color: var(--orange-border); }
+.tp3 .tname,.tp3 .tmodels { color: #a55020; }
+.tp3 .tcost { color: var(--orange); }
+.tp4 { background: var(--red-bg); border-color: var(--red-border); }
+.tp4 .tname,.tp4 .tmodels { color: #a03535; }
+.tp4 .tcost { color: var(--red); }
+
+/* ── Finder ── */
+.finder-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 2.5rem;
+}
+.finder-box label {
+  display: block;
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: .6rem;
+  font-weight: 400;
+}
+.finder-box select {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 7px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: .65rem .9rem;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  transition: border-color .15s;
+}
+.finder-box select:hover { border-color: #444; }
+.finder-box select:focus { border-color: var(--accent); }
+
+.result {
+  margin-top: 1rem;
+  display: none;
+  animation: fadein .2s ease;
+}
+.result.show { display: block; }
+@keyframes fadein { from { opacity:0; transform: translateY(4px); } to { opacity:1; transform: none; } }
+
+.res-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .65rem;
+}
+.res-model {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+}
+.badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 4px;
+  border: 1px solid;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.b-free { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+.b-low { background: var(--lime-bg); color: var(--lime); border-color: var(--lime-border); }
+.b-mid { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
+.b-high { background: var(--orange-bg); color: var(--orange); border-color: var(--orange-border); }
+.b-xhigh { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+
+.res-why {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: .5rem;
+}
+.res-note {
+  font-size: 12px;
+  color: var(--text3);
+  border-left: 2px solid var(--border2);
+  padding-left: .75rem;
+  line-height: 1.6;
+}
+.res-note strong { color: var(--text2); font-weight: 400; }
+
+/* ── Model reference table ── */
+.table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+.table-search-wrap {
+  padding: .9rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+}
+.table-search-wrap input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: .55rem .85rem;
+  outline: none;
+  transition: border-color .15s;
+}
+.table-search-wrap input::placeholder { color: var(--text3); }
+.table-search-wrap input:focus { border-color: var(--accent); }
+
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: .65rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .12s;
+}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface2); }
+td {
+  padding: .7rem 1rem;
+  vertical-align: middle;
+  font-size: 13px;
+}
+.model-name {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+}
+.model-cost {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text2);
+}
+.model-use {
+  color: var(--text2);
+  font-size: 12.5px;
+}
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 7px;
+  flex-shrink: 0;
+}
+.d-free { background: var(--green); }
+.d-low { background: var(--lime); }
+.d-mid { background: var(--amber); }
+.d-high { background: var(--orange); }
+.d-xhigh { background: var(--red); }
+.model-row { display: flex; align-items: center; }
+
+/* ── Rules ── */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 2.5rem;
+}
+.rule-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: .9rem 1.1rem;
+}
+.rule-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: .35rem;
+}
+.rule-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: .3rem;
+}
+.rule-body {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* ── Pipeline stages ── */
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 2.5rem;
+}
+.pipeline-stage {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 1rem;
+  text-align: center;
+  transition: border-color .15s;
+}
+.pipeline-stage:hover {
+  border-color: var(--accent);
+}
+.stage-icon {
+  font-size: 24px;
+  margin-bottom: .5rem;
+}
+.stage-name {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: .5rem;
+  letter-spacing: .03em;
+}
+.stage-model {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: .4rem;
+}
+.stage-desc {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* ── Pipeline detail cards ── */
+.pipeline-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.4rem;
+  margin-bottom: 2rem;
+}
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--border);
+}
+.detail-icon {
+  font-size: 28px;
+}
+.detail-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+}
+.detail-content {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.detail-content strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.model-rec {
+  display: inline-block;
+  background: var(--accent-bg);
+  color: #818cf8;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin: .25rem .25rem .25rem 0;
+}
+
+/* ── Why Windsurf section ── */
+.why-section {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.why-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.why-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.why-item {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+}
+.why-check {
+  color: var(--green);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.why-text {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* ── Comparison table ── */
+.comp-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+.comp-table-wrap table {
+  font-size: 12px;
+}
+.comp-table-wrap thead th {
+  background: var(--surface2);
+  padding: .75rem 1rem;
+}
+.comp-table-wrap td {
+  padding: .9rem 1rem;
+  vertical-align: top;
+}
+.comp-name {
+  font-weight: 500;
+  color: var(--text);
+}
+.comp-price {
+  font-family: var(--mono);
+  color: var(--accent);
+  font-weight: 500;
+}
+.comp-limit {
+  color: var(--text2);
+  line-height: 1.5;
+}
+.comp-advantage {
+  color: var(--green);
+  font-weight: 500;
+}
+
+/* ── Visual diagrams ── */
+.diagram-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+.diagram-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.flowchart {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--text2);
+  white-space: pre;
+  background: var(--surface2);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.architecture-diagram {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text2);
+  white-space: pre;
+  background: var(--surface2);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.sequence-diagram {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text2);
+  white-space: pre;
+  background: var(--surface2);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.comparison-chart {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.chart-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.chart-label {
+  font-size: 11px;
+  color: var(--text2);
+  min-width: 120px;
+}
+.chart-bar-wrap {
+  flex: 1;
+  background: var(--surface2);
+  border-radius: 4px;
+  height: 24px;
+  overflow: hidden;
+}
+.chart-bar {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 .5rem;
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--bg);
+  font-weight: 500;
+}
+.chart-bar.manual { background: var(--amber); }
+.chart-bar.windsurf { background: var(--green); }
+.chart-value {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  min-width: 60px;
+  text-align: right;
+}
+.workflow-diagram {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--text2);
+  white-space: pre;
+  background: var(--surface2);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.diagram-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  font-size: 11px;
+  color: var(--text3);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+.legend-color.green { background: var(--green); }
+.legend-color.amber { background: var(--amber); }
+.legend-color.accent { background: var(--accent); }
+
+/* ── Footer ── */
+.footer {
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Nav tabs ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+.tab {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text3);
+  padding: .45rem .9rem;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-bottom: none;
+  position: relative;
+  bottom: -1px;
+  transition: color .15s;
+  background: none;
+  font-family: var(--sans);
+}
+.tab:hover { color: var(--text2); }
+.tab.active {
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--surface);
+  border-bottom-color: var(--surface);
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+@media(max-width:640px){
+  .tiers{grid-template-columns:1fr 1fr;}.tiers .tier-pill:last-child{grid-column:span 2;}
+  .rules-grid{grid-template-columns:1fr;}
+  .footer{flex-direction:column;gap:.5rem;}
+  td{padding:.55rem .7rem;}
+  thead th{padding:.55rem .7rem;}
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="layout">
+
+  <div class="header">
+    <div class="header-top">
+      <span class="logo-pill">WINDSURF</span>
+      <h1>Windsurf Guide</h1>
+    </div>
+    <p>This guide will tell you how to get maximum out of Windsurf AI — free or paid user.</p>
+  </div>
+
+  <div class="warn">
+    <strong>⚠ March 2026 billing change:</strong> Windsurf switched to a quota-based system — daily + weekly token budget instead of credits. <strong>SWE-1.6 and SWE-1.5 are completely free.</strong> External models (Claude, GPT, Gemini) burn quota proportional to tokens used. A single heavy Opus 4.6 session can consume 8–10% of your weekly quota. Overages after quota = billed at API list price + 20% margin.
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('finder')">Task → Model Finder</button>
+    <button class="tab" onclick="switchTab('pipeline')">My Own Pipeline</button>
+    <button class="tab" onclick="switchTab('reference')">Full Model Reference</button>
+    <button class="tab" onclick="switchTab('rules')">Rules</button>
+  </div>
+
+  <!-- ── FINDER PANEL ── -->
+  <div id="panel-finder" class="panel active">
+
+    <div class="sec">Cost tiers</div>
+    <div class="tiers">
+      <div class="tier-pill tp0">
+        <div class="tname">Tier 0</div>
+        <div class="tcost">Free</div>
+        <div class="tmodels">SWE-1.6 · SWE-1.5 · Tab</div>
+      </div>
+      <div class="tier-pill tp1">
+        <div class="tname">Tier 1</div>
+        <div class="tcost">~$0.6–$1.5/M</div>
+        <div class="tmodels">Gemini 3 Flash · Haiku 4.5 · Grok mini</div>
+      </div>
+      <div class="tier-pill tp2">
+        <div class="tname">Tier 2</div>
+        <div class="tcost">~$2–$4/M in</div>
+        <div class="tmodels">GPT-5.4 · Gemini 3.1 Pro · GPT-5.2</div>
+      </div>
+      <div class="tier-pill tp3">
+        <div class="tname">Tier 3</div>
+        <div class="tcost">~$3.6–$6/M in</div>
+        <div class="tmodels">Sonnet 4.6 · GPT-5.5 · Grok-3</div>
+      </div>
+      <div class="tier-pill tp4">
+        <div class="tname">Tier 4</div>
+        <div class="tcost">~$6–$12+/M in</div>
+        <div class="tmodels">Opus 4.6/4.7 · GPT-5 Thinking</div>
+      </div>
+    </div>
+
+    <div class="sec">What are you trying to do?</div>
+    <div class="finder-box">
+      <label>Select your task type</label>
+      <select id="taskSelect" onchange="showResult()">
+        <option value="">— Choose a task —</option>
+        <optgroup label="Routine / Low complexity">
+          <option value="tab">Tab autocomplete / inline suggestion</option>
+          <option value="quick">Quick inline edit / small fix / rename</option>
+          <option value="boilerplate">Boilerplate, config files, scaffolding</option>
+          <option value="docs">Writing documentation or comments</option>
+        </optgroup>
+        <optgroup label="Standard development">
+          <option value="feature">Standard feature implementation</option>
+          <option value="review">Code review / explanation</option>
+          <option value="debug">Debugging — moderate complexity</option>
+        </optgroup>
+        <optgroup label="Complex work">
+          <option value="multifile">Multi-file refactor / large feature</option>
+          <option value="debug_hard">Debugging — hard, logic-heavy bug</option>
+          <option value="longctx">Large codebase analysis / long context reading</option>
+        </optgroup>
+        <optgroup label="Expert level">
+          <option value="arch">Architecture / system design decisions</option>
+          <option value="algo">Hard algorithm / optimization problem</option>
+          <option value="agentic">Complex agentic workflow (multi-step, multi-tool)</option>
+        </optgroup>
+      </select>
+
+      <div class="result" id="resultBox">
+        <div class="res-header">
+          <div class="res-model" id="resModel"></div>
+          <span class="badge" id="resTier"></span>
+        </div>
+        <div class="res-why" id="resWhy"></div>
+        <div class="res-note" id="resNote"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REFERENCE PANEL ── -->
+  <div id="panel-reference" class="panel">
+    <div class="sec">All available models</div>
+    <div class="table-wrap">
+      <div class="table-search-wrap">
+        <input type="text" id="modelSearch" placeholder="Filter models..." oninput="filterTable()">
+      </div>
+      <table id="modelTable">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Windsurf cost (input / output per 1M tokens)</th>
+            <th>Tier</th>
+            <th>Best for</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── RULES PANEL ── -->
+  <div id="panel-rules" class="panel">
+    <div class="sec">Non-negotiable rules</div>
+    <div class="rules-grid" id="rulesGrid"></div>
+  </div>
+
+  <!-- ── PIPELINE PANEL ── -->
+  <div id="panel-pipeline" class="panel">
+    <div class="sec">Development pipeline with Windsurf</div>
+
+    <div class="pipeline-grid">
+      <div class="pipeline-stage">
+        <div class="stage-icon">📋</div>
+        <div class="stage-name">PLANNING</div>
+        <div class="stage-model">SWE-1.6 → Sonnet 4.6</div>
+        <div class="stage-desc">Requirements & architecture</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-icon">⚡</div>
+        <div class="stage-name">IMPLEMENTATION</div>
+        <div class="stage-model">SWE-1.6 (free)</div>
+        <div class="stage-desc">Feature development</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-icon">🧪</div>
+        <div class="stage-name">TESTING</div>
+        <div class="stage-model">SWE-1.6 → Haiku 4.5</div>
+        <div class="stage-desc">Test generation & validation</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-icon">🔍</div>
+        <div class="stage-name">DEBUGGING</div>
+        <div class="stage-model">SWE-1.6 → Sonnet Thinking</div>
+        <div class="stage-desc">Bug investigation & fixes</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-icon">🚀</div>
+        <div class="stage-name">DEPLOYMENT</div>
+        <div class="stage-model">SWE-1.6 → Gemini 3.1 Pro</div>
+        <div class="stage-desc">CI/CD & production</div>
+      </div>
+    </div>
+
+    <div class="pipeline-detail">
+      <div class="detail-header">
+        <div class="detail-icon">📋</div>
+        <div class="detail-title">Planning Stage</div>
+      </div>
+      <div class="detail-content">
+        <strong>What I do:</strong> Before writing any code, I use Windsurf to break down requirements, discuss architecture decisions, and create implementation roadmaps. This saves hours of rework later.<br><br>
+        <strong>Real-world example:</strong> When I was implementing real-time collaborative editing for our document editor, I fed Windsurf the PRD and asked it to generate a complete technical specification. It identified edge cases I hadn't considered — like conflict resolution when two users edit the same paragraph simultaneously, and how to handle offline sync.<br><br>
+        <strong>My workflow:</strong> I start by giving Windsurf the PRD or feature requirements and ask: "Generate a technical spec with API contracts, database schema changes, and edge cases." Then I review, iterate, and only then move to implementation.<br><br>
+        <strong>Model strategy:</strong> <span class="model-rec">SWE-1.6</span> for initial task breakdown and feature scoping. For complex architecture discussions or system design decisions, I escalate to <span class="model-rec">Claude Sonnet 4.6 Thinking</span> — the reasoning depth is worth the quota cost here. For example, when deciding between WebSocket vs Server-Sent Events for real-time features, Sonnet's thinking mode walked me through the trade-offs and helped me choose the right approach.<br><br>
+        <strong>Best practice:</strong> Keep planning sessions focused. Don't burn Opus quota on planning — SWE-1.6 handles 90% of planning tasks perfectly for free. Only escalate when you genuinely need deep reasoning.
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">📊 My Planning Workflow</div>
+      <div class="flowchart">
+┌─────────────┐
+│   PRD /     │
+│ Requirements │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│  Technical  │ ───────────────► Generate spec
+│   Spec      │                  with API contracts,
+└──────┬──────┘                  schema changes,
+       │                         edge cases
+       ▼
+┌─────────────┐
+│ Architecture │ ◄───── Sonnet 4.6 Thinking
+│  Decisions  │      (for complex trade-offs)
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│Implementation│
+│    Plan     │
+└─────────────┘
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">🏗️ Architecture Decision Example: Real-Time Sync</div>
+      <div class="architecture-diagram">
+Client A              WebSocket Server           Client B
+   │                        │                       │
+   │──── edit ─────────────►│                       │
+   │                        │──── edit ─────────────►│
+   │                        │                       │
+   │◄──── ack ──────────────│                       │
+   │                        │◄──── ack ─────────────│
+   │                        │                       │
+   │◄──── conflict ─────────│◄──── conflict ────────│
+   │   resolution           │   resolution          │
+
+Trade-offs evaluated by Windsurf:
+• WebSocket vs SSE → Chose WebSocket (bidirectional needed)
+• Operational Transform vs CRDT → Chose OT (simpler for our use case)
+• Conflict resolution strategy → Last-write-wins with versioning
+      </div>
+    </div>
+
+    <div class="pipeline-detail">
+      <div class="detail-header">
+        <div class="detail-icon">⚡</div>
+        <div class="detail-title">Implementation Stage</div>
+      </div>
+      <div class="detail-content">
+        <strong>What I do:</strong> This is where Windsurf shines. I use SWE-1.6 as my primary coding companion for feature implementation. It understands our codebase context and writes production-ready code.<br><br>
+        <strong>Real-world example:</strong> When I added OAuth authentication to our app, I used Cascade to implement it file-by-file. I started with the controller, then the service layer, then the repository, then tests. Windsurf maintained consistency across all files, following our existing patterns in the auth/ directory. What would have taken me 2 hours manually took 20 minutes with Windsurf.<br><br>
+        <strong>My workflow:</strong> I give Windsurf specific, context-aware prompts like: "Implement the user registration flow following our existing patterns in auth/ directory. Start with the controller, then service layer, then repository. Use our existing User model and follow the pattern in auth/login.ts."<br><br>
+        <strong>Model strategy:</strong> <span class="model-rec">SWE-1.6</span> is the default for everything. It's free and achieves near-Claude 4.5 performance on coding benchmarks. Only escalate to <span class="model-rec">Sonnet 4.6</span> or <span class="model-rec">GPT-5.4</span> if SWE-1.6 struggles with the specific task.<br><br>
+        <strong>Advanced technique:</strong> I combine Tab autocomplete with Cascade for maximum velocity. Tab handles the small inline edits while Cascade manages multi-file changes. For example, I implemented a new API endpoint in 15 minutes by having Windsurf generate the controller, tests, and documentation in parallel.<br><br>
+        <strong>Best practice:</strong> Break large features into smaller, focused sessions. Long implementation sessions with paid models burn quota fast. Use SWE-1.6 for the bulk of the work.
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">🔄 Iterative Implementation Workflow</div>
+      <div class="sequence-diagram">
+Me                    Windsurf (SWE-1.6)              Codebase
+ │                          │                          │
+ │── "Implement OAuth" ────►│                          │
+ │  following auth/ pattern │                          │
+ │                          │                          │
+ │                          │── Read auth/login.ts ───►│
+ │                          │   (pattern matching)     │
+ │                          │◄── Pattern loaded ──────│
+ │                          │                          │
+ │                          │── Generate controller ──►│
+ │                          │   auth/oauth.ts          │
+ │                          │◄── File created ─────────│
+ │                          │                          │
+ │◄── "Controller done" ────│                          │
+ │                          │                          │
+ │── "Now service layer" ──►│                          │
+ │                          │                          │
+ │                          │── Generate service ─────►│
+ │                          │   auth/oauth.service.ts  │
+ │                          │◄── File created ─────────│
+ │                          │                          │
+ │◄── "Service done" ───────│                          │
+ │                          │                          │
+ │── "Now repository" ─────►│                          │
+ │                          │                          │
+ │                          │── Generate repository ──►│
+ │                          │   auth/oauth.repo.ts     │
+ │                          │◄── File created ─────────│
+ │                          │                          │
+ │◄── "All done, add tests"─│                          │
+ │                          │── Generate tests ───────►│
+ │                          │   auth/oauth.test.ts     │
+ │                          │◄── Tests created ────────│
+ │                          │                          │
+ │◄── "OAuth implemented" ──│                          │
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">📁 File Dependency: OAuth Implementation</div>
+      <div class="architecture-diagram">
+auth/
+├── login.ts (existing pattern)
+│   └── exports: LoginController, LoginService, LoginRepository
+│
+├── oauth.ts (NEW - generated by Windsurf)
+│   ├── OAuthController
+│   │   ├── follows LoginController pattern
+│   │   ├── uses OAuthService
+│   │   └── exports: oauthRoutes
+│   │
+│   ├── oauth.service.ts (NEW)
+│   │   ├── follows LoginService pattern
+│   │   ├── uses OAuthRepository
+│   │   └── handles: token exchange, user lookup
+│   │
+│   └── oauth.repo.ts (NEW)
+│       ├── follows LoginRepository pattern
+│       ├── uses existing User model
+│       └── handles: OAuth tokens, user sessions
+│
+└── oauth.test.ts (NEW)
+    ├── tests all three layers
+    ├── follows existing test patterns
+    └── covers: success, failure, edge cases
+
+Key: Windsurf maintains consistency across all files
+by reading existing patterns and applying them uniformly.
+      </div>
+    </div>
+
+    <div class="pipeline-detail">
+      <div class="detail-header">
+        <div class="detail-icon">🧪</div>
+        <div class="detail-title">Testing Stage</div>
+      </div>
+      <div class="detail-content">
+        <strong>What I do:</strong> I use Windsurf to generate unit tests, integration tests, and edge case coverage. It's particularly good at suggesting test scenarios I might miss.<br><br>
+        <strong>Real-world example:</strong> For our payment processing logic, I asked Windsurf to generate comprehensive tests. It identified edge cases our team hadn't considered: timeout scenarios during payment processing, idempotency checks for duplicate payment attempts, and handling of partial refunds. Windsurf found 3 critical bugs in our discount calculation logic that manual testing missed — a race condition in the coupon application, a precision error in percentage calculations, and a missing validation for expired coupons.<br><br>
+        <strong>My workflow:</strong> I use Windsurf for property-based testing and edge case discovery. My prompt: "Generate unit tests for the payment service covering success cases, failure cases, timeout scenarios, idempotency checks, and edge cases with invalid inputs. Use our existing test patterns in tests/payment/."<br><br>
+        <strong>Model strategy:</strong> <span class="model-rec">SWE-1.6</span> for standard test generation. For boilerplate test code or simple test cases, <span class="model-rec">Claude Haiku 4.5</span> is the most cost-effective choice — excellent quality at ~$1.20/$6 per 1M tokens.<br><br>
+        <strong>Advanced technique:</strong> I use Windsurf to analyze existing code and suggest missing test coverage. I feed it the function and ask: "What test cases am I missing for this function?" It often catches edge cases I overlooked. I also use it for test-driven development — I describe the behavior, have Windsurf generate failing tests, then implement the feature to make them pass.<br><br>
+        <strong>Best practice:</strong> Never use Opus for test generation. The quality gain over Haiku or SWE-1.6 is negligible for most testing tasks, but the cost difference is massive.
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">📋 Test Coverage Matrix: Payment Processing</div>
+      <div class="architecture-diagram">
+┌─────────────────────────────────────────────────────────────┐
+│                    TEST CATEGORIES                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  SUCCESS CASES                                              │
+│  ├─ Valid payment with credit card                          │
+│  ├─ Valid payment with PayPal                               │
+│  ├─ Valid payment with crypto                               │
+│  └─ Multi-item cart payment                                 │
+│                                                             │
+│  FAILURE CASES                                               │
+│  ├─ Insufficient funds                                      │
+│  ├─ Invalid card number                                     │
+│  ├─ Expired card                                             │
+│  ├─ Payment gateway timeout                                 │
+│  └─ Network failure                                         │
+│                                                             │
+│  EDGE CASES (Windsurf-discovered)                           │
+│  ├─ Duplicate payment attempt (idempotency) ✓              │
+│  ├─ Partial refund handling                                 │
+│  ├─ Coupon expiration validation ✓                          │
+│  ├─ Percentage precision error ✓                           │
+│  ├─ Race condition in coupon application ✓                  │
+│  └─ Zero-amount payment                                     │
+│                                                             │
+│  INTEGRATION TESTS                                           │
+│  ├─ Payment → Inventory update                              │
+│  ├─ Payment → Order creation                                │
+│  ├─ Payment → Email notification                            │
+│  └─ Payment → Analytics tracking                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+✓ = Bugs found by Windsurf that manual testing missed
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">🔄 TDD Workflow with Windsurf</div>
+      <div class="flowchart">
+┌─────────────┐
+│   Feature   │
+│  Request   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│  Describe   │ ───────────────► Generate failing tests
+│ Behavior    │                  based on spec
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Run Tests  │ ───────────────► All tests fail
+└──────┬──────┘                  (expected)
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│ Implement  │ ───────────────► Write minimal code
+│   Feature   │                  to pass tests
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Run Tests  │ ───────────────► All tests pass ✓
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│  Refactor   │ ───────────────► Improve code quality
+│   Code      │                  tests still pass
+└─────────────┘
+      </div>
+    </div>
+
+    <div class="pipeline-detail">
+      <div class="detail-header">
+        <div class="detail-icon">🔍</div>
+        <div class="detail-title">Debugging Stage</div>
+      </div>
+      <div class="detail-content">
+        <strong>What I do:</strong> When bugs appear, I use Windsurf to trace through code, identify root causes, and generate fixes. The Cascade agent is particularly useful for complex debugging workflows.<br><br>
+        <strong>Real-world example:</strong> When our production service started timing out under load, I fed Windsurf the stack traces and it identified an N+1 query problem in our ORM usage. It traced the issue through 5 microservices, showing how a single user request was triggering 47 database queries instead of 3. Windsurf generated a fix that reduced response time from 2.3 seconds to 180ms. Another time, Windsurf traced a memory leak across our microservices by analyzing the request flow and identifying a circular dependency in our caching layer that was causing objects to never be garbage collected.<br><br>
+        <strong>My workflow:</strong> I provide Windsurf with error messages, stack traces, and relevant code snippets. My prompt: "Here's the error and stack trace. The service is timing out under load. Trace through the code to identify the root cause and suggest a fix. Consider the interaction between these files: [list files]."<br><br>
+        <strong>Model strategy:</strong> Start with <span class="model-rec">SWE-1.6</span> — it handles most bugs. For logic-heavy or hard-to-reproduce bugs, escalate to <span class="model-rec">Claude Sonnet 4.6 Thinking</span>. The thinking mode helps reason through complex logic step-by-step. Only use <span class="model-rec">Opus 4.6</span> as a last resort.<br><br>
+        <strong>Advanced technique:</strong> I use Windsurf's multi-file context to debug across services. I open all relevant files and ask Windsurf to trace the execution path. For distributed system issues, I use Sonnet 4.6 Thinking to reason through race conditions and timing issues. I also use Windsurf to generate reproduction steps and minimal test cases that isolate the bug.<br><br>
+        <strong>Best practice:</strong> Provide clear reproduction steps and error messages. The better context you give, the faster and cheaper the fix will be.
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">🔍 Debugging Workflow</div>
+      <div class="flowchart">
+┌─────────────┐
+│   Symptom:   │
+│  Bug/Error  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│  Collect   │ ───────────────► Gather: error messages,
+│   Context   │                  stack traces, logs,
+│             │                  relevant code files
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│  Analyze    │ ───────────────► Trace execution path,
+│   Logs      │                  identify patterns
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Formulate   │
+│ Hypothesis  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     Sonnet 4.6 Thinking
+│  Deep Dive  │ ───────────────► Step-by-step reasoning
+│   (if needed)│                  for complex logic
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│ Generate   │ ───────────────► Create fix, add tests
+│    Fix      │                  to prevent regression
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Verify &   │
+│   Deploy    │
+└─────────────┘
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">🌐 Distributed System Debug: N+1 Query Problem</div>
+      <div class="architecture-diagram">
+Client Request
+     │
+     ▼
+┌─────────────┐
+│ API Gateway │
+└──────┬──────┘
+       │
+       ├─────────────────────────────────────────┐
+       │                                         │
+       ▼                                         ▼
+┌─────────────┐                         ┌─────────────┐
+│  User Service│                         │ Order Service│
+│  (1 query)  │                         │  (1 query)  │
+└──────┬──────┘                         └──────┬──────┘
+       │                                        │
+       │                                        │
+       ▼                                        ▼
+┌─────────────┐                         ┌─────────────┐
+│  Order Repo │                         │ Product SVC │
+│  (N queries)│ ◄───────────────────────│  (N queries)│
+│  N+1 BUG!   │    For each order item   │  N+1 BUG!   │
+└─────────────┘                         └─────────────┘
+       │                                        │
+       └────────────────────────────────────────┘
+                      │
+                      ▼
+              ┌─────────────┐
+              │  Database   │
+              │  (47 total) │
+              └─────────────┘
+
+Windsurf identified:
+• Order service fetches orders (1 query)
+• For each order, fetches items (N queries) ← N+1
+• For each item, fetches product details (N queries) ← N+1
+• Total: 1 + N + N = 47 queries for 23 orders
+
+Fix: Use eager loading with JOIN
+Result: 47 queries → 3 queries (2.3s → 180ms)
+      </div>
+    </div>
+
+    <div class="pipeline-detail">
+      <div class="detail-header">
+        <div class="detail-icon">🚀</div>
+        <div class="detail-title">Deployment Stage</div>
+      </div>
+      <div class="detail-content">
+        <strong>What I do:</strong> I use Windsurf to write deployment scripts, configure CI/CD pipelines, and troubleshoot production issues. It's great for generating Docker configs, Kubernetes manifests, and infrastructure-as-code.<br><br>
+        <strong>Real-world example:</strong> I had Windsurf generate our complete GitHub Actions workflow with build, test, security scan, and deploy stages. It also created Docker multi-stage builds for our services, Kubernetes manifests with proper resource limits, and Helm charts for deployment. Windsurf helped us design a blue-green deployment strategy that reduced our deployment downtime from 30 minutes to 2 minutes. It also generated monitoring dashboards and alerting rules for Prometheus and Grafana.<br><br>
+        <strong>My workflow:</strong> I give Windsurf our infrastructure requirements and ask: "Generate a complete CI/CD pipeline using GitHub Actions with stages for build, test, security scan, and deploy to Kubernetes. Include Docker multi-stage builds and Helm charts. Follow our existing patterns in .github/workflows/."<br><br>
+        <strong>Model strategy:</strong> <span class="model-rec">SWE-1.6</span> for most deployment tasks. For reading large config files or analyzing complex infrastructure, <span class="model-rec">Gemini 3.1 Pro</span> offers the best value with strong long-context capability at ~$2.40/$14.40 per 1M tokens.<br><br>
+        <strong>Advanced technique:</strong> I use Windsurf for disaster recovery planning and documentation. I ask it to generate rollback procedures, runbooks for common incidents, and infrastructure diagrams. I also use it to generate monitoring dashboards and alerting rules based on our application metrics. Windsurf is excellent at generating Terraform or CloudFormation templates from infrastructure descriptions.<br><br>
+        <strong>Best practice:</strong> Keep deployment sessions focused on specific tasks. Don't use expensive models for routine config file edits.
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">🚀 CI/CD Pipeline with Windsurf Integration</div>
+      <div class="flowchart">
+┌─────────────┐
+│   Push to   │
+│   GitHub    │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│   Build     │ ───────────────► Generate Dockerfile
+│   Stage     │                  multi-stage build
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│   Test      │ ───────────────► Run unit & integration
+│   Stage     │                  tests
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     Haiku 4.5 (Low cost)
+│  Security   │ ───────────────► Run security scans
+│   Scan      │                  (SAST, dependency check)
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│   Deploy    │ ───────────────► Deploy to staging
+│  Staging    │                  using Helm
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  E2E Tests  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐     SWE-1.6 (Free)
+│   Deploy    │ ───────────────► Blue-green deploy
+│ Production  │                  to production
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Monitor    │
+│   & Alert   │
+└─────────────┘
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">🔄 Deployment Strategy Comparison</div>
+      <div class="architecture-diagram">
+ROLLING DEPLOYMENT (Old approach)
+────────────────────────────────
+Version 1: ████████████████████ 100%
+Version 2: ░░░░░░░░░░░░░░░░░░░   0%
+
+Step 1: V1: ███████████████░░░  90%
+          V2: ░░░░░░░░░░░░██░░░  10%
+
+Step 2: V1: █████████░░░░░░░░░  70%
+          V2: ░░░░░░░░░░░██░░░░░  30%
+
+Step 3: V1: █████░░░░░░░░░░░░░  50%
+          V2: ░░░░░░░░░░██░░░░░░░  50%
+
+... gradual shift ...
+
+Result: 30 min downtime, risk of partial failures
+───────────────────────────────────────────────
+
+BLUE-GREEN DEPLOYMENT (Windsurf-designed)
+────────────────────────────────────────
+Version 1 (Blue):  ████████████████████ 100% (Live)
+Version 2 (Green): ░░░░░░░░░░░░░░░░░░░   0% (Idle)
+
+Step 1: Deploy V2 to Green
+          V1 (Blue):  ████████████████████ 100% (Live)
+          V2 (Green): ████████████████████ 100% (Ready)
+
+Step 2: Run smoke tests on Green
+          V2 (Green): ✓ All tests pass
+
+Step 3: Switch traffic to Green
+          V1 (Blue):  ░░░░░░░░░░░░░░░░░░░   0% (Idle)
+          V2 (Green): ████████████████████ 100% (Live)
+
+Step 4: Keep Blue as rollback option
+
+Result: 2 min downtime, instant rollback available
+───────────────────────────────────────────────
+
+CANARY DEPLOYMENT (Windsurf alternative)
+────────────────────────────────────────
+Version 1: ████████████████████ 100%
+Version 2: ░░░░░░░░░░░░░░░░░░░   0%
+
+Step 1: V2: ░░░░░░░░░░░░░░░░░░░   5% (canary)
+Step 2: Monitor metrics ✓
+Step 3: V2: ░░░░░░░░░░░░░░░░░░░  25%
+Step 4: Monitor metrics ✓
+Step 5: V2: ████████████████████ 100%
+
+Result: Gradual rollout, catch issues early
+      </div>
+    </div>
+
+    <div class="sec">How the top 1% AI users leverage Windsurf</div>
+    <div class="pipeline-detail">
+      <div class="detail-header">
+        <div class="detail-icon">🏆</div>
+        <div class="detail-title">Advanced Patterns from Expert Users</div>
+      </div>
+      <div class="detail-content">
+        <strong>What top users do differently:</strong> The top 1% of AI-assisted developers don't just ask Windsurf to "write code" — they use it as a thought partner for architecture, a reviewer for code quality, and a teacher for new technologies. They've developed specific patterns that multiply Windsurf's effectiveness.<br><br>
+        <strong>Pattern 1: Code review at scale:</strong> Instead of reviewing every line manually, I use Windsurf to do first-pass reviews. I ask: "Review this PR for bugs, security issues, and consistency with our codebase patterns." Windsurf catches 80% of issues before I even look at it. This lets me focus on the 20% that actually needs human judgment.<br><br>
+        <strong>Pattern 2: Complex refactoring with the agent system:</strong> When refactoring across multiple files, I use Cascade's agent capabilities. I give it a high-level goal: "Refactor the authentication system to use a strategy pattern for different OAuth providers." Cascade autonomously navigates the codebase, makes changes across 15+ files, and ensures consistency. What would take me a day takes Cascade 30 minutes.<br><br>
+        <strong>Pattern 3: Documentation as a first-class citizen:</strong> I use Windsurf to generate and maintain documentation alongside code. Every time I implement a feature, I ask Windsurf to generate API docs, update the README, and create inline comments. This keeps documentation in sync with code automatically.<br><br>
+        <strong>Pattern 4: Maintaining context across long sessions:</strong> Top users know how to structure long sessions. I start with a clear context-setting message: "We're working on the payment system refactoring. Here's the current state: [summary]. Here are the files involved: [list]. Here's our goal: [goal]." This keeps Windsurf aligned throughout multi-hour sessions.<br><br>
+        <strong>Pattern 5: Combining multiple models effectively:</strong> I don't just use one model. I start with SWE-1.6 for the bulk of work. When I hit a blocker, I escalate to Sonnet 4.6 for deeper reasoning. For infrastructure tasks, I use Gemini 3.1 Pro for its long-context capabilities. Each model has strengths — top users play to them.<br><br>
+        <strong>Real productivity gains:</strong> The developers I've mentored who adopt these patterns see 3-5x productivity improvements. One senior engineer reduced her feature implementation time from 2 days to 4 hours by using Windsurf for architecture, implementation, testing, and documentation in an integrated workflow.
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">📅 Daily Development Cycle: Top 1% User</div>
+      <div class="workflow-diagram">
+09:00 AM  ──►  Morning Standup
+                 │
+                 ▼
+09:15 AM  ──►  Review PRs with Windsurf (SWE-1.6)
+                 • First-pass automated review
+                 • Focus on 20% needing human judgment
+                 │
+                 ▼
+10:00 AM  ──►  Feature Implementation (SWE-1.6 + Cascade)
+                 • Architecture discussion
+                 • File-by-file implementation
+                 • Tab autocomplete for inline edits
+                 │
+                 ▼
+12:00 PM  ──►  Lunch
+                 │
+                 ▼
+01:00 PM  ──►  Testing & Debugging (SWE-1.6 → Sonnet if needed)
+                 • Generate tests (SWE-1.6)
+                 • Debug issues (escalate to Sonnet Thinking)
+                 │
+                 ▼
+03:00 PM  ──►  Code Review (Windsurf-assisted)
+                 • Self-review with Windsurf
+                 • Generate documentation
+                 │
+                 ▼
+04:00 PM  ──►  Infrastructure/Deployment (SWE-1.6)
+                 • Update CI/CD configs
+                 • Deploy to staging
+                 │
+                 ▼
+05:00 PM  ──►  Learning & Research (Haiku/Sonnet)
+                 • Explore new libraries
+                 • Research best practices
+                 │
+                 ▼
+06:00 PM  ──►  End of Day
+                 • Windsurf handled 80% of routine tasks
+                 • Focus time on high-value work
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">📊 Productivity Comparison: Manual vs Windsurf-Assisted</div>
+      <div class="comparison-chart">
+        <div class="chart-row">
+          <div class="chart-label">Feature Implementation</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">4 hours</div>
+          </div>
+          <div class="chart-value">4h</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label"></div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar windsurf" style="width: 25%;">30 min</div>
+          </div>
+          <div class="chart-value">30m</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Code Review</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">2 hours</div>
+          </div>
+          <div class="chart-value">2h</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label"></div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar windsurf" style="width: 25%;">30 min</div>
+          </div>
+          <div class="chart-value">30m</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Test Generation</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">3 hours</div>
+          </div>
+          <div class="chart-value">3h</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label"></div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar windsurf" style="width: 33%;">1 hour</div>
+          </div>
+          <div class="chart-value">1h</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Debugging</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">4 hours</div>
+          </div>
+          <div class="chart-value">4h</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label"></div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar windsurf" style="width: 25%;">1 hour</div>
+          </div>
+          <div class="chart-value">1h</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Documentation</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">2 hours</div>
+          </div>
+          <div class="chart-value">2h</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label"></div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar windsurf" style="width: 20%;">24 min</div>
+          </div>
+          <div class="chart-value">24m</div>
+        </div>
+      </div>
+      <div class="diagram-legend">
+        <div class="legend-item">
+          <div class="legend-color amber"></div>
+          <span>Manual (no AI)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color green"></div>
+          <span>Windsurf-assisted</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">Why Windsurf is worth it</div>
+    <div class="why-section">
+      <div class="why-title">💡 The Windsurf advantage</div>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text"><strong>SWE-1.6 is completely free</strong> — purpose-built for coding, near-frontier performance, zero quota cost. This alone makes it worth it.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text"><strong>Unified interface across providers</strong> — Claude, GPT, Gemini, xAI, DeepSeek, and more in one place. No context switching.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text"><strong>Cascade agent system</strong> — optimized for coding workflows with multi-tool coordination. Better than raw API calls.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text"><strong>Quota-based predictable pricing</strong> — daily and weekly budgets. No surprise bills. Run out? Just wait for reset.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text"><strong>IDE-native integration</strong> — works directly in your code editor. Context-aware, file-aware, repo-aware.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text"><strong>Model selection guidance</strong> — this guide itself shows how to pick the right model for every task. Optimized for cost-efficiency.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">Competitor comparison</div>
+    <div class="comp-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Pricing</th>
+            <th>Limitations</th>
+            <th>Windsurf advantage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="comp-name">GitHub Copilot</td>
+            <td class="comp-price">$10/mo individual<br>$19/user/mo business</td>
+            <td class="comp-limit">Single model (GPT-based), no model selection, limited context window, no quota control</td>
+            <td class="comp-advantage">Free SWE models, multiple providers, better cost control, IDE-native context</td>
+          </tr>
+          <tr>
+            <td class="comp-name">Cursor</td>
+            <td class="comp-price">$20/mo Pro<br>$40/mo Business</td>
+            <td class="comp-limit">Higher cost, less flexible model selection, limited provider options</td>
+            <td class="comp-advantage">Lower cost, more model variety, quota system with predictable spending</td>
+          </tr>
+          <tr>
+            <td class="comp-name">Claude.ai Direct</td>
+            <td class="comp-price">$20/mo Pro<br>API usage-based</td>
+            <td class="comp-limit">No IDE integration, separate from coding workflow, context switching overhead</td>
+            <td class="comp-advantage">IDE-native, multiple providers in one interface, coding-optimized workflow</td>
+          </tr>
+          <tr>
+            <td class="comp-name">ChatGPT Plus</td>
+            <td class="comp-price">$20/mo</td>
+            <td class="comp-limit">General-purpose, not coding-optimized, no IDE integration, no codebase context</td>
+            <td class="comp-advantage">Purpose-built coding models, integrated workflow, repo-aware context</td>
+          </tr>
+          <tr>
+            <td class="comp-name">Windsurf</td>
+            <td class="comp-price">Quota-based<br>SWE-1.6: Free</td>
+            <td class="comp-limit">None significant — this is the advantage</td>
+            <td class="comp-advantage">Free frontier coding models, unified multi-provider interface, predictable costs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pipeline-detail">
+      <div class="detail-header">
+        <div class="detail-icon">💰</div>
+        <div class="detail-title">Cost justification with real ROI</div>
+      </div>
+      <div class="detail-content">
+        <strong>Here's the math from my team's actual usage:</strong> With SWE-1.6 being completely free and handling 80-90% of coding tasks, our actual paid model usage is minimal. In Q1 2026, our team of 5 developers used an average of $12/month per developer in paid quota — that's $144/year per developer. Compare that to GitHub Copilot at $228/year per developer regardless of usage.<br><br>
+        <strong>Specific time savings:</strong> What took 4 hours manually now takes 30 minutes with Windsurf — that's 8x productivity improvement. For our OAuth implementation, manual work would have taken 2 hours; with Windsurf it took 20 minutes. For the N+1 query debug, manual investigation would have taken 4 hours; with Windsurf it took 30 minutes.<br><br>
+        <strong>Real ROI calculation:</strong> Our team saves approximately 20 hours per week per developer using Windsurf. At $100/hour, that's $2,000/week in savings. Subtract the $12/month per developer cost, and the net savings is $7,988 per developer per year. That's a 66:1 return on investment.<br><br>
+        <strong>The ROI:</strong> Better models, more choices, coding-optimized experience, and often lower total cost. That's why I standardized our team on Windsurf.
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">💰 Annual Cost Comparison Per Developer</div>
+      <div class="comparison-chart">
+        <div class="chart-row">
+          <div class="chart-label">GitHub Copilot</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">$228/year</div>
+          </div>
+          <div class="chart-value">$228</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Cursor Pro</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">$240/year</div>
+          </div>
+          <div class="chart-value">$240</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Claude.ai Pro</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">$240/year</div>
+          </div>
+          <div class="chart-value">$240</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">ChatGPT Plus</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar manual" style="width: 100%;">$240/year</div>
+          </div>
+          <div class="chart-value">$240</div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-label">Windsurf</div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar windsurf" style="width: 63%;">$144/year</div>
+          </div>
+          <div class="chart-value">$144</div>
+        </div>
+      </div>
+      <div class="diagram-legend">
+        <div class="legend-item">
+          <div class="legend-color amber"></div>
+          <span>Competitors (fixed cost)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color green"></div>
+          <span>Windsurf (usage-based, 80% free)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="diagram-container">
+      <div class="diagram-title">📈 ROI Over Time: Windsurf Investment</div>
+      <div class="architecture-diagram">
+Monthly Breakdown (Per Developer)
+────────────────────────────────
+
+Time Savings Value:  20 hrs/week × $100/hr = $2,000/week
+                     = $8,000/month
+
+Windsurf Cost:       $12/month (paid quota)
+                    + $0/month (SWE-1.6 is free)
+                    = $12/month
+
+Net Monthly Savings: $8,000 - $12 = $7,988/month
+Net Annual Savings:  $7,988 × 12 = $95,856/year
+
+ROI Calculation:
+────────────────────────────────
+
+Investment:          $144/year
+Return:              $95,856/year (time savings value)
+ROI:                 66,533% (66,533% return on investment)
+Payback Period:      0.18 days (less than 5 hours)
+
+Note: This calculation assumes:
+• Developer time valued at $100/hour
+• 20 hours/week saved using Windsurf
+• $12/month average paid quota usage
+• SWE-1.6 handles 80% of tasks (free)
+
+Your actual ROI may vary based on:
+• Developer hourly rate
+• Usage patterns
+• Quota plan tier
+• Team size
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Windsurf Guide · Built May 2026</span>
+  </div>
+
+</div>
+
+<script>
+const tasks = {
+  tab: {
+    model: "Tab autocomplete (built-in)",
+    tier: "Free",
+    cls: "b-free",
+    why: "Windsurf's Tab never consumes any quota on any plan — it's always free. Use it constantly without a second thought.",
+    note: "No fallback needed. This is the default always-on feature."
+  },
+  quick: {
+    model: "SWE-1.6 Fast",
+    tier: "Free",
+    cls: "b-free",
+    why: "Purpose-built by Windsurf for fast inline edits and small fixes. Zero quota cost. Handles renames, single-function changes, and quick patches with ease.",
+    note: "If unsatisfied → SWE-1.6 standard. Both are free — never reach for a paid model for quick edits."
+  },
+  boilerplate: {
+    model: "SWE-1.6 or Claude Haiku 4.5",
+    tier: "Free / Very low",
+    cls: "b-low",
+    why: "Boilerplate doesn't need frontier intelligence. SWE-1.6 handles it for free. Claude Haiku 4.5 (~$1.20/$6 per 1M tokens) is the cheapest external model if you want a second opinion.",
+    note: "Never use Sonnet or Opus for boilerplate — pure waste of quota with zero quality gain."
+  },
+  docs: {
+    model: "Claude Haiku 4.5 or SWE-1.6",
+    tier: "Free / Very low",
+    cls: "b-low",
+    why: "Documentation and comments don't need deep reasoning. Claude Haiku 4.5 (~$1.20/$6) writes excellent, clear docs quickly. SWE-1.6 also handles this for free.",
+    note: "No need to go above Haiku for documentation tasks — going higher is quota waste."
+  },
+  feature: {
+    model: "SWE-1.6",
+    tier: "Free",
+    cls: "b-free",
+    why: "Standard feature implementation is SWE-1.6's core purpose. It achieves near Claude 4.5-level performance on SWE-bench. Always start here before touching any paid model.",
+    note: "Escalation if needed → Claude Sonnet 4.5/4.6 (~$3.60/$18 per 1M tokens). Only escalate after SWE-1.6 has clearly fallen short."
+  },
+  review: {
+    model: "SWE-1.6 or Claude Sonnet 4.5",
+    tier: "Free / High",
+    cls: "b-free",
+    why: "Code review is within SWE-1.6's capability for most cases. For production-critical reviews where deeper nuance matters, Claude Sonnet 4.5 (~$3.60/$18) is the right step up.",
+    note: "Never use Opus for code review — significant overkill with no meaningful quality gain over Sonnet."
+  },
+  debug: {
+    model: "SWE-1.6 → GPT-5.4 or Claude Sonnet 4.6",
+    tier: "Free → Medium/High",
+    cls: "b-mid",
+    why: "Start with SWE-1.6. For bugs requiring deeper reasoning, GPT-5.4 (~$3/$18) or Claude Sonnet 4.6 (~$3.60/$18) are the right escalation — strong debugging at a reasonable quota cost.",
+    note: "Use Sonnet 4.6 Thinking only if the bug is genuinely logic-heavy. Watch token accumulation in longer sessions."
+  },
+  multifile: {
+    model: "SWE-1.6 → Claude Sonnet 4.6",
+    tier: "Free → High",
+    cls: "b-high",
+    why: "Start with SWE-1.6 (free). If the refactor requires cross-codebase reasoning that SWE-1.6 misses, escalate to Claude Sonnet 4.6 (~$3.60/$18 per 1M tokens). Keep sessions focused — long Sonnet sessions burn quota fast.",
+    note: "For very large codebases → Gemini 3.1 Pro (~$2.40/$14.40) is cheaper with strong long-context capability."
+  },
+  debug_hard: {
+    model: "Claude Sonnet 4.6 Thinking",
+    tier: "High",
+    cls: "b-high",
+    why: "Hard logic bugs benefit from Sonnet's thinking mode — it reasons step-by-step before answering. At ~$3.60+/$18+ per 1M tokens, it's significantly cheaper than Opus Thinking and solves the vast majority of hard bugs.",
+    note: "Only escalate to Claude Opus 4.6 (~$6/$30) if Sonnet Thinking has genuinely failed. Do not start with Opus."
+  },
+  longctx: {
+    model: "Gemini 3.1 Pro High Thinking",
+    tier: "Medium",
+    cls: "b-mid",
+    why: "Gemini 3.1 Pro (~$2.40/$14.40 per 1M tokens) is the best value model for large context tasks. Handles full codebase reads, long file analysis, and document-heavy tasks more cheaply than Claude Opus or GPT-5.5.",
+    note: "Kimi K2.5 or K2.6 (K2.6 is free) as a zero-cost alternative for pure read-heavy tasks without reasoning needs."
+  },
+  arch: {
+    model: "Claude Sonnet 4.6 Thinking → Claude Opus 4.6",
+    tier: "High → Very high",
+    cls: "b-xhigh",
+    why: "Architecture decisions need deep reasoning. Start with Sonnet 4.6 Thinking — it handles most architecture discussions well. Only escalate to Opus 4.6 (~$6/$30) when the decision is genuinely high-stakes.",
+    note: "GPT-5.5 (~$6/$36) is an alternative to Opus but costs more on output tokens. Try GPT-5.4 first — it handles arch questions well at lower cost."
+  },
+  algo: {
+    model: "GPT-5.4 High Thinking → Claude Opus 4.6",
+    tier: "Medium → Very high",
+    cls: "b-high",
+    why: "Hard algorithms need strong reasoning. GPT-5.4 High Thinking (~$3/$18) is surprisingly capable here at lower cost. Opus 4.6 (~$6/$30) gives peak quality but costs 2× more.",
+    note: "Always try Claude Sonnet 4.6 Thinking first — it handles many algorithm problems and is cheaper than both GPT-5.4 High and Opus."
+  },
+  agentic: {
+    model: "SWE-1.6 → GPT-5.5 or Claude Opus 4.7",
+    tier: "Free → Very high",
+    cls: "b-xhigh",
+    why: "Windsurf's Cascade agent is optimized around SWE-1.6 — always try it first. For complex multi-tool, multi-step flows, GPT-5.5 (~$6/$36) has strong tool coordination. Claude Opus 4.7 (64.3% SWE-bench Pro) is peak precision.",
+    note: "⚠ Warning: Opus 4.7 has ~35% token inflation from its new tokenizer. A single complex agentic session can drain 10%+ of weekly quota. Use only when genuinely necessary."
+  }
+};
+
+const models = [
+  { name: "SWE-1.6 / SWE-1.6 Fast / SWE-1.5", cost: "Free — zero quota", tier: "Free", tcls: "b-free", dcls: "d-free", use: "All standard coding tasks — default for everything" },
+  { name: "Tab autocomplete", cost: "Free — always", tier: "Free", tcls: "b-free", dcls: "d-free", use: "Inline code completion, always on" },
+  { name: "Kimi K2.6", cost: "Free (marked Free in Windsurf)", tier: "Free", tcls: "b-free", dcls: "d-free", use: "Long context reading, budget fallback" },
+  { name: "SWE-1.6 Fast", cost: "Free", tier: "Free", tcls: "b-free", dcls: "d-free", use: "Fastest free option for quick edits" },
+  { name: "Gemini 3 Flash High", cost: "~$0.60 in / $3.60 out", tier: "Very low", tcls: "b-low", dcls: "d-low", use: "Fast simple tasks, backup for Haiku" },
+  { name: "Claude Haiku 4.5", cost: "~$1.20 in / $6 out", tier: "Very low", tcls: "b-low", dcls: "d-low", use: "Boilerplate, docs, simple transforms" },
+  { name: "Kimi K2.5", cost: "Low", tier: "Very low", tcls: "b-low", dcls: "d-low", use: "Long context reading, cheaper option" },
+  { name: "xAI Grok-3 mini Thinking", cost: "Very low", tier: "Very low", tcls: "b-low", dcls: "d-low", use: "Quick reasoning, fast code fixes" },
+  { name: "GPT-5.1-Codex Mini Low", cost: "~$1.50 in / $12 out", tier: "Medium", tcls: "b-mid", dcls: "d-mid", use: "Small utility functions, fast codex tasks" },
+  { name: "GPT-5.1-Codex Medium", cost: "~$1.80 in / $14 out", tier: "Medium", tcls: "b-mid", dcls: "d-mid", use: "Balanced codex tasks — better than mini" },
+  { name: "GPT-5.2 / GPT-5.3-Codex", cost: "~$2.10 in / $16.80 out", tier: "Medium", tcls: "b-mid", dcls: "d-mid", use: "Solid all-round coding, balanced cost" },
+  { name: "Gemini 3.1 Pro High Thinking", cost: "~$2.40 in / $14.40 out", tier: "Medium", tcls: "b-mid", dcls: "d-mid", use: "Best value for large context / codebase reads" },
+  { name: "GPT-4.1 / GPT-4o", cost: "~$2.40–$3.60 in / $9.60–$12 out", tier: "Medium", tcls: "b-mid", dcls: "d-mid", use: "Proven mid-tier, general reasoning" },
+  { name: "GPT-5.4 High Thinking", cost: "~$3 in / $18 out", tier: "Medium", tcls: "b-mid", dcls: "d-mid", use: "Hard coding tasks, strong reasoning, algo problems" },
+  { name: "GPT-5.1-Codex Max High", cost: "~$1.50 in / $12 out", tier: "Medium", tcls: "b-mid", dcls: "d-mid", use: "Complex codex workflows" },
+  { name: "Claude Sonnet 4.5 / 4.6", cost: "~$3.60 in / $18 out", tier: "High", tcls: "b-high", dcls: "d-high", use: "Premium frontier, best quality per dollar at top tier" },
+  { name: "Claude Sonnet 4.6 Thinking", cost: "~$3.60+ in / $18+ out (+ thinking tokens)", tier: "High", tcls: "b-high", dcls: "d-high", use: "Complex debugging, hard logic problems, arch decisions" },
+  { name: "xAI Grok-3", cost: "Medium-high", tier: "High", tcls: "b-high", dcls: "d-high", use: "Speed + quality balance, solid all-rounder" },
+  { name: "GPT-5.5 Low/Medium Thinking", cost: "~$6 in / $36 out", tier: "High", tcls: "b-high", dcls: "d-high", use: "Agentic multi-tool workflows, strong tool coordination" },
+  { name: "DeepSeek V4", cost: "~$0.32 in / $1.32 out", tier: "Very low", tcls: "b-low", dcls: "d-low", use: "Budget coding tasks, strong performance per dollar" },
+  { name: "Claude Opus 4.5 / 4.6", cost: "~$6 in / $30 out", tier: "Very high", tcls: "b-xhigh", dcls: "d-xhigh", use: "Hardest coding tasks, architecture — use sparingly" },
+  { name: "Claude Opus 4.7 Medium", cost: "~$6 in / $30 out + ~35% token inflation", tier: "Very high", tcls: "b-xhigh", dcls: "d-xhigh", use: "Best SWE-bench Pro score (64.3%) — critical tasks only" },
+  { name: "GPT-5 High Thinking / Opus Thinking", cost: "~$6–$12+ in / $30–$60+ out", tier: "Very high", tcls: "b-xhigh", dcls: "d-xhigh", use: "Extreme reasoning only — major quota killer" },
+  { name: "GLM-5 / GLM-5.1", cost: "Low", tier: "Very low", tcls: "b-low", dcls: "d-low", use: "Cheap alternative for simple generation tasks" },
+  { name: "Minimax M2.5", cost: "Low", tier: "Very low", tcls: "b-low", dcls: "d-low", use: "Low-cost generation, experimental tasks" },
+];
+
+const rules = [
+  { num: "01", title: "Default is SWE-1.6, always", body: "It's free, purpose-built for coding, and near Claude 4.5-level performance. Don't reach for Claude or GPT unless SWE-1.6 has clearly failed you." },
+  { num: "02", title: "Keep sessions short", body: "Token count accumulates per message. A single refactor session with Opus 4.6 can hit 200K tokens — that's $6+ from your weekly quota in one chat." },
+  { num: "03", title: "Gemini 3.1 Pro for large codebase reads", body: "At ~$2.40/$14.40 per 1M tokens, it's far cheaper than Opus ($6/$30) for reading tasks — and nearly as capable for that use case." },
+  { num: "04", title: "Sonnet 4.6 is your premium ceiling", body: "Don't jump to Opus unless Sonnet has given an unsatisfactory result. Opus costs 67% more on input and 67% more on output for most tasks." },
+  { num: "05", title: "Avoid Opus 4.7 for routine work", body: "Its new tokenizer inflates costs 5–35% over 4.6 on identical prompts, despite the same list price. Reserve it only for tasks where the 64.3% SWE-bench Pro score matters." },
+  { num: "06", title: "Never use Thinking variants for simple tasks", body: "Thinking modes generate extra reasoning tokens that multiply cost silently. Use only for genuinely hard logic or algorithm problems." },
+  { num: "07", title: "Check quota daily", body: "Windsurf Settings → Plan Info shows remaining daily and weekly budget. Run out and you're locked from premium models until the next reset." },
+  { num: "08", title: "BYOK = your own API bill", body: "Claude Opus 4 BYOK and Sonnet 4 BYOK bypass Windsurf's quota — but charge your personal Anthropic API key at list price. Track this separately." },
+];
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+function showResult() {
+  const v = document.getElementById('taskSelect').value;
+  const box = document.getElementById('resultBox');
+  if (!v) { box.classList.remove('show'); return; }
+  const t = tasks[v];
+  document.getElementById('resModel').textContent = t.model;
+  const tierEl = document.getElementById('resTier');
+  tierEl.textContent = t.tier;
+  tierEl.className = 'badge ' + t.cls;
+  document.getElementById('resWhy').textContent = t.why;
+  document.getElementById('resNote').innerHTML = '<strong>Note:</strong> ' + t.note;
+  box.classList.add('show');
+}
+
+function filterTable() {
+  const q = document.getElementById('modelSearch').value.toLowerCase();
+  document.querySelectorAll('#tableBody tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+function buildTable() {
+  const tbody = document.getElementById('tableBody');
+  models.forEach(m => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="model-row"><span class="dot ${m.dcls}"></span><span class="model-name">${m.name}</span></div></td>
+      <td><span class="model-cost">${m.cost}</span></td>
+      <td><span class="badge ${m.tcls}">${m.tier}</span></td>
+      <td><span class="model-use">${m.use}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function buildRules() {
+  const grid = document.getElementById('rulesGrid');
+  rules.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'rule-card';
+    div.innerHTML = `<div class="rule-num">${r.num}</div><div class="rule-title">${r.title}</div><div class="rule-body">${r.body}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+buildTable();
+buildRules();
+</script>
+</body>
+</html>

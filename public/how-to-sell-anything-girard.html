@@ -1,0 +1,2741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Sell Anything to Anybody — Transformation Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1A1409;
+    --paper: #FAF7F2;
+    --cream: #F2EDE4;
+    --gold: #C4881A;
+    --gold-light: #E8B84B;
+    --gold-pale: #FDF3DC;
+    --rust: #A63D2F;
+    --rust-light: #F5E8E6;
+    --navy: #0D1B2A;
+    --navy-mid: #1A3050;
+    --sage: #3D5A4C;
+    --sage-light: #E8F0EC;
+    --slate: #4A4A4A;
+    --muted: #7A7060;
+    --rule: #D8D0C4;
+    --chapter-bg: #0D1B2A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,27,42,0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(196,136,26,0.3);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .nav-links {
+    display: flex; gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: #070D15;
+    display: grid;
+    place-items: center;
+    padding: 100px 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 10% 70%, rgba(196,136,26,0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 90% 10%, rgba(166,61,47,0.07) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: 'SELL';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14rem, 28vw, 26rem);
+    font-weight: 900;
+    color: rgba(196,136,26,0.032);
+    right: -1rem; bottom: -2rem;
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+    user-select: none;
+  }
+  .hero-grain {
+    position: absolute; inset: 0; opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1100px; width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 4rem;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+  @media(max-width:820px){
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-left { text-align: center; }
+    .hero-eyebrow { justify-content: center; }
+    .hero-divider { margin: 0 auto 1.5rem; }
+    .hero-subtitle { margin: 0 auto 2rem; }
+    .hero-badges { justify-content: center; }
+  }
+  .hero-left { text-align: left; }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+    opacity: 0.9;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 28px; height: 1px;
+    background: var(--gold); opacity: 0.6; flex-shrink: 0;
+  }
+  .hero-hook {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+    font-style: italic;
+    color: var(--gold-light);
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.05;
+    color: #fff;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+  }
+  .hero-title em {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+  .hero-divider {
+    width: 50px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 0 0 1.5rem;
+  }
+  .hero-author {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.38);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.75rem;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.5);
+    max-width: 460px;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(196,136,26,0.12);
+    border: 1px solid rgba(196,136,26,0.3);
+    color: var(--gold-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+  }
+  .hero-right {
+    display: flex; flex-direction: column; gap: 0.85rem;
+  }
+  .hero-stat-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(196,136,26,0.18);
+    border-left: 3px solid var(--gold);
+    padding: 1.1rem 1.25rem;
+  }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.25);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  .hero-scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(180deg, rgba(196,136,26,0.6), transparent);
+  }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* ─── COMMON LAYOUT ─── */
+  .section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-wide {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-full {
+    padding: 5rem 2rem;
+  }
+
+  /* ─── DIVIDERS ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+  .divider-bold {
+    border: none;
+    border-top: 2px solid var(--ink);
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ─── INTRO BAND ─── */
+  .intro-band {
+    background: var(--navy);
+    padding: 4rem 2rem;
+  }
+  .intro-band-inner {
+    max-width: 780px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    align-items: start;
+  }
+  @media(max-width:600px){.intro-band-inner{grid-template-columns:1fr;}}
+  .intro-stat {
+    text-align: center;
+    border: 1px solid rgba(196,136,26,0.25);
+    padding: 2rem;
+  }
+  .intro-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: var(--gold-light);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .intro-stat-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── SECTION LABELS ─── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .lead {
+    font-size: 1.2rem;
+    color: var(--slate);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ─── AUTHOR BIO ─── */
+  .author-section {
+    background: var(--cream);
+    border-top: 3px solid var(--ink);
+  }
+  .author-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media(max-width:600px){.author-grid{grid-template-columns:1fr;}}
+  .author-avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--gold-light);
+    font-weight: 900;
+    flex-shrink: 0;
+    border: 3px solid var(--gold);
+  }
+  .author-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .author-title-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .author-bio {
+    color: var(--slate);
+    line-height: 1.8;
+  }
+  .author-bio p { margin-bottom: 1rem; }
+
+  /* ─── CHAPTER BAND ─── */
+  .chapter-band {
+    background: var(--chapter-bg);
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .chapter-band::after {
+    content: '';
+    position: absolute; right: -60px; top: -40px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,136,26,0.12);
+    pointer-events: none;
+  }
+  .chapter-band-inner {
+    max-width: 780px; margin: 0 auto;
+    display: flex; align-items: flex-start; gap: 2rem;
+  }
+  .chapter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(196,136,26,0.15);
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: -0.5rem;
+    user-select: none;
+  }
+  .chapter-meta {}
+  .chapter-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.3rem);
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .chapter-essence {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 520px;
+  }
+
+  /* ─── CHAPTER BODY ─── */
+  .chapter-body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 4rem;
+  }
+  .chapter-body p {
+    margin-bottom: 1.4rem;
+    color: var(--slate);
+    line-height: 1.85;
+  }
+  .chapter-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    letter-spacing: -0.01em;
+  }
+  .chapter-body h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 2rem 0 0.75rem;
+  }
+  .chapter-separator {
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ─── PULL QUOTE ─── */
+  .pullquote {
+    border-left: 3px solid var(--gold);
+    padding: 1.25rem 1.75rem;
+    margin: 2.5rem 0;
+    background: var(--gold-pale);
+  }
+  .pullquote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .pullquote-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ─── ACTION BOX ─── */
+  .action-box {
+    background: var(--navy);
+    border-left: 4px solid var(--gold);
+    padding: 2rem;
+    margin: 2.5rem 0;
+  }
+  .action-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .action-box-label::before {
+    content: '▶';
+    font-size: 0.5rem;
+  }
+  .action-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .action-list {
+    list-style: none;
+    padding: 0;
+  }
+  .action-list li {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.95rem;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    line-height: 1.6;
+  }
+  .action-list li:last-child { border-bottom: none; }
+  .action-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ─── LIFE STAGE BOX ─── */
+  .life-stages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin: 2.5rem 0;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  @media(max-width:700px){.life-stages{grid-template-columns:1fr;}}
+  .life-stage {
+    padding: 1.5rem;
+    background: var(--paper);
+  }
+  .life-stage-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .life-stage-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .life-stage-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .life-stage-text {
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  /* ─── MINDSET SHIFT BOX ─── */
+  .mindset-shift {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+  }
+  .mindset-old {
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  .mindset-new {
+    padding: 1rem;
+    background: var(--navy);
+    text-align: center;
+  }
+  .mindset-arrow {
+    font-size: 1.5rem;
+    color: var(--gold);
+    text-align: center;
+  }
+  .mindset-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .mindset-old .mindset-label { color: var(--rust); }
+  .mindset-new .mindset-label { color: var(--gold); }
+  .mindset-old-text { font-size: 0.9rem; color: var(--slate); line-height: 1.5; }
+  .mindset-new-text { font-size: 0.9rem; color: #fff; line-height: 1.5; }
+
+  /* ─── KEY TERM ─── */
+  .key-term {
+    display: inline;
+    background: var(--gold-pale);
+    border-bottom: 2px solid var(--gold);
+    padding: 0 2px;
+    font-style: italic;
+  }
+
+  /* ─── SVG DIAGRAM WRAPPER ─── */
+  .diagram-wrap {
+    margin: 2.5rem 0;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 2rem;
+  }
+  .diagram-wrap .diagram-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .diagram-wrap svg {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 560px;
+  }
+
+  /* ─── VOCAB SECTION ─── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  @media(max-width:900px){.vocab-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:500px){.vocab-grid{grid-template-columns:1fr;}}
+  .vocab-card {
+    border: 1px solid var(--rule);
+    padding: 1rem;
+    background: #fff;
+    border-top: 3px solid var(--gold);
+  }
+  .vocab-term {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .vocab-phonetic {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .vocab-def {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* ─── 30-DAY PLAN ─── */
+  .plan-section {
+    background: var(--navy);
+    padding: 3rem 2rem;
+  }
+  .plan-inner {
+    max-width: 1100px; margin: 0 auto;
+  }
+  .plan-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: #fff;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .plan-sub {
+    color: rgba(255,255,255,0.45);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+  .week-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(196,136,26,0.3);
+  }
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .day-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.25rem;
+    transition: background 0.2s;
+  }
+  .day-card:hover { background: rgba(255,255,255,0.07); }
+  .day-num {
+    display: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .day-task {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+  .day-focus {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  /* ─── CLOSING ─── */
+  .closing-section {
+    padding: 6rem 2rem;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .closing-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--gold-light);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .closing-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .closing-text {
+    color: var(--slate);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--ink);
+    padding: 2rem;
+    text-align: center;
+  }
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+  .footer-text span { color: rgba(196,136,26,0.7); }
+
+  /* ─── TABLE OF CONTENTS ─── */
+  .toc {
+    background: var(--cream);
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding: 3rem 2rem;
+  }
+  .toc-inner {
+    max-width: 780px; margin: 0 auto;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem 3rem;
+    margin-top: 1.5rem;
+  }
+  @media(max-width:600px){.toc-grid{grid-template-columns:1fr;}}
+  .toc-item {
+    display: flex; align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .toc-item:hover { color: var(--gold); }
+  .toc-item-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+  .toc-item-title {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* ─── UTILITY ─── */
+  .text-gold { color: var(--gold); }
+  .text-rust { color: var(--rust); }
+  .italic { font-style: italic; }
+  .mb2 { margin-bottom: 2rem; }
+  .mt3 { margin-top: 3rem; }
+
+  /* ─── INFO BOX ─── */
+  .info-box {
+    background: var(--sage-light);
+    border-left: 4px solid var(--sage);
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  .info-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.75rem;
+  }
+  .info-box p {
+    font-size: 0.9rem;
+    color: #2a3d35;
+    margin-bottom: 0.5rem;
+    line-height: 1.65;
+  }
+  .info-box p:last-child { margin-bottom: 0; }
+
+  /* Warning box */
+  .warn-box {
+    background: var(--rust-light);
+    border-left: 4px solid var(--rust);
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  .warn-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.75rem;
+  }
+  .warn-box p {
+    font-size: 0.9rem;
+    color: #5a1a10;
+    margin-bottom: 0.5rem;
+    line-height: 1.65;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.88rem;
+  }
+  .data-table th {
+    background: var(--navy);
+    color: var(--gold-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 400;
+  }
+  .data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .data-table tr:nth-child(even) td { background: var(--cream); }
+  .data-table tr:hover td { background: var(--gold-pale); }
+
+  /* Chapter separator full-bleed */
+  .full-rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">How To Sell Anything</div>
+  <ul class="nav-links">
+    <li><a href="#toc">Contents</a></li>
+    <li><a href="#vocab">Vocabulary</a></li>
+    <li><a href="#plan">Transformation Actions</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Transformation Guide · Complete Summary</div>
+      <div class="hero-hook">"Everyone is selling something.<br>Most people just don't know it yet."</div>
+      <h1 class="hero-title">
+        How to Sell<br><em>Anything</em><br>to Anybody
+      </h1>
+      <div class="hero-divider"></div>
+      <div class="hero-author">Joe Girard · Guinness World Record · Greatest Salesman in the World</div>
+      <div class="hero-badges">
+        <span class="badge">12 Chapters</span>
+        <span class="badge">SVG Diagrams</span>
+        <span class="badge">Mindset Shifts</span>
+        <span class="badge">Key Vocabulary</span>
+        <span class="badge">30 Actions</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-card">
+        <div class="hero-stat-num">13,001</div>
+        <div class="hero-stat-label">Retail cars sold in 15 years — Guinness World Record</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-num">250×</div>
+        <div class="hero-stat-label">Every customer's social reach — The Law of 250</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-num">$0</div>
+        <div class="hero-stat-label">What he started with — broke, desperate, unknown</div>
+      </div>
+      <div class="hero-stat-card" style="border-left-color:var(--rust);">
+        <div class="hero-stat-num" style="font-size:1.2rem;color:#fff;">12 Principles</div>
+        <div class="hero-stat-label">That built the world's greatest sales career from nothing</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Begin
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="intro-band">
+  <div class="intro-band-inner">
+    <div class="intro-stat">
+      <div class="intro-stat-num">13,001</div>
+      <div class="intro-stat-label">Cars sold retail in 15 years — Guinness World Record</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num">250</div>
+      <div class="intro-stat-label">People each customer can influence — Girard's Law of 250</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num">13,000+</div>
+      <div class="intro-stat-label">Monthly cards sent at peak — his relationship engine</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num">$0</div>
+      <div class="intro-stat-label">What Girard had when he started — broke, desperate, unknown</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc" id="toc">
+  <div class="toc-inner">
+    <div class="section-label">Navigation</div>
+    <div class="section-heading">Table of Contents</div>
+    <div class="toc-grid">
+      <a href="#author" class="toc-item"><span class="toc-item-num">00</span><span class="toc-item-title">About Joe Girard — The Origin Story</span></a>
+      <a href="#ch1" class="toc-item"><span class="toc-item-num">01</span><span class="toc-item-title">The Product Is You</span></a>
+      <a href="#ch2" class="toc-item"><span class="toc-item-num">02</span><span class="toc-item-title">Build Your List — The Foundation of Everything</span></a>
+      <a href="#ch3" class="toc-item"><span class="toc-item-num">03</span><span class="toc-item-title">The Law of 250</span></a>
+      <a href="#ch4" class="toc-item"><span class="toc-item-num">04</span><span class="toc-item-title">The Card System — Staying Alive in Their Minds</span></a>
+      <a href="#ch5" class="toc-item"><span class="toc-item-num">05</span><span class="toc-item-title">The Ferris Wheel — Managing Your Pipeline</span></a>
+      <a href="#ch6" class="toc-item"><span class="toc-item-num">06</span><span class="toc-item-title">Look the Part — Selling Before You Speak</span></a>
+      <a href="#ch7" class="toc-item"><span class="toc-item-num">07</span><span class="toc-item-title">Know Your Product Cold</span></a>
+      <a href="#ch8" class="toc-item"><span class="toc-item-num">08</span><span class="toc-item-title">Handling Objections — Turning No into Not Yet</span></a>
+      <a href="#ch9" class="toc-item"><span class="toc-item-num">09</span><span class="toc-item-title">The Close — Sealing the Commitment</span></a>
+      <a href="#ch10" class="toc-item"><span class="toc-item-num">10</span><span class="toc-item-title">After the Sale — Where Real Loyalty Begins</span></a>
+      <a href="#ch11" class="toc-item"><span class="toc-item-num">11</span><span class="toc-item-title">Sincerity — The One Thing You Cannot Fake</span></a>
+      <a href="#ch12" class="toc-item"><span class="toc-item-num">12</span><span class="toc-item-title">Money, Goals, and the System Behind the Numbers</span></a>
+      <a href="#vocab" class="toc-item"><span class="toc-item-num">13</span><span class="toc-item-title">Key Vocabulary — Advanced Terms from the Book</span></a>
+      <a href="#plan" class="toc-item"><span class="toc-item-num">14</span><span class="toc-item-title">Transformation Actions</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<div class="section">
+  <div class="section-label">Before You Begin</div>
+  <div class="section-heading">How to Use This Guide</div>
+  <p class="lead">This is not a summary you read once and forget. It is a system you return to. A 22-year-old starting their first job will find something different here than a 45-year-old rebuilding their business, and that is by design.</p>
+  <p style="color:var(--slate); margin-top:1.5rem;">Every chapter contains a core concept, the mindset shift it demands, concrete actions you can take this week, and a section that shows how the idea applies at different stages of life. Diagrams make the invisible frameworks visible. The vocabulary section will expand your language and sharpen your thinking. And the 30-day plan turns abstract philosophy into daily behavior.</p>
+  <p style="color:var(--slate);">Joe Girard is not selling you a technique. He is handing you a way of being in the world — one where every person matters, every interaction counts, and the distance between you and your goal is simply the number of genuine relationships you have built.</p>
+</div>
+
+<hr class="full-rule">
+
+<!-- AUTHOR SECTION -->
+<div class="author-section" id="author">
+  <div class="section">
+    <div class="section-label">Origin Story</div>
+    <div class="author-grid">
+      <div>
+        <div class="author-avatar">JG</div>
+      </div>
+      <div>
+        <div class="author-name">Joe Girard</div>
+        <div class="author-title-tag">Guinness World Record · Greatest Retail Salesman in History</div>
+        <div class="author-bio">
+          <p>Joe Girard grew up poor in Detroit, Michigan — the son of a Sicilian immigrant father who regularly told him he was worthless. He dropped out of school, shined shoes, delivered papers, washed dishes. He had dozens of jobs and failed at most of them. By his mid-thirties, he was dead broke, with a wife, two children, and an empty refrigerator. He owed money to loan sharks.</p>
+          <p>On the worst day of his life, he walked into a Chevrolet dealership, begged for a chance to sell, borrowed a coworker's leads, and sold a car that night. That was January 1963. In the next fifteen years, working from a single dealership showroom — not a fleet, not a chain — he sold 13,001 cars at retail. One. Car. At. A. Time.</p>
+          <p>The Guinness Book of World Records named him the world's greatest salesman. Not because of the techniques he used, but because of the <em>system</em> he built and the <em>belief</em> he carried. He has said the only difference between him and other salespeople was not talent or luck — it was that he refused to quit, and he genuinely liked people.</p>
+          <p>This book is his attempt to give away every secret he ever had.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Origin Timeline SVG -->
+    <div class="diagram-wrap" style="margin-top:2.5rem;">
+      <div class="diagram-title">Joe Girard's Journey — From Zero to Guinness Record</div>
+      <svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="timelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#A63D2F;stop-opacity:1"/>
+            <stop offset="40%" style="stop-color:#C4881A;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#3D5A4C;stop-opacity:1"/>
+          </linearGradient>
+        </defs>
+        <!-- Timeline line -->
+        <line x1="40" y1="120" x2="520" y2="120" stroke="url(#timelineGrad)" stroke-width="2.5"/>
+        <!-- Points -->
+        <!-- 1930s Born -->
+        <circle cx="60" cy="120" r="8" fill="#A63D2F"/>
+        <text x="60" y="88" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#A63D2F">1929</text>
+        <text x="60" y="105" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#888">BORN</text>
+        <text x="60" y="143" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">Detroit</text>
+        <text x="60" y="160" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">poverty</text>
+
+        <!-- Dropout -->
+        <circle cx="155" cy="120" r="8" fill="#C4881A"/>
+        <text x="155" y="88" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#C4881A">1940s</text>
+        <text x="155" y="105" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#888">FAIL</text>
+        <text x="155" y="143" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">Dropped out,</text>
+        <text x="155" y="160" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">40+ jobs</text>
+
+        <!-- Broke -->
+        <circle cx="270" cy="120" r="8" fill="#C4881A"/>
+        <text x="270" y="88" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#C4881A">1962</text>
+        <text x="270" y="105" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#888">BROKE</text>
+        <text x="270" y="143" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">Empty fridge,</text>
+        <text x="270" y="160" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">loan sharks</text>
+
+        <!-- First sale -->
+        <circle cx="370" cy="120" r="8" fill="#C4881A"/>
+        <text x="370" y="88" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#C4881A">JAN 1963</text>
+        <text x="370" y="105" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#888">FIRST SALE</text>
+        <text x="370" y="143" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">1 car on</text>
+        <text x="370" y="160" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">worst day</text>
+
+        <!-- Record -->
+        <circle cx="500" cy="120" r="11" fill="#3D5A4C"/>
+        <text x="500" y="85" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#3D5A4C">1978</text>
+        <text x="500" y="103" text-anchor="middle" font-family="'DM Mono', monospace" font-size="12" fill="#3D5A4C">RECORD</text>
+        <text x="500" y="148" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#3D5A4C">13,001 cars</text>
+        <text x="500" y="165" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#3D5A4C">Guinness</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 1 — THE PRODUCT IS YOU
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch1">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">01</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter One</div>
+      <div class="chapter-title">The Product Is You</div>
+      <div class="chapter-essence">Before any product changes hands, you change hands. People buy the person before they buy what the person is selling.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+
+  <h3>The Central Idea</h3>
+  <p>Girard opens with a claim that sounds obvious but cuts deeper than it first appears: nobody buys a car from an anonymous dealer. They buy from <em>Joe Girard</em>. The moment you walk in, you carry your posture, your expression, your smell, your energy — and the customer has already made a dozen subconscious judgments before you open your mouth. What they are buying, first and always, is confidence in you as a human being.</p>
+
+  <p>This is not about manipulation or impression management. It is about an uncomfortable truth: your results will never exceed the quality of the person you are. A weak self-image produces weak sales. A confident, knowledgeable, genuinely warm person who likes people will outperform the slickest script every single time.</p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"The most important sale you will ever make is selling yourself to yourself — before you try to sell anything to anybody."</div>
+    <div class="pullquote-attr">— Joe Girard, paraphrased from How to Sell Anything to Anybody</div>
+  </div>
+
+  <h3>The Three Layers of What You Are Selling</h3>
+
+  <!-- SVG: 3 Concentric Circles -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 1.1 — The Three Layers of What You Sell</div>
+    <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer ring -->
+      <circle cx="280" cy="140" r="120" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.5"/>
+      <!-- Mid ring -->
+      <circle cx="280" cy="140" r="78" fill="#F2EDE4" stroke="#C4881A" stroke-width="1.5"/>
+      <!-- Inner ring -->
+      <circle cx="280" cy="140" r="36" fill="#0D1B2A" stroke="#C4881A" stroke-width="2"/>
+
+      <!-- Labels - outer -->
+      <text x="280" y="30" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9.5" fill="#C4881A" letter-spacing="2">OUTER LAYER</text>
+      <text x="280" y="44" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">The Product / Service</text>
+      <text x="280" y="58" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060" font-style="italic">Features, price, specs</text>
+
+      <!-- Mid label -->
+      <text x="410" y="110" text-anchor="start" font-family="'DM Mono', monospace" font-size="9.5" fill="#C4881A" letter-spacing="2">MID LAYER</text>
+      <text x="410" y="124" text-anchor="start" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">Your Reputation</text>
+      <text x="410" y="138" text-anchor="start" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060" font-style="italic">Track record, word of mouth</text>
+      <line x1="358" y1="120" x2="408" y2="118" stroke="#C4881A" stroke-width="1" stroke-dasharray="3,2"/>
+
+      <!-- Core label -->
+      <text x="280" y="135" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13" fill="#E8B84B" font-weight="700">YOU</text>
+      <text x="280" y="150" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="rgba(255,255,255,0.55)" letter-spacing="1">THE CORE</text>
+
+      <!-- Connector line left -->
+      <line x1="200" y1="180" x2="140" y2="210" stroke="#C4881A" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="135" y="198" text-anchor="end" font-family="'DM Mono', monospace" font-size="9.5" fill="#C4881A" letter-spacing="2">CORE</text>
+      <text x="135" y="212" text-anchor="end" font-family="'Crimson Pro', serif" font-size="13" fill="#4A4A4A">Your Character</text>
+      <text x="135" y="226" text-anchor="end" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060" font-style="italic">Honesty, warmth, belief</text>
+    </svg>
+  </div>
+
+  <p>The product layer is the easiest to compete on and the most commodified. Your reputation layer is harder to build and easier to damage. But your character — the core — is what creates both of the outer layers. If your character is strong, your reputation follows. If your reputation is strong, the product almost sells itself.</p>
+
+  <h3>The Self-Image Problem</h3>
+  <p>Girard is unflinching about this: most salespeople fail because they do not believe they deserve to win. His father told him daily that he was worthless. He spent years believing it. The moment he stopped believing it — the night he walked into that dealership starving and desperate — was the moment everything changed. Desperation cut through his self-doubt and forced him to act. You do not need desperation. But you do need to replace the voice in your head that says you cannot do it.</p>
+
+  <div class="mindset-shift">
+    <div class="mindset-old">
+      <div class="mindset-label">Old Belief</div>
+      <div class="mindset-old-text">"I need to learn the right technique to succeed in sales."</div>
+    </div>
+    <div class="mindset-arrow">→</div>
+    <div class="mindset-new">
+      <div class="mindset-label">New Belief</div>
+      <div class="mindset-new-text">"I need to become someone genuinely worth buying from — and believe that I am."</div>
+    </div>
+  </div>
+
+  <h3>What Needs to Change</h3>
+  <p>Girard argues that your walk, your look, your handshake, your tone — everything must communicate that you are somebody people can trust. Not arrogance. Not false confidence. Earned self-respect. You must audit every visible signal you emit and ask: does this say "I believe in what I do" or does it say "I'm just here hoping something works out"?</p>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 1 Actions</div>
+    <h4>This Week: Become the Product</h4>
+    <ul class="action-list">
+      <li>Write down the three words you want people to feel after meeting you. Check your current behavior against each. Where is the gap?</li>
+      <li>Record yourself on a 2-minute video pitch. Watch it with sound off. What does your body language alone communicate?</li>
+      <li>Identify the limiting belief about yourself that is most active in your life right now. Write it down, then write the direct opposite as if it were already true.</li>
+      <li>Buy one item — a watch, a notebook, a jacket — that makes you feel like the version of yourself you are becoming, not the one you are leaving behind.</li>
+      <li>Stop speaking badly about yourself, even as a joke. Track every self-deprecating comment for 7 days.</li>
+    </ul>
+  </div>
+
+  <div class="life-stages">
+    <div class="life-stage">
+      <div class="life-stage-icon">🎓</div>
+      <div class="life-stage-label">Age 20–28</div>
+      <div class="life-stage-name">The Student / First Job</div>
+      <div class="life-stage-text">You are building the first version of your professional identity. What impression do you make in interviews, networking events, class presentations? The habits you form now — confidence, posture, how you treat people below you in hierarchy — become fixed. Fix them now while the cost of experimentation is low.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">💼</div>
+      <div class="life-stage-label">Age 30–50</div>
+      <div class="life-stage-name">The Professional / Builder</div>
+      <div class="life-stage-text">Your reputation exists now whether you built it intentionally or not. How do your colleagues, clients, and peers describe you when you leave the room? This is your product. Mid-career is the time to consciously audit it and close the gap between how you see yourself and how the market sees you.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">🔄</div>
+      <div class="life-stage-label">Age 50+</div>
+      <div class="life-stage-name">The Reinventor</div>
+      <div class="life-stage-text">Perhaps you are switching industries, retiring from one domain, or building something new. The product-is-you principle is most powerful here — you have real proof of character accumulated over decades. The question is whether you know how to communicate it and whether you have updated your self-image to match who you have become.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 2 — BUILD YOUR LIST
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch2">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">02</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Two</div>
+      <div class="chapter-title">Build Your List — The Foundation of Everything</div>
+      <div class="chapter-essence">Your future income is a database. The person who tracks people wins. The person who forgets people loses.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard kept meticulous records of every person he met. Names, faces, families, preferences — all captured on index cards in a filing system he called his "shoebox." At his peak he had over 13,000 cards. Every card was a person. Every person was a relationship. And every relationship was a source of either a sale or a referral to a sale.</p>
+
+  <p>Most people operate on amnesia. They meet someone, fail to record the encounter, and the person dissolves from memory within a week. Girard understood that in a world where everyone knows 250 people, letting any one person slip away is not losing one customer — it is potentially losing 250.</p>
+
+  <div class="info-box">
+    <div class="info-box-label">The Shoebox System — Original Framework</div>
+    <p><strong>What Joe recorded on each card:</strong> Full name and correct spelling. Spouse's name. Children's names and ages. Birthday and anniversary. What they bought and when. Where they worked. Any personal detail shared during conversation — sports teams, hobbies, health concerns, upcoming events.</p>
+    <p><strong>What he did with this data:</strong> Sent every person on his list a card every month. When a birthday came up, he sent a birthday card. When an anniversary, an anniversary card. This was not mass marketing. It was personal memory at scale.</p>
+  </div>
+
+  <!-- The Database Funnel SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 2.1 — The Relationship Pipeline: From Stranger to Advocate</div>
+    <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- Funnel shape -->
+      <!-- Stage 5 - Top (widest) -->
+      <polygon points="60,20 500,20 460,70 100,70" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="280" y="45" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#C4881A" letter-spacing="2">SUSPECTS</text>
+      <text x="280" y="59" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">Everyone you meet — cold, warm, or referred</text>
+
+      <!-- Stage 4 -->
+      <polygon points="100,72 460,72 420,118 140,118" fill="#F2EDE4" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="280" y="95" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#C4881A" letter-spacing="2">PROSPECTS</text>
+      <text x="280" y="110" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">On your list, receiving monthly cards</text>
+
+      <!-- Stage 3 -->
+      <polygon points="140,120 420,120 385,162 175,162" fill="#E8B84B" stroke="#C4881A" stroke-width="1.2" fill-opacity="0.3"/>
+      <text x="280" y="141" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A4E00" letter-spacing="2">ACTIVE BUYERS</text>
+      <text x="280" y="155" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9.5" fill="#4A4A4A">In conversation, demo, or negotiation</text>
+
+      <!-- Stage 2 -->
+      <polygon points="175,164 385,164 345,205 215,205" fill="#C4881A" fill-opacity="0.3" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="280" y="184" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A4E00" letter-spacing="2">CUSTOMERS</text>
+      <text x="280" y="198" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="#4A4A4A">Have bought at least once</text>
+
+      <!-- Stage 1 - Bottom -->
+      <polygon points="215,207 345,207 310,248 250,248" fill="#0D1B2A" stroke="#C4881A" stroke-width="1.5"/>
+      <text x="280" y="219" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9.5" fill="#E8B84B" letter-spacing="2">ADVOCATES</text>
+      <text x="280" y="230" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="8" fill="rgba(255,255,255,0.75)">Refer others</text>
+      <text x="280" y="242" text-anchor="middle" textLength="65" lengthAdjust="spacingAndGlyphs" font-family="'Crimson Pro', serif" font-size="7.5" fill="rgba(255,255,255,0.75)">without being asked</text>
+
+      <!-- Arrow down -->
+      <text x="280" y="278" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#7A7060" letter-spacing="1">GOAL: MOVE EVERYONE DOWN THIS FUNNEL</text>
+    </svg>
+  </div>
+
+  <h3>The Referral Mindset</h3>
+  <p>Girard did not wait for referrals to happen. He asked for them. Explicitly, personally, and at exactly the right moment — right after the customer had signed the paper and was still glowing from the decision. At that moment, people are most likely to say "yes, I know a few people you should talk to." He offered small incentives (a modest cash reward for referrals that closed), but what he really offered was a relationship that made people <em>want</em> to help him.</p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"I treat every customer as if they were worth 250 people. Because they are."</div>
+    <div class="pullquote-attr">— Joe Girard</div>
+  </div>
+
+  <h3>Modern Application: The Digital Shoebox</h3>
+  <p>Girard's index cards are today's CRM. The principle is identical — every name matters, every detail humanizes the relationship, every data point is ammunition for a more personal follow-up. The difference is that today you can store and access 13,000 people from your phone. The bottleneck is no longer technology. It is discipline.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Girard's Shoebox</th>
+        <th>Modern Equivalent</th>
+        <th>What to Capture</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Index card per person</td>
+        <td>CRM row / contact note</td>
+        <td>Name, pronunciation, face</td>
+      </tr>
+      <tr>
+        <td>Birthday / anniversary tab</td>
+        <td>Calendar reminder / automated email</td>
+        <td>Dates that matter to them, not you</td>
+      </tr>
+      <tr>
+        <td>What they bought + when</td>
+        <td>Deal history / purchase log</td>
+        <td>Every transaction & context</td>
+      </tr>
+      <tr>
+        <td>Family member names</td>
+        <td>Notes field in contacts app</td>
+        <td>Spouse, children, pets, parents</td>
+      </tr>
+      <tr>
+        <td>Personal details shared</td>
+        <td>Meeting notes / voice memos</td>
+        <td>Sports team, vacation plans, health, hobby</td>
+      </tr>
+      <tr>
+        <td>Referrals given</td>
+        <td>Referral tracking spreadsheet</td>
+        <td>Who sent them, what happened</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 2 Actions</div>
+    <h4>This Week: Build the Foundation</h4>
+    <ul class="action-list">
+      <li>Choose one tool as your permanent relationship database — a CRM (HubSpot Free, Notion, even a well-organized Google Sheet). Commit to it for one year minimum.</li>
+      <li>Spend one hour importing every contact you currently have — phone, email, LinkedIn. Even if they are incomplete, get them in.</li>
+      <li>For your top 20 most important relationships (clients, mentors, collaborators), write at least 3 personal facts about each person from memory. Fill the gaps with a simple message: "Hey, I realized I never asked — how are things going with [topic]?"</li>
+      <li>After every meaningful conversation this week, spend 90 seconds logging key details before you open your next app.</li>
+      <li>Set a recurring calendar reminder: "List Review" — every Sunday, 15 minutes. Who did you meet this week? Add them.</li>
+    </ul>
+  </div>
+
+  <div class="life-stages">
+    <div class="life-stage">
+      <div class="life-stage-icon">🎓</div>
+      <div class="life-stage-label">Age 20–28</div>
+      <div class="life-stage-name">Student / Early Career</div>
+      <div class="life-stage-text">The list you build before age 30 will fund your career for the next 30 years. Every professor, internship supervisor, classmate, and person you meet at an event is a card in the file. Treat college like a relationship incubator. Most people squander it.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">💼</div>
+      <div class="life-stage-label">Age 30–50</div>
+      <div class="life-stage-name">Professional Builder</div>
+      <div class="life-stage-text">Your list is your business moat. No competitor can replicate your specific web of relationships. If you have been sloppy about this, now is the time to build it systematically — before you need it. A list that only gets built in a crisis is always too small and too thin.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">🔄</div>
+      <div class="life-stage-label">Age 50+</div>
+      <div class="life-stage-name">Legacy Builder</div>
+      <div class="life-stage-text">You have spent decades accumulating relationships. The question is whether they are organized. Retirees who stay relevant — who consult, mentor, and create — are the ones who kept their lists alive. The moment you stop adding people, your relevance begins to decay.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 3 — LAW OF 250
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch3">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">03</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Three</div>
+      <div class="chapter-title">The Law of 250</div>
+      <div class="chapter-essence">Every person you treat well or poorly becomes 250 people. This is the most important number in business.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Discovery</h3>
+  <p>Girard noticed something at funerals and weddings in Detroit: the guest count was almost always around 250. The average person, by the time they reach adulthood, has 250 meaningful relationships — people whose opinion they trust and to whom they talk regularly about their lives, their purchases, their experiences.</p>
+  <p>This gave him a framework that changed everything: <em>every single customer represents not one sale, but 250 potential future sales.</em> Every person you mistreat, rush, deceive, or disappoint has the power to cost you 250 customers. Every person you delight has the power to bring you 250 more.</p>
+
+  <!-- Law of 250 SVG Network -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 3.1 — The Law of 250: Network Effect of Every Customer</div>
+    <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+      <!-- Center customer -->
+      <circle cx="280" cy="160" r="30" fill="#0D1B2A" stroke="#C4881A" stroke-width="2"/>
+      <text x="280" y="155" text-anchor="middle" font-family="'Playfair Display', serif" font-size="11" fill="#E8B84B" font-weight="700">ONE</text>
+      <text x="280" y="170" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="rgba(255,255,255,0.6)" letter-spacing="1">CUSTOMER</text>
+
+      <!-- 8 outer nodes representing ~250 people grouped -->
+      <!-- Node positions around center at r=120 -->
+      <g>
+        <!-- Top -->
+        <line x1="280" y1="130" x2="280" y2="58" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="280" cy="45" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="280" y="41" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~31</text>
+        <text x="280" y="54" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">FAMILY</text>
+
+        <!-- Top-Right -->
+        <line x1="302" y1="138" x2="375" y2="82" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="390" cy="72" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="390" y="68" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~32</text>
+        <text x="390" y="81" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">WORK</text>
+
+        <!-- Right -->
+        <line x1="310" y1="160" x2="388" y2="160" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="406" cy="160" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="406" y="156" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~31</text>
+        <text x="406" y="169" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">SOCIAL</text>
+
+        <!-- Bottom-Right -->
+        <line x1="302" y1="183" x2="375" y2="237" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="390" cy="248" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="390" y="244" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~32</text>
+        <text x="390" y="257" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">NEIGH.</text>
+
+        <!-- Bottom -->
+        <line x1="280" y1="190" x2="280" y2="258" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="280" cy="272" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="280" y="268" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~31</text>
+        <text x="280" y="281" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">CHURCH</text>
+
+        <!-- Bottom-Left -->
+        <line x1="258" y1="183" x2="185" y2="237" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="170" cy="248" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="170" y="244" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~32</text>
+        <text x="170" y="257" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">CLUBS</text>
+
+        <!-- Left -->
+        <line x1="250" y1="160" x2="172" y2="160" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="154" cy="160" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="154" y="156" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~31</text>
+        <text x="154" y="169" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">FRIENDS</text>
+
+        <!-- Top-Left -->
+        <line x1="258" y1="138" x2="185" y2="82" stroke="#C4881A" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+        <circle cx="170" cy="72" r="18" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+        <text x="170" y="68" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#4A4A4A">~30</text>
+        <text x="170" y="81" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">SCHOOL</text>
+      </g>
+
+      <!-- Total label -->
+      <text x="280" y="310" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9" fill="#7A7060" letter-spacing="1.5">TOTAL ≈ 250 PEOPLE IN EVERY CUSTOMER'S ORBIT</text>
+    </svg>
+  </div>
+
+  <h3>Both Directions Cut</h3>
+  <p>This law is symmetrical and merciless. Delight one customer and 250 people hear about it. Anger one customer and 250 people hear about that too — and in the age of Google Reviews, Twitter/X, and WhatsApp groups, that number is conservative. A bad experience shared on social media can reach 2,500 or 25,000 people before breakfast.</p>
+
+  <div class="warn-box">
+    <div class="warn-box-label">The Danger Side of the Law of 250</div>
+    <p>Girard once described losing a customer over an argument about a minor misunderstanding. He calculated that over the next decade, that one customer's network of 250 people — had they been served well — might have generated dozens of referrals. The cost of "winning" that argument was not the one customer. It was the compounding loss of an entire social network's trust.</p>
+    <p>Never win an argument at the cost of a relationship. The person is always worth more than the point.</p>
+  </div>
+
+  <h3>The Law Applied Beyond Sales</h3>
+  <p>This law governs every domain of human life. How you treat the intern ripples to everyone they tell. How you treat a waiter speaks to everyone watching. How you treat a customer who is already upset either becomes a testimonial or a warning story. There is no neutral transaction. Every interaction is a vote — toward your reputation or against it.</p>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 3 Actions</div>
+    <h4>This Week: Apply the Law of 250</h4>
+    <ul class="action-list">
+      <li>Before your next difficult conversation, ask yourself: "If 250 people were watching this, what would I want them to see?" Then behave accordingly.</li>
+      <li>Identify the last person you left dissatisfied — a customer, a colleague, a friend. Reach out with a genuine attempt to make it right. Do not justify. Just fix it.</li>
+      <li>Ask your three most loyal clients or friends: "What do people say about working with me or being around me?" The answer is your actual Law of 250 signal.</li>
+      <li>Calculate your personal Law of 250 exposure: list 5 recent interactions you're proud of and 2 you're not. Multiply both by 250. Does the math make you want to change anything?</li>
+    </ul>
+  </div>
+
+  <div class="life-stages">
+    <div class="life-stage">
+      <div class="life-stage-icon">🎓</div>
+      <div class="life-stage-label">Age 20–28</div>
+      <div class="life-stage-name">Student / Early Career</div>
+      <div class="life-stage-text">Every campus interaction is a reputation signal. How you treat classmates becomes how they describe you to future employers, collaborators, and investors. Campus is a small world with a long memory. The Law of 250 is most forgiving when you're young — reputation damage is easier to recover from at 22 than 42.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">💼</div>
+      <div class="life-stage-label">Age 30–50</div>
+      <div class="life-stage-name">Professional Builder</div>
+      <div class="life-stage-text">Your clients, partners, and employees are each a network of 250. An unhappy employee who leaves will talk. A delighted client will evangelize. At this career stage, reputation compounds faster — positively and negatively — than at any other point. Be obsessive about the signal you send.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">🔄</div>
+      <div class="life-stage-label">Age 50+</div>
+      <div class="life-stage-name">Legacy Builder</div>
+      <div class="life-stage-text">Your Law of 250 network is now enormous. The reputation you have built is your greatest asset or your greatest liability. At this stage, protecting that reputation from shortcuts and compromises matters more than growing it. Guard it accordingly.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 4 — THE CARD SYSTEM
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch4">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">04</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Four</div>
+      <div class="chapter-title">The Card System — Staying Alive in Their Minds</div>
+      <div class="chapter-essence">Out of sight is out of mind. Out of mind is out of business. The card system is how Girard solved the attention problem permanently.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard mailed a card to every single person on his list every single month — without exception. At his peak, that meant 13,000+ cards per month. Not email blasts. Physical cards. Personal. Warm. Never selling anything directly — just saying "I like you" in a different seasonal costume twelve times a year.</p>
+
+  <p>January was "Happy New Year." February was "Happy Valentine's Day." March, April, May — each month had a reason to reach out. In addition to the twelve monthly cards, he sent birthday cards and anniversary cards for every person whose date he had recorded. The result: his name was never out of anyone's mind for more than thirty days.</p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"All the card says inside is: I like you. That's it. No selling. No offer. Just: I like you."</div>
+    <div class="pullquote-attr">— Joe Girard on his monthly card system</div>
+  </div>
+
+  <!-- Card Calendar SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 4.1 — Girard's 12-Month Touch Calendar</div>
+    <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background -->
+      <rect x="0" y="0" width="560" height="240" fill="#FAF7F2" rx="0"/>
+      <!-- Month grid: 6 cols x 2 rows -->
+      <!-- Row 1: Jan-Jun -->
+      <g>
+        <!-- Jan -->
+        <rect x="10" y="20" width="80" height="90" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1"/>
+        <text x="50" y="44" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">JAN</text>
+        <text x="50" y="68" text-anchor="middle" font-size="22" fill="#E8B84B">🎆</text>
+        <text x="50" y="90" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">New Year</text>
+        <text x="50" y="102" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Card</text>
+
+        <!-- Feb -->
+        <rect x="100" y="20" width="80" height="90" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1"/>
+        <text x="140" y="44" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">FEB</text>
+        <text x="140" y="68" text-anchor="middle" font-size="22" fill="#E8B84B">❤️</text>
+        <text x="140" y="90" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Valentine's</text>
+        <text x="140" y="102" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Card</text>
+
+        <!-- Mar -->
+        <rect x="190" y="20" width="80" height="90" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1"/>
+        <text x="230" y="44" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">MAR</text>
+        <text x="230" y="68" text-anchor="middle" font-size="22" fill="#E8B84B">🍀</text>
+        <text x="230" y="90" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">St. Patrick's</text>
+        <text x="230" y="102" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Card</text>
+
+        <!-- Apr -->
+        <rect x="280" y="20" width="80" height="90" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1"/>
+        <text x="320" y="44" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">APR</text>
+        <text x="320" y="68" text-anchor="middle" font-size="22" fill="#E8B84B">🌸</text>
+        <text x="320" y="90" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Spring</text>
+        <text x="320" y="102" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Greeting</text>
+
+        <!-- May -->
+        <rect x="370" y="20" width="80" height="90" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1"/>
+        <text x="410" y="44" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">MAY</text>
+        <text x="410" y="68" text-anchor="middle" font-size="22" fill="#E8B84B">🌺</text>
+        <text x="410" y="90" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Mother's</text>
+        <text x="410" y="102" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Day</text>
+
+        <!-- Jun -->
+        <rect x="460" y="20" width="90" height="90" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1"/>
+        <text x="505" y="44" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">JUN</text>
+        <text x="505" y="68" text-anchor="middle" font-size="22" fill="#E8B84B">☀️</text>
+        <text x="505" y="90" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Summer</text>
+        <text x="505" y="102" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Greeting</text>
+      </g>
+      <!-- Row 2: Jul-Dec -->
+      <g>
+        <rect x="10" y="125" width="80" height="90" rx="3" fill="#1A3050" stroke="#C4881A" stroke-width="1"/>
+        <text x="50" y="149" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">JUL</text>
+        <text x="50" y="174" text-anchor="middle" font-size="22" fill="#E8B84B">🎇</text>
+        <text x="50" y="196" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">4th July /</text>
+        <text x="50" y="208" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Summer</text>
+
+        <rect x="100" y="125" width="80" height="90" rx="3" fill="#1A3050" stroke="#C4881A" stroke-width="1"/>
+        <text x="140" y="149" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">AUG</text>
+        <text x="140" y="174" text-anchor="middle" font-size="22" fill="#E8B84B">🌊</text>
+        <text x="140" y="196" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Midsummer</text>
+        <text x="140" y="208" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Check-In</text>
+
+        <rect x="190" y="125" width="80" height="90" rx="3" fill="#1A3050" stroke="#C4881A" stroke-width="1"/>
+        <text x="230" y="149" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">SEP</text>
+        <text x="230" y="174" text-anchor="middle" font-size="22" fill="#E8B84B">🍂</text>
+        <text x="230" y="196" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Labor Day /</text>
+        <text x="230" y="208" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Autumn</text>
+
+        <rect x="280" y="125" width="80" height="90" rx="3" fill="#1A3050" stroke="#C4881A" stroke-width="1"/>
+        <text x="320" y="149" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">OCT</text>
+        <text x="320" y="174" text-anchor="middle" font-size="22" fill="#E8B84B">🎃</text>
+        <text x="320" y="196" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Halloween</text>
+        <text x="320" y="208" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Greeting</text>
+
+        <rect x="370" y="125" width="80" height="90" rx="3" fill="#1A3050" stroke="#C4881A" stroke-width="1"/>
+        <text x="410" y="149" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="1">NOV</text>
+        <text x="410" y="174" text-anchor="middle" font-size="22" fill="#E8B84B">🦃</text>
+        <text x="410" y="196" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Thanksgiving</text>
+        <text x="410" y="208" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Gratitude</text>
+
+        <rect x="460" y="125" width="90" height="90" rx="3" fill="#1A3050" stroke="#E8B84B" stroke-width="2"/>
+        <text x="505" y="149" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8B84B" letter-spacing="1">DEC ★</text>
+        <text x="505" y="174" text-anchor="middle" font-size="22" fill="#E8B84B">🎄</text>
+        <text x="505" y="196" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.85)">Holiday</text>
+        <text x="505" y="208" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.85)">Biggest Card</text>
+      </g>
+    </svg>
+  </div>
+
+  <h3>Why It Works: The Psychology of Presence</h3>
+  <p>Human beings make purchasing decisions based on familiarity and trust. These two things are built through consistent exposure over time, not through grand gestures. Girard's monthly cards created what psychologists call the "mere exposure effect" — the more familiar something is, the more we like it and trust it. His customers did not just remember him when they needed a car. They felt <em>warm</em> toward him. He was part of their monthly experience. He was, in a genuine sense, their friend in the car business.</p>
+
+  <h3>The Modern Card System</h3>
+  <p>You do not need to mail physical cards to 13,000 people. But the principle is non-negotiable: <em>you must stay present in the minds of the people who matter to your success, on a regular cadence, with zero selling attached.</em> A thoughtful LinkedIn message. A birthday text that goes beyond "happy birthday." Sharing an article relevant to their business with a personal note. The medium changes; the frequency and the sincerity cannot.</p>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 4 Actions</div>
+    <h4>This Week: Build Your Touch System</h4>
+    <ul class="action-list">
+      <li>Identify your top 50 relationships. Set a recurring birthday reminder for each one. When the day comes, call — do not text.</li>
+      <li>Design your "12 touches" calendar for the year. What is your reason to reach out each month? Map them out now.</li>
+      <li>Draft your monthly touchpoint message. It should say nothing about what you want. It should say everything about how you feel about them.</li>
+      <li>Start a weekly habit: every Friday, send 3 personal messages to people on your list — no agenda, just connection.</li>
+      <li>If you have a business, set up a simple email sequence for customers post-purchase: Day 1 (thanks), Week 2 (check-in), Month 2 (value content), Month 6 (milestone recognition).</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 5 — THE FERRIS WHEEL
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch5">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">05</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Five</div>
+      <div class="chapter-title">The Ferris Wheel — Managing Your Pipeline</div>
+      <div class="chapter-essence">Never stop filling the wheel. A salesperson who only sells when desperate is a salesperson always in panic. Build the system before you need it.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard used the image of a Ferris wheel to describe his sales pipeline. Every seat on the wheel is a customer or prospect. The wheel is always turning. As one customer gets off (they have completed a purchase), a new prospect must get on. The wheel never stops. The wheel never empties.</p>
+
+  <p>Most salespeople operate in a boom-and-bust cycle: they work hard, close sales, then take their foot off the prospecting pedal while they enjoy the commissions. Then the pipeline dries up and they scramble in a panic to fill it. Girard believed this was the cardinal sin of selling. Your prospecting activity today is your income six months from now. Never stop turning the wheel.</p>
+
+  <!-- Ferris Wheel SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 5.1 — The Ferris Wheel: Your Always-Turning Sales Pipeline</div>
+    <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- Hub -->
+      <circle cx="280" cy="145" r="18" fill="#0D1B2A" stroke="#C4881A" stroke-width="2"/>
+      <text x="280" y="141" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#E8B84B" letter-spacing="1">YOUR</text>
+      <text x="280" y="153" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#E8B84B" letter-spacing="1">SYSTEM</text>
+
+      <!-- Wheel rim -->
+      <circle cx="280" cy="145" r="110" fill="none" stroke="#C4881A" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4"/>
+
+      <!-- 8 spokes and seats -->
+      <!-- Spoke 1 - Top (12 o'clock) -->
+      <line x1="280" y1="127" x2="280" y2="38" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="254" y="16" width="52" height="34" rx="3" fill="#3D5A4C"/>
+      <text x="280" y="29" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8F0EC" letter-spacing="1">NEW</text>
+      <text x="280" y="41" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Just met</text>
+
+      <!-- Spoke 2 - 1:30 -->
+      <line x1="289" y1="128" x2="358" y2="68" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="355" y="46" width="62" height="36" rx="3" fill="#C4881A" fill-opacity="0.6"/>
+      <text x="386" y="60" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#fff" letter-spacing="1">WARM</text>
+      <text x="386" y="74" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.85)">Card sent x2</text>
+
+      <!-- Spoke 3 - 3 o'clock -->
+      <line x1="298" y1="145" x2="388" y2="145" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="390" y="127" width="66" height="36" rx="3" fill="#C4881A" fill-opacity="0.8"/>
+      <text x="423" y="141" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#fff" letter-spacing="1">HOT</text>
+      <text x="423" y="155" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.9)">Demo done</text>
+
+      <!-- Spoke 4 - 4:30 -->
+      <line x1="289" y1="162" x2="358" y2="222" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="352" y="218" width="72" height="36" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1.5"/>
+      <text x="388" y="231" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8B84B" letter-spacing="1">CLOSING</text>
+      <text x="388" y="246" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.75)">Negotiating</text>
+
+      <!-- Spoke 5 - Bottom (6 o'clock) -->
+      <line x1="280" y1="163" x2="280" y2="248" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="246" y="250" width="68" height="36" rx="3" fill="#0D1B2A" stroke="#E8B84B" stroke-width="2"/>
+      <text x="280" y="263" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8B84B" letter-spacing="1">SOLD ★</text>
+      <text x="280" y="278" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.9)">Deal closed</text>
+
+      <!-- Spoke 6 - 7:30 -->
+      <line x1="271" y1="162" x2="202" y2="222" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="136" y="218" width="68" height="36" rx="3" fill="#A63D2F" fill-opacity="0.6"/>
+      <text x="170" y="231" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#fff" letter-spacing="1">FOLLOW</text>
+      <text x="170" y="246" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.85)">After-sale care</text>
+
+      <!-- Spoke 7 - 9 o'clock -->
+      <line x1="262" y1="145" x2="172" y2="145" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="100" y="127" width="70" height="36" rx="3" fill="#3D5A4C" fill-opacity="0.8"/>
+      <text x="135" y="141" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8F0EC" letter-spacing="1">REFER</text>
+      <text x="135" y="155" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.85)">Sending names</text>
+
+      <!-- Spoke 8 - 10:30 -->
+      <line x1="271" y1="128" x2="202" y2="68" stroke="#C4881A" stroke-width="1" opacity="0.5"/>
+      <rect x="138" y="46" width="66" height="36" rx="3" fill="#3D5A4C" fill-opacity="0.5"/>
+      <text x="171" y="60" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8F0EC" letter-spacing="1">REPEAT</text>
+      <text x="171" y="74" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9" fill="rgba(255,255,255,0.7)">Buys again</text>
+    </svg>
+  </div>
+
+  <h3>The Timing Problem</h3>
+  <p>Most salespeople think of prospecting as what you do when you have no customers. Girard thought of it as what you do every single day, regardless of how full your calendar is. The wheel must always have new people getting on. If you stop adding people to the early stages of the wheel, you will not feel the pain for months — and then you will feel it all at once, when the pipeline is bone dry and you're broke.</p>
+
+  <div class="info-box">
+    <div class="info-box-label">The Timing Lag — Why This Matters</div>
+    <p>The relationship you build with a prospect today will likely convert into a sale in 3–6 months. This means your January prospecting activity drives your July income. Most people, when they are doing well, stop prospecting — and six months later, wonder why they are struggling. The Ferris Wheel model forces you to see that present prosperity is no reason to stop filling the early seats.</p>
+  </div>
+
+  <h3>The 80/20 of Prospecting</h3>
+  <p>Girard was clear that not all prospecting channels are equal. Referrals from existing customers were his highest-quality leads. A customer sending a friend to him was like getting a character reference for free. Cold contacts took ten times the effort to close at half the rate. This is why after-sale service and the card system are not separate from selling — they are the engine of the most efficient prospecting available.</p>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 5 Actions</div>
+    <h4>This Week: Keep the Wheel Turning</h4>
+    <ul class="action-list">
+      <li>Map your current pipeline. Put every prospect or customer on one of the 8 "seats" from the Ferris Wheel. Where are you dangerously thin?</li>
+      <li>Set a non-negotiable daily prospecting commitment: minimum 3 new contacts per day, even when you are at full capacity. Never stop loading the early seats.</li>
+      <li>Identify your top 3 referral sources. What are you doing to nurture them specifically? Build a plan to strengthen each relationship this month.</li>
+      <li>Create a simple pipeline dashboard — even a whiteboard or sticky notes — that you review every Monday morning. Stagnant seats trigger immediate action.</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 6 — LOOK THE PART
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch6">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">06</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Six</div>
+      <div class="chapter-title">Look the Part — Selling Before You Speak</div>
+      <div class="chapter-essence">Your clothes, car, handshake, and environment make promises before your mouth opens. Make sure they promise the right things.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard was meticulous about his appearance. He dressed like success — not like wealth for its own sake, but like a man who had standards, who respected himself and the person he was meeting. He drove a clean car. His office was organized. His handshake was firm. These were not accidents or vanity. They were signals — deliberate, crafted, and understood by every customer the moment they entered his orbit.</p>
+
+  <p>He had a simple principle: your environment is your silent sales pitch. Before you say a single word, the person across from you has already decided how they feel about you based on what they can see. Give them something worth seeing.</p>
+
+  <!-- Signal Matrix SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 6.1 — The Visual Signal Matrix: What Every Element Communicates</div>
+    <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg">
+      <!-- Headers -->
+      <rect x="10" y="10" width="240" height="32" fill="#0D1B2A"/>
+      <text x="130" y="31" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9" fill="#E8B84B" letter-spacing="2">SIGNAL ELEMENT</text>
+      <rect x="255" y="10" width="290" height="32" fill="#0D1B2A"/>
+      <text x="400" y="31" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9" fill="#E8B84B" letter-spacing="2">WHAT IT COMMUNICATES</text>
+
+      <!-- Row 1 -->
+      <rect x="10" y="44" width="240" height="38" fill="#FAF7F2" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="130" y="58" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409" font-weight="700">Clothing Quality</text>
+      <text x="130" y="74" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10" fill="#7A7060">Grooming, fit, condition</text>
+      <rect x="255" y="44" width="290" height="38" fill="#FAF7F2" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="400" y="67" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">"I have standards. I take this seriously."</text>
+
+      <!-- Row 2 -->
+      <rect x="10" y="84" width="240" height="38" fill="#F2EDE4" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="130" y="98" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409" font-weight="700">Handshake</text>
+      <text x="130" y="114" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10" fill="#7A7060">Firmness, eye contact, timing</text>
+      <rect x="255" y="84" width="290" height="38" fill="#F2EDE4" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="400" y="107" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">"I am confident, present, and glad to meet you."</text>
+
+      <!-- Row 3 -->
+      <rect x="10" y="124" width="240" height="38" fill="#FAF7F2" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="130" y="138" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409" font-weight="700">Workspace / Environment</text>
+      <text x="130" y="154" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10" fill="#7A7060">Desk, car, meeting space</text>
+      <rect x="255" y="124" width="290" height="38" fill="#FAF7F2" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="400" y="147" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">"I am organized, reliable, not chaotic."</text>
+
+      <!-- Row 4 -->
+      <rect x="10" y="164" width="240" height="38" fill="#F2EDE4" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="130" y="178" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409" font-weight="700">Punctuality</text>
+      <text x="130" y="194" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10" fill="#7A7060">Time of arrival, prepared</text>
+      <rect x="255" y="164" width="290" height="38" fill="#F2EDE4" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="400" y="187" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">"Your time matters to me. I am dependable."</text>
+
+      <!-- Row 5 -->
+      <rect x="10" y="204" width="240" height="38" fill="#FAF7F2" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="130" y="218" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409" font-weight="700">Tone of Voice</text>
+      <text x="130" y="234" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10" fill="#7A7060">Speed, warmth, clarity</text>
+      <rect x="255" y="204" width="290" height="38" fill="#FAF7F2" stroke="#D8D0C4" stroke-width="0.5"/>
+      <text x="400" y="224" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">"I am calm, knowledgeable, and not desperate."</text>
+    </svg>
+  </div>
+
+  <h3>The Digital Age Extension</h3>
+  <p>In Girard's era, appearance was entirely physical. Today you have an additional environment: your digital presence. Your LinkedIn profile is your suit. Your email signature is your handshake. Your response time is your punctuality. Your profile picture is your first expression. Every element of your digital persona sends the same signals Girard was engineering in his showroom.</p>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 6 Actions</div>
+    <h4>This Week: Audit Every Signal You Send</h4>
+    <ul class="action-list">
+      <li>Do a full appearance audit: does your professional wardrobe match the level you are trying to operate at? Invest in one or two pieces that close the gap.</li>
+      <li>Google yourself. Look at your LinkedIn, your email photo, your social profiles. Ask honestly: if you were a potential client seeing this for the first time, what would you feel?</li>
+      <li>Clean and organize your physical workspace. Your environment is a cognitive signal — to others and to yourself.</li>
+      <li>Practice your handshake / virtual greeting. Ask a trusted friend or colleague for honest feedback on your first-impression energy.</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 7 — KNOW YOUR PRODUCT COLD
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch7">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">07</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Seven</div>
+      <div class="chapter-title">Know Your Product Cold</div>
+      <div class="chapter-essence">Ignorance is fatal. Confidence is contagious. The person who knows most wins the trust of everyone who knows less.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard was a student of his product. He did not just know how to sell a car — he knew how cars were made, how the engine worked, what the specs meant, how different models compared, and what questions customers asked most. This deep product knowledge served two purposes: it made him genuinely useful to customers, and it projected undeniable authority in every conversation.</p>
+
+  <p>The salesperson who cannot answer a technical question loses trust in that moment. The salesperson who answers with depth, accuracy, and enthusiasm gains trust that persists far beyond the transaction.</p>
+
+  <div class="mindset-shift">
+    <div class="mindset-old">
+      <div class="mindset-label">Weak Approach</div>
+      <div class="mindset-old-text">"I'll learn what I need when a customer asks something specific."</div>
+    </div>
+    <div class="mindset-arrow">→</div>
+    <div class="mindset-new">
+      <div class="mindset-label">Girard Standard</div>
+      <div class="mindset-new-text">"I know everything before they ask anything. My knowledge is my competitive advantage."</div>
+    </div>
+  </div>
+
+  <h3>Feature vs. Benefit — The Real Communication</h3>
+  <p>Girard understood a critical distinction: people do not buy features, they buy what features <em>do for them</em>. A customer asking about fuel efficiency is not asking about engine specs — they are asking about their family budget. A customer asking about safety ratings is asking about their children's lives. The salesperson who translates features into personal benefits wins every time.</p>
+
+  <!-- Feature to Benefit Flow SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 7.1 — Feature → Benefit Translation Framework</div>
+    <svg viewBox="0 0 620 180" xmlns="http://www.w3.org/2000/svg">
+      <!-- Three boxes -->
+      <!-- Box 1: FEATURE  x=10–150 -->
+      <rect x="10" y="50" width="140" height="80" rx="3" fill="#F2EDE4" stroke="#D8D0C4" stroke-width="1.2"/>
+      <text x="80" y="78" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="2">FEATURE</text>
+      <text x="80" y="96" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409">"V8 Engine</text>
+      <text x="80" y="111" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409">300 HP"</text>
+
+      <!-- Arrow 1  gap x=150–205, label centred at 177 -->
+      <polygon points="183,80 183,100 200,90" fill="#C4881A"/>
+      <line x1="152" y1="90" x2="183" y2="90" stroke="#C4881A" stroke-width="1.5"/>
+      <text x="177" y="75" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">SO WHAT?</text>
+
+      <!-- Box 2: ADVANTAGE  x=205–360 -->
+      <rect x="205" y="50" width="155" height="80" rx="3" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="283" y="78" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="2">ADVANTAGE</text>
+      <text x="283" y="96" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409">"Fast, smooth</text>
+      <text x="283" y="111" text-anchor="middle" font-family="'Playfair Display', serif" font-size="12" fill="#1A1409">acceleration"</text>
+
+      <!-- Arrow 2  gap x=360–415, label centred at 387 -->
+      <polygon points="393,80 393,100 410,90" fill="#C4881A"/>
+      <line x1="362" y1="90" x2="393" y2="90" stroke="#C4881A" stroke-width="1.5"/>
+      <text x="387" y="75" text-anchor="middle" font-family="'DM Mono', monospace" font-size="7" fill="#C4881A">MEANING?</text>
+
+      <!-- Box 3: BENEFIT  x=415–570 -->
+      <rect x="415" y="34" width="155" height="112" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1.5"/>
+      <text x="493" y="62" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8B84B" letter-spacing="2">BENEFIT</text>
+      <text x="493" y="82" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="12" fill="#fff">"You'll feel</text>
+      <text x="493" y="97" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="12" fill="#fff">confident &amp; safe</text>
+      <text x="493" y="112" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="12" fill="#fff">merging on the</text>
+      <text x="493" y="127" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="12" fill="#fff">highway."</text>
+
+      <text x="310" y="170" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8.5" fill="#7A7060" letter-spacing="1">ALWAYS TRANSLATE FEATURES INTO WHAT THEY MEAN FOR THIS SPECIFIC PERSON</text>
+    </svg>
+  </div>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 7 Actions</div>
+    <h4>This Week: Become the Expert</h4>
+    <ul class="action-list">
+      <li>List every feature of what you sell (your product, your service, yourself as a professional). Next to each feature, write the human benefit it delivers.</li>
+      <li>Record yourself explaining your product or service to a skeptical stranger in 3 minutes. Play it back. Where do you hesitate? Fill those gaps this week.</li>
+      <li>Read the documentation, research, or background materials on your offering that you have been avoiding. Knowledge anxiety disappears with knowledge.</li>
+      <li>Learn what your three biggest competitors offer and exactly how you are different — not just "we're better" but specifically, measurably different.</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 8 — HANDLING OBJECTIONS
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch8">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">08</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Eight</div>
+      <div class="chapter-title">Handling Objections — Turning No into Not Yet</div>
+      <div class="chapter-essence">An objection is not a rejection. It is a request for more information delivered in a defensive wrapper. Learn to hear what is underneath.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard faced objections every single day — price, timing, product concerns, spouse's approval, comparison shopping. He never saw an objection as a "no." He saw it as a signal that the customer was still engaged, still interested, still in the conversation. People who are truly not interested do not bother objecting — they just leave.</p>
+
+  <p>He developed a response system built on three pillars: listen completely (never interrupt an objection), acknowledge genuinely (validate the concern before answering), and redirect specifically (address the real concern, not the surface complaint).</p>
+
+  <!-- Objection Response Flow SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 8.1 — Girard's Objection Response Framework</div>
+    <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- Step boxes -->
+      <!-- Step 1 -->
+      <rect x="20" y="70" width="90" height="80" rx="3" fill="#F2EDE4" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="65" y="100" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#C4881A" letter-spacing="1">STEP 1</text>
+      <text x="65" y="116" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13" fill="#1A1409">LISTEN</text>
+      <text x="65" y="131" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Don't interrupt.</text>
+      <text x="65" y="145" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Hear fully.</text>
+
+      <!-- Arrow 1 — right-pointing ► base x=118 tip x=130 -->
+      <polygon points="118,103 118,117 130,110" fill="#C4881A"/>
+      <line x1="112" y1="110" x2="118" y2="110" stroke="#C4881A" stroke-width="1.5"/>
+
+      <!-- Step 2 -->
+      <rect x="132" y="70" width="90" height="80" rx="3" fill="#FDF3DC" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="177" y="100" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#C4881A" letter-spacing="1">STEP 2</text>
+      <text x="177" y="116" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13" fill="#1A1409">VALIDATE</text>
+      <text x="177" y="131" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">"I understand</text>
+      <text x="177" y="145" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">that concern."</text>
+
+      <!-- Arrow 2 — right-pointing ► base x=230 tip x=242 -->
+      <polygon points="230,103 230,117 242,110" fill="#C4881A"/>
+      <line x1="224" y1="110" x2="230" y2="110" stroke="#C4881A" stroke-width="1.5"/>
+
+      <!-- Step 3 -->
+      <rect x="244" y="70" width="100" height="80" rx="3" fill="#E8B84B" fill-opacity="0.2" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="294" y="100" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#C4881A" letter-spacing="1">STEP 3</text>
+      <text x="294" y="116" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13" fill="#1A1409">DIAGNOSE</text>
+      <text x="294" y="131" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Ask: "Is that</text>
+      <text x="294" y="145" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">the only thing?"</text>
+
+      <!-- Arrow 3 — right-pointing ► base x=352 tip x=364 -->
+      <polygon points="352,103 352,117 364,110" fill="#C4881A"/>
+      <line x1="346" y1="110" x2="352" y2="110" stroke="#C4881A" stroke-width="1.5"/>
+
+      <!-- Step 4 -->
+      <rect x="366" y="50" width="110" height="120" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="1.5"/>
+      <text x="421" y="82" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#E8B84B" letter-spacing="1">STEP 4</text>
+      <text x="421" y="100" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13" fill="#fff">ANSWER</text>
+      <text x="421" y="116" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13" fill="#fff">&amp; REDIRECT</text>
+      <text x="421" y="133" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="rgba(255,255,255,0.75)">Address real</text>
+      <text x="421" y="147" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="rgba(255,255,255,0.75)">concern, not</text>
+      <text x="421" y="161" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="rgba(255,255,255,0.75)">surface words.</text>
+
+      <!-- Bottom label -->
+      <text x="280" y="200" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8.5" fill="#7A7060" letter-spacing="1">THE GOAL: NEVER ARGUE. ALWAYS UNDERSTAND.</text>
+    </svg>
+  </div>
+
+  <h3>The Three Most Common Objections</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Objection</th><th>What It Really Means</th><th>Girard's Approach</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>"It's too expensive."</strong></td>
+        <td>I don't yet see enough value to justify the cost. Or: I can't afford it and I'm embarrassed.</td>
+        <td>Translate features to value. Break down cost per use, per year, per benefit. Never defend the price — defend the value.</td>
+      </tr>
+      <tr>
+        <td><strong>"I need to think about it."</strong></td>
+        <td>I have a concern I haven't stated yet. Or: I am not convinced but don't want to say why.</td>
+        <td>Ask warmly: "Of course — what is the one thing that's giving you pause?" Surface the real objection.</td>
+      </tr>
+      <tr>
+        <td><strong>"I want to compare options."</strong></td>
+        <td>I don't trust that this is the best deal I can get.</td>
+        <td>Welcome it. Provide the comparison yourself — honestly. If your offer is good, transparency wins. If it is not, you need to know that too.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 8 Actions</div>
+    <h4>This Week: Master the Objection</h4>
+    <ul class="action-list">
+      <li>List the top 5 objections you receive most often. For each, write out the real concern underneath, then draft your ideal response.</li>
+      <li>Practice the Diagnose step: after someone states an objection this week, ask "Is that the only thing holding you back?" before answering. Notice how often there's a deeper concern.</li>
+      <li>Role-play objection handling with a colleague or friend. Give them permission to be as difficult as possible. Debrief honestly.</li>
+      <li>When you face a "no" this week — at work, in a relationship, anywhere — pause before reacting. Ask yourself: what is this person actually saying?</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 9 — THE CLOSE
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch9">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">09</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Nine</div>
+      <div class="chapter-title">The Close — Sealing the Commitment</div>
+      <div class="chapter-essence">The close is not a manipulation. It is a service — helping someone who has already decided to stop deciding and start committing.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard believed that the close is not a moment of pressure — it is a moment of relief. Most customers have already made their emotional decision to buy long before the paperwork appears. The salesperson's job at the close is to make it easy for them to say yes, to remove any residual friction, and to affirm that they are making a good decision.</p>
+
+  <p>He was direct about asking for the commitment. He did not dance around it. He did not wait for the customer to bring it up. When the signals were there — buying language, questions about delivery, discussion of color and trim — he moved. He asked. Not with pressure, but with calm confidence.</p>
+
+  <!-- Close Timing Chart SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 9.1 — Buying Signal Spectrum: When to Close</div>
+    <svg viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg">
+      <!-- Spectrum bar -->
+      <defs>
+        <linearGradient id="spectrumGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#A63D2F"/>
+          <stop offset="35%" style="stop-color:#C4881A"/>
+          <stop offset="65%" style="stop-color:#C4881A"/>
+          <stop offset="100%" style="stop-color:#3D5A4C"/>
+        </linearGradient>
+      </defs>
+      <rect x="40" y="70" width="480" height="24" rx="3" fill="url(#spectrumGrad)"/>
+      <!-- Tick marks -->
+      <line x1="40" y1="96" x2="40" y2="108" stroke="#4A4A4A" stroke-width="1.5"/>
+      <line x1="160" y1="96" x2="160" y2="108" stroke="#4A4A4A" stroke-width="1.5"/>
+      <line x1="280" y1="96" x2="280" y2="108" stroke="#4A4A4A" stroke-width="1.5"/>
+      <line x1="400" y1="96" x2="400" y2="108" stroke="#4A4A4A" stroke-width="1.5"/>
+      <line x1="520" y1="96" x2="520" y2="108" stroke="#4A4A4A" stroke-width="1.5"/>
+
+      <!-- Labels below -->
+      <text x="40" y="124" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#A63D2F">TOO EARLY</text>
+      <text x="40" y="138" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Resistance</text>
+      <text x="40" y="152" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Still skeptical</text>
+
+      <text x="160" y="124" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#C4881A">WARMING</text>
+      <text x="160" y="138" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Asking Qs</text>
+      <text x="160" y="152" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Exploring</text>
+
+      <text x="280" y="124" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#C4881A">SIGNALS</text>
+      <text x="280" y="138" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">"How soon</text>
+      <text x="280" y="152" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#4A4A4A">can I get it?"</text>
+
+      <text x="400" y="124" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#3D5A4C" font-weight="700">CLOSE NOW</text>
+      <text x="400" y="138" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#3D5A4C">Talking color</text>
+      <text x="400" y="152" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#3D5A4C">features, dates</text>
+
+      <text x="520" y="124" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#A63D2F">TOO LATE</text>
+      <text x="520" y="138" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">Momentum</text>
+      <text x="520" y="152" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#7A7060">lost, cold feet</text>
+
+      <!-- Ideal zone bracket -->
+      <line x1="350" y1="60" x2="480" y2="60" stroke="#3D5A4C" stroke-width="1.5"/>
+      <line x1="350" y1="58" x2="350" y2="68" stroke="#3D5A4C" stroke-width="1.5"/>
+      <line x1="480" y1="58" x2="480" y2="68" stroke="#3D5A4C" stroke-width="1.5"/>
+      <text x="415" y="52" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#3D5A4C" letter-spacing="1">IDEAL CLOSE ZONE</text>
+    </svg>
+  </div>
+
+  <h3>Reading Buying Signals</h3>
+  <p>Girard was attuned to language shifts in his customers. When a customer shifted from "this car" to "my car," when they started asking about registration timelines, when they called their spouse over to look — these were signals that the emotional decision had been made. The logic was just catching up. This was the moment to move toward the close.</p>
+
+  <div class="info-box">
+    <div class="info-box-label">Verbal Buying Signals — Listen for These Shifts</div>
+    <p>"How soon can you have this ready?" → They are planning ownership timelines. Close.</p>
+    <p>"My wife would love this color." → They are mentally bringing family in. Close.</p>
+    <p>"What does the warranty cover?" → They are planning beyond the purchase. Close.</p>
+    <p>"Can you do anything on the price?" → They want it but need one more reason. Negotiate, then close.</p>
+  </div>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 9 Actions</div>
+    <h4>This Week: Practice the Ask</h4>
+    <ul class="action-list">
+      <li>Identify 3 situations in your life — professional or personal — where you have been waiting for the other person to bring up the commitment. This week, you bring it up.</li>
+      <li>Practice the assumptive close: "So let's get this set up for you — does Tuesday or Wednesday work better?" Assume the yes and let the customer correct you if needed.</li>
+      <li>After your next successful conversation, ask for a referral at that moment. "I'm really glad this worked out — do you know anyone else who might benefit from something similar?"</li>
+      <li>List the last three times you did not close a deal or opportunity. Was it timing? Signals you missed? Practice reading the spectrum with current conversations.</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 10 — AFTER THE SALE
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch10">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">10</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Ten</div>
+      <div class="chapter-title">After the Sale — Where Real Loyalty Begins</div>
+      <div class="chapter-essence">Most salespeople disappear after the commission. Girard showed up. That is why customers came back. That is why they sent their friends.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>For most salespeople, the sale ends when the contract is signed. For Girard, that was when it began. The period immediately after a purchase is when customers are most psychologically vulnerable — a phenomenon called "buyer's remorse" or post-purchase cognitive dissonance. The customer has committed their money and they are now questioning whether they made the right call. The salesperson who reaches out in this window with warmth and reassurance immediately distinguishes themselves from every competitor who has already forgotten the client.</p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"The sale doesn't end with a signature. It ends when the customer becomes your advocate."</div>
+    <div class="pullquote-attr">— Joe Girard, paraphrased</div>
+  </div>
+
+  <!-- After-Sale Customer Journey SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 10.1 — The Post-Sale Window: Customer Psychology Over Time</div>
+    <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Y axis label -->
+      <text x="12" y="100" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A7060" transform="rotate(-90,12,100)" letter-spacing="1">LOYALTY LEVEL</text>
+
+      <!-- X Axis -->
+      <line x1="40" y1="160" x2="530" y2="160" stroke="#D8D0C4" stroke-width="1.5"/>
+      <!-- X labels -->
+      <text x="100" y="176" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A7060">Day 1</text>
+      <text x="200" y="176" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A7060">Week 1</text>
+      <text x="300" y="176" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A7060">Month 1</text>
+      <text x="400" y="176" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A7060">Month 3</text>
+      <text x="500" y="176" text-anchor="middle" font-family="'DM Mono', monospace" font-size="10" fill="#7A7060">Month 6</text>
+
+      <!-- Y Axis -->
+      <line x1="40" y1="20" x2="40" y2="160" stroke="#D8D0C4" stroke-width="1.5"/>
+
+      <!-- Curve WITHOUT follow-up (red dashed) -->
+      <path d="M 100,60 C 130,110 180,140 250,145 C 320,150 400,148 500,148"
+            fill="none" stroke="#A63D2F" stroke-width="2" stroke-dasharray="5,4"/>
+      <!-- Label red -->
+      <text x="420" y="136" font-family="'DM Mono', monospace" font-size="10" fill="#A63D2F">No follow-up</text>
+
+      <!-- Curve WITH follow-up (green solid) -->
+      <path d="M 100,60 C 110,50 160,80 200,90 C 240,100 300,70 360,55 C 420,40 480,35 520,32"
+            fill="none" stroke="#3D5A4C" stroke-width="2.5"/>
+      <!-- Green label -->
+      <text x="420" y="27" font-family="'DM Mono', monospace" font-size="10" fill="#3D5A4C">Girard's system</text>
+
+      <!-- Annotation: Day 1 dip (remorse zone) -->
+      <circle cx="100" cy="60" r="5" fill="#C4881A"/>
+      <text x="100" y="38" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#C4881A">Sale!</text>
+
+      <!-- Remorse zone band -->
+      <rect x="90" y="55" width="120" height="90" fill="#A63D2F" fill-opacity="0.05" stroke="#A63D2F" stroke-width="0.5" stroke-dasharray="3,2"/>
+      <text x="150" y="140" text-anchor="middle" font-family="'DM Mono', monospace" font-size="9" fill="#A63D2F">← BUYER'S REMORSE ZONE →</text>
+
+      <!-- Touch points on green curve -->
+      <circle cx="150" cy="68" r="4" fill="#3D5A4C"/>
+      <text x="150" y="60" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#3D5A4C">Thank you call</text>
+
+      <circle cx="250" cy="80" r="4" fill="#3D5A4C"/>
+      <text x="250" y="72" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#3D5A4C">Check-in card</text>
+
+      <circle cx="380" cy="52" r="4" fill="#3D5A4C"/>
+      <text x="380" y="44" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="11" fill="#3D5A4C">Referral ask</text>
+    </svg>
+  </div>
+
+  <h3>The Three Gifts of After-Sale Service</h3>
+  <p>Girard recognized that exceptional after-sale care delivered three things simultaneously: it protected the current relationship from buyer's remorse, it created the emotional foundation for the next purchase, and it opened the door for referrals at the moment when the customer's enthusiasm was highest. No advertising could achieve all three at once. After-sale service was his most efficient use of time.</p>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 10 Actions</div>
+    <h4>This Week: Show Up After the Win</h4>
+    <ul class="action-list">
+      <li>Within 24 hours of any closed deal, send a personal thank-you — not automated, not templated. Write it yourself. Reference something specific about them.</li>
+      <li>Two weeks after a sale or significant interaction, check in. Ask how it's going. Ask if there's anything you can do. No selling. Just caring.</li>
+      <li>Identify your top 10 customers or clients. When did you last contact each of them with no agenda? Schedule outreach for all 10 this month.</li>
+      <li>Build a formal after-sale sequence: Day 1, Day 7, Day 30, Day 90, Day 180. Automate the reminders, but personalize every message.</li>
+    </ul>
+  </div>
+
+  <div class="life-stages">
+    <div class="life-stage">
+      <div class="life-stage-icon">🎓</div>
+      <div class="life-stage-label">Age 20–28</div>
+      <div class="life-stage-name">Relationships as Currency</div>
+      <div class="life-stage-text">Every favor you do, every project you complete, every introduction you make — follow up. Did the person you introduced connect well? Did the advice you gave work out? Young people who follow up on their good deeds build reputations that carry them into rooms they have not earned yet by credential alone.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">💼</div>
+      <div class="life-stage-label">Age 30–50</div>
+      <div class="life-stage-name">Client Retention as Growth</div>
+      <div class="life-stage-text">Keeping a client costs a fraction of acquiring one. After-sale service is your retention engine. At this career stage, the businesses and professionals who thrive are those who understand that the client relationship doesn't end at invoice — it begins there.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">🔄</div>
+      <div class="life-stage-label">Age 50+</div>
+      <div class="life-stage-name">Legacy Through Service</div>
+      <div class="life-stage-text">The reputation you carry into your later decades is built entirely on how you showed up <em>after</em> you got what you wanted. People remember not just the deal — they remember what you did when you no longer had any reason to. That is character. That is legacy.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 11 — SINCERITY
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch11">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">11</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Eleven</div>
+      <div class="chapter-title">Sincerity — The One Thing You Cannot Fake</div>
+      <div class="chapter-essence">People can sense inauthenticity at a molecular level. The only sustainable competitive advantage in selling — and in life — is being genuinely interested in the other person.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard's most powerful competitive advantage was not his technique — it was that he <em>actually liked people.</em> This sounds too simple to be true. It is not. Most salespeople — and most people in general — approach others as means to their own ends. They wear a mask of interest while scanning the room for what they can get. People feel this, even if they cannot articulate it.</p>
+
+  <p>Girard genuinely wanted to know about his customers' families, their jobs, their worries, their hopes. He remembered the names of their children because he actually cared. This sincerity was not a tactic. It was who he was. And it made everything else he did — the cards, the calls, the follow-up — land as genuine rather than manipulative.</p>
+
+  <!-- Sincerity vs. Performance Venn SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 11.1 — Sincerity vs. Performance: The Trust Gap</div>
+    <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- Circle 1: Technique -->
+      <circle cx="210" cy="110" r="90" fill="#A63D2F" fill-opacity="0.12" stroke="#A63D2F" stroke-width="1.5"/>
+      <text x="190" y="85" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13.5" fill="#A63D2F" font-weight="700">Technique</text>
+      <text x="190" y="101" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#A63D2F" font-style="italic">Scripts, tactics,</text>
+      <text x="190" y="116" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#A63D2F" font-style="italic">closing tricks,</text>
+      <text x="190" y="131" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#A63D2F" font-style="italic">manipulation.</text>
+      <text x="190" y="149" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#A63D2F" font-style="italic">Short-term results.</text>
+
+      <!-- Circle 2: Sincerity -->
+      <circle cx="350" cy="110" r="90" fill="#3D5A4C" fill-opacity="0.12" stroke="#3D5A4C" stroke-width="1.5"/>
+      <text x="370" y="85" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13.5" fill="#3D5A4C" font-weight="700">Sincerity</text>
+      <text x="370" y="101" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#3D5A4C" font-style="italic">Genuine care,</text>
+      <text x="370" y="116" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#3D5A4C" font-style="italic">curiosity, warmth,</text>
+      <text x="370" y="131" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#3D5A4C" font-style="italic">interest in others.</text>
+      <text x="370" y="149" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="10.5" fill="#3D5A4C" font-style="italic">Long-term trust.</text>
+
+      <!-- Overlap zone label -->
+      <text x="280" y="100" text-anchor="middle" font-family="'Playfair Display', serif" font-size="11" fill="#0D1B2A" font-weight="700">Girard's</text>
+      <text x="280" y="114" text-anchor="middle" font-family="'Playfair Display', serif" font-size="11" fill="#0D1B2A" font-weight="700">Zone</text>
+      <text x="280" y="130" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9.5" fill="#0D1B2A" font-style="italic">Skilled +</text>
+      <text x="280" y="143" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="9.5" fill="#0D1B2A" font-style="italic">Authentic</text>
+
+      <!-- Warning label bottom left -->
+      <text x="100" y="195" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#A63D2F" letter-spacing="1">⚠ MANIPULATION</text>
+
+      <!-- Best label bottom right -->
+      <text x="460" y="195" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#3D5A4C" letter-spacing="1">✦ WARMTH WITHOUT SKILL</text>
+    </svg>
+  </div>
+
+  <h3>Why Sincerity Is a Skill — Not Just a Virtue</h3>
+  <p>Girard did not just happen to be sincere. He cultivated his interest in people. He practiced listening. He forced himself, early in his career, to focus on the person in front of him rather than the commission check he was mentally calculating. Over time, this became natural — but it started as a discipline. Sincerity is a muscle you build, not a trait you either have or don't.</p>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 11 Actions</div>
+    <h4>This Week: Cultivate Genuine Interest</h4>
+    <ul class="action-list">
+      <li>In your next five conversations, make your goal to learn one specific, memorable thing about the other person — not to share anything about yourself. Practice listening as your primary activity.</li>
+      <li>Before your next client or customer meeting, spend 5 minutes reviewing everything you know about them. Arrive curious, not prepared to pitch.</li>
+      <li>Audit your conversations this week: how often do you redirect discussions to yourself? What ratio of talking to listening do you maintain? Aim for 30/70.</li>
+      <li>Send one message this week to someone you have not spoken to in over 6 months, with no agenda — purely because you thought of them and genuinely care how they are.</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     CHAPTER 12 — MONEY, GOALS, AND THE SYSTEM
+═══════════════════════════════════════════ -->
+<div class="chapter-band" id="ch12">
+  <div class="chapter-band-inner">
+    <div class="chapter-num">12</div>
+    <div class="chapter-meta">
+      <div class="chapter-tag">Chapter Twelve</div>
+      <div class="chapter-title">Money, Goals, and the System Behind the Numbers</div>
+      <div class="chapter-essence">Success is not accidental. It is arithmetic. Know your numbers, write your goals, and build a system that works even when your motivation does not.</div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-body">
+  <h3>The Central Idea</h3>
+  <p>Girard was deeply practical about money. He tracked everything — his daily sales, his monthly income, his yearly goal, and the activities that drove each number. He did not rely on inspiration. He relied on systems. He knew that if he made X contacts per day, he would get Y conversations, which would yield Z sales, which would produce N dollars. This was not guesswork. It was engineering.</p>
+
+  <p>He also believed passionately in written goals. Not just knowing what you want — writing it down, putting a number on it, and placing it somewhere you see it every single day. The act of writing transforms a wish into a commitment. Vague ambition produces vague results. Specific, numbered, dated goals produce specific, measurable outcomes.</p>
+
+  <!-- Goal Setting Framework SVG -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Figure 12.1 — Girard's Goal-to-Activity Reverse Engineering Framework</div>
+    <svg viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top: Annual Goal -->
+      <rect x="185" y="10" width="190" height="44" rx="3" fill="#0D1B2A" stroke="#C4881A" stroke-width="2"/>
+      <text x="280" y="28" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8B84B" letter-spacing="2">ANNUAL GOAL</text>
+      <text x="280" y="46" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="13" fill="#fff">"I will earn ₹X by Dec 31"</text>
+      <line x1="280" y1="56" x2="280" y2="74" stroke="#C4881A" stroke-width="1.5"/>
+      <polygon points="274,72 286,72 280,82" fill="#C4881A"/>
+
+      <!-- Monthly -->
+      <rect x="155" y="82" width="250" height="40" rx="3" fill="#1A3050" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="280" y="99" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#E8B84B" letter-spacing="2">MONTHLY TARGET</text>
+      <text x="280" y="114" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="12" fill="rgba(255,255,255,0.85)">Annual ÷ 12 = Monthly requirement</text>
+      <line x1="280" y1="124" x2="280" y2="138" stroke="#C4881A" stroke-width="1.5"/>
+      <polygon points="274,136 286,136 280,146" fill="#C4881A"/>
+
+      <!-- Weekly -->
+      <rect x="130" y="146" width="300" height="40" rx="3" fill="#C4881A" fill-opacity="0.15" stroke="#C4881A" stroke-width="1.2"/>
+      <text x="280" y="163" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#C4881A" letter-spacing="2">WEEKLY ACTIVITY</text>
+      <text x="280" y="178" text-anchor="middle" font-family="'Crimson Pro', serif" font-size="12" fill="#4A4A4A">Calls, meetings, cards, follow-ups</text>
+      <line x1="280" y1="188" x2="280" y2="202" stroke="#C4881A" stroke-width="1.5"/>
+      <polygon points="274,200 286,200 280,210" fill="#C4881A"/>
+
+      <!-- Daily -->
+      <rect x="100" y="210" width="360" height="16" rx="3" fill="#C4881A" fill-opacity="0.5"/>
+      <text x="280" y="222" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="#4A4A4A" letter-spacing="2">DAILY NON-NEGOTIABLE ACTIONS</text>
+    </svg>
+  </div>
+
+  <h3>Girard's Financial Discipline</h3>
+  <p>Success in sales can produce boom-and-bust income cycles. Girard was careful about spending. He reinvested in his business — his card system, his appearance, his customer gifts. He treated selling as a profession with costs of goods, not just a series of windfalls. He saved. He planned. He did not let good months justify bad habits.</p>
+
+  <h3>The Role of Family</h3>
+  <p>Girard was candid about the sacrifice that extreme success demands. He worked Saturdays. He worked long hours. He missed some things at home. He was honest about this — not as a badge of honor, but as a cost he recognized and tried to mitigate. He involved his wife deeply in his career, and he credits her support as a critical factor in his success. Behind every high performer is a support structure. Build yours consciously.</p>
+
+  <!-- Activity-to-Income Table -->
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Activity Metric</th>
+        <th>Why It Matters</th>
+        <th>Girard's Standard</th>
+        <th>Your Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>New prospects contacted / day</td>
+        <td>Pipeline feed — your future income</td>
+        <td>Minimum 5 / day</td>
+        <td>___</td>
+      </tr>
+      <tr>
+        <td>Cards / letters sent / month</td>
+        <td>Presence maintenance — stay alive in minds</td>
+        <td>Entire list, monthly</td>
+        <td>___</td>
+      </tr>
+      <tr>
+        <td>Follow-up calls / week</td>
+        <td>Conversion from warm to hot</td>
+        <td>Every open prospect, weekly</td>
+        <td>___</td>
+      </tr>
+      <tr>
+        <td>Referrals asked / month</td>
+        <td>Cheapest, highest-quality lead source</td>
+        <td>After every closed sale</td>
+        <td>___</td>
+      </tr>
+      <tr>
+        <td>Thank-you messages sent</td>
+        <td>After-sale loyalty and remorse management</td>
+        <td>Within 24hrs of every sale</td>
+        <td>___</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="action-box">
+    <div class="action-box-label">Chapter 12 Actions</div>
+    <h4>This Week: Build the System</h4>
+    <ul class="action-list">
+      <li>Write your annual income / achievement goal. Give it a specific number and a specific date. Put it where you see it every morning.</li>
+      <li>Reverse-engineer from that goal to your weekly activity targets. How many conversations, contacts, pitches, or proposals do you need per week? Write it down.</li>
+      <li>Identify the 3 activities that produce 80% of your results. Protect time for these every single day before anything else.</li>
+      <li>Review your spending. Are you investing in your professional development, your appearance, your relationship maintenance? Or just in comfort? Adjust the ratio.</li>
+      <li>Define your support structure: who are the 3 people who make your success possible? When did you last genuinely thank them?</li>
+    </ul>
+  </div>
+
+  <div class="life-stages">
+    <div class="life-stage">
+      <div class="life-stage-icon">🎓</div>
+      <div class="life-stage-label">Age 20–28</div>
+      <div class="life-stage-name">Build the Habits Now</div>
+      <div class="life-stage-text">The goal-setting and activity-tracking habits you build in your twenties will govern your entire career. This is when small discipline advantages compound most dramatically. A 22-year-old who tracks their work and sets written goals will be in an entirely different position at 32 than one who operates on vibes.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">💼</div>
+      <div class="life-stage-label">Age 30–50</div>
+      <div class="life-stage-name">Optimize the System</div>
+      <div class="life-stage-text">You have enough experience now to know what works. The question is whether you have codified it. This is the decade to turn your instincts into systems — to document your process, delegate what does not require you, and focus your energy where only you can operate.</div>
+    </div>
+    <div class="life-stage">
+      <div class="life-stage-icon">🔄</div>
+      <div class="life-stage-label">Age 50+</div>
+      <div class="life-stage-name">Teach the System</div>
+      <div class="life-stage-text">The most valuable thing you can do at this stage is transfer your system to the next generation — formally or informally. Mentorship is the highest form of after-sale service. The people you invest in will carry your methods and your name forward indefinitely.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     KEY VOCABULARY
+═══════════════════════════════════════════ -->
+<div style="background: var(--cream);">
+<div class="section" id="vocab">
+  <div class="section-label">Advanced Terminology</div>
+  <div class="section-heading">Key Vocabulary from the Book</div>
+  <p class="lead" style="margin-bottom:2rem;">These are the conceptual and psychological terms that underpin Joe Girard's philosophy. Knowing these words will sharpen how you think about selling, persuasion, and human behavior.</p>
+
+  <div class="vocab-grid">
+    <div class="vocab-card">
+      <div class="vocab-term">Post-Purchase Cognitive Dissonance</div>
+      <div class="vocab-phonetic">cog·ni·tive dis·so·nance</div>
+      <div class="vocab-def">The mental discomfort a buyer feels after committing to a purchase. Girard's Day-1 thank-you call was designed to dissolve this before it became regret.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Mere Exposure Effect</div>
+      <div class="vocab-phonetic">Psychology — Robert Zajonc, 1968</div>
+      <div class="vocab-def">People prefer things they encounter repeatedly, simply through familiarity. The scientific basis for Girard's monthly card system — consistent contact builds trust.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Assumptive Close</div>
+      <div class="vocab-phonetic">Sales Technique</div>
+      <div class="vocab-def">Closing by treating the decision as already made — asking "Which color?" not "Would you like to buy?". Reduces decision friction and signals confidence.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Referral Chain</div>
+      <div class="vocab-phonetic">Business Development</div>
+      <div class="vocab-def">A sequence where each satisfied customer introduces another, creating a self-perpetuating pipeline of warm prospects. Girard's career ran almost entirely on these chains.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Pipeline</div>
+      <div class="vocab-phonetic">Sales Operations</div>
+      <div class="vocab-def">All active prospects across every buying stage simultaneously. A healthy pipeline ensures consistent income regardless of which individual deals close.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Social Proof</div>
+      <div class="vocab-phonetic">Psychology / Marketing</div>
+      <div class="vocab-def">People adopt the choices of others as validation. Girard used his Guinness record and customer enthusiasm as signals that reduced buyer hesitation.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Rapport</div>
+      <div class="vocab-phonetic">French origin — ra·por</div>
+      <div class="vocab-def">A state of mutual trust and warm connection — the invisible prerequisite for persuasion. Girard built it through genuine curiosity, not practiced technique.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Prospect</div>
+      <div class="vocab-phonetic">Sales Terminology</div>
+      <div class="vocab-def">A potential buyer confirmed to have need and capacity to purchase. Distinguished from a "suspect" by qualifying factors: budget, authority, need, and timeline.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">The Law of 250</div>
+      <div class="vocab-phonetic">Girard's Original Framework</div>
+      <div class="vocab-def">Every person has ~250 meaningful social connections. One poor interaction risks 250 future relationships; one great one multiplies your referral reach.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Buying Signal</div>
+      <div class="vocab-phonetic">Sales Observation</div>
+      <div class="vocab-def">A verbal or behavioral cue indicating readiness to buy — ownership language, delivery questions, or specifics. Recognizing it is the trigger to move toward the close.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">CRM</div>
+      <div class="vocab-phonetic">Customer Relationship Management</div>
+      <div class="vocab-def">A system for organizing and tracking customer interactions. Girard's shoebox index cards were a pre-digital CRM — every customer deserved a full recorded profile.</div>
+    </div>
+
+    <div class="vocab-card">
+      <div class="vocab-term">Self-Image Psychology</div>
+      <div class="vocab-phonetic">Maxwell Maltz, Psycho-Cybernetics</div>
+      <div class="vocab-def">The internal picture of one's own worth and capability, which governs performance. Girard rebuilt his self-image through deliberate achievement after a damaging childhood.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr class="full-rule">
+
+<!-- ══════════════════════════════════════════
+     30-DAY ACTION PLAN
+═══════════════════════════════════════════ -->
+<div class="plan-section" id="plan">
+  <div class="plan-inner">
+    <div class="section-label" style="color:var(--gold);">Your Transformation Actions</div>
+    <div class="day-grid">
+      <div class="day-card">
+        <div class="day-num">Day 01</div>
+        <div class="day-focus">The Mirror Audit</div>
+        <div class="day-task">Write the 3 words you want people to feel after meeting you. Evaluate your behavior, appearance, and tone against each word. Document every gap honestly.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 02</div>
+        <div class="day-focus">The Shoebox Begins</div>
+        <div class="day-task">Choose your CRM tool (even a Google Sheet). Import every contact you have — phone, email, LinkedIn. Do not filter anyone out. Your future is in that list.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 03</div>
+        <div class="day-focus">The Top 20</div>
+        <div class="day-task">Identify your 20 most important relationships. For each, write 3 personal facts from memory. Fill the blanks with a genuine check-in message today.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 04</div>
+        <div class="day-focus">Self-Image Work</div>
+        <div class="day-task">Write the story of a moment where you performed at your absolute best. What was true about you then? Read this every morning for the rest of the week.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 05</div>
+        <div class="day-focus">Product Deep-Dive</div>
+        <div class="day-task">List every feature of what you sell. Write the human benefit next to each one. Know this cold before any conversation.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 06</div>
+        <div class="day-focus">The Annual Goal</div>
+        <div class="day-task">Write your specific annual goal with a number and a date. Reverse-engineer to monthly and weekly targets. Post it where you see it every morning.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 07</div>
+        <div class="day-focus">First Review</div>
+        <div class="day-task">Review the week: Did you meet the goal? What slipped? Write 3 honest observations. Update your CRM with any new contacts.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 08</div>
+        <div class="day-focus">Touch Calendar</div>
+        <div class="day-task">Design your 12-month touchpoint calendar. Map a reason to reach out each month. Choose your medium: email, message, card, or call.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 09</div>
+        <div class="day-focus">Birthday Campaign</div>
+        <div class="day-task">Set birthday reminders for your top 50 contacts. When the day comes, call — don't text. Set all the reminders today.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 10</div>
+        <div class="day-focus">Law of 250 Audit</div>
+        <div class="day-task">Think of the last person you treated dismissively. Reach out and make it right — no justification, just genuine repair.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 11</div>
+        <div class="day-focus">Listen Day</div>
+        <div class="day-task">In every conversation, learn one memorable thing about the other person. Say 30% of the words. Track how often you have to stop yourself from talking.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 12</div>
+        <div class="day-focus">Prospect 5</div>
+        <div class="day-task">Contact 5 new people today — warm intros, outreach, event follow-ups. No selling. Just start a relationship. Add all 5 to your CRM.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 13</div>
+        <div class="day-focus">The Ferris Wheel Map</div>
+        <div class="day-task">Draw your pipeline on the Ferris Wheel. Place every active prospect on a seat. Find the two emptiest stages and plan your push there.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 14</div>
+        <div class="day-focus">Mid-Point Review</div>
+        <div class="day-task">How many new contacts this week? How many relationships strengthened? Update your CRM. Message one person you've been meaning to reach for months.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 15</div>
+        <div class="day-focus">Environment Audit</div>
+        <div class="day-task">Clean your workspace. Audit your digital presence (photo, bio, posts). Ask: if your best client saw this right now, what would they feel?</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 16</div>
+        <div class="day-focus">Objection Map</div>
+        <div class="day-task">List the 5 objections you face most. For each, write the real underlying concern and your ideal response.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 17</div>
+        <div class="day-focus">The 3-Minute Pitch</div>
+        <div class="day-task">Record yourself explaining your value in 3 minutes. Watch it back. Fix one thing. Re-record.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 18</div>
+        <div class="day-focus">The Ask Practice</div>
+        <div class="day-task">Identify 3 things you've been waiting for others to raise. Today, you raise them. Practice the assumptive ask in at least one.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 19</div>
+        <div class="day-focus">Competitor Research</div>
+        <div class="day-task">Research your three closest competitors. Document exactly how you differ from each — measurably and specifically.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 20</div>
+        <div class="day-focus">After-Sale Touch</div>
+        <div class="day-task">Contact every client from the past 90 days with a personal check-in. No selling. Just: "How is it going? Anything I can help with?"</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 21</div>
+        <div class="day-focus">Numbers Check</div>
+        <div class="day-task">Are your activity numbers on track? Where are you ahead? Where behind? Adjust before it becomes next week's regret.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 22</div>
+        <div class="day-focus">Referral Day</div>
+        <div class="day-task">Ask 5 best clients for a referral — directly and warmly: "Do you know anyone who might benefit from what I offer? I'd love an introduction."</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 23</div>
+        <div class="day-focus">The Thank You Sprint</div>
+        <div class="day-task">Write genuine thank-you notes to 10 people who contributed to your success this year. Specific, personal, not transactional.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 24</div>
+        <div class="day-focus">Daily Non-Negotiables</div>
+        <div class="day-task">Write your 3 daily non-negotiable activities. Block them in your calendar as unmovable, regardless of mood or circumstance.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 25</div>
+        <div class="day-focus">Support Structure</div>
+        <div class="day-task">Identify the 3 people who make your success possible. Thank each one specifically today. Define how you will invest in these relationships.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 26</div>
+        <div class="day-focus">The Signal Check</div>
+        <div class="day-task">Ask a trusted contact: "What impression do most people have of me after first meeting me?" Listen without defending. Do something with the answer.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 27</div>
+        <div class="day-focus">Sincerity Practice</div>
+        <div class="day-task">Send 3 messages today with zero agenda — purely because you thought of someone. No business angle. No request. Just connection.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 28</div>
+        <div class="day-focus">Weekly Habit Lock-In</div>
+        <div class="day-task">Formalize your weekly rhythm: Monday (pipeline), Wednesday (outreach), Friday (3 personal messages). Make these permanent recurring blocks.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 29</div>
+        <div class="day-focus">Month Metrics Review</div>
+        <div class="day-task">Review contacts made, relationships advanced, referrals generated, deals closed. Where did the system work? Where did you slip?</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">Day 30</div>
+        <div class="day-focus">The 90-Day Commit</div>
+        <div class="day-task">The habits are built. Commit to 90 more days. Write your 90-day goal. Return to the chapters where you feel weakest. This guide is a living document.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="closing-section">
+  <div class="closing-mark">"</div>
+  <div class="closing-heading">One More Thing Joe Girard Would Tell You</div>
+  <div class="closing-text">
+    <p>He would not want you to finish this guide and go back to your life unchanged. He would want you to pick up the phone right now and call someone you have been meaning to call. He would want you to add that contact to your list tonight. He would want you to write your goal on a piece of paper before you close this tab.</p>
+    <p>Because that is all the advantage he ever had over anyone else: he actually did the things he knew mattered. Every day. Even when he did not feel like it. Especially when he did not feel like it.</p>
+    <p>The distance between who you are and who you are capable of becoming is not talent or luck or circumstance. It is the number of days you chose to act when acting was hard.</p>
+    <p>Joe Girard started with nothing. He had desperation. He turned it into discipline. He turned discipline into a system. He turned a system into 13,001 sales and a Guinness World Record.</p>
+    <p style="font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink);">Now: what are you going to do today?</p>
+  </div>
+  <div class="hero-rule" style="background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto;"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="footer-text">Made with <span>love</span> by Gourang Sharma &nbsp;·&nbsp; Based on "How to Sell Anything to Anybody" by Joe Girard &nbsp;·&nbsp; A Transformation Guide, Not a Reproduction</p>
+</footer>
+
+<script>
+  // Smooth scroll offset for fixed nav
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.pageYOffset - 70,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.chapter-band, .diagram-wrap, .action-box, .vocab-card, .day-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

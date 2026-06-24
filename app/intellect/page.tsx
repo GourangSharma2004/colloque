@@ -1,12 +1,25 @@
-"use client";
+import { Suspense } from "react";
+import type { Metadata } from "next";
+import IntellectClient, { IdeaItem } from "./IntellectClient";
+import { getArticles } from "@/lib/sanity-fetch";
+import { urlFor } from "@/sanity/lib/image";
+import { isSanityConfigured } from "@/sanity/env";
 
-import { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import Link from "next/link";
-import Navbar from "@/components/Navbar";
+export const revalidate = 60;
 
-// ── Ideas data ────────────────────────────────────────────────────────────────
-const IDEAS = [
+export const metadata: Metadata = {
+  title: "Intellect",
+  description: "Sharp ideas across philosophy, science, economics, and culture. Essays written to shift how you see the world.",
+  openGraph: {
+    title: "Intellect | Colloque",
+    description: "Sharp ideas across philosophy, science, economics, and culture.",
+    url: "https://colloque.in/intellect",
+    images: [{ url: "/api/og?title=Intellect", width: 1200, height: 630 }],
+  },
+};
+
+// ── Static fallback data ──────────────────────────────────────────────────────
+const IDEAS_STATIC: IdeaItem[] = [
   {
     slug: "case-against-sugar",
     title: "The Case Against Sugar",
@@ -52,296 +65,94 @@ const IDEAS = [
     origin: "Original",
     image: "/innovation.webp",
   },
+  {
+    slug: "are-coders-worth-it",
+    title: "Are Coders Worth It?",
+    hook: "A structural examination of how tech labor markets create enormous wage premiums — and what that premium actually signals about value, scarcity, and the stories we tell ourselves.",
+    opening: "",
+    domain: "Labour Economics",
+    origin: "Original",
+    image: "/Code.jpg",
+  },
+  {
+    slug: "the-power-thinker",
+    title: "The Power Thinker",
+    hook: "Why Foucault refused to define power — and why that refusal was itself the most philosophically serious move he could make.",
+    opening: "",
+    domain: "Political Philosophy",
+    origin: "via Michel Foucault",
+    image: "/Power.webp",
+  },
+  {
+    slug: "the-orgasm-cure",
+    title: "The Orgasm Cure",
+    hook: "What if we could expand ecstasy, reduce stress, and lift depression — all by delaying and extending orgasm?",
+    opening: "",
+    domain: "Psychology & Physiology",
+    origin: "Original",
+    image: "/Orgasm.jpg",
+  },
+  {
+    slug: "poor-teeth",
+    title: "Poor Teeth",
+    hook: "If you have a mouthful of teeth shaped by a childhood in poverty, don't go knocking on the door of American privilege.",
+    opening: "",
+    domain: "Social Inequality",
+    origin: "Original",
+    image: "/teeth.jpg",
+  },
+  {
+    slug: "the-presence-of-power",
+    title: "The Presence of Power",
+    hook: "Rammohun Roy's radical claim — that good governance must be close — and why it still matters in an age of abstraction.",
+    opening: "",
+    domain: "Political Theory",
+    origin: "via Rammohun Roy",
+    image: "/presence.jpg",
+  },
+  {
+    slug: "time-is-an-object",
+    title: "Time is an Object",
+    hook: "Not a backdrop, an illusion, or an emergent phenomenon — time has a physical size that can be measured in laboratories.",
+    opening: "",
+    domain: "Physics & Philosophy",
+    origin: "Original",
+    image: "/time.jpg",
+  },
+  {
+    slug: "why-self-harm",
+    title: "Why Self-Harm?",
+    hook: "Cutting brings relief because emotion and pain criss-cross in the brain. Can we untangle the circuits and stop the cycle?",
+    opening: "",
+    domain: "Neuroscience",
+    origin: "Original",
+    image: "/self-harm.jpg",
+  },
 ];
 
-// ── Design tokens ─────────────────────────────────────────────────────────────
-const sp = "px-6 md:px-16 lg:px-24";
+// ─── Server Component (ISR) ───────────────────────────────────────────────────
 
-const labelStyle: React.CSSProperties = {
-  fontFamily: "var(--font-dm-sans), sans-serif",
-  fontSize: "11px",
-  fontWeight: 500,
-  letterSpacing: "0.2em",
-  textTransform: "uppercase",
-  color: "#9A8E7A",
-};
+export default async function IntellectPage() {
+  let ideas: IdeaItem[] = IDEAS_STATIC;
 
-// ── Idea Card ─────────────────────────────────────────────────────────────────
-function IdeaCard({ idea, isMatch = true, hasQuery = false }: { idea: (typeof IDEAS)[0]; isMatch?: boolean; hasQuery?: boolean }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <Link
-      href={`/intellect/${idea.slug}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        textDecoration: "none",
-        backgroundColor: hovered ? "#FFFFFF" : "#F5EFE6",
-        borderRadius: "5px",
-        boxShadow: hovered
-          ? "0 4px 24px rgba(44,44,44,0.10)"
-          : "0 2px 12px rgba(44,44,44,0.06)",
-        overflow: "hidden",
-        borderBottom: isMatch && hovered ? "2px solid #2C2C2C" : isMatch ? "2px solid transparent" : "2px solid transparent",
-        opacity: hasQuery && !isMatch ? 0.25 : 1,
-        transform: hasQuery && isMatch ? "scale(1.01)" : "scale(1)",
-        transition: "background-color 0.2s, box-shadow 0.2s, border-bottom-color 0.2s, opacity 0.3s, transform 0.3s",
-        outline: hasQuery && isMatch ? "2px solid #C9A84C" : "2px solid transparent",
-      }}
-    >
-      {idea.image && (
-        <div style={{ width: "100%", height: "340px", overflow: "hidden", flexShrink: 0 }}>
-          <img
-            src={idea.image}
-            alt={idea.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-              transition: "transform 0.4s ease, filter 0.4s ease",
-              transform: hovered ? "scale(1.04)" : "scale(1)",
-              filter: hovered ? "brightness(1.08)" : "brightness(1)",
-            }}
-          />
-        </div>
-      )}
-      <div style={{ padding: "1.75rem 2rem 1.75rem", display: "flex", flexDirection: "column", flex: 1 }}>
-        <h2
-          style={{
-            fontFamily: "var(--font-cormorant), Georgia, serif",
-            fontSize: "24px",
-            fontStyle: "italic",
-            fontWeight: 700,
-            lineHeight: 1.2,
-            color: "#2C2C2C",
-            marginBottom: "0.6rem",
-          }}
-        >
-          {idea.title}
-        </h2>
-
-        <p
-          style={{
-            fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "13px",
-            fontStyle: "italic",
-            fontWeight: 400,
-            color: "#4A4035",
-            lineHeight: 1.55,
-            marginBottom: "0.9rem",
-          }}
-        >
-          {idea.hook}
-        </p>
-
-        {idea.opening && (
-          <p
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "14px",
-              fontWeight: 300,
-              lineHeight: 1.75,
-              color: "rgba(44,44,44,0.70)",
-              marginBottom: "1.5rem",
-              flex: 1,
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
-            {idea.opening}
-          </p>
-        )}
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingTop: "0.75rem",
-            borderTop: "1px solid #E0D9D0",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "#9A8E7A",
-            }}
-          >
-            {idea.domain}
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "11px",
-              fontWeight: 300,
-              color: "#9A8E7A",
-            }}
-          >
-            {idea.origin}
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-export default function IntellectPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const query = searchParams.get("q")?.toLowerCase().trim() ?? "";
-  const clearSearch = () => { if (query) router.replace("/intellect"); };
-
-  const matchesQuery = (idea: (typeof IDEAS)[0]) => {
-    if (!query) return true;
-    return (
-      idea.title.toLowerCase().includes(query) ||
-      idea.hook.toLowerCase().includes(query) ||
-      idea.opening.toLowerCase().includes(query) ||
-      idea.domain.toLowerCase().includes(query) ||
-      idea.origin.toLowerCase().includes(query)
-    );
-  };
+  if (isSanityConfigured) {
+    const sanityArticles = await getArticles();
+    if (sanityArticles.length > 0) {
+      ideas = sanityArticles.map((a) => ({
+        slug: a.slug.current,
+        title: a.title,
+        hook: a.excerpt ?? "",
+        opening: "",
+        domain: a.categories?.[0] ?? "",
+        origin: a.author ?? "",
+        image: a.coverImage ? urlFor(a.coverImage).width(800).url() : "",
+      }));
+    }
+  }
 
   return (
-    <div style={{ position: "relative", minHeight: "100vh" }} onClick={clearSearch}>
-
-      {/* ── Full-page video background ── */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{
-          position: "fixed",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center 70%",
-          zIndex: 0,
-        }}
-      >
-        <source src="/video/Intellect.mp4" type="video/mp4" />
-      </video>
-
-      {/* ── Dark overlay ── */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(0,0,0,0.55)",
-          zIndex: 1,
-        }}
-      />
-
-      {/* ── Page content ── */}
-      <div style={{ position: "relative", zIndex: 2 }}>
-        <Navbar active="intellect" />
-
-        {/* ── Hero ── */}
-        <section
-          className="flex flex-col items-center justify-center text-center px-6"
-          style={{ height: "32vh", minHeight: "220px", paddingTop: "56px" }}
-        >
-          <h1
-            style={{
-              fontFamily: "var(--font-cormorant), Georgia, serif",
-              fontSize: "clamp(52px, 8vw, 96px)",
-              fontStyle: "italic",
-              fontWeight: 700,
-              lineHeight: 1,
-              color: "#F5EFE6",
-              letterSpacing: "-0.02em",
-              textShadow: "0 2px 40px rgba(0,0,0,0.45)",
-            }}
-          >
-            Intellect
-          </h1>
-
-          <p
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "17px",
-              fontWeight: 300,
-              color: "rgba(245,239,230,0.80)",
-              marginTop: "1.25rem",
-              lineHeight: 1.6,
-              textShadow: "0 1px 20px rgba(0,0,0,0.5)",
-            }}
-          >
-            Every piece starts with an idea worth thinking about.
-          </p>
-
-          <div
-            style={{
-              width: "96px",
-              borderTop: "1px solid rgba(245,239,230,0.40)",
-              marginTop: "1.5rem",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          />
-        </section>
-
-        {/* ── Ideas Feed ── */}
-        <section
-          className={`${sp} pt-6 pb-16`}
-          style={{ borderTop: "none" }}
-        >
-          <p style={{ ...labelStyle, color: "rgba(245,239,230,0.50)", marginBottom: "2rem" }}>Ideas</p>
-
-          {query && !IDEAS.some(matchesQuery) && (
-            <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "14px", fontWeight: 300, color: "rgba(245,239,230,0.50)", marginBottom: "2rem" }}>
-              No results for &ldquo;{searchParams.get("q")}&rdquo;
-            </p>
-          )}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" onClick={(e) => e.stopPropagation()}>
-            {IDEAS.map((idea) => (
-              <IdeaCard key={idea.slug} idea={idea} isMatch={matchesQuery(idea)} hasQuery={!!query} />
-            ))}
-          </div>
-        </section>
-
-        {/* ── Footer ── */}
-        <footer className="py-8 px-6 md:px-16 lg:px-24 relative flex items-center justify-center">
-          <p
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "12px",
-              fontWeight: 600,
-              letterSpacing: "0.12em",
-              color: "rgba(245,239,230,0.85)",
-            }}
-          >
-            © Converse · Built for thinkers.
-          </p>
-          <p
-            style={{
-              position: "absolute",
-              left: "clamp(1.5rem, 6vw, 6rem)",
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "12px",
-              fontWeight: 600,
-              letterSpacing: "0.12em",
-              color: "rgba(245,239,230,0.85)",
-            }}
-          >
-            One Topic Every Week
-          </p>
-        </footer>
-      </div>
-    </div>
+    <Suspense fallback={null}>
+      <IntellectClient ideas={ideas} />
+    </Suspense>
   );
 }

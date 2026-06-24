@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete Gemini Mastery Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gemini: {
+                            blue: '#1A73E8',
+                            dark: '#1C1C1E',
+                            mid: '#3C4043',
+                            light: '#E8F0FE',
+                            gold: '#FBBC04',
+                            green: '#34A853',
+                            red: '#EA4335',
+                            white: '#FFFFFF',
+                            border: '#C5D0E6',
+                            free: '#E6F4EA',
+                            pro: '#E8F0FE',
+                            ultra: '#FDE7E7'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Arial', 'sans-serif'],
+                        body: ['Georgia', 'serif'],
+                        mono: ['Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .toc-link {
+            transition: all 0.2s ease;
+        }
+        .toc-link:hover {
+            padding-left: 8px;
+        }
+        .toc-link.active {
+            color: #1A73E8;
+            font-weight: 600;
+            padding-left: 8px;
+        }
+        .section-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1A73E8, #FBBC04);
+            z-index: 100;
+            transition: width 0.1s ease;
+        }
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gemini-mid font-body">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-gemini-blue text-white p-3 rounded-full shadow-lg hover:bg-gemini-dark transition-all duration-300 opacity-0 invisible z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <div class="flex">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar sticky top-0 h-screen w-72 bg-white border-r border-gemini-border overflow-y-auto z-40 pt-4 pb-20">
+            <div class="px-6 py-4 border-b border-gemini-border">
+                <h2 class="font-heading font-bold text-gemini-blue text-lg">Navigation</h2>
+            </div>
+            <nav class="px-4 py-4">
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#title" class="toc-link block py-2 text-gemini-mid hover:text-gemini-blue">Title Page</a></li>
+                    <li><a href="#foreword" class="toc-link block py-2 text-gemini-mid hover:text-gemini-blue">Foreword</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 1: Understanding Gemini</span></li>
+                    <li><a href="#part1" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">The Ecosystem</a></li>
+                    <li><a href="#models" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Model Family</a></li>
+                    <li><a href="#tiers" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Subscription Tiers</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 2: Free Tier</span></li>
+                    <li><a href="#part2" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Free Tier Features</a></li>
+                    <li><a href="#free-limits" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Practical Limits</a></li>
+                    <li><a href="#maximizing-free" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Maximizing Free Tier</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 3: AI Pro</span></li>
+                    <li><a href="#part3" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Gemini 3.1 Pro</a></li>
+                    <li><a href="#deep-research" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Deep Research</a></li>
+                    <li><a href="#gems" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Gems</a></li>
+                    <li><a href="#workspace" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Workspace Integration</a></li>
+                    <li><a href="#live" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Gemini Live</a></li>
+                    <li><a href="#notebooklm" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">NotebookLM</a></li>
+                    <li><a href="#agentic" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Agentic Features</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 4: Prompting</span></li>
+                    <li><a href="#part4" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Prompting Formula</a></li>
+                    <li><a href="#mistakes" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Common Mistakes</a></li>
+                    <li><a href="#thinking" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Thinking Mode</a></li>
+                    <li><a href="#multimodal" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Multimodal</a></li>
+                    <li><a href="#formatting" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Formatting</a></li>
+                    <li><a href="#context" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Context Window</a></li>
+                    <li><a href="#search" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Search Integration</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 5: Competition</span></li>
+                    <li><a href="#part5" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Comparison</a></li>
+                    <li><a href="#leads" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Where Gemini Leads</a></li>
+                    <li><a href="#decision" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Decision Guide</a></li>
+                    <li><a href="#competitors" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">When to Use Others</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 6: Workflows</span></li>
+                    <li><a href="#part6" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Research Pipeline</a></li>
+                    <li><a href="#youtube" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">YouTube Production</a></li>
+                    <li><a href="#competitive" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Competitive Analysis</a></li>
+                    <li><a href="#briefing" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Daily Briefing</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 6B: Mistakes</span></li>
+                    <li><a href="#part6b" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Common User Mistakes</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Part 7: Limitations</span></li>
+                    <li><a href="#part7" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Limitations & Advice</a></li>
+                    <li class="pt-2"><span class="font-semibold text-gemini-dark">Quick Reference</span></li>
+                    <li><a href="#reference" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Cheatsheet</a></li>
+                    <li><a href="#closing" class="toc-link block py-1 pl-4 text-gemini-mid hover:text-gemini-blue">Closing</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 min-h-screen">
+            <!-- Title Page -->
+            <section id="title" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gemini-light to-white">
+                <div class="text-center px-8">
+                    <p class="font-heading text-gemini-blue text-2xl font-bold mb-4">THE COMPLETE</p>
+                    <h1 class="font-heading text-6xl md:text-7xl font-bold text-gemini-dark mb-4">GEMINI MASTERY GUIDE</h1>
+                    <p class="font-heading text-3xl text-gemini-blue mb-8">Free to Top 1% User</p>
+                    <div class="w-48 h-0.5 bg-gemini-border mx-auto mb-8"></div>
+                    <p class="font-heading text-2xl font-bold text-gemini-dark mb-2">By Gourang Sharma</p>
+                    <p class="text-gray-500 italic mb-4">AI Educator | YouTube Content Creator</p>
+                    <p class="text-gray-400 text-sm">June 2026 Edition — Current as of Gemini 3.1 Pro</p>
+                </div>
+            </section>
+
+            <!-- Foreword -->
+            <section id="foreword" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-3xl font-bold text-gemini-dark mb-6 border-b-4 border-gemini-blue pb-2">Foreword: Why This Guide Exists</h2>
+                    <p class="mb-4 leading-relaxed">When I look at the students and professionals I work with, I notice the same pattern everywhere: Claude for writing, ChatGPT for everything else, and Gemini sitting in the corner like an afterthought. That gap is not about Gemini being inferior. It is about most people never learning how Gemini actually works.</p>
+                    <p class="mb-4 leading-relaxed">Google has spent years and billions of dollars building an AI that does something neither ChatGPT nor Claude can do at the same depth: think with Google Search, inside your Gmail, inside your Google Docs, in real time. That is a genuinely different proposition. And yet, most users treat Gemini like a slightly different chatbot.</p>
+                    <p class="mb-4 leading-relaxed">This guide is the resource I wish I had when I first started taking Gemini seriously. It covers the complete picture — from the free tier (which is surprisingly capable) to the advanced features of Google AI Pro and Ultra that separate the top 1% of users from everyone else. It is written for students, creators, consultants, and professionals who want practical mastery, not marketing fluff.</p>
+                    <p class="mb-8 italic leading-relaxed">Every claim in this guide is grounded in the current state of the product as of June 2026, covering the Gemini 3.1 Pro generation. Where the product has limitations, I say so. Where it genuinely outperforms the competition, I show you specifically how and why.</p>
+                    <p class="font-bold text-gemini-dark">— Gourang Sharma, AI Educator</p>
+                </div>
+            </section>
+
+            <!-- Part 1: Understanding the Gemini Ecosystem -->
+            <section id="part1" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 1: Understanding the Gemini Ecosystem</h2>
+                    
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">1.1 What Gemini Actually Is (And Isn't)</h3>
+                    <p class="mb-4 leading-relaxed">Gemini is Google DeepMind's flagship family of AI models. Unlike ChatGPT, which was built as a language model and retrofitted with tools, Gemini was designed from the ground up as a native multimodal system — meaning it processes text, images, audio, video, and code not as separate pipelines, but as a unified cognitive architecture.</p>
+                    <p class="mb-8 leading-relaxed">The word "Gemini" refers to three overlapping things: the model family (Gemini 3, 3.1, 2.5, etc.), the consumer app at gemini.google.com, and the ecosystem of integrations embedded across Google products. Understanding which layer you're working with at any moment is the first step to becoming a power user.</p>
+
+                    <h3 id="models" class="font-heading text-2xl font-bold text-gemini-blue mb-4">1.2 The Model Family (June 2026)</h3>
+                    <p class="mb-4 leading-relaxed">Google maintains multiple models across different speed-capability trade-offs. Here is the current active lineup:</p>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-blue text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Model</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Best For</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Context Window</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Reasoning Mode</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Access</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3.1 Pro</td>
+                                    <td class="border border-gemini-border px-4 py-3">Complex reasoning, analysis, research</td>
+                                    <td class="border border-gemini-border px-4 py-3">1M tokens</td>
+                                    <td class="border border-gemini-border px-4 py-3">Deep Think (iterative)</td>
+                                    <td class="border border-gemini-border px-4 py-3">AI Pro / Ultra</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3.1 Flash Live</td>
+                                    <td class="border border-gemini-border px-4 py-3">Real-time voice & video conversations</td>
+                                    <td class="border border-gemini-border px-4 py-3">1M tokens</td>
+                                    <td class="border border-gemini-border px-4 py-3">Standard + Agentic</td>
+                                    <td class="border border-gemini-border px-4 py-3">AI Pro / Ultra</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3 Pro</td>
+                                    <td class="border border-gemini-border px-4 py-3">Everyday advanced tasks, coding, writing</td>
+                                    <td class="border border-gemini-border px-4 py-3">1M tokens</td>
+                                    <td class="border border-gemini-border px-4 py-3">Standard + Think</td>
+                                    <td class="border border-gemini-border px-4 py-3">AI Pro</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3 Flash</td>
+                                    <td class="border border-gemini-border px-4 py-3">Speed-sensitive tasks, chatbots, automation</td>
+                                    <td class="border border-gemini-border px-4 py-3">200K tokens</td>
+                                    <td class="border border-gemini-border px-4 py-3">Standard</td>
+                                    <td class="border border-gemini-border px-4 py-3">Free + AI Pro</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 2.5 Pro</td>
+                                    <td class="border border-gemini-border px-4 py-3">Legacy production workloads, developer APIs</td>
+                                    <td class="border border-gemini-border px-4 py-3">1M tokens</td>
+                                    <td class="border border-gemini-border px-4 py-3">Think + Deep Think</td>
+                                    <td class="border border-gemini-border px-4 py-3">API (paid)</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3.1 Flash-Lite</td>
+                                    <td class="border border-gemini-border px-4 py-3">High-volume, low-cost developer use</td>
+                                    <td class="border border-gemini-border px-4 py-3">1M tokens</td>
+                                    <td class="border border-gemini-border px-4 py-3">None</td>
+                                    <td class="border border-gemini-border px-4 py-3">API (free tier)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-gemini-pro border-l-4 border-gemini-blue p-4 rounded-r-lg mb-8">
+                        <div class="flex items-start">
+                            <span class="bg-gemini-blue text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">NOTE</span>
+                            <p class="text-sm">Gemini 3 Flash is the default model for free users in 2026. Gemini 3.1 Pro — the most capable model in the lineup — requires Google AI Pro ($19.99/month) or Ultra ($249.99/month).</p>
+                        </div>
+                    </div>
+
+                    <h3 id="tiers" class="font-heading text-2xl font-bold text-gemini-blue mb-4">1.3 The Subscription Tiers (What You Actually Get)</h3>
+                    <p class="mb-4 leading-relaxed">Google's subscription landscape was restructured at Google I/O 2025 and updated again in 2026. Here is the current state:</p>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-dark text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Tier</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Price</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Core Model</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Storage</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Key Distinction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Free</td>
+                                    <td class="border border-gemini-border px-4 py-3">$0/month</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3 Flash (Auto)</td>
+                                    <td class="border border-gemini-border px-4 py-3">15 GB</td>
+                                    <td class="border border-gemini-border px-4 py-3">5 Deep Research/month, daily prompt caps, basic image gen</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">AI Plus</td>
+                                    <td class="border border-gemini-border px-4 py-3">$7.99/month</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3 Flash+</td>
+                                    <td class="border border-gemini-border px-4 py-3">200 GB</td>
+                                    <td class="border border-gemini-border px-4 py-3">Higher limits, more Deep Research, priority access</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">AI Pro</td>
+                                    <td class="border border-gemini-border px-4 py-3">$19.99/month</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3.1 Pro + 3 Flash</td>
+                                    <td class="border border-gemini-border px-4 py-3">2 TB</td>
+                                    <td class="border border-gemini-border px-4 py-3">Full feature access, Gems, Workspace, NotebookLM Pro</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">AI Ultra</td>
+                                    <td class="border border-gemini-border px-4 py-3">$249.99/month</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3.1 Pro (max access)</td>
+                                    <td class="border border-gemini-border px-4 py-3">30 TB</td>
+                                    <td class="border border-gemini-border px-4 py-3">Project Genie, Gemini Spark agent, Veo 3.1 video, Deep Think unlimited</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-gemini-free border-l-4 border-gemini-green p-4 rounded-r-lg">
+                        <div class="flex items-start">
+                            <span class="bg-gemini-green text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">INDIA NOTE</span>
+                            <p class="text-sm">Google AI Pro is available in India. As of June 2026, pricing is approximately ₹1,950/month or roughly ₹19,000/year for the annual plan — with promotional rates available for new subscribers. Verify current pricing at one.google.com as it may be updated.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 2: The Free Tier -->
+            <section id="part2" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 2: The Free Tier — More Than Most People Use</h2>
+                    <p class="mb-8 leading-relaxed">The free tier of Gemini is the most underestimated offering in the AI space. It gives you access to a genuinely capable model, real-time Google Search integration, and a set of features that would cost money on competing platforms. The limitation isn't capability — it's scale and access to the most advanced models.</p>
+
+                    <h3 class="font-heading text-xl font-bold text-gemini-mid mb-4">2.1 What Free Users Get</h3>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Conversational AI with Live Web Access</h4>
+                            <p class="leading-relaxed">Every free user gets access to Gemini 3 Flash with real-time Google Search built in. This is not a toggle you turn on — it is the default. Gemini checks the web on every query where current information is relevant. ChatGPT's free tier does not offer this at the same depth; Claude's free tier has no web search at all. This single feature makes Gemini's free tier exceptional for research, current events, and fact-checking tasks.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Multimodal Input (Text, Images, Files, Audio)</h4>
+                            <p class="leading-relaxed">Free users can upload images, screenshots, and PDFs and ask Gemini to analyze them. You can photograph a whiteboard, a math problem, a restaurant bill, or a piece of code and get intelligent analysis. This is native multimodality, not a plugin — the model processes your input directly.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Deep Research (5 Reports/Month)</h4>
+                            <p class="leading-relaxed">Deep Research is Gemini's autonomous research agent. It takes your query, builds a structured research plan, browses dozens to hundreds of sources across the web, and produces a cited multi-page report. Free users receive 5 Deep Research reports per month — enough for meaningful academic or professional use if used strategically.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Basic Image Generation</h4>
+                            <p class="leading-relaxed">Free users have access to Gemini's image generation capabilities via the Imagen/Nano Banana model family, with daily limits on the number of generations. Image quality is strong for general use cases.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Gemini Live (Voice Conversation)</h4>
+                            <p class="leading-relaxed">Free users on mobile can access Gemini Live in a basic mode — real-time voice conversation with the AI. The free version runs on Gemini 3 Flash and supports natural back-and-forth conversation, though camera/screen sharing features are reserved for paid tiers.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">NotebookLM (Limited Tier)</h4>
+                            <p class="leading-relaxed">Free access to NotebookLM, Google's AI-powered research notebook, with up to 100 notebooks and 50 sources per notebook. You can upload PDFs, paste text, and have the AI answer questions specifically grounded in your source material.</p>
+                        </div>
+                    </div>
+
+                    <h3 id="free-limits" class="font-heading text-xl font-bold text-gemini-mid mb-4">2.2 Free Tier Practical Limits</h3>
+                    <p class="mb-4 leading-relaxed">The free tier is designed to be useful for light-to-moderate use, with limits that encourage upgrading at scale. Here are the ones that matter:</p>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-mid text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Feature</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Free Limit</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Practical Impact</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Daily chat prompts</td>
+                                    <td class="border border-gemini-border px-4 py-3">Not publicly specified; ~30 complex queries</td>
+                                    <td class="border border-gemini-border px-4 py-3">Runs out if you use it as a primary work tool</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Deep Research</td>
+                                    <td class="border border-gemini-border px-4 py-3">5 reports/month</td>
+                                    <td class="border border-gemini-border px-4 py-3">Enough for students; insufficient for professionals</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Image generation</td>
+                                    <td class="border border-gemini-border px-4 py-3">Daily cap (exact number varies)</td>
+                                    <td class="border border-gemini-border px-4 py-3">Fine for occasional use; hit limits in creative workflows</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Audio Overviews (NotebookLM)</td>
+                                    <td class="border border-gemini-border px-4 py-3">20/day</td>
+                                    <td class="border border-gemini-border px-4 py-3">Generous for most users</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Context window</td>
+                                    <td class="border border-gemini-border px-4 py-3">Narrower than paid tiers</td>
+                                    <td class="border border-gemini-border px-4 py-3">Cannot process full books or very long documents in one session</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Model access</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini 3 Flash only</td>
+                                    <td class="border border-gemini-border px-4 py-3">No access to 3.1 Pro's reasoning or Deep Think mode</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Gemini in Workspace apps</td>
+                                    <td class="border border-gemini-border px-4 py-3">Not included</td>
+                                    <td class="border border-gemini-border px-4 py-3">No AI in Gmail, Docs, Sheets, Slides</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Gems (custom AI)</td>
+                                    <td class="border border-gemini-border px-4 py-3">Not available</td>
+                                    <td class="border border-gemini-border px-4 py-3">Paid feature only</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="maximizing-free" class="font-heading text-xl font-bold text-gemini-mid mb-4">2.3 Maximizing the Free Tier</h3>
+                    <p class="mb-4 leading-relaxed">If you are on the free tier, these strategies will extract significantly more value:</p>
+                    <ul class="list-disc pl-6 space-y-3 mb-8">
+                        <li><strong>Use Deep Research strategically.</strong> Treat your 5 monthly reports as a premium resource. Use them for your biggest research tasks — a competitor analysis, a literature review, a market report — rather than quick lookups.</li>
+                        <li><strong>Exploit the real-time web access.</strong> Before using ChatGPT or Claude for anything that requires current information, ask Gemini. Its native Google Search integration means its answers about recent events, current prices, and live data are consistently more accurate.</li>
+                        <li><strong>Upload images for visual problem-solving.</strong> Photograph notes, diagrams, math problems, code on paper, or even complex recipes. Gemini's multimodal analysis on the free tier is excellent.</li>
+                        <li><strong>Use NotebookLM for document intelligence.</strong> Instead of fighting the prompt limit by asking the same question repeatedly, upload your documents to NotebookLM and run your entire research session there. The 50-source limit per notebook is substantial.</li>
+                        <li><strong>Leverage the 1M-token context window where available.</strong> Even on the free tier, you can paste very long texts into a single session. Use this for contract review, long articles, or multi-chapter reading.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Part 3: Google AI Pro -->
+            <section id="part3" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 3: Google AI Pro — Where Gemini Becomes Genuinely Powerful</h2>
+                    <p class="mb-8 leading-relaxed">At $19.99/month (or roughly $8.33/month on the annual plan with promotional pricing), Google AI Pro is the tier where Gemini stops being a capable free tool and becomes a professional-grade AI platform. This section covers every significant feature in detail.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">3.1 Gemini 3.1 Pro — The Model That Changes the Game</h3>
+                    <p class="mb-4 leading-relaxed">Released in February 2026, Gemini 3.1 Pro is Google's most capable reasoning model. On the GPQA Diamond science benchmark it scores 94.3%, and on SWE-Bench Verified (coding) it scores 80.6%. These are not just headline numbers — they reflect real improvements in how the model handles ambiguity, multi-step problems, and domains that require genuine understanding rather than pattern retrieval.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">The Thinking Modes System</h4>
+                    <p class="mb-4 leading-relaxed">Gemini 3.1 Pro is the first Gemini model with user-controllable thinking depth. You choose how hard the model thinks before responding:</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Low Thinking:</strong> Fast responses for straightforward tasks. Similar to standard Gemini 3 Flash quality, but with 3.1 Pro's broader knowledge base.</li>
+                        <li><strong>Medium Thinking:</strong> Balanced depth and speed. Ideal for writing, analysis, and most professional tasks.</li>
+                        <li><strong>High Thinking:</strong> Extended chain-of-thought reasoning. The model traces multiple solution paths internally before committing to an answer. Use for hard math, strategic analysis, or nuanced multi-step decisions.</li>
+                        <li><strong>Deep Think:</strong> Iterative multi-hypothesis reasoning. The model tests competing hypotheses, checks internal consistency, and revises. Reserved for the hardest problems where accuracy matters more than speed.</li>
+                    </ul>
+
+                    <div class="bg-gemini-pro border-l-4 border-gemini-blue p-4 rounded-r-lg mb-8">
+                        <div class="flex items-start">
+                            <span class="bg-gemini-blue text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">POWER USER TIP</span>
+                            <p class="text-sm">Match the thinking mode to the task. Deep Think on a simple email draft wastes time and tokens. Use Low for quick lookups, Medium for most work, High for anything involving numbers or strategy, and Deep Think only when you genuinely need maximum accuracy.</p>
+                        </div>
+                    </div>
+
+                    <h3 id="deep-research" class="font-heading text-2xl font-bold text-gemini-blue mb-4">3.2 Deep Research — Autonomous Research at Scale</h3>
+                    <p class="mb-4 leading-relaxed">Deep Research is, in the opinion of many professionals who use multiple AI tools, one of the most genuinely useful AI features released in the past two years. Here is exactly how it works and how to use it at an advanced level.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">How It Works</h4>
+                    <ol class="list-decimal pl-6 space-y-2 mb-8">
+                        <li>You submit a research prompt — ideally specific and scoped.</li>
+                        <li>Deep Research builds a structured multi-step research plan (outline) before running anything.</li>
+                        <li>You can edit the outline before approving it. This is the highest-leverage moment in the workflow.</li>
+                        <li>After approval, Gemini autonomously browses dozens to hundreds of web sources over several minutes.</li>
+                        <li>It synthesizes the information and produces a multi-page cited report, typically 5–15 pages.</li>
+                        <li>The report can be exported to Google Docs or downloaded as a PDF.</li>
+                    </ol>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">AI Pro vs Free Deep Research</h4>
+                    <p class="mb-8 leading-relaxed">Free users get 5 reports per month. AI Pro users get unlimited Deep Research reports. The Pro tier also runs on Gemini 3.1 Pro rather than the Flash model, which produces substantially better synthesis quality on complex topics.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Workspace Integration (Launched November 2025)</h4>
+                    <p class="mb-4 leading-relaxed">This is the feature that separates Gemini's Deep Research from every competitor. Since November 2025, AI Pro users can grant Deep Research access to their Gmail, Google Drive (Docs, Sheets, Slides, PDFs), and Google Chat alongside web sources. The result: research reports that combine your private organizational knowledge with the public web.</p>
+
+                    <div class="bg-gemini-pro border-l-4 border-gemini-blue p-4 rounded-r-lg mb-8">
+                        <div class="flex items-start">
+                            <span class="bg-gemini-blue text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">EXAMPLE USE CASE</span>
+                            <p class="text-sm">Prompt: "Analyze our competitive position in the edtech market. Use our Q1 strategy doc from Drive, my last 3 months of partner emails from Gmail, and current public reporting on Byju's, Unacademy, and Khan Academy." Deep Research builds this report by combining internal and external data automatically.</p>
+                        </div>
+                    </div>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Professional Prompts That Get 10x Better Reports</h4>
+                    <p class="mb-4 leading-relaxed">Most users give Deep Research one-line prompts and wonder why the output is generic. Here is the formula for professional-grade reports:</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Scope the research:</strong> "Analyze the SaaS B2B pricing landscape in India as of Q2 2026, focusing on vertical SaaS for manufacturing."</li>
+                        <li><strong>Specify the output format:</strong> "Produce a structured report with an executive summary, five key findings, a competitor comparison matrix, and strategic recommendations."</li>
+                        <li><strong>Inject constraints:</strong> "Cite only sources published after January 2025. Exclude opinion pieces. Prioritize primary sources."</li>
+                        <li><strong>Use the outline edit step:</strong> Before approving the plan, add sub-topics you know are important. Remove branches that are not relevant. This single step dramatically improves final report quality.</li>
+                    </ul>
+
+                    <h3 id="gems" class="font-heading text-2xl font-bold text-gemini-blue mb-4">3.3 Gems — Your Personal AI Workforce</h3>
+                    <p class="mb-4 leading-relaxed">Gems are custom AI assistants you build and configure inside Gemini. Each Gem is a persistent AI character with a specific set of instructions, knowledge base, tone, and behavior. Think of them as specialized AI colleagues you can build once and reuse indefinitely.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">What Gems Can Do</h4>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li>Maintain a custom persona, name, and tone across every conversation.</li>
+                        <li>Follow specific instructions that never need to be re-explained (e.g., "Always respond in formal English and structure your output as a business memo").</li>
+                        <li>Access custom knowledge bases you provide.</li>
+                        <li>Be shared with others via view, use, or edit permissions (similar to Google Drive sharing, expanded in 2025).</li>
+                        <li>Include interactive elements like buttons and forms (Super Gems, 2026 update).</li>
+                    </ul>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">High-Value Gems to Build Immediately</h4>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h5 class="font-heading font-bold text-gemini-dark mb-2">The Research Briefer</h5>
+                            <p class="text-sm italic">Instructions: "You are a professional research analyst. When I give you a topic, first confirm the scope and key questions with me. Then produce a structured briefing: executive summary (100 words), 5 key findings with citations, implications section, and 3 open questions for further research. Use formal language. Never speculate without flagging it."</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h5 class="font-heading font-bold text-gemini-dark mb-2">The YouTube Script Coach</h5>
+                            <p class="text-sm italic">Instructions: "You are a YouTube script coach specializing in educational content on AI, finance, and technology. When I give you a topic or raw notes, help me build a 10-minute YouTube script. Structure it as: Hook (first 30 seconds), Problem Setup, Core Content (3–5 key points), Examples, and CTA. Ask me about my target audience, tone (formal/conversational), and platform before starting."</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h5 class="font-heading font-bold text-gemini-dark mb-2">The Prompt Optimizer</h5>
+                            <p class="text-sm italic">Instructions: "You are a prompt engineering expert. When I give you a rough prompt, identify its weaknesses (ambiguity, missing context, unclear output format), rewrite it using best practices, and explain the changes. Then produce 3 variations optimized for different use cases."</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h5 class="font-heading font-bold text-gemini-dark mb-2">The Study Partner</h5>
+                            <p class="text-sm italic">Instructions: "You are a Socratic study partner. When I share a topic I'm studying, do not just explain it — ask me questions to test my understanding. Identify gaps in my answers. Give targeted explanations only for what I get wrong. Use the Feynman technique to check for deep understanding."</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gemini-pro border-l-4 border-gemini-blue p-4 rounded-r-lg mb-8">
+                        <div class="flex items-start">
+                            <span class="bg-gemini-blue text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">POWER USER TIP</span>
+                            <p class="text-sm">The best Gems are hyper-specific, not general. A Gem called "Writing Assistant" is less useful than one called "Technical Documentation Writer for SaaS Products That Outputs GitHub-flavored Markdown." The more specific the instructions, the more consistent and valuable the output.</p>
+                        </div>
+                    </div>
+
+                    <h3 id="workspace" class="font-heading text-2xl font-bold text-gemini-blue mb-4">3.4 Google Workspace Integration — The Moat No Competitor Has</h3>
+                    <p class="mb-4 leading-relaxed">This is where Gemini separates itself from every other AI assistant. Google AI Pro gives you Gemini embedded directly into Gmail, Google Docs, Sheets, Slides, Drive, Meet, and Calendar. This is not an add-on or an extension — it is the same AI, with full context awareness of the document or email you are currently working on.</p>
+
+                    <div class="space-y-6 mb-8">
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Gemini in Gmail</h4>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li><strong>Help me write:</strong> Generate an entire email from a one-line prompt. Gemini understands your context, recipient, and purpose.</li>
+                                <li><strong>Summarize thread:</strong> Get a structured summary of any email conversation, no matter how long. Includes action items and open questions.</li>
+                                <li><strong>Smart Reply and Polish:</strong> AI-drafted quick replies and full tone/formality rewrites.</li>
+                                <li><strong>Ask about emails:</strong> "What did [person] say about the Q3 deliverables?" Gemini searches your inbox and summarizes the answer.</li>
+                                <li><strong>Draft follow-ups:</strong> After a meeting invite or project email, ask Gemini to draft a follow-up with specific action items.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Gemini in Google Docs</h4>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li><strong>Help me write:</strong> Start any document with a prompt. Gemini generates a complete structured draft.</li>
+                                <li><strong>Refine and rewrite:</strong> Select any section and ask Gemini to shorten it, change the tone, make it more formal, or add examples.</li>
+                                <li><strong>Summarize this document:</strong> Instant summary of any Docs file, including long research papers or contracts.</li>
+                                <li><strong>Build on this:</strong> Ask Gemini to extend your existing draft, add a section, or generate a counterargument to what you've written.</li>
+                                <li><strong>Table and structure generation:</strong> "Turn this paragraph into a comparison table with these three criteria."</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Gemini in Google Sheets</h4>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li><strong>Natural language formula generation:</strong> "Create a formula that shows sales by region this quarter, excluding returns, as a percentage of total." Gemini writes the formula.</li>
+                                <li><strong>Data analysis with natural language:</strong> Upload a dataset and ask "What is the trend in Q4 revenue month-over-month? Show me a chart."</li>
+                                <li><strong>Pivot table creation:</strong> "Build a pivot table showing average deal size by sales rep and product category."</li>
+                                <li><strong>Conditional formatting via language:</strong> "Highlight all cells where growth rate exceeds 20% in green."</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gemini-ultra border-l-4 border-gemini-red p-4 rounded-r-lg">
+                            <div class="flex items-start">
+                                <span class="bg-gemini-red text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">CAUTION</span>
+                                <p class="text-sm">Gemini-generated formulas are reliable for common functions (SUMIF, VLOOKUP, COUNTIF, IF) but can produce syntactically valid but logically incorrect results for complex multi-sheet references and ARRAYFORMULA structures. Always verify outputs against a known result before deploying.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Gemini in Google Slides</h4>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li><strong>Create a presentation:</strong> "Build a 12-slide investor pitch for an edtech SaaS product targeting tier-2 Indian cities. Include slides for the problem, solution, market size, business model, and financials." Gemini generates the full deck.</li>
+                                <li><strong>Image generation in Slides:</strong> Generate custom images using Imagen 3 directly inside the Slides interface (beta as of March 2026).</li>
+                                <li><strong>Summarize into speaker notes:</strong> "Turn the content of this deck into concise speaker notes for a 15-minute presentation."</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Gemini in Google Meet</h4>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li><strong>Automatic transcription and summary:</strong> Every recorded Meet call gets a Gemini-generated summary with action items, key decisions, and open questions. Summaries save to Drive automatically.</li>
+                                <li><strong>Real-time assistance:</strong> Ask Gemini questions mid-meeting without leaving the call.</li>
+                                <li><strong>Multi-language summaries:</strong> Request follow-up summaries in any of 40+ supported languages.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-heading text-lg font-bold text-gemini-dark mb-2">Gemini in Google Drive</h4>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li><strong>"Summarize this file":</strong> Get a concise summary of any document in Drive without opening it.</li>
+                                <li><strong>Cross-file search and synthesis:</strong> "Compare our Q3 and Q4 strategy documents. What changed?"</li>
+                                <li><strong>Deep Research integration:</strong> Deep Research can pull from Drive files directly as sources.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 id="live" class="font-heading text-2xl font-bold text-gemini-blue mb-4">3.5 Gemini Live — Real-Time Multimodal Conversation</h3>
+                    <p class="mb-4 leading-relaxed">Gemini Live is the most experientially impressive feature in the AI Pro tier, and the one most users are not using to its full potential. It enables real-time, low-latency voice and video conversation with the AI — not speech-to-text followed by a text response, but genuine native audio processing where Gemini understands the emotional register of your voice, can be interrupted mid-sentence, and responds with natural prosody.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">What Gemini Live Can Do (AI Pro)</h4>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Real-time voice conversation with natural interruption support (barge-in):</strong> You can cut the AI off mid-sentence and redirect, just like a human conversation.</li>
+                        <li><strong>Camera and screen sharing:</strong> Point your phone camera at a document, whiteboard, physical object, or chart, and Gemini analyzes it in real time while you speak about it.</li>
+                        <li><strong>Multi-turn context retention:</strong> Gemini 3.1 Flash Live (the underlying model) retains context across turns so conversations stay coherent over long sessions.</li>
+                        <li><strong>Adjustable speech speed:</strong> Slow down or speed up Gemini's speech for different use cases.</li>
+                        <li><strong>Accent and voice variety:</strong> Multiple voice options with expressive delivery.</li>
+                        <li><strong>Affective dialogue:</strong> Gemini adapts its tone and response style based on vocal cues from the user.</li>
+                    </ul>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">High-Value Use Cases for Gemini Live</h4>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Interview preparation:</strong> Practice job interviews in real time. Ask Gemini to play the role of an interviewer and give tough feedback.</li>
+                        <li><strong>Language learning:</strong> Converse in a second language, get real-time corrections, and practice specific scenarios (ordering food, business meetings, technical discussions).</li>
+                        <li><strong>Design and whiteboard review:</strong> Show Gemini your design sketches, flowcharts, or prototype mockups via camera and get immediate analysis.</li>
+                        <li><strong>Hands-free research while commuting:</strong> Ask follow-up questions about a podcast, news event, or topic you are thinking through, without typing.</li>
+                        <li><strong>Verbal drafting:</strong> Talk through an idea, have Gemini reflect it back structured, then refine it verbally before writing anything down.</li>
+                    </ul>
+
+                    <div class="bg-gemini-pro border-l-4 border-gemini-blue p-4 rounded-r-lg mb-8">
+                        <div class="flex items-start">
+                            <span class="bg-gemini-blue text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">POWER USER TIP</span>
+                            <p class="text-sm">For high-stakes interview prep, set up a Gem specifically for interview practice with instructions for your target role and company. Then run Gemini Live with that Gem active. The combination gives you a persistent, context-aware interviewer who knows your background and can adapt.</p>
+                        </div>
+                    </div>
+
+                    <h3 id="notebooklm" class="font-heading text-2xl font-bold text-gemini-blue mb-4">3.6 NotebookLM — AI That Knows Your Documents</h3>
+                    <p class="mb-4 leading-relaxed">NotebookLM is Google's AI-powered research notebook that operates exclusively on sources you provide. It does not use its general training knowledge to answer questions — every response is grounded in your documents. This makes it the most reliable AI tool for research where hallucination is unacceptable.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">AI Pro vs Free NotebookLM</h4>
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-mid text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Capability</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Free</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">AI Pro (NotebookLM Pro)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Notebooks</td>
+                                    <td class="border border-gemini-border px-4 py-3">100 max</td>
+                                    <td class="border border-gemini-border px-4 py-3">Up to 500</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Sources per notebook</td>
+                                    <td class="border border-gemini-border px-4 py-3">50</td>
+                                    <td class="border border-gemini-border px-4 py-3">300</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Daily chat queries</td>
+                                    <td class="border border-gemini-border px-4 py-3">50</td>
+                                    <td class="border border-gemini-border px-4 py-3">500</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Audio Overviews</td>
+                                    <td class="border border-gemini-border px-4 py-3">20/day</td>
+                                    <td class="border border-gemini-border px-4 py-3">Higher limits</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Drive sync</td>
+                                    <td class="border border-gemini-border px-4 py-3">Manual upload only</td>
+                                    <td class="border border-gemini-border px-4 py-3">Automatic Drive syncing</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">How to Use NotebookLM at a Professional Level</h4>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Source stacking:</strong> Upload 10–20 related documents — papers, reports, contracts, transcripts — and ask cross-source questions. "What do all three market reports say about pricing trends in tier-2 markets?"</li>
+                        <li><strong>Contradiction detection:</strong> "Do any of these sources contradict each other on the regulatory timeline?" NotebookLM identifies inconsistencies across your source base.</li>
+                        <li><strong>Audio Overview for commuting:</strong> Generate a podcast-style audio summary of your notebook. Perfect for reviewing research while traveling without screen time.</li>
+                        <li><strong>Study guide generation:</strong> "Generate 20 practice exam questions from these three chapters. Include answers and explain the reasoning."</li>
+                        <li><strong>Automatic Drive syncing:</strong> Enable Drive sync so that when your source documents update, NotebookLM updates automatically. No manual re-uploads.</li>
+                    </ul>
+
+                    <h3 id="agentic" class="font-heading text-2xl font-bold text-gemini-blue mb-4">3.7 Agentic Features — Gemini Acting on Your Behalf</h3>
+                    <p class="mb-4 leading-relaxed">As of 2026, AI Pro users have access to early agentic capabilities — features where Gemini takes multi-step actions autonomously rather than just responding to prompts.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Agent Mode in Gemini</h4>
+                    <p class="mb-4 leading-relaxed">Agent Mode, powered by Gemini 3 Pro's advanced reasoning, allows you to give Gemini a high-level goal like "organize my inbox," "research and draft a proposal," or "summarize this week's Drive activity" and have it break the task into steps, use appropriate tools, and execute autonomously. It integrates with Gmail, Calendar, Drive, Canvas, and Deep Research.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Gemini Spark (Ultra, U.S. Only — Preview)</h4>
+                    <p class="mb-4 leading-relaxed">Available to AI Ultra subscribers in the U.S. as a beta rollout, Gemini Spark is a 24/7 AI agent that proactively manages your digital life. It connects the dots across your Google products, surfaces relevant information before you ask for it, and takes complex tasks off your plate.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Workspace Studio (December 2025)</h4>
+                    <p class="mb-8 leading-relaxed">Workspace Studio is Google's no-code automation platform embedded in Workspace. You describe an automation in natural language and Gemini builds the workflow. Example: "Every Monday morning, pull last week's sales data from this Sheet, generate a summary report, and email it to the team." No code required.</p>
+                </div>
+            </section>
+
+            <!-- Part 4: Advanced Prompting -->
+            <section id="part4" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 4: Prompting Gemini Like a Top 1% User</h2>
+                    <p class="mb-8 leading-relaxed">Most people use Gemini the same way they use a search engine: a short question, a quick answer. Top 1% users treat Gemini like a brilliant colleague who needs a proper brief, not a magic box that reads minds. The difference is almost entirely in how they craft and sequence prompts. This section does not just tell you the theory — it shows you the exact before and after, so you can see the gap for yourself.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">4.1 The Core Prompting Formula for Gemini</h3>
+                    <p class="mb-4 leading-relaxed">Gemini responds best when prompts have four components: Role, Context, Task, and Format (RCTF). This is not a rigid template — it is a mental checklist. Every weak prompt is missing at least one of these.</p>
+
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-blue text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">Component</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">What It Does</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">What Happens Without It</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Role</td>
+                                    <td class="border border-gemini-border px-4 py-3">Sets the AI's persona and expertise frame</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini defaults to a generic helpful assistant voice — broad, safe, unremarkable</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Context</td>
+                                    <td class="border border-gemini-border px-4 py-3">Provides the specific situation or background</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini makes assumptions about your situation that are almost always wrong</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Task</td>
+                                    <td class="border border-gemini-border px-4 py-3">States the specific action required</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini picks an action it thinks you want, which is rarely the one you needed</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Format</td>
+                                    <td class="border border-gemini-border px-4 py-3">Defines the output structure</td>
+                                    <td class="border border-gemini-border px-4 py-3">Gemini produces flowing prose when you needed bullet points, or a list when you needed a decision</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Before & After — Example 1: Business Analysis</h4>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-dark text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">VERSION</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">THE ACTUAL PROMPT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3"><span class="text-gemini-red font-bold">❌ WEAK</span></td>
+                                    <td class="border border-gemini-border px-4 py-3 font-mono text-sm">"What are the risks of starting a SaaS company in India?"</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3"><span class="text-gemini-green font-bold">✅ STRONG</span></td>
+                                    <td class="border border-gemini-border px-4 py-3 font-mono text-sm">"You are a senior strategy consultant who has advised 20+ B2B SaaS startups in India. I am a first-time founder building a school management SaaS for K-12 private schools in tier-2 Indian cities (Jaipur, Indore, Lucknow). My product is at MVP stage with 3 paid pilots. Analyze the top 5 strategic risks in my go-to-market for the next 12 months. Rank them by severity (High/Med/Low). For each: write the risk in one sentence, explain why it specifically applies to my situation (not SaaS in general), and give one concrete mitigation action I can take this quarter."</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mb-4 italic text-sm"><strong>Why the weak version fails:</strong> Gemini has no idea what kind of SaaS, which market, what stage you are at, or what decision you are trying to make. It will produce a generic article about SaaS risks that could apply to anyone anywhere. It is not wrong — it is just useless for your specific situation.</p>
+                    <p class="mb-8 italic text-sm"><strong>Why the strong version works:</strong> Gemini now has a stake in your specific problem. The role gives it a perspective. The context makes the answer specific to tier-2 India, K-12, and MVP stage. The task is unambiguous. The format prevents a wall of prose.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Before & After — Example 2: Content Creation</h4>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-dark text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">VERSION</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">THE ACTUAL PROMPT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3"><span class="text-gemini-red font-bold">❌ WEAK</span></td>
+                                    <td class="border border-gemini-border px-4 py-3 font-mono text-sm">"Write a YouTube script about Gemini AI."</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3"><span class="text-gemini-green font-bold">✅ STRONG</span></td>
+                                    <td class="border border-gemini-border px-4 py-3 font-mono text-sm">"You are writing a YouTube script for an Indian tech educator whose audience is college students and early professionals familiar with ChatGPT but not Gemini. The video should be 8–10 minutes. Hook: open with a real scenario where Gemini does something ChatGPT cannot (like pulling from a live Google Doc). Build to the thesis: Gemini is not a ChatGPT alternative, it is a different product for a different use case. Cover exactly three points: the context window difference, the Google Workspace integration, and Deep Research. Close with a practical 30-day challenge the viewer can start today. Tone: conversational, slightly provocative, no corporate language. Do not write in paragraphs — write in spoken lines with pauses marked as [beat]."</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mb-8 italic text-sm">The weak version gets a generic script that sounds like a product page read aloud. The strong version gets a script that sounds like your voice, fits your audience, and gives you a structure you can actually film. The difference is not the complexity of the task — it is the quality of the brief you gave.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Before & After — Example 3: Research</h4>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-dark text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">VERSION</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">THE ACTUAL PROMPT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3"><span class="text-gemini-red font-bold">❌ WEAK</span></td>
+                                    <td class="border border-gemini-border px-4 py-3 font-mono text-sm">"Summarize this research paper for me." [uploads PDF]</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3"><span class="text-gemini-green font-bold">✅ STRONG</span></td>
+                                    <td class="border border-gemini-border px-4 py-3 font-mono text-sm">"I am uploading a research paper on attention mechanisms in transformer models. I have a background in software engineering but am new to ML theory. Do the following in sequence: (1) Summarize the paper's core contribution in 3 sentences, assuming I understand neural networks but not the math. (2) Identify the one claim the authors make that is most debated or likely to face pushback. (3) Tell me what I need to understand before reading this paper that the authors assume I already know. (4) Give me 3 follow-up questions I should be able to answer after reading it carefully."</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mb-8 italic text-sm">Asking for a summary gets a summary — a compressed version of what you could read yourself. The strong version turns Gemini into a reading guide, a critic, and a teacher simultaneously. You leave that interaction genuinely understanding the paper rather than just having a shorter version of it.</p>
+
+                    <h3 id="mistakes" class="font-heading text-2xl font-bold text-gemini-blue mb-4">4.1b The 5 Most Common Prompting Mistakes (And How to Fix Them)</h3>
+                    <p class="mb-4 leading-relaxed">These are the mistakes that account for 80% of disappointing Gemini outputs. Each one has a fast fix.</p>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gemini-mid text-white">
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">The Mistake</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">What It Looks Like</th>
+                                    <th class="border border-gemini-border px-4 py-3 text-left font-heading font-bold">The Fix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Asking a question when you need a decision</td>
+                                    <td class="border border-gemini-border px-4 py-3">"What are some good marketing channels for my product?"</td>
+                                    <td class="border border-gemini-border px-4 py-3">Specify the decision: "Given that I have ₹50,000/month and 10 hours/week, rank the top 3 marketing channels for a B2B SaaS targeting school principals in India and tell me which one to start with and why."</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">No format instruction</td>
+                                    <td class="border border-gemini-border px-4 py-3">"Tell me about Deep Research."</td>
+                                    <td class="border border-gemini-border px-4 py-3">Add: "Structure your answer as: one-paragraph overview, 5 specific use cases with examples, and 3 limitations I should know."</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Asking for opinion without constraints</td>
+                                    <td class="border border-gemini-border px-4 py-3">"Is Gemini better than ChatGPT?"</td>
+                                    <td class="border border-gemini-border px-4 py-3">Constrain to your context: "For my specific use case — writing YouTube scripts, research, and working inside Google Docs — compare Gemini AI Pro and ChatGPT Plus. Tell me which one to pay for first and why."</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-4 py-3">Iterating without resetting</td>
+                                    <td class="border border-gemini-border px-4 py-3">Sending 10 follow-up messages to fix a bad output</td>
+                                    <td class="border border-gemini-border px-4 py-3">If the output is structurally wrong, start a new chat with a better initial prompt. Iterating on a bad foundation rarely gets you to a good output.</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-4 py-3">Treating the first output as final</td>
+                                    <td class="border border-gemini-border px-4 py-3">Copying the first response directly</td>
+                                    <td class="border border-gemini-border px-4 py-3">The first output is a draft. Always follow up with: "What did you leave out that someone with deeper knowledge of this topic would have included?"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="thinking" class="font-heading text-2xl font-bold text-gemini-blue mb-4">4.2 Thinking Mode Control (AI Pro Power Technique)</h3>
+                    <p class="mb-4 leading-relaxed">AI Pro users can explicitly instruct Gemini on how hard to think. These instructions work even in natural language:</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li>"Think through this carefully before answering" — triggers extended reasoning.</li>
+                        <li>"Give me your best answer quickly" — optimizes for speed.</li>
+                        <li>"Show me your reasoning step by step" — activates chain-of-thought visible output.</li>
+                        <li>"Consider multiple interpretations before deciding" — triggers multi-hypothesis reasoning.</li>
+                        <li>"What would you get wrong about this, and why?" — forces adversarial self-review before answering.</li>
+                    </ul>
+
+                    <h3 id="multimodal" class="font-heading text-2xl font-bold text-gemini-blue mb-4">4.3 Multimodal Prompting Techniques</h3>
+                    
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Image + Text Layering</h4>
+                    <p class="mb-4 leading-relaxed">Do not just upload an image and say "what is this?" Layer your image uploads with precise analytical instructions:</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li>"Analyze this chart. What is the underlying trend the data is showing? What would a sceptic say about this visualization's framing?"</li>
+                        <li>"I have uploaded a screenshot of my competitor's pricing page. Break down their pricing strategy, identify the anchoring technique they're using, and tell me what their perceived ideal customer profile is."</li>
+                        <li>"This is a photo of my handwritten architecture diagram. Convert it into a structured system description with components, data flows, and potential failure points."</li>
+                    </ul>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Document Analysis at Scale</h4>
+                    <p class="mb-4 leading-relaxed">For large documents (long research papers, contracts, annual reports), use this sequence:</p>
+                    <ol class="list-decimal pl-6 space-y-2 mb-8">
+                        <li>Paste or upload the full document.</li>
+                        <li>"Summarize the core argument and five key claims in this document."</li>
+                        <li>"What does this document assume is true that it never explicitly states?"</li>
+                        <li>"Where does the evidence fail to support the conclusions?"</li>
+                        <li>"If I were to argue against the main thesis, what are the strongest counterarguments?"</li>
+                    </ol>
+
+                    <h3 id="formatting" class="font-heading text-2xl font-bold text-gemini-blue mb-4">4.4 The Gemini-Specific Formatting Advantage</h3>
+                    <p class="mb-4 leading-relaxed">Unlike some models, Gemini responds exceptionally well to tight formatting constraints specified at the top of the prompt. Use this to your advantage:</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Always put format instructions first.</strong> Gemini reads formatting constraints better when they appear before the task, not after.</li>
+                        <li><strong>Use capitalized structural labels.</strong> "IMPORTANT: Respond only in the following JSON structure. Do not add explanations." works reliably.</li>
+                        <li><strong>Specify length in concrete terms.</strong> "Respond in 200–250 words" is more reliable than "respond briefly."</li>
+                        <li><strong>Use XML-style tags for structured outputs.</strong> "<analysis></analysis><recommendation></recommendation>" syntax produces clean, parseable output.</li>
+                    </ul>
+
+                    <h3 id="context" class="font-heading text-2xl font-bold text-gemini-blue mb-4">4.5 Context Window Mastery</h3>
+                    <p class="mb-4 leading-relaxed">Gemini's 1-million-token context window is one of its biggest competitive advantages. Here is how top users exploit it:</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Feed entire codebases:</strong> Paste or upload your complete repository and ask questions about architecture, potential bugs, or implementation patterns. "Given this entire codebase, identify the three places where a race condition is most likely to occur."</li>
+                        <li><strong>Multi-document synthesis:</strong> Upload 10–15 related documents and ask for synthesis, contradiction detection, or gap analysis.</li>
+                        <li><strong>Full conversation continuity:</strong> Unlike shorter-context models, you can maintain a strategic conversation across dozens of turns without the model losing track of earlier context. Use this for long design sessions or multi-stage research.</li>
+                        <li><strong>Token budget awareness:</strong> The 1M-token window holds all inputs plus conversation history plus response. A 900K-token document leaves only 100K tokens for conversation and responses. Plan accordingly.</li>
+                    </ul>
+
+                    <h3 id="search" class="font-heading text-2xl font-bold text-gemini-blue mb-4">4.6 Using Gemini with Google Search Integration — Precision Techniques</h3>
+                    <p class="mb-4 leading-relaxed">Because Gemini has live web access by default, you can use it for tasks that other AI tools simply cannot do reliably:</p>
+                    <ul class="list-disc pl-6 space-y-2 mb-8">
+                        <li><strong>Real-time competitive intelligence:</strong> "What are the three most recent major announcements from [competitor]? Summarize each and assess their strategic significance."</li>
+                        <li><strong>Current pricing verification:</strong> "What is the current pricing for [product/service] as of today? Compare it to [competitor]."</li>
+                        <li><strong>Event-driven research:</strong> "What has happened in Indian edtech funding in the last 30 days? List announcements, amounts, and investor names."</li>
+                        <li><strong>Trend validation:</strong> "Find 5 credible sources published in the last 3 months that support or contradict this market thesis: [thesis]."</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Part 5: Gemini vs Competition -->
+            <section id="part5" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 5: Where Gemini Wins, Loses, and Competes Honestly</h2>
+                    <p class="mb-8 leading-relaxed">This section is intentionally balanced. The goal is not to convince you that Gemini is the best AI at everything — it is not, and no honest guide would claim otherwise. The goal is to give you a clear map of where Gemini's advantages are genuine and decisive, where the competition holds the edge, and where the choice depends on your specific situation.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">5.1 The Honest Comparison Table</h3>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse text-sm">
+                            <thead>
+                                <tr class="bg-gemini-dark text-white">
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Capability</th>
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Gemini (AI Pro)</th>
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">ChatGPT (Plus)</th>
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Claude (Pro)</th>
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Winner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Context window</td>
+                                    <td class="border border-gemini-border px-3 py-2">1M tokens (3.1 Pro)</td>
+                                    <td class="border border-gemini-border px-3 py-2">128K tokens (GPT-4o)</td>
+                                    <td class="border border-gemini-border px-3 py-2">200K tokens (Opus)</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Real-time web access</td>
+                                    <td class="border border-gemini-border px-3 py-2">Native, always-on Google Search</td>
+                                    <td class="border border-gemini-border px-3 py-2">Browsing (tool-based)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Web search (tool-based)</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Multimodal (text+image+audio+video)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Native, all modalities</td>
+                                    <td class="border border-gemini-border px-3 py-2">Strong (image+text)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Strong (image+text)</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Google Workspace integration</td>
+                                    <td class="border border-gemini-border px-3 py-2">Deep, native (Gmail/Docs/Sheets)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Limited via plugins</td>
+                                    <td class="border border-gemini-border px-3 py-2">Limited</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini (no contest)</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Deep Research</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini 3.1 Pro, web + private data</td>
+                                    <td class="border border-gemini-border px-3 py-2">Available ($200/mo tier)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Not a dedicated mode</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini (at $20/mo)</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Long-form writing quality</td>
+                                    <td class="border border-gemini-border px-3 py-2">Very strong</td>
+                                    <td class="border border-gemini-border px-3 py-2">Strong</td>
+                                    <td class="border border-gemini-border px-3 py-2">Best-in-class</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-green">Claude</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Complex reasoning accuracy</td>
+                                    <td class="border border-gemini-border px-3 py-2">Excellent (Deep Think)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Excellent (o3)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Excellent (Opus)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Near parity</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Coding assistance</td>
+                                    <td class="border border-gemini-border px-3 py-2">Excellent (SWE-Bench 80.6%)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Excellent</td>
+                                    <td class="border border-gemini-border px-3 py-2">Excellent</td>
+                                    <td class="border border-gemini-border px-3 py-2">Near parity</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Memory and personalization</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gems (session-based), no persistent memory</td>
+                                    <td class="border border-gemini-border px-3 py-2">Persistent memory</td>
+                                    <td class="border border-gemini-border px-3 py-2">Project memory</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold">ChatGPT/Claude</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Plugin/App ecosystem</td>
+                                    <td class="border border-gemini-border px-3 py-2">Google services native</td>
+                                    <td class="border border-gemini-border px-3 py-2">Largest third-party ecosystem</td>
+                                    <td class="border border-gemini-border px-3 py-2">Growing</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold">ChatGPT</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Image generation</td>
+                                    <td class="border border-gemini-border px-3 py-2">Imagen/Nano Banana (strong)</td>
+                                    <td class="border border-gemini-border px-3 py-2">DALL-E 3 (strong)</td>
+                                    <td class="border border-gemini-border px-3 py-2">No native image gen</td>
+                                    <td class="border border-gemini-border px-3 py-2">Tie (Gemini/ChatGPT)</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Video generation</td>
+                                    <td class="border border-gemini-border px-3 py-2">Veo 3.1 (Ultra tier)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Sora (limited)</td>
+                                    <td class="border border-gemini-border px-3 py-2">None</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini (at Ultra)</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Hallucination rate</td>
+                                    <td class="border border-gemini-border px-3 py-2">Lower than average</td>
+                                    <td class="border border-gemini-border px-3 py-2">Moderate</td>
+                                    <td class="border border-gemini-border px-3 py-2">Lowest of the three</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-green">Claude</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">API cost (developer use)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Significantly cheaper per token</td>
+                                    <td class="border border-gemini-border px-3 py-2">Higher cost</td>
+                                    <td class="border border-gemini-border px-3 py-2">Moderate</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Speed (Flash models)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Fastest class (Gemini Flash)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Fast</td>
+                                    <td class="border border-gemini-border px-3 py-2">Fast</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini (Flash)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="leads" class="font-heading text-2xl font-bold text-gemini-blue mb-4">5.2 Where Gemini Genuinely Leads</h3>
+                    
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">The Google Ecosystem Moat</h4>
+                    <p class="mb-4 leading-relaxed">If you are already inside Google's ecosystem (Gmail, Docs, Drive, Calendar, Meet), Gemini's integration is transformative in a way that ChatGPT and Claude cannot match in 2026. The AI works inside the tools where your work already lives. No copy-pasting content between applications. No context switching. This is a qualitative advantage, not just a feature checklist item.</p>
+                    <p class="mb-8 leading-relaxed">Here is the practical difference. You are in Gmail reading a long vendor negotiation thread. With ChatGPT or Claude, you highlight the text, switch tabs, paste it, ask your question, get the answer, copy it back. With Gemini, you open the side panel, type "Summarize this thread and draft a reply pushing back on the pricing while keeping the tone collaborative," and it responds without ever leaving your inbox. That is not a small UX improvement. Over the course of a working week it compounds into hours.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Context Window at Scale — What It Actually Unlocks</h4>
+                    <p class="mb-4 leading-relaxed">1 million tokens is roughly 750,000 words. That is the entire Lord of the Rings trilogy, twice over. Or every email you sent this year. Or a codebase with 30,000 lines. ChatGPT's 128K limit means it forgets context partway through a long research session — you have noticed this if you have ever had a 40-message conversation where the AI seems to lose track of what you established earlier. Gemini does not have this problem at the same scale.</p>
+                    <p class="mb-8 leading-relaxed">The practical payoff: you can paste an entire product specification document, your team's historical research notes, and a competitor's annual report into a single Gemini session and ask questions that require reading all three simultaneously. No model chunking, no "please provide the earlier context again." It just holds it all.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Real-Time Information as Default, Not a Feature</h4>
+                    <p class="mb-8 leading-relaxed">There is a meaningful architectural difference between Gemini's relationship with Google Search and how ChatGPT or Claude handle web access. The others bolt browsing on as a tool that fires when the model decides it is needed. Gemini's connection to Google Search is native — it is how the model stays current, not an optional module. The practical result: when you ask Gemini about something that changed three weeks ago, it already knows. When you ask ChatGPT the same question, it sometimes does not realize it should go check.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Deep Research at $20/Month — The Value Argument</h4>
+                    <p class="mb-8 leading-relaxed">OpenAI's comparable Deep Research feature sits behind the $200/month ChatGPT Pro plan. That is ten times the cost of Gemini AI Pro. Gemini's version is not a stripped-down imitation — it runs on Gemini 3.1 Pro, integrates with your Workspace data, and in independent evaluations produced reports preferred over competing tools by more than a 2-to-1 margin. If Deep Research is useful to you even once a week, the value math is decisive.</p>
+
+                    <h4 class="font-heading text-xl font-bold text-gemini-mid mb-4">Multimodal as Architecture, Not Add-On</h4>
+                    <p class="mb-8 leading-relaxed">When Google says Gemini is natively multimodal, they mean it was trained on text, images, audio, and video simultaneously — not that it can call a separate image model as a tool. The difference shows up in tasks like: "Look at this chart, read the accompanying PDF, and tell me if the data in the chart actually supports the claim on page 7." That kind of cross-modal synthesis is where Gemini is genuinely ahead. ChatGPT and Claude handle individual modalities well, but cross-modal reasoning still reveals the seams in their architecture.</p>
+
+                    <h3 id="decision" class="font-heading text-2xl font-bold text-gemini-blue mb-4">5.3 The Situational Decision Guide — Which AI to Actually Use</h3>
+                    <p class="mb-4 leading-relaxed">A comparison table tells you features. This section tells you decisions. Here are the situations professionals actually face and which tool to reach for, and exactly why.</p>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse text-sm">
+                            <thead>
+                                <tr class="bg-gemini-dark text-white">
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">You are trying to…</th>
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Use This</th>
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Why Not the Others</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Research an unfamiliar topic and produce a cited report</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini Deep Research</td>
+                                    <td class="border border-gemini-border px-3 py-2">ChatGPT Deep Research costs $200/mo. Claude has no dedicated mode. Gemini's Search integration makes the sourcing more current.</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Write a contract, legal brief, or high-stakes formal document</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-green">Claude Pro</td>
+                                    <td class="border border-gemini-border px-3 py-2">Claude has the lowest hallucination rate of the three and the best long-form prose quality. For documents where a wrong fact causes real damage, Claude's conservatism is a feature.</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Work inside a long Google Doc or Gmail thread</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini (sidebar)</td>
+                                    <td class="border border-gemini-border px-3 py-2">ChatGPT and Claude require copy-pasting. Gemini reads the document you are in. There is no comparison.</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Debug complex code across multiple files</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold">Claude or Gemini (depends)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Claude Opus has the edge on subtle logic errors. Gemini wins on codebase scale — if you need to paste 10,000+ lines, only Gemini holds it all reliably.</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Ask a question about something that happened last week</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini (any tier)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini's Search integration is real-time by default. ChatGPT browses but may not trigger on all recent queries. Claude has a knowledge cutoff.</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Remember something you told the AI three weeks ago</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold">ChatGPT Plus</td>
+                                    <td class="border border-gemini-border px-3 py-2">ChatGPT has persistent cross-session memory. Gemini starts fresh each session unless you use a Gem with baked-in context. Claude's Projects offer similar memory but are less seamless.</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Analyse an image, video, or audio recording</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini</td>
+                                    <td class="border border-gemini-border px-3 py-2">Native multimodal from training, not retrofitted. Handles cross-modal tasks (read this chart AND this PDF) better than competitors.</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Use AI inside Notion, Zapier, or Slack</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold">ChatGPT</td>
+                                    <td class="border border-gemini-border px-3 py-2">ChatGPT has the broadest third-party integration ecosystem. Gemini's integrations are Google-native.</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Generate a presentation deck from scratch</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">Gemini (Slides integration)</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini builds directly inside Slides. ChatGPT and Claude produce text you then have to manually turn into a deck.</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Study for an exam or certification</td>
+                                    <td class="border border-gemini-border px-3 py-2 font-bold text-gemini-blue">NotebookLM (Gemini ecosystem)</td>
+                                    <td class="border border-gemini-border px-3 py-2">The only tool that grounds every answer in your source material. Zero hallucination risk on content it has actually been given.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 id="competitors" class="font-heading text-2xl font-bold text-gemini-blue mb-4">5.4 Where to Use ChatGPT or Claude Instead</h3>
+                    <p class="mb-4 leading-relaxed">Intellectual honesty requires this section. A guide that only tells you where its subject wins is marketing, not education. There are tasks where other tools are genuinely better today, and a professional who knows this uses the right tool instead of forcing the wrong one.</p>
+                    <ul class="list-disc pl-6 space-y-3 mb-8">
+                        <li><strong>Long-form writing where every fact matters:</strong> For legal documents, academic writing, grant proposals, or professional reports where a single hallucinated fact creates real damage — use Claude. It is the most conservative of the three models, flags uncertainty more explicitly, and produces cleaner prose. Its context window at 200K tokens is more than enough for any single document.</li>
+                        <li><strong>Cross-session memory without any setup:</strong> If your work requires the AI to remember project context, personal preferences, or ongoing conversations across weeks of separate sessions without you doing anything — ChatGPT Plus is ahead. Gemini's Gems are powerful but require you to maintain and update the context manually.</li>
+                        <li><strong>Non-Google tool integrations:</strong> If your stack is Microsoft 365, Notion, Slack, Salesforce, or HubSpot and you want the AI to work inside those tools, ChatGPT's plugin ecosystem is wider. Gemini is deeply Google-native; outside that ecosystem it loses its biggest advantage.</li>
+                        <li><strong>Very subtle multi-step logical reasoning:</strong> On benchmarks measuring extremely complex chained logic (think: extended philosophy problems, multi-constraint optimization, adversarial argument evaluation), Claude Opus remains competitive with or slightly ahead of Gemini 3.1 Pro outside of Deep Think mode. With Deep Think, Gemini closes this gap substantially.</li>
+                    </ul>
+
+                    <div class="bg-gemini-pro border-l-4 border-gemini-blue p-4 rounded-r-lg">
+                        <div class="flex items-start">
+                            <span class="bg-gemini-blue text-white font-heading font-bold px-3 py-1 rounded text-sm mr-3">THE PROFESSIONAL APPROACH</span>
+                            <p class="text-sm">Top 1% AI users in 2026 are not loyal to a single model. They know that Gemini wins on research, Workspace workflows, multimodal tasks, and large context. Claude wins on precision writing and high-stakes documents. ChatGPT wins on memory and third-party ecosystem. They pick the right tool for each task the same way a surgeon picks the right instrument — not the one they like best, the one the job requires.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 6: Workflows -->
+            <section id="part6" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 6: Professional Workflows — How Top Users Actually Work with Gemini</h2>
+                    <p class="mb-8 leading-relaxed">This section moves from features to workflows. Features are what Gemini can do. Workflows are how you combine those features into repeatable professional processes. The difference between a casual user and a power user is not that the power user knows more features — it is that they have assembled those features into workflows that compound.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">6.1 The Research Workflow</h3>
+                    <p class="mb-4 leading-relaxed">This workflow is for any research task where you need to go from zero to a structured understanding of a topic with citations — whether for a business decision, an academic paper, or a competitive analysis.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h4 class="font-heading font-bold text-gemini-dark mb-4">Step-by-Step Process</h4>
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li><strong>Define the scope:</strong> "I need to understand the current state of [topic] as of [date]. Focus on [specific angle]."</li>
+                            <li><strong>Run Deep Research:</strong> Use Deep Research with the scoped prompt. Edit the outline before approving — add sub-topics you know matter, remove irrelevant branches.</li>
+                            <li><strong>Review the report:</strong> Read the synthesized report. Identify gaps, contradictions, or claims that need verification.</li>
+                            <li><strong>Follow-up with targeted queries:</strong> Ask Gemini specific follow-up questions about the most important claims. "What is the strongest evidence for X? What evidence contradicts it?"</li>
+                            <li><strong>Source verification:</strong> For critical claims, ask Gemini to show the specific source and quote. "Show me the exact text from the source that supports this claim."</li>
+                            <li><strong>Document synthesis:</strong> Upload the Deep Research report to NotebookLM with your own notes. Ask for synthesis and contradiction detection.</li>
+                            <li><strong>Final briefing:</strong> Ask Gemini to produce a final structured briefing: executive summary, key findings, open questions, and recommendations.</li>
+                        </ol>
+                    </div>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">6.2 The Writing Workflow</h3>
+                    <p class="mb-4 leading-relaxed">This workflow is for producing high-quality written work — articles, reports, proposals, or documentation — where you need to balance speed with quality.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h4 class="font-heading font-bold text-gemini-dark mb-4">Step-by-Step Process</h4>
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li><strong>Outline first:</strong> Ask Gemini to produce a detailed outline before any prose. "Create an outline for [topic] with 8–10 sections. For each section, write the main claim and 3 supporting points."</li>
+                            <li><strong>Review and edit the outline:</strong> This is the highest-leverage step. Adjust structure, add missing sections, remove weak points. Do not skip this.</li>
+                            <li><strong>Section-by-section drafting:</strong> Ask Gemini to write one section at a time. "Write section 3 based on the outline. Keep it conversational but precise. Use examples."</li>
+                            <li><strong>Iterative refinement:</strong> After each section, ask for specific improvements. "Make this section more concise," "Add a counterargument," "Make the tone more formal."</li>
+                            <li><strong>Consistency check:</strong> Paste the full draft back to Gemini. "Check for internal consistency. Does section 2 contradict section 5? Are there undefined terms?"</li>
+                            <li><strong>Final polish:</strong> Ask for a final pass. "Polish this for clarity and flow. Do not change the meaning. Fix any awkward phrasing."</li>
+                        </ol>
+                    </div>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">6.3 The Learning Workflow</h3>
+                    <p class="mb-4 leading-relaxed">This workflow is for mastering a new domain efficiently — whether technical, academic, or professional.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h4 class="font-heading font-bold text-gemini-dark mb-4">Step-by-Step Process</h4>
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li><strong>Curriculum request:</strong> Ask Gemini to design a learning path. "I want to learn [topic]. Create a 4-week curriculum with daily goals. Assume I have [your background]."</li>
+                            <li><strong>Source gathering:</strong> Use Deep Research to find the best resources. "Find the 10 most recommended resources for learning [topic]. Prioritize recent, comprehensive sources."</li>
+                            <li><strong>Active reading with NotebookLM:</strong> Upload your sources to NotebookLM. Ask questions before, during, and after reading. "What are the 5 concepts I should understand before reading this?"</li>
+                            <li><strong>Socratic testing:</strong> Use a Gem configured as a Socratic tutor. "Quiz me on [topic]. Do not just explain — ask me questions to test my understanding."</li>
+                            <li><strong>Feynman technique:</strong> Ask Gemini to help you explain concepts simply. "Explain [concept] as if I were 12 years old. Then ask me to explain it back."</li>
+                            <li><strong>Practice problems:</strong> Generate practice problems with solutions. "Create 5 practice problems for [topic] with step-by-step solutions."</li>
+                        </ol>
+                    </div>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">6.4 The Coding Workflow</h3>
+                    <p class="mb-4 leading-relaxed">This workflow is for software development tasks — debugging, feature implementation, code review, or architecture design.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h4 class="font-heading font-bold text-gemini-dark mb-4">Step-by-Step Process</h4>
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li><strong>Problem specification:</strong> Describe the problem clearly with context. "I am working on [project]. The issue is [description]. Here is the relevant code."</li>
+                            <li><strong>Codebase context:</strong> For complex issues, paste relevant files or the entire codebase if it fits. Gemini's 1M-token window makes this practical.</li>
+                            <li><strong>Hypothesis generation:</strong> Ask Gemini to generate hypotheses. "What are 3 possible causes of this bug? Rank them by likelihood."</li>
+                            <li><strong>Targeted investigation:</strong> Ask Gemini to examine specific areas. "Look at the authentication flow. Where could a race condition occur?"</li>
+                            <li><strong>Proposed fix:</strong> Ask for a proposed fix with explanation. "Propose a fix for the most likely cause. Explain why it works and what edge cases it handles."</li>
+                            <li><strong>Code review:</strong> Before applying, ask for a review. "Review this proposed change. What could go wrong? Are there performance implications?"</li>
+                            <li><strong>Test generation:</strong> Ask for tests. "Write unit tests for this fix. Cover edge cases."</li>
+                        </ol>
+                    </div>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">6.5 The Decision-Making Workflow</h3>
+                    <p class="mb-4 leading-relaxed">This workflow is for high-stakes decisions where you need to weigh options, consider trade-offs, and document your reasoning.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h4 class="font-heading font-bold text-gemini-dark mb-4">Step-by-Step Process</h4>
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li><strong>Decision framing:</strong> Frame the decision clearly. "I need to decide between [options]. The criteria are [criteria]."</li>
+                            <li><strong>Option generation:</strong> Ask for additional options you may not have considered. "What other options should I consider?"</li>
+                            <li><strong>Criteria weighting:</strong> Define and weight your criteria. "Rank these criteria by importance to me."</li>
+                            <li><strong>Option evaluation:</strong> Evaluate each option against criteria. "Evaluate each option against the weighted criteria. Show your work."</li>
+                            <li><strong>Scenario analysis:</strong> Ask for scenario-based evaluation. "What happens in the worst case? Best case? Most likely case?"</li>
+                            <li><strong>Second-order thinking:</strong> Ask for second-order effects. "What are the consequences of this decision 6 months from now? 2 years from now?"</li>
+                            <li><strong>Decision documentation:</strong> Ask for a decision memo. "Write a decision memo documenting the options, criteria, analysis, and recommendation."</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 6B: Common Mistakes -->
+            <section id="part6b" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 6B: The 10 Most Common Mistakes Even Smart Users Make</h2>
+                    <p class="mb-8 leading-relaxed">These are the mistakes that prevent users from getting real value from Gemini, even when they understand the features. Each one is fixable, and fixing it will immediately improve your results.</p>
+
+                    <div class="space-y-6 mb-8">
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">1. Treating Gemini Like a Search Engine</h4>
+                            <p class="mb-2">Search engines answer questions. AI assistants solve problems. The difference is not semantic — it is practical. When you ask "What is marketing?", you get a definition. When you ask "Given that I have ₹50,000/month and sell to school principals in tier-2 Indian cities, what marketing channel should I start with and why?", you get a decision.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Always include your context and constraints. What you are trying to do, what resources you have, what decision you need to make.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">2. Not Editing the Deep Research Outline</h4>
+                            <p class="mb-2">Deep Research shows you its research plan before running. Most users click "Approve" immediately. This is the highest-leverage moment in the entire workflow. Adding one sub-topic or removing an irrelevant branch changes the entire output.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Always review and edit the outline. Add topics you know are important. Remove branches that are not relevant to your specific question.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">3. Copying the First Output Without Review</h4>
+                            <p class="mb-2">The first output is a draft, not a final product. Copying it directly is where errors propagate. Gemini can miss context, misinterpret nuance, or produce generic content on the first pass.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Always follow up with: "What did you leave out that someone with deeper knowledge would have included?" or "Where might this be wrong?"</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">4. Using the Wrong Model for the Task</h4>
+                            <p class="mb-2">Using Deep Think for a quick email draft wastes time. Using Low Thinking for a complex strategic analysis produces shallow results. Matching the thinking mode to the task is a skill.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Low for quick lookups, Medium for most work, High for anything involving numbers or strategy, Deep Think only when accuracy matters more than speed.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">5. Not Using Gems for Recurring Tasks</h4>
+                            <p class="mb-2">If you find yourself giving the same instructions repeatedly — "Write in this style," "Structure your output this way," "Remember this context" — you are wasting time. Gems exist precisely for this.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Create a Gem for any recurring task or persona. The investment of 5 minutes setting it up saves hours over time.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">6. Ignoring the Workspace Integration</h4>
+                            <p class="mb-2">AI Pro users who only use the web interface are leaving half the value on the table. The Gmail, Docs, Sheets, and Slides integrations are not add-ons — they are where Gemini becomes transformative.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Try the sidebar in Gmail and Docs at least once. Summarize a thread, draft an email, refine a document. The experience is fundamentally different.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">7. Not Verifying Critical Information</h4>
+                            <p class="mb-2">Gemini is excellent, but it can still hallucinate. For critical facts — dates, figures, legal citations, medical information — verification is non-negotiable.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> For any claim that matters, ask "Show me the source" or verify against a primary source yourself.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">8. Asking for Opinions Without Constraints</h4>
+                            <p class="mb-2">"Is this a good idea?" is a question that produces a generic, balanced answer. "Given my constraints of X, Y, and Z, is this a good idea?" produces a specific, useful answer.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Always constrain opinion questions to your specific context, resources, and constraints.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">9. Not Using NotebookLM for Document-Intensive Work</h4>
+                            <p class="mb-2">Trying to work with multiple documents in the main Gemini interface is inefficient. NotebookLM is designed for this and does it better.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> For any task involving 3+ documents — research papers, contracts, reports — use NotebookLM instead of the main interface.</p>
+                        </div>
+
+                        <div class="border-l-4 border-gemini-red pl-4">
+                            <h4 class="font-heading font-bold text-gemini-dark mb-2">10. Treating AI as a Replacement for Judgment</h4>
+                            <p class="mb-2">The most dangerous mistake is outsourcing judgment. Gemini can analyze, synthesize, and propose — but you must decide. The AI does not understand your values, your risk tolerance, or the context you cannot articulate.</p>
+                            <p class="text-sm italic"><strong>The fix:</strong> Use Gemini to inform your judgment, not replace it. The AI is a tool for thinking, not a substitute for thinking.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 7: Limitations -->
+            <section id="part7" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Part 7: Gemini's Genuine Limitations — What It Cannot Do (Yet)</h2>
+                    <p class="mb-8 leading-relaxed">An honest guide must also cover where Gemini falls short. These are not bugs or temporary issues — they are fundamental limitations of the current architecture and model. Knowing them prevents frustration and helps you choose the right tool for the job.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">7.1 No Persistent Cross-Session Memory</h3>
+                    <p class="mb-4 leading-relaxed">Unlike ChatGPT Plus, which can remember facts about you across separate conversations over weeks, Gemini starts fresh each session. Gems can store baked-in context, but they do not learn from your interactions over time. If you tell Gemini your role, preferences, or project context in one session, it will not remember in the next unless you use a Gem or re-explain.</p>
+                    <p class="mb-8 leading-relaxed"><strong>Impact:</strong> For workflows that require the AI to build a deep understanding of you over time — personal coaching, long-term project assistance, preference learning — ChatGPT Plus has a structural advantage.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">7.2 Limited Third-Party Integrations</h3>
+                    <p class="mb-4 leading-relaxed">Gemini's integrations are deep where they exist (Google Workspace), but narrow in scope. If your stack includes Notion, Slack, Microsoft 365, Salesforce, HubSpot, or any non-Google tool, Gemini's integration is limited or non-existent. ChatGPT's plugin ecosystem is significantly broader.</p>
+                    <p class="mb-8 leading-relaxed"><strong>Impact:</strong> If your work happens outside Google's ecosystem, Gemini loses its biggest advantage. You can still use it via copy-paste, but the seamless in-app experience is not available.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">7.3 Hallucination Risk Remains</h3>
+                    <p class="mb-4 leading-relaxed">While Gemini's hallucination rate is lower than average and comparable to or better than ChatGPT in many evaluations, it is not zero. The model can still generate confident-sounding but incorrect information, especially on obscure topics, recent events not yet indexed by Google Search, or highly specialized domains.</p>
+                    <p class="mb-8 leading-relaxed"><strong>Impact:</strong> For any use case where a single incorrect fact causes real damage — legal documents, medical advice, financial decisions — verification is mandatory. Claude Pro remains the safest choice for high-stakes writing due to its more conservative approach.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">7.4 No True Agent Capabilities in the Base Tier</h3>
+                    <p class="mb-4 leading-relaxed">While AI Pro includes early agentic features like Agent Mode and Workspace Studio, these are not as mature or autonomous as some competing offerings. True autonomous agents that can take complex multi-step actions across applications with minimal supervision remain an emerging feature, not a reliable production workflow.</p>
+                    <p class="mb-8 leading-relaxed"><strong>Impact:</strong> If you need fully autonomous agents that can execute complex workflows end-to-end, the current Gemini offering may not meet your needs. This is an area of active development, but in 2026 it is not a primary strength.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">7.5 Geographic Feature Availability</h3>
+                    <p class="mb-4 leading-relaxed">Not all Gemini features are available in all regions. AI Ultra, Gemini Spark, and some advanced agentic features are U.S.-only or limited to specific markets. Deep Research with Workspace integration requires access to Google Workspace, which may not be available to all users.</p>
+                    <p class="mb-8 leading-relaxed"><strong>Impact:</strong> If you are outside the U.S. or do not have a Google Workspace account, some of the features described in this guide may not be available to you. Always check regional availability before assuming a feature exists.</p>
+
+                    <h3 class="font-heading text-2xl font-bold text-gemini-blue mb-4">7.6 Token Budget Awareness</h3>
+                    <p class="mb-4 leading-relaxed">The 1-million-token context window is a strength, but it is also a constraint. The window holds inputs, conversation history, and the response combined. If you paste a 900K-token document, you have only 100K tokens left for conversation and responses. This can lead to truncated responses or the model running out of context mid-task.</p>
+                    <p class="mb-8 leading-relaxed"><strong>Impact:</strong> For very large documents, you may need to chunk them strategically or use NotebookLM, which handles large source sets more efficiently. The context window is large, but it is not infinite.</p>
+                </div>
+            </section>
+
+            <!-- Quick Reference -->
+            <section id="quick-reference" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold text-gemini-dark mb-6">Quick Reference — When to Use What</h2>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full border-collapse text-sm">
+                            <thead>
+                                <tr class="bg-gemini-blue text-white">
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Your Task</th>
+                                    <th class="border border-gemini-border px-3 py-2 text-left font-heading font-bold">Use This</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Research with citations</td>
+                                    <td class="border border-gemini-border px-3 py-2">Deep Research</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Work in Gmail/Docs/Sheets</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini sidebar</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Study with your own documents</td>
+                                    <td class="border border-gemini-border px-3 py-2">NotebookLM</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Recurring task/persona</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gems</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Real-time conversation</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini Live</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">High-stakes writing</td>
+                                    <td class="border border-gemini-border px-3 py-2">Claude Pro</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Cross-session memory</td>
+                                    <td class="border border-gemini-border px-3 py-2">ChatGPT Plus</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Large codebase analysis</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini (1M context)</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="border border-gemini-border px-3 py-2">Current information</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini (Search)</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gemini-border px-3 py-2">Multimodal analysis</td>
+                                    <td class="border border-gemini-border px-3 py-2">Gemini</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Closing -->
+            <section id="closing" class="py-16 px-8 max-w-4xl mx-auto">
+                <div class="section-card bg-gradient-to-br from-gemini-blue to-gemini-dark text-white rounded-xl shadow-md p-8 mb-8">
+                    <h2 class="font-heading text-4xl font-bold mb-6">Closing: The 30-Day Challenge</h2>
+                    <p class="mb-6 leading-relaxed">You have now read a comprehensive guide to Gemini. Reading is not enough — the value comes from using it. Here is a concrete 30-day challenge to move you from casual user to power user.</p>
+                    
+                    <div class="bg-white/10 backdrop-blur p-6 rounded-lg mb-6">
+                        <h3 class="font-heading text-xl font-bold mb-4">Week 1: Foundations</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Use Deep Research once for a real work or study task.</li>
+                            <li>Try the Gemini sidebar in Gmail or Docs at least once.</li>
+                            <li>Create your first Gem for a recurring task.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-6 rounded-lg mb-6">
+                        <h3 class="font-heading text-xl font-bold mb-4">Week 2: Prompting Mastery</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Apply the RCTF formula (Role, Context, Task, Format) to every prompt.</li>
+                            <li>Use different thinking modes for different tasks.</li>
+                            <li>Upload an image and ask a cross-modal question.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-6 rounded-lg mb-6">
+                        <h3 class="font-heading text-xl font-bold mb-4">Week 3: Workflow Integration</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Use one of the professional workflows (Research, Writing, Learning, Coding, Decision-Making).</li>
+                            <li>Set up NotebookLM for a document-intensive task.</li>
+                            <li>Try Gemini Live for a real conversation.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur p-6 rounded-lg mb-6">
+                        <h3 class="font-heading text-xl font-bold mb-4">Week 4: Professional Level</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Compare Gemini, ChatGPT, and Claude on the same task. See which wins.</li>
+                            <li>Use Deep Research with Workspace integration.</li>
+                            <li>Build a Super Gem with interactive elements.</li>
+                        </ul>
+                    </div>
+
+                    <p class="text-lg font-bold mb-4">By the end of 30 days, you will not just understand Gemini — you will have internalized it as a professional tool.</p>
+                    <p class="leading-relaxed">The difference between a casual user and a power user is not features. It is workflows, prompting discipline, and knowing which tool to use for which job. This guide gave you the map. Now walk the path.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="fixed bottom-8 right-8 bg-gemini-blue text-white p-4 rounded-full shadow-lg hover:bg-gemini-dark transition-all duration-300 opacity-0 invisible z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+        </button>
+
+        <script>
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Reading progress bar
+            const progressBar = document.getElementById('progress-bar');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            });
+
+            // Active TOC highlighting
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('#toc a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                tocLinks.forEach(link => {
+                    link.classList.remove('text-gemini-blue', 'font-bold');
+                    link.classList.add('text-gemini-mid');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('text-gemini-blue', 'font-bold');
+                        link.classList.remove('text-gemini-mid');
+                    }
+                });
+            });
+
+            // Collapsible sections (optional enhancement)
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    content.classList.toggle('hidden');
+                    header.querySelector('.toggle-icon').classList.toggle('rotate-180');
+                });
+            });
+        </script>
+    </body>
+</html>

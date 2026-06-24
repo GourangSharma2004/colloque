@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COLLOQUE — Weekly AI Dispatch · Issue 02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Cormorant+Garamond:wght@600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07070E;
+    --card: #0D0D18;
+    --text: #F0EEF8;
+    --dim: rgba(240,238,248,0.45);
+    --gold: #C9A84C;
+    --blue: #3B82F6;
+    --purple: #A855F7;
+    --green: #10B981;
+    --red: #EF4444;
+    --amber: #F59E0B;
+    --pink: #EC4899;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.13);
+    --radius: 4px;
+    --font-headline: 'Barlow Condensed', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-mark: 'Cormorant Garamond', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  body > * { position: relative; z-index: 1; }
+
+  /* ── TOP HEADER BAR ── */
+  .header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(7,7,14,0.95);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .wordmark {
+    font-family: var(--font-mark);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .wordmark .v-gold { color: var(--gold); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+  }
+
+  .issue-badge {
+    background: var(--gold);
+    color: var(--bg);
+    padding: 3px 10px;
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: var(--gold);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+
+  .ticker-track {
+    display: inline-block;
+    animation: tick 40s linear infinite;
+  }
+
+  .ticker-track span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--bg);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0 32px;
+  }
+
+  .ticker-track span::before {
+    content: '◆';
+    margin-right: 32px;
+    opacity: 0.5;
+  }
+
+  @keyframes tick {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: var(--font-headline);
+    font-size: 42px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .section-subtitle {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--dim);
+    margin-bottom: 40px;
+  }
+
+  .section-header-row {
+    padding: 56px 0 0;
+  }
+
+  /* ── HERO BENTO ── */
+  .hero-bento {
+    padding: 52px 0 0;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+
+  .hero-card {
+    grid-row: 1 / 3;
+    background: linear-gradient(135deg, #0A0A18 0%, #0F0F22 40%, #131328 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 52px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 380px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 50%);
+  }
+
+  .hero-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .hero-headline {
+    font-family: var(--font-headline);
+    font-size: 52px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.0;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--dim);
+    line-height: 1.65;
+    max-width: 520px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    width: fit-content;
+    position: relative;
+    transition: opacity 0.2s;
+  }
+
+  .cta-btn:hover { opacity: 0.85; }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+  }
+
+  .stat-number {
+    font-family: var(--font-headline);
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .stat-context {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--dim);
+    line-height: 1.5;
+  }
+
+  /* ── WHAT DROPPED ── */
+  .what-dropped {
+    padding: 72px 0 0;
+  }
+
+  .category-section {
+    margin-bottom: 56px;
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .cat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 500;
+  }
+
+  .cat-count {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--dim);
+    opacity: 0.5;
+  }
+
+  /* Grid layouts */
+  .bento-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .bento-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .bento-wide { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; }
+  .bento-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+
+  /* Item Card */
+  .item-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+  }
+
+  .item-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+  }
+
+  .card-top-strip {
+    height: 2px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .card-visual {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-body {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-pill {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+
+  .card-headline {
+    font-family: var(--font-headline);
+    font-size: 19px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .card-body-text {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 14px;
+  }
+
+  .card-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: opacity 0.2s;
+  }
+
+  .card-link:hover { opacity: 0.7; }
+
+  /* Category-specific colors */
+  .c-blue   .card-top-strip { background: var(--blue); }
+  .c-blue   .card-pill      { background: rgba(59,130,246,0.15); color: var(--blue); }
+  .c-blue   .card-visual    { background: linear-gradient(135deg, #050d1e 0%, #0a1530 60%, #0d1a3a 100%); }
+
+  .c-purple .card-top-strip { background: var(--purple); }
+  .c-purple .card-pill      { background: rgba(168,85,247,0.15); color: var(--purple); }
+  .c-purple .card-visual    { background: linear-gradient(135deg, #0d0514 0%, #160b22 60%, #1a0e2a 100%); }
+
+  .c-green  .card-top-strip { background: var(--green); }
+  .c-green  .card-pill      { background: rgba(16,185,129,0.15); color: var(--green); }
+  .c-green  .card-visual    { background: linear-gradient(135deg, #020d08 0%, #051a0e 60%, #071e10 100%); }
+
+  .c-red    .card-top-strip { background: var(--red); }
+  .c-red    .card-pill      { background: rgba(239,68,68,0.15); color: var(--red); }
+  .c-red    .card-visual    { background: linear-gradient(135deg, #140202 0%, #220505 60%, #280707 100%); }
+
+  .c-amber  .card-top-strip { background: var(--amber); }
+  .c-amber  .card-pill      { background: rgba(245,158,11,0.15); color: var(--amber); }
+  .c-amber  .card-visual    { background: linear-gradient(135deg, #100a00 0%, #1e1200 60%, #241600 100%); }
+
+  .c-pink   .card-top-strip { background: var(--pink); }
+  .c-pink   .card-pill      { background: rgba(236,72,153,0.15); color: var(--pink); }
+  .c-pink   .card-visual    { background: linear-gradient(135deg, #120009 0%, #200011 60%, #260014 100%); }
+
+  /* ── WHAT MATTERS ── */
+  .what-matters {
+    padding: 72px 0 0;
+  }
+
+  .matters-container {
+    background: #111120;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    border-top: 2px solid var(--gold);
+    overflow: hidden;
+  }
+
+  .matters-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 36px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .matters-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .matters-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .matters-subtitle {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--dim);
+  }
+
+  .matters-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .matter-col {
+    padding: 40px 36px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .matter-col:last-child { border-right: none; }
+
+  .matter-num {
+    font-family: var(--font-headline);
+    font-size: 80px;
+    font-weight: 800;
+    color: var(--text);
+    opacity: 0.07;
+    line-height: 1;
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    pointer-events: none;
+  }
+
+  .matter-headline {
+    font-family: var(--font-headline);
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .matter-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .matter-body {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--dim);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .matter-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    position: relative;
+    transition: opacity 0.2s;
+  }
+
+  .matter-link:hover { opacity: 0.7; }
+
+  /* ── WHAT'S OVERHYPED ── */
+  .overhyped-section {
+    padding: 72px 0 0;
+  }
+
+  .overhyped-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .overhyped-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--pink);
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .overhyped-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+    border-top-color: var(--pink);
+  }
+
+  .warning-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: rgba(236,72,153,0.15);
+    color: var(--pink);
+    margin-bottom: 14px;
+  }
+
+  .overhyped-headline {
+    font-family: var(--font-headline);
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .overhyped-body {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .verdict {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--pink);
+    letter-spacing: 0.08em;
+    padding-top: 14px;
+    border-top: 1px solid rgba(236,72,153,0.2);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  .footer-bar {
+    margin-top: 80px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-tagline {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--dim);
+    text-align: center;
+  }
+
+  .footer-issue {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 0 0 0;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body::before { display: none; }
+    .ticker-wrap { display: none; }
+    .header-bar { position: static; }
+    .item-card:hover, .hero-card:hover, .stat-card:hover { transform: none; }
+    .container { padding: 0 24px; }
+  }
+
+  /* ── MISC ── */
+  a { color: inherit; text-decoration: none; }
+  .mt-8 { margin-top: 8px; }
+  .mb-32 { margin-bottom: 32px; }
+  .pb-72 { padding-bottom: 72px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     TOP HEADER BAR
+═══════════════════════════════════════════════ -->
+<header class="header-bar">
+  <div class="wordmark">CON<span class="v-gold">V</span>ERSE</div>
+  <div class="header-right">
+    <span>11–16 MAY 2026</span>
+    <span class="issue-badge">Issue 02</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     GOLD TICKER
+═══════════════════════════════════════════════ -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Anthropic eyes $900B valuation in $30B raise</span>
+    <span>Claude Opus 4.7 Fast ships</span>
+    <span>Google I/O: Gemini flagship imminent</span>
+    <span>Anthropic × SpaceX Colossus compute deal</span>
+    <span>May AI funding hits $25B across 37 deals</span>
+    <span>US CAISI pre-deployment evals go live</span>
+    <span>Grok moderation failures trigger region blocks</span>
+    <span>OpenAI DeployCo unit signals enterprise pivot</span>
+    <span>Anthropic eyes $900B valuation in $30B raise</span>
+    <span>Claude Opus 4.7 Fast ships</span>
+    <span>Google I/O: Gemini flagship imminent</span>
+    <span>Anthropic × SpaceX Colossus compute deal</span>
+    <span>May AI funding hits $25B across 37 deals</span>
+    <span>US CAISI pre-deployment evals go live</span>
+    <span>Grok moderation failures trigger region blocks</span>
+    <span>OpenAI DeployCo unit signals enterprise pivot</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     HERO BENTO BLOCK
+═══════════════════════════════════════════════ -->
+<div class="container">
+  <div class="hero-bento">
+    <div class="hero-grid">
+
+      <!-- Hero Card -->
+      <div class="hero-card">
+        <div class="hero-eyebrow">Weekly AI Dispatch · 11–16 May 2026</div>
+        <h1 class="hero-headline">The week AI's<br><em>valuation ceiling</em><br>got shattered</h1>
+        <p class="hero-sub">Anthropic is reportedly closing in on a $30B raise that would peg its valuation near $900B — while simultaneously landing a compute deal with SpaceX and shipping product for small business. This isn't one story. It's every story compressed into five days.</p>
+        <a href="#what-dropped" class="cta-btn">Read the Dispatch ↓</a>
+      </div>
+
+      <!-- Stat Card 1 -->
+      <div class="stat-card">
+        <div>
+          <div class="stat-number">$900B</div>
+          <div class="stat-label">Implied Valuation</div>
+        </div>
+        <div class="stat-context">Anthropic's reported fundraising round terms, if closed, would make it one of the most valuable private companies in history — ahead of SpaceX's last disclosed figure.</div>
+      </div>
+
+      <!-- Stat Card 2 -->
+      <div class="stat-card">
+        <div>
+          <div class="stat-number">26</div>
+          <div class="stat-label">Stories This Week</div>
+        </div>
+        <div class="stat-context">Across model releases, product launches, funding rounds, research, regulation, and controversy — the pace of change is compressing. Every week now feels like a month used to.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       WHAT DROPPED
+  ═══════════════════════════════════════════════ -->
+  <div class="what-dropped" id="what-dropped">
+    <div class="section-header-row">
+      <div class="section-label">Section 01</div>
+      <div class="section-title">What Dropped</div>
+      <div class="section-subtitle">Every confirmed move, release, and signal from the week — no filler, no summaries of summaries.</div>
+    </div>
+
+    <!-- ── MODEL RELEASES ── -->
+    <div class="category-section">
+      <div class="category-header">
+        <div class="cat-dot" style="background:var(--blue);"></div>
+        <div class="cat-label">Model Releases & Updates</div>
+        <div class="cat-count">6 items</div>
+      </div>
+
+      <!-- Row 1: 3 cards -->
+      <div class="bento-3 mb-32">
+
+        <div class="item-card c-blue">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="1.jpg" alt="Claude Opus 4.7" style="width: 100%; height: 100%; object-fit: cover; transform: translateY(10px);"></div>
+          <div class="card-body">
+            <div class="card-pill">Model Release</div>
+            <div class="card-headline">Claude Opus 4.7 (Fast) Ships</div>
+            <p class="card-body-text">Anthropic dropped an incremental Opus-family update on May 12 — Opus 4.7 (Fast) — specifically targeting latency and cost for enterprise inference. Faster Opus means benchmark comparisons tighten and enterprise switching costs quietly rise.</p>
+            <a href="https://lmmarketcap.com/releases" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-blue">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="2.webp" alt="Gemini Flagship" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Model Release</div>
+            <div class="card-headline">Gemini Flagship Incoming at Google I/O</div>
+            <p class="card-body-text">Google confirmed a major Gemini model update as the headline act at Google I/O (May 19), with public reporting pointing toward a "Gemini 4.0" or substantial 3.x iteration. A flagship Gemini release reshapes multimodal and agentic coding benchmarks, plus Android's on-device roadmap.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-blue">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="3.webp" alt="Gemini 3.1 Flash Lite" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Model Release</div>
+            <div class="card-headline">Gemini 3.1 Flash Lite Surfaces</div>
+            <p class="card-body-text">Public tracking sites logged Gemini 3.1 Flash Lite in release logs in early May — a smaller, faster model variant for device and low-cost inference. Google's tiered model strategy mirrors what Anthropic did with Haiku: build the flagship, then immediately race down-market.</p>
+            <a href="https://lmmarketcap.com/releases" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: 3 cards -->
+      <div class="bento-3">
+
+        <div class="item-card c-blue">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="4.jpg" alt="Grok 4.3" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Model Release</div>
+            <div class="card-headline">Grok 4.3 Tracked into May</div>
+            <p class="card-body-text">xAI's Grok 4.3 appeared in public model trackers in the late April-to-May window — a quiet incremental update. For a model that lives inside X's social graph, incremental Grok updates carry outsized moderation implications.</p>
+            <a href="https://llm-stats.com/llm-updates" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-blue">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="5.gif" alt="Mistral Medium 3.5" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Model Release</div>
+            <div class="card-headline">Mistral Medium 3.5 & Perceptron Mk1 Drop</div>
+            <p class="card-body-text">LLM release trackers logged Mistral Medium 3.5 and Perceptron Mk1 (May 12) in the same week window, alongside Ring-2.6-1T (May 8) and IBM's Granite 4.1 8B. The mid-tier is getting crowded — and that is good news for anyone buying inference at scale.</p>
+            <a href="https://lmmarketcap.com/releases" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-blue">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="6.jpg" alt="GPT-Image-Gen-2" style="width: 100%; height: 100%; object-fit: cover; object-position: top center;"></div>
+          <div class="card-body">
+            <div class="card-pill">Model Release</div>
+            <div class="card-headline">GPT-Image-Gen-2 & Seedance 2.0 Referenced</div>
+            <p class="card-body-text">April releases of OpenAI's GPT-Image-Gen-2 and ByteDance's Seedance 2.0 continued circulating in May trackers — both image/video generation models. New multimodal releases don't just expand capability; they expand the content-moderation risk surface in equal measure.</p>
+            <a href="https://dentro.de/ai/news/" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── PRODUCT LAUNCHES ── -->
+    <div class="category-section">
+      <div class="category-header">
+        <div class="cat-dot" style="background:var(--purple);"></div>
+        <div class="cat-label">Product Launches & Feature Rollouts</div>
+        <div class="cat-count">3 items</div>
+      </div>
+
+      <div class="bento-3">
+
+        <div class="item-card c-purple">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="7.png" alt="Claude for Small Business" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Product Launch</div>
+            <div class="card-headline">Claude for Small Business Launches</div>
+            <p class="card-body-text">Anthropic activated a "Claude for Small Business" toggle inside Claude Cowork on May 13, connecting QuickBooks, PayPal, and HubSpot directly to the assistant. Direct SMB integrations aren't just a product move — they're a monetization thesis: land where the invoices live.</p>
+            <a href="https://www.buildfastwithai.com/blogs/ai-news-today-may-18-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-purple">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="8.avif" alt="Android XR" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Product Launch</div>
+            <div class="card-headline">Android XR & AI OS Hints Before I/O</div>
+            <p class="card-body-text">Press leaks ahead of Google I/O described new OS-level AI features — including "Aluminium OS" references and Android XR glasses integration — all tied to Gemini. OS-level integration is the distribution moat that makes model competition almost irrelevant for most users.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-purple">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="9.webp" alt="OpenAI AI-First Device" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Product Launch</div>
+            <div class="card-headline">OpenAI AI-First Device Rumors Intensify</div>
+            <p class="card-body-text">Multiple outlets reported growing signals that OpenAI is exploring a dedicated "AI-first device" — with no public confirmation by May 16. No confirmation, but the direction of travel is obvious: ChatGPT wants to be hardware, not just an app.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── BUSINESS & MONEY ── -->
+    <div class="category-section">
+      <div class="category-header">
+        <div class="cat-dot" style="background:var(--green);"></div>
+        <div class="cat-label">Business & Money</div>
+        <div class="cat-count">5 items</div>
+      </div>
+
+      <!-- Row 1: wide + 2 narrow -->
+      <div class="bento-wide mb-32">
+
+        <div class="item-card c-green" style="grid-column: 1;">
+          <div class="card-top-strip"></div>
+          <div class="card-visual" style="background: linear-gradient(135deg, #010d06 0%, #042012 60%, #062614 100%);"><img src="10.jpeg" alt="Anthropic $30B Round" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%;"></div>
+          <div class="card-body">
+            <div class="card-pill">Fundraising</div>
+            <div class="card-headline">Anthropic's $30B Round & ~$900B Valuation</div>
+            <p class="card-body-text">Mid-May reporting described Anthropic progressing toward a ~$30B fundraise implying a valuation north of $900B — terms unfinished as of May 16. A round this size doesn't just change Anthropic's options; it signals that capital markets believe frontier AI is a generational infrastructure bet, not a software cycle.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-green">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="11.avif" alt="Anthropic × SpaceX Colossus" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Compute Deal</div>
+            <div class="card-headline">Anthropic × SpaceX Colossus Access</div>
+            <p class="card-body-text">Anthropic and SpaceX/xAI were reported to be finalizing terms for Anthropic to access xAI's Colossus 1 supercomputer cluster. Preferential compute access doesn't just speed up training — it changes which models are even feasible to build.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-green">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="12.jpeg" alt="OpenAI DeployCo Unit" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Corporate Structure</div>
+            <div class="card-headline">OpenAI's DeployCo Unit Surfaces</div>
+            <p class="card-body-text">Outlets flagged OpenAI's apparent move to spin out a separate deployment-and-consulting unit ("DeployCo") with distinct capitalization. Frontier labs don't just sell API tokens — they're building the professional services layer that enterprise software companies used to own.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: 2 cards -->
+      <div class="bento-2">
+
+        <div class="item-card c-green">
+          <div class="card-top-strip"></div>
+          <div class="card-visual">📊</div>
+          <div class="card-body">
+            <div class="card-pill">Funding Flows</div>
+            <div class="card-headline">$25B Disclosed Across 37 AI Deals in May</div>
+            <p class="card-body-text">InforCapital and other VC trackers documented a surge in May AI funding — $25B disclosed across at least 37 deals — with mega-rounds skewing the totals. When this much capital moves this fast, hiring waves, acquisitions, and product expansion follow within 6–12 months.</p>
+            <a href="https://inforcapital.com/blog/2026-05-09-ai-startup-funding-surges-in-may37-deals-and-25-billion-as-investors-double-down-on-ma" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-green">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="14.jpeg" alt="M&A Speculation" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">M&A Activity</div>
+            <div class="card-headline">M&A Speculation Runs Hot in Mid-May</div>
+            <p class="card-body-text">Industry newsletters described continued M&A speculation among cloud, chip, and AI firms in mid-May — with no single large acquisition completed in the 11–16 window. The rumor mill at this intensity usually means someone signs something within the quarter.</p>
+            <a href="https://theinnovationattorney.substack.com/p/weekly-venture-capital-update" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── RESEARCH & PAPERS ── -->
+    <div class="category-section">
+      <div class="category-header">
+        <div class="cat-dot" style="background:var(--red);"></div>
+        <div class="cat-label">Research & Papers</div>
+        <div class="cat-count">3 items</div>
+      </div>
+
+      <div class="bento-3">
+
+        <div class="item-card c-red">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="15.png" alt="Anthropic Mythos Cybersecurity" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Research</div>
+            <div class="card-headline">Anthropic Mythos Cybersecurity Preview Expands</div>
+            <p class="card-body-text">Anthropic's Mythos preview and limited early-access programs for cybersecurity red-teaming (seeded in April) continued gaining coverage in mid-May as more partnerships were announced. Gating high-capability tools to selected security partners is labs admitting, quietly, that some capabilities are too sharp to ship to everyone.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-red">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="16.png" alt="Wave of Preprints" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Research</div>
+            <div class="card-headline">Wave of Preprints & Open Checkpoints Logged</div>
+            <p class="card-body-text">LLM trackers flagged multiple preprints, model checkpoints, and dataset releases from smaller labs and institutions during the May 11–16 window. Open checkpoints shift reproducibility and give academic teams baselines for benchmarking that don't depend on frontier API access.</p>
+            <a href="https://llm-stats.com/llm-updates" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-red">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="26.webp" alt="Dense Release Cadence" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Research</div>
+            <div class="card-headline">Dense Release Cadence Logged by Trackers</div>
+            <p class="card-body-text">LLM Stats and LM Market Cap documented a high-frequency pace of model updates across labs in mid-May 2026 — dozens of incremental releases across the month. Fast release cadence is a benchmark nightmare: enterprise procurement teams now can't assume the model they evaluated last month is the one they're buying today.</p>
+            <a href="https://llm-stats.com/llm-updates" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── REGULATION & POLICY ── -->
+    <div class="category-section">
+      <div class="category-header">
+        <div class="cat-dot" style="background:var(--amber);"></div>
+        <div class="cat-label">Regulation & Policy</div>
+        <div class="cat-count">4 items</div>
+      </div>
+
+      <div class="bento-2 mb-32">
+
+        <div class="item-card c-amber">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="17.jpeg" alt="CAISI Pre-Deployment Eval" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">US Regulation</div>
+            <div class="card-headline">CAISI Pre-Deployment Eval Agreements Active</div>
+            <p class="card-body-text">Mid-May reporting confirmed the US Commerce Department's CAISI had established pre-deployment AI evaluation agreements with OpenAI, Anthropic, Google DeepMind, Microsoft, and xAI. Formal evaluation pathways with five frontier labs simultaneously is a policy architecture shift — the US is no longer just watching; it has a seat at the pre-launch table.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-amber">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="18.jpg" alt="EU & UK Regulators" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">EU/UK Policy</div>
+            <div class="card-headline">EU & UK Regulators Update Red-Teaming Guidance</div>
+            <p class="card-body-text">Coverage in mid-May described EU and UK agencies updating red-teaming guidance and engaging directly with labs ahead of Google's and Anthropic's imminent releases. When regulators update guidance the week before major model launches, it means pre-deployment review is becoming the new normal — not a one-off.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bento-2">
+
+        <div class="item-card c-amber">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="19.avif" alt="Country-Level Blocks" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Regional Policy</div>
+            <div class="card-headline">Country-Level Blocks & Lifts Resurface in Timelines</div>
+            <p class="card-body-text">Compiled 2026 timelines show regional AI service restrictions and re-openings — particularly around Grok — being actively referenced in May regulatory coverage. Local regulatory actions change user reach and force product design decisions that global teams weren't expecting.</p>
+            <a href="https://llm-stats.com/llm-updates" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-amber">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="20.jpeg" alt="International AI Safety Report" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Safety Policy</div>
+            <div class="card-headline">International AI Safety Report 2026 in Circulation</div>
+            <p class="card-body-text">The International AI Safety Report 2026 continued to be referenced across regulatory and lab conversations in May — serving as a shared baseline for cross-border alignment discussions. A credible shared safety baseline is what makes multilateral AI governance possible at all.</p>
+            <a href="https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── CONTROVERSIES ── -->
+    <div class="category-section">
+      <div class="category-header">
+        <div class="cat-dot" style="background:var(--pink);"></div>
+        <div class="cat-label">Controversies & Criticism</div>
+        <div class="cat-count">5 items</div>
+      </div>
+
+      <div class="bento-3 mb-32">
+
+        <div class="item-card c-pink">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="21.jpeg" alt="Grok Moderation Failures" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Controversy</div>
+            <div class="card-headline">Grok Moderation Failures & Region Blocks</div>
+            <p class="card-body-text">Earlier 2026 moderation incidents — including adult deepfake generation failures — continued surfacing as background in May policy discussions, with Grok-specific region restrictions still being referenced. Recurring content-moderation failures don't just damage trust; they create a precedent that regional governments are now actively using.</p>
+            <a href="https://llm-stats.com/llm-updates" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-pink">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="22.jpeg" alt="Sora App Shutdown" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Product Controversy</div>
+            <div class="card-headline">Sora App Shutdown Echoes into May</div>
+            <p class="card-body-text">OpenAI's video generation app Sora was publicly shut down in late April; May coverage kept referencing it as a cautionary data point on launching generative video at scale. High-profile shutdowns reveal what labs don't say out loud: deployment safety for video generation isn't solved yet.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-pink">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="23.webp" alt="Ecosystem Churn" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Controversy</div>
+            <div class="card-headline">Ecosystem Churn: Previews, Shutdowns & Gatekeeping</div>
+            <p class="card-body-text">Mid-May coverage repeatedly flagged preview-only rollouts — Anthropic Mythos, limited high-capability access — and shutdowns as a defining pattern of the week. Labs are shipping capabilities faster than they can safely deploy them, so preview gates are becoming a product strategy, not just a safety precaution.</p>
+            <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bento-2">
+
+        <div class="item-card c-pink">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="24.jpg" alt="Aggregator Accuracy" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Controversy</div>
+            <div class="card-headline">Aggregator Accuracy in Question</div>
+            <p class="card-body-text">Multiple aggregator outlets published "week in AI" summaries for May 11–16 — but trackers note that some items mixed confirmed releases with single-source rumors. The aggregator layer is a real risk: if you're reading summaries of summaries, you may be consuming fiction dressed as signal.</p>
+            <a href="https://llm-stats.com/llm-updates" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+        <div class="item-card c-pink">
+          <div class="card-top-strip"></div>
+          <div class="card-visual"><img src="25.png" alt="Ethical Concerns" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div class="card-body">
+            <div class="card-pill">Criticism</div>
+            <div class="card-headline">Ethical Concerns Around Generative AI Persist</div>
+            <p class="card-body-text">Academic and policy literature — including a ScienceDirect study on generative AI ethical risks and mitigation strategies — continued entering the mainstream conversation during mid-May. Ethical concerns aren't slowing deployment; they're being managed in parallel, which is either reassuring or alarming depending on your priors.</p>
+            <a href="https://www.sciencedirect.com/science/article/pii/S2666389926001234" target="_blank" class="card-link">Read more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /what-dropped -->
+
+  <!-- ═══════════════════════════════════════════════
+       WHAT MATTERS
+  ═══════════════════════════════════════════════ -->
+  <div class="what-matters">
+    <div class="section-header-row">
+      <div class="section-label">Section 02</div>
+      <div class="section-title">What Matters</div>
+      <div class="section-subtitle">Three stories with six-month implications. This is where the analysis lives.</div>
+    </div>
+
+    <div class="matters-container">
+      <div class="matters-header">
+        <div class="matters-header-left">
+          <div class="matters-label">Editorial Analysis</div>
+          <div class="matters-subtitle">The consequential layer beneath the news cycle</div>
+        </div>
+      </div>
+
+      <div class="matters-grid">
+
+        <div class="matter-col">
+          <div class="matter-num">01</div>
+          <h3 class="matter-headline">The $900B Number Changes <em>Every Negotiation</em> in AI</h3>
+          <p class="matter-body">Anthropic's reported $900B implied valuation isn't just a headline — it's a negotiating anchor that will echo through every enterprise contract, partnership term, and regulatory conversation for the next six months. When a lab prices itself near SpaceX, it signals to customers that they're buying infrastructure, not software. Enterprise buyers will respond the same way they did when cloud became essential: compliance, not comparison shopping. The deeper consequence is what it does to the competitive set. At a $900B valuation, Anthropic is no longer competing with Cohere or Mistral — it's competing with AWS. That means product strategy, pricing, and distribution have to be rethought at that scale. The SpaceX Colossus compute deal arriving in the same week isn't coincidence; it's capability-signaling ahead of a fundraise. Investors buying at $900B need to believe the training compute is secured. These two stories are one story.</p>
+          <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="matter-link">Deep dive →</a>
+        </div>
+
+        <div class="matter-col">
+          <div class="matter-num">02</div>
+          <h3 class="matter-headline">Government Is <em>Inside the Lab</em> Now — Not Watching From Outside</h3>
+          <p class="matter-body">The US CAISI pre-deployment evaluation agreements with five frontier labs simultaneously marks a structural shift in how governments engage with AI. This is not advisory committees or voluntary commitments — it is formalized access to models before public release. Combine that with EU and UK agencies updating red-teaming guidance the same week as major model launches, and you have the first credible architecture of multilateral AI oversight. The six-month implication is significant: labs that want to deploy at scale will need to build for regulatory review as a default, not an afterthought. That changes model development timelines, what gets shipped versus what stays in preview, and how safety claims are documented internally. The International AI Safety Report in circulation simultaneously gives regulators a shared technical vocabulary. This is the week that "responsible scaling" went from a marketing term to a procurement requirement.</p>
+          <a href="https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026" target="_blank" class="matter-link">Deep dive →</a>
+        </div>
+
+        <div class="matter-col">
+          <div class="matter-num">03</div>
+          <h3 class="matter-headline">OS-Level AI Is <em>The Distribution Win</em> That Makes Model Wars Irrelevant</h3>
+          <p class="matter-body">Google's Android XR integrations and OS-level Gemini features — announced ahead of I/O — are the most strategically underreported story of the week. When an AI model is embedded at the operating system layer, the consumer never chooses it again. They just use it. This is the playbook that made Google Search the default: own the layer beneath the app. The implication for OpenAI, Anthropic, and every API-first company is that distribution via OS will eventually be more valuable than model quality. Users don't benchmark; they tap. The hardware rumors around an OpenAI AI-first device are a direct response to exactly this threat. If Google owns Android and Apple builds its own on-device stack, OpenAI's distribution is entirely dependent on third-party surfaces it doesn't control. The device rumors aren't product strategy — they're an existential hedge.</p>
+          <a href="https://aitoolsrecap.com/Blog/ai-news-may-17-2026" target="_blank" class="matter-link">Deep dive →</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       WHAT'S OVERHYPED
+  ═══════════════════════════════════════════════ -->
+  <div class="overhyped-section">
+    <div class="section-header-row">
+      <div class="section-label">Section 03</div>
+      <div class="section-title">What's Overhyped</div>
+      <div class="section-subtitle">Two stories that consumed more coverage than the evidence supports. Be specific. Be honest.</div>
+    </div>
+
+    <div class="overhyped-grid">
+
+      <div class="overhyped-card">
+        <div class="warning-tag">⚡ Overhyped</div>
+        <div class="overhyped-headline">The OpenAI "AI-First Device" Narrative</div>
+        <p class="overhyped-body">Multiple outlets spent the week treating OpenAI device rumors as a confirmed strategic pivot — with headlines implying imminent hardware. What the evidence actually supports is this: unnamed sources described "signals and rumors" that OpenAI was "exploring" a device. There is no confirmed form factor, no confirmed launch timeline, no confirmed partner, and no confirmed product name. The hype is running on the fumes of the Humane AI Pin cycle and the assumption that every major AI company must become a hardware company. OpenAI's actual competitive advantage is distribution through ChatGPT, API access, and Microsoft. An unconfirmed rumor about an unexplained device does not belong in the same analytical tier as Anthropic's confirmed $30B raise or Google's confirmed I/O product lineup.</p>
+        <div class="verdict">VERDICT: ONE SOURCE. ZERO CONFIRMATION. TREAT AS SPECULATION UNTIL OTHERWISE. CHECK PRIMARY FILINGS BEFORE CITING.</div>
+      </div>
+
+      <div class="overhyped-card">
+        <div class="warning-tag">⚡ Overhyped</div>
+        <div class="overhyped-headline">The "AI Funding Surge" as a Single Coherent Story</div>
+        <p class="overhyped-body">The $25B May AI funding headline circulated widely — but the figure aggregates 37 deals of wildly different types, sizes, and geographies, with mega-rounds (likely 2–3 deals) skewing the total so dramatically that the number tells you almost nothing about the health of the broader startup ecosystem. Reporting framed this as "AI is capturing all the capital" — which is misleading when the actual distribution is probably 1–2 large infrastructure rounds plus dozens of seed and Series A deals. The practical insight — that capital is flowing heavily into AI infrastructure, tools, and verticals — is real and worth tracking. The "$25B surge" framing, however, treats a statistical artifact of a few large rounds as evidence of sector-wide momentum. Smart readers should decompose the figure before treating it as a signal.</p>
+        <div class="verdict">VERDICT: THE NUMBER IS REAL. THE NARRATIVE AROUND IT IS OVERSIMPLIFIED. ASK WHAT PERCENTAGE CAME FROM THE TOP THREE DEALS.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════ -->
+<footer class="footer-bar pb-72" style="padding-bottom: 28px;">
+  <div class="wordmark">CON<span class="v-gold">V</span>ERSE</div>
+  <div class="footer-tagline">Read well. Think sharp. Speak with weight.</div>
+  <div class="footer-issue">Issue 02 · May 2026</div>
+</footer>
+
+</body>
+</html>

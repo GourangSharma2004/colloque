@@ -1,0 +1,2457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Perplexity AI Research Masterclass</title>
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --primary-light: #16213e;
+            --accent-teal: #64ffda;
+            --accent-coral: #00b4d8;
+            --accent-amber: #90e0ef;
+            --accent-lavender: #caf0f8;
+            --accent-purple: #48cae4;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --text-muted: #888888;
+            --bg-card: #1f1f3a;
+            --bg-card-hover: #2a2a4a;
+            --border-color: #3a3a5a;
+            --gradient-main: linear-gradient(135deg, #0a192f 0%, #16213e 50%, #0a192f 100%);
+            --gradient-accent: linear-gradient(135deg, #64ffda 0%, #0077b6 100%);
+            --gradient-purple: linear-gradient(135deg, #48cae4 0%, #48cae4 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--gradient-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .nav-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--bg-card-hover);
+            color: var(--accent-teal);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            border-left: 3px solid var(--accent-teal);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h3 {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent-teal);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+            animation: fadeInUp 0.6s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-teal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        section h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--accent-lavender);
+        }
+
+        section h4 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent-amber);
+        }
+
+        section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        blockquote {
+            background: rgba(78, 204, 163, 0.1);
+            border-left: 4px solid var(--accent-teal);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg-card-hover);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(78, 204, 163, 0.2);
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(78, 204, 163, 0.05);
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-teal);
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-primary);
+        }
+
+        .pro-badge {
+            display: inline-block;
+            background: var(--gradient-purple);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .diagram-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .flip-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .flip-card {
+            background: transparent;
+            height: 380px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 1.2rem;
+            padding-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .flip-card-front p,
+        .flip-card-back p {
+            margin: 0.5rem 0;
+            line-height: 1.5;
+        }
+
+        .flip-card-front::-webkit-scrollbar,
+        .flip-card-back::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .flip-card-front::-webkit-scrollbar-track,
+        .flip-card-back::-webkit-scrollbar-track {
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 3px;
+        }
+
+        .flip-card-front::-webkit-scrollbar-thumb,
+        .flip-card-back::-webkit-scrollbar-thumb {
+            background: var(--accent-teal);
+            border-radius: 3px;
+        }
+
+        .flip-card-front {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-teal);
+            box-shadow: var(--shadow-card);
+        }
+
+        .flip-card-back {
+            background: var(--primary-dark);
+            border: 2px solid var(--accent-teal);
+            color: var(--text-primary);
+            transform: rotateY(180deg);
+        }
+
+        .flip-card h4 {
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .flip-card-back h4 {
+            color: var(--accent-teal);
+        }
+
+        .accordion {
+            margin: 2rem 0;
+        }
+
+        .accordion-item {
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .accordion-header h4 {
+            margin: 0;
+            color: var(--accent-teal);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+            color: var(--accent-teal);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+        }
+
+        .accordion-content p {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--accent-teal);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 0 2rem;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            top: 0;
+            border: 4px solid var(--primary-dark);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gradient-accent);
+            color: var(--primary-dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-card);
+            z-index: 999;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.1);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @media (max-width: 1024px) {
+            .nav-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .nav-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 2rem;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1001;
+                background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                color: var(--accent-teal);
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        .highlight {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        .warning {
+            color: var(--accent-coral);
+        }
+
+        .success {
+            color: var(--accent-teal);
+        }
+
+        .info {
+            color: var(--accent-lavender);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-sidebar" id="navSidebar">
+        <h2>📚 Contents</h2>
+        <ul class="nav-links">
+            <li><a href="#section1" class="active">1. Mental Model Shift</a></li>
+            <li><a href="#section2">2. Understanding the Machine</a></li>
+            <li><a href="#section3">3. Know Your Setup</a></li>
+            <li><a href="#section4">4. Research Pipeline</a></li>
+            <li><a href="#section5">5. Phase 0 — Output-First</a></li>
+            <li><a href="#section6">6. Phase 1 — Query Architecture</a></li>
+            <li><a href="#section7">7. Phase 2 — Focus Modes</a></li>
+            <li><a href="#section8">8. Phase 3 — Follow-Up Strategy</a></li>
+            <li><a href="#section9">9. Phase 4 — Source Interrogation</a></li>
+            <li><a href="#section10">10. Phase 5 — Conflicting Info</a></li>
+            <li><a href="#section11">11. Phase 6 — Synthesis</a></li>
+            <li><a href="#section12">12. Advanced Techniques</a></li>
+            <li><a href="#section13">13. Common Mistakes</a></li>
+            <li><a href="#section14">14. Full Worked Example</a></li>
+            <li><a href="#section15">15. Quick Reference</a></li>
+            <li><a href="#section16">16. Putting It All Together</a></li>
+        </ul>
+    </nav>
+
+    <button class="menu-toggle" id="menuToggle">☰ Menu</button>
+
+    <main class="main-content">
+        <div class="hero">
+            <h1>The Perplexity AI Research Masterclass</h1>
+            <h3>A Complete System for Turning Any Question into a Report-Ready Answer</h3>
+        </div>
+
+        <div class="info-box">
+            <p><strong>How to use this document:</strong> This is not a tips list. It is a complete pipeline — read it in order the first time. After that, treat each section as a reference you return to. Every concept here has been written to be immediately applicable, which is why almost nothing appears without an example beside it.</p>
+            <p><strong>Feature flags used throughout:</strong> Features marked <span class="pro-badge">PRO</span> require a Perplexity Pro subscription. Everything else works on the free plan.</p>
+        </div>
+
+        <section id="section1">
+            <h2>1. The Mental Model Shift</h2>
+            <p>Most people use Perplexity like a faster Google. That is the wrong mental model, and it caps your results at mediocre.</p>
+            
+            <div class="diagram-container">
+                <svg width="600" height="300" viewBox="0 0 600 300">
+                    <text x="50" y="50" fill="#888" font-size="14">BEFORE (Wrong Model)</text>
+                    <rect x="50" y="70" width="120" height="40" rx="8" fill="#00b4d8" opacity="0.3"/>
+                    <text x="110" y="95" fill="#00b4d8" font-size="12" text-anchor="middle">Question</text>
+                    <path d="M170 90 L210 90" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="210" y="70" width="120" height="40" rx="8" fill="#00b4d8" opacity="0.3"/>
+                    <text x="270" y="95" fill="#00b4d8" font-size="12" text-anchor="middle">Type it</text>
+                    <path d="M330 90 L370 90" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+                    <rect x="370" y="70" width="120" height="40" rx="8" fill="#00b4d8" opacity="0.3"/>
+                    <text x="430" y="95" fill="#00b4d8" font-size="12" text-anchor="middle">Get Answer</text>
+                    
+                    <text x="50" y="180" fill="#64ffda" font-size="14">AFTER (Right Model)</text>
+                    <rect x="50" y="200" width="100" height="35" rx="8" fill="#64ffda" opacity="0.3"/>
+                    <text x="100" y="222" fill="#64ffda" font-size="11" text-anchor="middle">Deliverable</text>
+                    <path d="M150 217 L180 217" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <rect x="180" y="200" width="100" height="35" rx="8" fill="#64ffda" opacity="0.3"/>
+                    <text x="230" y="222" fill="#64ffda" font-size="11" text-anchor="middle">Need Info</text>
+                    <path d="M280 217 L310 217" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <rect x="310" y="200" width="100" height="35" rx="8" fill="#64ffda" opacity="0.3"/>
+                    <text x="360" y="222" fill="#64ffda" font-size="11" text-anchor="middle">Design Queries</text>
+                    <path d="M410 217 L440 217" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <rect x="440" y="200" width="100" height="35" rx="8" fill="#64ffda" opacity="0.3"/>
+                    <text x="490" y="222" fill="#64ffda" font-size="11" text-anchor="middle">Synthesize</text>
+                    
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#888"/>
+                        </marker>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#64ffda"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <p>Here is how most people think about research tools:</p>
+            <blockquote><em>I have a question → I type it → I get an answer</em></blockquote>
+            
+            <p>Here is how you should think when using Perplexity:</p>
+            <blockquote><em>I have a deliverable → I need specific information to build it → I design a sequence of queries that retrieves exactly that information → I synthesize the output</em></blockquote>
+            
+            <p>The difference sounds philosophical. It is actually operational. The first approach makes you a passive recipient of whatever the algorithm returns. The second approach makes you the architect of your own research output.</p>
+            
+            <p class="highlight">The core shift in one sentence: Stop asking Perplexity questions. Start commissioning it to retrieve specific evidence for a case you are already building.</p>
+        </section>
+
+        <section id="section2">
+            <h2>2. Understanding the Machine — How Perplexity Actually Works</h2>
+            <p>You do not need to understand the engineering. You do need to understand the <em>logic</em>, because it directly determines what inputs produce what outputs.</p>
+            
+            <p>Perplexity is a <strong>Retrieval-Augmented Generation (RAG)</strong> system. This means:</p>
+            
+            <ol>
+                <li>When you type a query, Perplexity searches the web in real time</li>
+                <li>It pulls the most relevant pages and documents it can find</li>
+                <li>It passes those documents to a large language model (LLM)</li>
+                <li>The LLM reads those documents and writes a synthesized answer — citing the sources it used</li>
+            </ol>
+
+            <div class="diagram-container">
+                <svg width="700" height="250" viewBox="0 0 700 250">
+                    <rect x="20" y="80" width="120" height="60" rx="8" fill="#64ffda" opacity="0.3" stroke="#64ffda" stroke-width="2"/>
+                    <text x="80" y="115" fill="#64ffda" font-size="12" text-anchor="middle">Your Query</text>
+                    
+                    <path d="M140 110 L180 110" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <rect x="180" y="80" width="120" height="60" rx="8" fill="#48cae4" opacity="0.3" stroke="#48cae4" stroke-width="2"/>
+                    <text x="240" y="105" fill="#48cae4" font-size="12" text-anchor="middle">Web Search</text>
+                    <text x="240" y="125" fill="#48cae4" font-size="10" text-anchor="middle">(Real-time)</text>
+                    
+                    <path d="M300 110 L340 110" stroke="#48cae4" stroke-width="2" marker-end="url(#arrow3)" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <rect x="340" y="80" width="120" height="60" rx="8" fill="#90e0ef" opacity="0.3" stroke="#90e0ef" stroke-width="2"/>
+                    <text x="400" y="105" fill="#90e0ef" font-size="12" text-anchor="middle">Document</text>
+                    <text x="400" y="125" fill="#90e0ef" font-size="12" text-anchor="middle">Retrieval</text>
+                    
+                    <path d="M460 110 L500 110" stroke="#90e0ef" stroke-width="2" marker-end="url(#arrow4)" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <rect x="500" y="80" width="120" height="60" rx="8" fill="#00b4d8" opacity="0.3" stroke="#00b4d8" stroke-width="2"/>
+                    <text x="560" y="105" fill="#00b4d8" font-size="12" text-anchor="middle">LLM</text>
+                    <text x="560" y="125" fill="#00b4d8" font-size="12" text-anchor="middle">Synthesis</text>
+                    
+                    <path d="M620 110 L660 110" stroke="#00b4d8" stroke-width="2" marker-end="url(#arrow5)" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <rect x="660" y="80" width="20" height="60" rx="4" fill="#64ffda" opacity="0.5"/>
+                    <text x="670" y="115" fill="#fff" font-size="10" text-anchor="middle" transform="rotate(-90, 670, 115)">Answer</text>
+                    
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#48cae4"/>
+                        </marker>
+                        <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#90e0ef"/>
+                        </marker>
+                        <marker id="arrow5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#00b4d8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <p><strong>Why this matters for your queries:</strong></p>
+            <p>Your query does two jobs simultaneously. It decides <strong>what gets retrieved</strong> (the search layer) and <strong>how it gets synthesized</strong> (the generation layer). A poorly written query fails at both. A well-written query succeeds at both.</p>
+            
+            <p>Think of it like briefing a research assistant who is also a skilled writer. If you tell them "find me stuff about supply chain," you will get something generic. If you tell them "I need a comparison of just-in-time vs. safety stock models for pharmaceutical companies, specifically looking at post-COVID disruptions and what companies actually shifted to," you will get something usable.</p>
+            
+            <p>This is why query design is not a minor detail — it is the entire game.</p>
+            
+            <h4>What Perplexity is good at:</h4>
+            <ul>
+                <li>Synthesizing across multiple current sources in real time</li>
+                <li>Surfacing recent data, reports, and studies that a manual search would take much longer to find</li>
+                <li>Building structured summaries from fragmented information</li>
+                <li>Maintaining contextual continuity across a research thread</li>
+            </ul>
+            
+            <h4>What Perplexity is not good at:</h4>
+            <ul>
+                <li>Proprietary, paywalled, or classified information</li>
+                <li>Guaranteeing factual accuracy without source verification — it can and does misrepresent or hallucinate</li>
+                <li>Forming strategic judgment calls — that is your job, not the tool's</li>
+                <li>Replacing domain expertise — it retrieves and synthesizes, it does not understand</li>
+            </ul>
+        </section>
+
+        <section id="section3">
+            <h2>3. Know Your Setup — Free vs. Pro</h2>
+            <p>Before you learn the system, know what you are working with. The pipeline works for both plans — but some features only exist on Pro, and knowing this upfront prevents frustration.</p>
+            
+            <h3>3.1 Feature Comparison</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Free</th>
+                        <th>Pro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Standard searches</strong></td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pro searches</strong> (advanced models)</td>
+                        <td>5 per day</td>
+                        <td>~300+ per day</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Models available</strong></td>
+                        <td>Sonar (default)</td>
+                        <td>GPT-4o, Claude Sonnet, Sonar Large, Sonar Reasoning — your choice</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Academic mode</strong></td>
+                        <td>5 searches/day</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>File upload</strong> (PDF, DOCX, CSV, images)</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spaces</strong> (organized research hubs)</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pages</strong> (auto-generated shareable documents)</td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom instructions</strong></td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Image generation</strong></td>
+                        <td>❌</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td><strong>All Focus modes</strong></td>
+                        <td>Standard modes</td>
+                        <td>All modes</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>Throughout this document, features available only on Pro are marked <span class="pro-badge">PRO</span>. Every other technique works on the free plan.</p>
+            
+            <h3>3.2 How to Get 80% of Pro Results on the Free Plan</h3>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Limitation: 5 Pro searches per day</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Pro searches use more powerful models and produce noticeably better synthesis. Five is genuinely limiting for heavy research work.</p>
+                        <p><em>Workaround:</em> Treat your five Pro searches as a budget. Reserve them for the highest-stakes queries — the synthesis questions, the structured comparisons, the moments where you are asking Perplexity to reason across a lot of information at once. Use standard searches for factual lookups, data retrieval, and clarifying questions. Do your information-gathering first, then spend your Pro quota on the output-shaping queries at the end.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Limitation: No file upload</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Pro users can upload a PDF or DOCX and ask questions directly about its contents.</p>
+                        <p><em>Workaround:</em> For shorter documents (under approximately 8,000 characters), paste the text directly into your query. For longer documents, identify the sections most relevant to your question, summarize those sections yourself, and paste that summary. For document-heavy research tasks, Claude.ai's free tier handles long document analysis well and pairs naturally with Perplexity for web retrieval.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Limitation: No Spaces</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Spaces are dedicated research environments where you can save threads, add persistent context, and build ongoing research projects over time. Free users lose thread history when the session ends.</p>
+                        <p><em>Workaround:</em> Create a running research document (Google Doc, Notion, or whichever tool your team uses) and paste key Perplexity outputs into it after each session. Organize by topic. Over time, this becomes your own manual Space. It takes more discipline but the output is yours to keep indefinitely.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Limitation: No custom instructions</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Pro users can set persistent instructions that apply to every search — for example, "always include India-specific data when available; format all outputs as structured lists unless I ask otherwise."</p>
+                        <p><em>Workaround:</em> Build a personal query prefix — a short block of context and format instructions you keep in a doc and paste at the start of important research sessions. It takes ten seconds and replicates most of the function.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Limitation: No Pages <span class="pro-badge">PRO</span></h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Pages are Perplexity's auto-generated shareable documents. After researching a topic, you can ask Perplexity to generate a structured, formatted article or report from the thread. For people who build reports and presentations, this is the most underrated Pro feature. It is covered in detail in Section 11.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>3.3 When Upgrading to Pro Is Worth It</h3>
+            <p>The upgrade makes sense if any of these apply:</p>
+            <ul>
+                <li>You do serious research more than twice a week</li>
+                <li>You regularly work with PDF reports, financial statements, or policy documents</li>
+                <li>You need academic-level sourcing consistently</li>
+                <li>You work on ongoing multi-session projects where losing thread context is costly</li>
+                <li>You need to choose the underlying AI model based on the task type (explained in Section 12)</li>
+            </ul>
+        </section>
+
+        <section id="section4">
+            <h2>4. The Research Pipeline — Six Phases</h2>
+            <p>Every piece of research — whether a two-page brief or a forty-slide deck — follows the same six-phase structure. The phases do not change. What changes is how much time you spend in each one.</p>
+            
+            <div class="diagram-container">
+                <svg width="700" height="300" viewBox="0 0 700 300">
+                    <!-- Phase 0 -->
+                    <rect x="20" y="30" width="100" height="60" rx="10" fill="#64ffda" opacity="0.3" stroke="#64ffda" stroke-width="2" class="phase-box"/>
+                    <text x="70" y="55" fill="#64ffda" font-size="12" font-weight="bold" text-anchor="middle">PHASE 0</text>
+                    <text x="70" y="75" fill="#64ffda" font-size="10" text-anchor="middle">Define Output</text>
+                    
+                    <!-- Arrow 0-1 -->
+                    <path d="M120 60 L150 60" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Phase 1 -->
+                    <rect x="150" y="30" width="100" height="60" rx="10" fill="#48cae4" opacity="0.3" stroke="#48cae4" stroke-width="2" class="phase-box"/>
+                    <text x="200" y="55" fill="#48cae4" font-size="12" font-weight="bold" text-anchor="middle">PHASE 1</text>
+                    <text x="200" y="75" fill="#48cae4" font-size="10" text-anchor="middle">Query Arch</text>
+                    
+                    <!-- Arrow 1-2 -->
+                    <path d="M250 60 L280 60" stroke="#48cae4" stroke-width="2" marker-end="url(#arrow3)">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Phase 2 -->
+                    <rect x="280" y="30" width="100" height="60" rx="10" fill="#90e0ef" opacity="0.3" stroke="#90e0ef" stroke-width="2" class="phase-box"/>
+                    <text x="330" y="55" fill="#90e0ef" font-size="12" font-weight="bold" text-anchor="middle">PHASE 2</text>
+                    <text x="330" y="75" fill="#90e0ef" font-size="10" text-anchor="middle">Select Mode</text>
+                    
+                    <!-- Arrow 2-3 -->
+                    <path d="M380 60 L410 60" stroke="#90e0ef" stroke-width="2" marker-end="url(#arrow4)">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Phase 3 -->
+                    <rect x="410" y="30" width="100" height="60" rx="10" fill="#00b4d8" opacity="0.3" stroke="#00b4d8" stroke-width="2" class="phase-box"/>
+                    <text x="460" y="55" fill="#00b4d8" font-size="12" font-weight="bold" text-anchor="middle">PHASE 3</text>
+                    <text x="460" y="75" fill="#00b4d8" font-size="10" text-anchor="middle">Follow-Ups</text>
+                    
+                    <!-- Arrow 3-4 -->
+                    <path d="M510 60 L540 60" stroke="#00b4d8" stroke-width="2" marker-end="url(#arrow5)">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Phase 4 -->
+                    <rect x="540" y="30" width="100" height="60" rx="10" fill="#caf0f8" opacity="0.3" stroke="#caf0f8" stroke-width="2" class="phase-box"/>
+                    <text x="590" y="55" fill="#caf0f8" font-size="12" font-weight="bold" text-anchor="middle">PHASE 4</text>
+                    <text x="590" y="75" fill="#caf0f8" font-size="10" text-anchor="middle">Verify</text>
+                    
+                    <!-- Arrow 4-5 (curved down) -->
+                    <path d="M590 90 L590 130 L380 130 L380 160" stroke="#caf0f8" stroke-width="2" fill="none" marker-end="url(#arrow6)">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Phase 5 -->
+                    <rect x="280" y="160" width="100" height="60" rx="10" fill="#0077b6" opacity="0.3" stroke="#0077b6" stroke-width="2" class="phase-box"/>
+                    <text x="330" y="185" fill="#0077b6" font-size="12" font-weight="bold" text-anchor="middle">PHASE 5</text>
+                    <text x="330" y="205" fill="#0077b6" font-size="10" text-anchor="middle">Reconcile</text>
+                    
+                    <!-- Arrow 5-6 -->
+                    <path d="M380 190 L410 190" stroke="#0077b6" stroke-width="2" marker-end="url(#arrow7)">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Phase 6 -->
+                    <rect x="410" y="160" width="100" height="60" rx="10" fill="#023e8a" opacity="0.3" stroke="#023e8a" stroke-width="2" class="phase-box"/>
+                    <text x="460" y="185" fill="#023e8a" font-size="12" font-weight="bold" text-anchor="middle">PHASE 6</text>
+                    <text x="460" y="205" fill="#023e8a" font-size="10" text-anchor="middle">Synthesize</text>
+                    
+                    <!-- Final arrow to output -->
+                    <path d="M510 190 L580 190" stroke="#023e8a" stroke-width="2" marker-end="url(#arrow8)">
+                        <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- Output box -->
+                    <rect x="580" y="160" width="100" height="60" rx="10" fill="#64ffda" opacity="0.4" stroke="#64ffda" stroke-width="2"/>
+                    <text x="630" y="185" fill="#64ffda" font-size="12" font-weight="bold" text-anchor="middle">OUTPUT</text>
+                    <text x="630" y="205" fill="#64ffda" font-size="10" text-anchor="middle">Deliverable</text>
+                    
+                    <!-- Legend -->
+                    <rect x="20" y="250" width="660" height="30" rx="5" fill="rgba(100, 255, 218, 0.1)" stroke="#64ffda" stroke-width="1"/>
+                    <text x="350" y="270" fill="#64ffda" font-size="11" text-anchor="middle">Linear flow through phases 0-4, then reconciliation (5) before final synthesis (6) → deliverable</text>
+                    
+                    <defs>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#64ffda"/>
+                        </marker>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#48cae4"/>
+                        </marker>
+                        <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#90e0ef"/>
+                        </marker>
+                        <marker id="arrow5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#00b4d8"/>
+                        </marker>
+                        <marker id="arrow6" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#caf0f8"/>
+                        </marker>
+                        <marker id="arrow7" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#0077b6"/>
+                        </marker>
+                        <marker id="arrow8" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#023e8a"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <p>Most people skip Phase 0 entirely. They jump straight to Phase 1 and wonder why their research feels scattered. Phase 0 is where the quality of your entire output is determined — before you type a single word into Perplexity.</p>
+            
+            <h4>How long should a research session take?</h4>
+            <p>People often either under-research (three queries for a complex topic) or over-research (two hours of threading when thirty minutes would have been sufficient). Here is a rough calibration:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Deliverable</th>
+                        <th>Queries</th>
+                        <th>Approximate time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Quick brief or one-page summary</td>
+                        <td>5–8</td>
+                        <td>20–30 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Section of a presentation (3–5 slides)</td>
+                        <td>8–12</td>
+                        <td>30–45 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Full market or competitive analysis</td>
+                        <td>15–25 across multiple threads</td>
+                        <td>60–90 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>In-depth research report</td>
+                        <td>25–40 across multiple threads</td>
+                        <td>2–3 hours</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>You will know you are done when new queries are returning information you already have, and when all the claims from Phase 0 have evidence attached to them. That is the signal to move to synthesis.</p>
+        </section>
+
+        <section id="section5">
+            <h2>5. Phase 0 — Output-First Thinking</h2>
+            <p>Before you open Perplexity, answer three questions.</p>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Question 1: What is the exact deliverable?</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Not "a report on EV adoption." Something specific:</p>
+                        <blockquote><em>"A six-slide section for a strategy deck, arguing that our company should enter the EV charging infrastructure market in Tier-2 Indian cities by 2026."</em></blockquote>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Question 2: What claims do I need to prove or disprove?</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Break your deliverable into the specific claims that require evidence. For the EV example:</p>
+                        <ul>
+                            <li>Claim: EV adoption in Tier-2 cities is growing at a rate that justifies infrastructure investment now</li>
+                            <li>Claim: Charging infrastructure in Tier-2 cities is currently underserved</li>
+                            <li>Claim: Government policy supports and incentivizes this expansion</li>
+                            <li>Claim: The unit economics are viable for a new entrant</li>
+                            <li>Counter-claim to address: Why this could fail or be premature</li>
+                        </ul>
+                        <p>These claims become your query map. Each one generates one or more Perplexity queries. Research without this map is wandering.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Question 3: Who is the audience and what will they push back on?</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>An audience of engineers pushes back on technical feasibility. An audience of executives pushes back on ROI and risk. A client audience pushes back on differentiation. Knowing your pushback tells you what evidence you need most, and where you need the strongest sourcing.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Example of Phase 0 in practice:</h4>
+            <p>Suppose your manager asks: <em>"Give me a brief on what's happening with ONDC and whether it matters for us."</em></p>
+            
+            <p><span class="warning">Bad Phase 0:</span> "I'll search ONDC and summarize what comes up."</p>
+            
+            <p><span class="success">Good Phase 0:</span></p>
+            <blockquote><em>Deliverable: A one-page brief for a non-technical business audience. Claims I need to support: What ONDC actually is in plain language, current adoption numbers, which seller categories are growing fastest, and a paragraph on strategic implications for our business. The pushback I anticipate: "How is this different from just Amazon or Flipkart?" — I need to address that directly, not leave it hanging.</em></blockquote>
+            
+            <p>Now your queries have a destination. The research session has a shape before it starts.</p>
+        </section>
+
+        <section id="section6">
+            <h2>6. Phase 1 — Query Architecture</h2>
+            <p>This is the most important technical skill in the entire document. Everything else in the pipeline depends on how well you construct the query.</p>
+            
+            <h3>6.1 The Anatomy of a High-Quality Query</h3>
+            <p>A strong Perplexity query has up to four components. You do not always use all four, but you should know all four and consciously decide which ones to include.</p>
+            
+            <pre><code>[CONTEXT] + [SPECIFIC QUESTION] + [CONSTRAINT] + [OUTPUT FORMAT]</code></pre>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>What it does</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Context</strong></td>
+                        <td>Tells Perplexity the domain, situation, or frame it is operating in</td>
+                        <td>"In the context of B2B SaaS pricing strategy..."</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Specific Question</strong></td>
+                        <td>The actual thing you want to know</td>
+                        <td>"...what factors determine whether usage-based pricing outperforms seat-based pricing?"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Constraint</strong></td>
+                        <td>Limits scope to what is actually useful</td>
+                        <td>"...specifically for companies with ARR between $5M and $50M, data from 2022 onwards"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Output Format</strong></td>
+                        <td>Tells Perplexity how to structure the response</td>
+                        <td>"...summarize as key decision factors with supporting data, not a general overview"</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>Most people write only the specific question. The other three components are what separate a useful answer from a generic one. Context shapes what gets retrieved. Constraint eliminates irrelevant content. Output format determines whether the answer is immediately usable or needs significant reformatting.</p>
+            
+            <div class="diagram-container">
+                <svg width="700" height="150" viewBox="0 0 700 150">
+                    <rect x="20" y="50" width="140" height="50" rx="8" fill="#64ffda" opacity="0.4" stroke="#64ffda" stroke-width="2"/>
+                    <text x="90" y="80" fill="#64ffda" font-size="12" text-anchor="middle">CONTEXT</text>
+                    
+                    <text x="170" y="80" fill="#888" font-size="20" text-anchor="middle">+</text>
+                    
+                    <rect x="190" y="50" width="160" height="50" rx="8" fill="#48cae4" opacity="0.4" stroke="#48cae4" stroke-width="2"/>
+                    <text x="270" y="80" fill="#48cae4" font-size="12" text-anchor="middle">SPECIFIC QUESTION</text>
+                    
+                    <text x="360" y="80" fill="#888" font-size="20" text-anchor="middle">+</text>
+                    
+                    <rect x="380" y="50" width="120" height="50" rx="8" fill="#90e0ef" opacity="0.4" stroke="#90e0ef" stroke-width="2"/>
+                    <text x="440" y="80" fill="#90e0ef" font-size="12" text-anchor="middle">CONSTRAINT</text>
+                    
+                    <text x="510" y="80" fill="#888" font-size="20" text-anchor="middle">+</text>
+                    
+                    <rect x="530" y="50" width="150" height="50" rx="8" fill="#00b4d8" opacity="0.4" stroke="#00b4d8" stroke-width="2"/>
+                    <text x="605" y="80" fill="#00b4d8" font-size="12" text-anchor="middle">OUTPUT FORMAT</text>
+                    
+                    <text x="350" y="130" fill="#888" font-size="11" text-anchor="middle">= High-Quality Query</text>
+                </svg>
+            </div>
+            
+            <h3>6.2 Query Patterns — Nine You Should Know</h3>
+            
+            <div class="flip-card-container">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 1: Specificity Ladder</h4>
+                            <p class="info">Use when unfamiliar with topic</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Start broad to understand landscape, then progressively narrow. Each query uses answer from previous to sharpen next.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 2: Comparison Frame</h4>
+                            <p class="info">Use when evaluating options</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Force Perplexity to structure answer around specific dimensions you define. Without dimensions, you get vague "pros and cons."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 3: Contrarian Query</h4>
+                            <p class="info">Use when stress-testing argument</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Explicitly ask for the case against something. Forces retrieval of opposing view, making final report more credible.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 4: Temporal Anchor</h4>
+                            <p class="info">Use when topic changes over time</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Include explicit time references. Critical for regulations, markets, technology where recency matters.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 5: Perspective Shift</h4>
+                            <p class="info">Use when needing stakeholder view</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Frame query from specific viewpoint. Same topic, different frame, different retrieval.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 6: Evidence Hunt</h4>
+                            <p class="info">Use when needing hard data</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Ask explicitly for evidence and specify source type. "Studies" vs "industry reports" vs "government data."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 7: Gap Query</h4>
+                            <p class="info">Use when finding unknowns</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Ask Perplexity to surface limitations or gaps explicitly. Often the most intellectually valuable part.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 8: Structured Extraction</h4>
+                            <p class="info">Use when needing specific format</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Tell Perplexity exactly what structure to use. Critical for presentations where output should translate directly to slides.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Pattern 9: Source-Anchored</h4>
+                            <p class="info">Use when needing credible sources</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>How it works</h4>
+                            <p>Name specific institutions to prioritize. Reduces chance of pulling from low-quality aggregators.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>6.3 The Query Anti-Patterns — What Kills Your Results</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Anti-Pattern</th>
+                        <th>Example</th>
+                        <th>Why It Fails</th>
+                        <th>Fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>The Vague Noun</strong></td>
+                        <td>"Tell me about blockchain"</td>
+                        <td>Retrieves everything = nothing useful</td>
+                        <td>Add context, scope, and a specific question</td>
+                    </tr>
+                    <tr>
+                        <td><strong>The Yes/No Trap</strong></td>
+                        <td>"Is influencer marketing effective?"</td>
+                        <td>Forces a binary where nuance lives</td>
+                        <td>Ask "under what conditions, for what type of business, and measured how"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>The Implicit Audience</strong></td>
+                        <td>"Explain ESG reporting"</td>
+                        <td>Beginner content floods in</td>
+                        <td>Add "for a CFO audience" or "for a sustainability analyst at a mid-size company"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>The Unanchored Time</strong></td>
+                        <td>"What are current AI trends"</td>
+                        <td>'Current' to when — 2021? 2023?</td>
+                        <td>Add explicit year range</td>
+                    </tr>
+                    <tr>
+                        <td><strong>The Kitchen Sink</strong></td>
+                        <td>Five different questions in one query</td>
+                        <td>Perplexity hedges across all five, commits to none</td>
+                        <td>One focused thread per major research question</td>
+                    </tr>
+                    <tr>
+                        <td><strong>The Leading Query</strong></td>
+                        <td>"Why is X the best approach"</td>
+                        <td>Retrieves only confirmatory content</td>
+                        <td>Ask "what are the arguments for and against X"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="section7">
+            <h2>7. Phase 2 — Focus Modes</h2>
+            <p>Perplexity offers different search modes. Choosing the right one is not a minor preference — it changes <em>what gets retrieved</em>, which changes the quality of your answer fundamentally. Think of these as different retrieval channels, each pulling from a different slice of available information.</p>
+            
+            <h3>7.1 The Modes and What They Actually Do</h3>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Web (Default)</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>What it searches:</strong> The general open web</p>
+                        <p><strong>Best for:</strong> Most professional research — market data, company information, recent news, general topic orientation</p>
+                        <p><strong>When NOT to use it:</strong> When you specifically need peer-reviewed research, unfiltered user opinions, or video-based practitioner knowledge</p>
+                        <blockquote><em>Example:</em> Researching the state of India's D2C e-commerce market. Web mode is correct — you want news, analyst reports, company announcements, and industry publications.</blockquote>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Academic <span class="pro-badge">PRO (5 free searches/day on free plan)</span></h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>What it searches:</strong> Scholarly databases — PubMed, Semantic Scholar, arXiv, and similar</p>
+                        <p><strong>Best for:</strong> Research-backed claims, scientific or medical topics, evidence for technical arguments, literature reviews</p>
+                        <p><strong>When NOT to use it:</strong> Market trends, business news, anything requiring current industry data rather than published research</p>
+                        <blockquote><em>Example:</em> Writing a report on whether gamification improves employee training outcomes. Academic mode surfaces actual studies with sample sizes and measured outcomes. Web mode surfaces blog posts from HR vendors promoting their own products. The difference in source quality is significant.</blockquote>
+                        <p class="highlight">The difference in output quality for evidence-based work is dramatic. A report citing academic sources carries different professional weight than one citing a Medium article.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>YouTube</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>What it searches:</strong> YouTube video transcripts</p>
+                        <p><strong>Best for:</strong> Understanding how practitioners — not academics or journalists — think about a topic; perspectives from subject matter experts in informal settings; product demonstrations; industry conference talks</p>
+                        <p><strong>When NOT to use it:</strong> Anything requiring hard data, formal citations, or verified facts</p>
+                        <blockquote><em>Example:</em> Understanding how experienced startup founders think about fundraising from VCs. YouTube mode surfaces perspectives from actual founders and investors in podcast-style conversations that rarely get written down anywhere. This is practitioner knowledge that the formal web does not carry.</blockquote>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Reddit</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>What it searches:</strong> Reddit community discussions</p>
+                        <p><strong>Best for:</strong> Unfiltered consumer and user opinions; early signals on emerging issues; real-world failure stories that companies do not publish; honest product assessments; community sentiment</p>
+                        <p><strong>When NOT to use it:</strong> Formal reports where source credibility matters; anything requiring verified facts</p>
+                        <blockquote><em>Example:</em> Evaluating project management software for your team. Reddit gives you the actual complaints of daily users — the bugs, the workflow friction, the reasons people switched. G2 and Capterra reviews are curated and often incentivized. Reddit is not.</blockquote>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>News</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>What it searches:</strong> News publications indexed in real time</p>
+                        <p><strong>Best for:</strong> Recent developments and events from the last few weeks to months — regulatory announcements, earnings, funding rounds, leadership changes, policy decisions</p>
+                        <p><strong>When NOT to use it:</strong> Background research, conceptual understanding, or anything where recency is not the primary requirement</p>
+                        <blockquote><em>Example:</em> Monitoring a competitor. News mode shows their press releases, product launches, media coverage, and executive moves in a defined recent window. Web mode would surface older, less relevant content alongside the recent news.</blockquote>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Wolfram Alpha <span class="pro-badge">PRO</span></h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>What it searches:</strong> Computational knowledge — mathematics, science, structured statistics, and data</p>
+                        <p><strong>Best for:</strong> Numerical calculations, data comparisons across countries or time periods, unit conversions, demographic statistics, financial ratios</p>
+                        <p><strong>When NOT to use it:</strong> Qualitative research, opinions, explanations, or anything requiring contextual synthesis</p>
+                        <blockquote><em>Example:</em> Comparing exact GDP growth rates across five countries over the last decade. Wolfram returns structured, consistent data. Web mode returns articles that may reference different base years, different methodologies, or different sources — making comparison messy.</blockquote>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>7.2 Mode Selection Decision Tree</h3>
+            
+            <div class="diagram-container">
+                <svg width="600" height="400" viewBox="0 0 600 400">
+                    <rect x="200" y="20" width="200" height="50" rx="8" fill="#64ffda" opacity="0.4" stroke="#64ffda" stroke-width="2"/>
+                    <text x="300" y="50" fill="#64ffda" font-size="12" text-anchor="middle">Start: Your Question</text>
+                    
+                    <path d="M300 70 L300 100" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <rect x="150" y="100" width="300" height="40" rx="8" fill="#48cae4" opacity="0.4" stroke="#48cae4" stroke-width="2"/>
+                    <text x="300" y="125" fill="#48cae4" font-size="11" text-anchor="middle">Specific fact, number, or calculation?</text>
+                    
+                    <path d="M150 120 L100 120 L100 160" stroke="#90e0ef" stroke-width="2" marker-end="url(#arrow4)"/>
+                    <path d="M450 120 L500 120 L500 160" stroke="#00b4d8" stroke-width="2" marker-end="url(#arrow5)"/>
+                    
+                    <rect x="40" y="160" width="120" height="40" rx="8" fill="#90e0ef" opacity="0.4" stroke="#90e0ef" stroke-width="2"/>
+                    <text x="100" y="185" fill="#90e0ef" font-size="11" text-anchor="middle">Yes → Wolfram</text>
+                    
+                    <rect x="440" y="160" width="120" height="40" rx="8" fill="#00b4d8" opacity="0.4" stroke="#00b4d8" stroke-width="2"/>
+                    <text x="500" y="185" fill="#00b4d8" font-size="11" text-anchor="middle">No → Continue</text>
+                    
+                    <path d="M500 200 L500 230" stroke="#00b4d8" stroke-width="2" marker-end="url(#arrow5)"/>
+                    
+                    <rect x="350" y="230" width="300" height="40" rx="8" fill="#caf0f8" opacity="0.4" stroke="#caf0f8" stroke-width="2"/>
+                    <text x="500" y="255" fill="#caf0f8" font-size="11" text-anchor="middle">Peer-reviewed evidence needed?</text>
+                    
+                    <path d="M350 250 L300 250 L300 290" stroke="#0077b6" stroke-width="2" marker-end="url(#arrow6)"/>
+                    <path d="M650 250 L700 250 L700 290" stroke="#023e8a" stroke-width="2" marker-end="url(#arrow7)"/>
+                    
+                    <rect x="240" y="290" width="120" height="40" rx="8" fill="#0077b6" opacity="0.4" stroke="#0077b6" stroke-width="2"/>
+                    <text x="300" y="315" fill="#0077b6" font-size="11" text-anchor="middle">Yes → Academic</text>
+                    
+                    <rect x="640" y="290" width="120" height="40" rx="8" fill="#023e8a" opacity="0.4" stroke="#023e8a" stroke-width="2"/>
+                    <text x="700" y="315" fill="#023e8a" font-size="11" text-anchor="middle">No → Continue</text>
+                    
+                    <text x="700" y="350" fill="#888" font-size="10" text-anchor="middle">(Continue to News/Reddit/YouTube/Web)</text>
+                    
+                    <defs>
+                        <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#90e0ef"/>
+                        </marker>
+                        <marker id="arrow5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#00b4d8"/>
+                        </marker>
+                        <marker id="arrow6" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#0077b6"/>
+                        </marker>
+                        <marker id="arrow7" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#023e8a"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <h3>7.3 The Related Questions Feature</h3>
+            <p>At the bottom of every Perplexity response, there is a section of auto-generated follow-up questions. Most people ignore these. This is a mistake.</p>
+            
+            <p>These suggestions are Perplexity's own assessment of where the research logically goes next — they are generated based on what the model knows is commonly associated with the topic, what the cited sources discussed, and what gaps remain in the answer it just provided.</p>
+            
+            <p><strong>How to use them intelligently:</strong></p>
+            <ul>
+                <li>Treat them as a map of adjacent territory — some will be exactly where you need to go, some will be tangential</li>
+                <li>Before clicking any of them, check whether they align with a claim from your Phase 0 list</li>
+                <li>Use them to verify that you have not missed an obvious angle — if Perplexity is suggesting it, it probably matters</li>
+            </ul>
+            
+            <p>They are not a replacement for your own follow-up strategy (covered in the next section), but they are a useful cross-check that takes zero effort to look at.</p>
+        </section>
+
+        <section id="section8">
+            <h2>8. Phase 3 — The Follow-Up Strategy</h2>
+            <p>This is the feature most people use least, and it is arguably the most powerful part of Perplexity.</p>
+            
+            <p>When you start a thread in Perplexity, every follow-up query carries the full context of everything that came before it. Perplexity knows what you asked, what it answered, and what direction the research is heading. You do not re-explain. You build.</p>
+            
+            <p>Most people use follow-ups reactively — they see something interesting and type "tell me more." That is not a strategy; it produces more of the same surface-level content. A real follow-up strategy has structure.</p>
+            
+            <h3>8.1 The Four Types of Follow-Ups</h3>
+            
+            <div class="flip-card-container">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Type 1: Drill-Down</h4>
+                            <p class="info">Go deeper on one element</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Purpose</h4>
+                            <p>Go deeper on one specific element of the previous answer without losing context.</p>
+                            <blockquote><em>Initial: "Give me an overview of how large Indian companies are approaching ESG compliance in 2024"</em></blockquote>
+                            <blockquote><em>Follow-up: "Focus specifically on supply chain ESG disclosure requirements — which companies are furthest ahead, and what reporting frameworks are they actually using"</em></blockquote>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Type 2: Angle Shift</h4>
+                            <p class="info">Different perspective</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Purpose</h4>
+                            <p>Examine the same information from a different perspective.</p>
+                            <blockquote><em>After researching EV market growth data:</em></blockquote>
+                            <blockquote><em>Follow-up: "Now give me the view from traditional auto manufacturers — how are companies like Maruti and Tata positioning their ICE lineup given this EV growth trajectory, and have any announced a strategic pivot"</em></blockquote>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Type 3: Gap Fill</h4>
+                            <p class="info">Audit your coverage</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Purpose</h4>
+                            <p>Audit your own research coverage before you move to synthesis.</p>
+                            <blockquote><em>After your primary research is done, ask explicitly:</em></blockquote>
+                            <blockquote><em>"Based on what we have covered in this thread, what important dimensions of this topic have we not addressed — what would a thorough analyst want to know that we have not yet researched"</em></blockquote>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Type 4: Iterative Refinement</h4>
+                            <p class="info">Shape the output</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Purpose</h4>
+                            <p>When Perplexity's answer is directionally right but not quite in the shape you need, refine in the thread rather than starting over.</p>
+                            <blockquote><em>"That answer is useful but too general — I need it more specific to mid-size manufacturing companies in India. Can you redo the key points with that constraint applied"</em></blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>8.2 Thread Management</h3>
+            <p><strong>One thread per distinct research topic.</strong> Do not mix research on different subjects in the same thread — the context bleeds and degrades retrieval quality for both topics.</p>
+            
+            <p><strong>Know when to start a new thread.</strong> If you shift from researching the <em>problem</em> to researching a specific <em>solution</em>, start a new thread. If you shift from market analysis to competitive analysis, start a new thread. Clean context produces cleaner retrieval.</p>
+            
+            <p><strong>Name your threads <span class="pro-badge">PRO</span>.</strong> A thread called "EV Charging Infrastructure India 2025 — Market Entry Analysis" is something you can return to. An unnamed thread from three days ago is effectively lost.</p>
+            
+            <p><strong>For free users:</strong> Export key outputs as you go. Paste the findings you want to keep into your working document before ending your session. Assume the thread will not be accessible later.</p>
+        </section>
+
+        <section id="section9">
+            <h2>9. Phase 4 — Source Interrogation</h2>
+            <p>This is where most research falls apart. People trust the Perplexity answer without examining what it is built on.</p>
+            
+            <p>Perplexity shows numbered citations at the end of its response. Those numbers are your responsibility to examine, not Perplexity's guarantee of accuracy.</p>
+            
+            <h3>9.1 The Source Verification Framework</h3>
+            <p>For any claim that will appear in a report or presentation, apply three verification checks against the cited source:</p>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Check 1 — Does the source actually say what Perplexity says it says?</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>LLMs occasionally hallucinate or subtly misrepresent source content — paraphrasing inaccurately, overstating a finding, or conflating two different claims. Read the original sentence in its context, not just the citation number.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Check 2 — Is this source credible for this type of claim?</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>A blog post that cites a study is not the same as the study itself. A news article covering an analyst report is not the same as the analyst report. Whenever possible, trace back to the original source. If you cannot, note the intermediary in your sourcing.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h4>Check 3 — Is the source current enough?</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>A 2019 report on a fast-moving topic may be worse than no data at all — it can mislead. Check the publication date before citing. For regulatory, market, or technology topics, anything older than 18–24 months requires explicit acknowledgment of its age.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p><strong>A practical triage rule:</strong> You do not have to verify everything. Prioritize verification for claims that are (a) a specific number, percentage, or statistic, (b) counterintuitive or surprising, or (c) the central pillar of your argument. Supporting context can be trusted more readily. Your core claims cannot.</p>
+            
+            <h3>9.2 The Technique Nobody Uses — Ask Perplexity to Evaluate Its Own Sources</h3>
+            <p>After receiving a response, ask:</p>
+            <blockquote><em>"Of the sources cited in that response, which are the most authoritative for this type of claim, and which should I treat with more caution — and why"</em></blockquote>
+            
+            <p>Perplexity will assess its own citations. It is not perfect, but it surfaces obvious quality discrepancies quickly and points you toward where to spend your verification effort. When you are pressed for time and cannot review eight citations manually, this gives you a reasonable first filter.</p>
+            
+            <h3>9.3 Source Hierarchy for Professional Reports</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Source Type</th>
+                        <th>When to cite</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tier 1</strong></td>
+                        <td>Government reports, RBI/SEBI filings, WHO/UN data, peer-reviewed journals</td>
+                        <td>Always safe; cite directly</td>
+                        <td>Verify the data point is current</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tier 2</strong></td>
+                        <td>Reports from McKinsey, Deloitte, Goldman Sachs, NASSCOM, KPMG</td>
+                        <td>Strong for business contexts</td>
+                        <td>Check publication date and sample methodology</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tier 3</strong></td>
+                        <td>Established news (Economic Times, Bloomberg, Reuters, Mint)</td>
+                        <td>Good for events and announcements</td>
+                        <td>Distinguish news from opinion/editorial</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tier 4</strong></td>
+                        <td>Industry publications, trade magazines</td>
+                        <td>Acceptable with appropriate context</td>
+                        <td>Note the inherent industry bias</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tier 5</strong></td>
+                        <td>Company blogs, press releases</td>
+                        <td>Only as primary attribution — "Company X announced..."</td>
+                        <td>Never as independent validation of a claim</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Avoid</strong></td>
+                        <td>Anonymous aggregators, undated content, AI-generated article farms</td>
+                        <td>Do not cite</td>
+                        <td>Do not use even as background</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="section10">
+            <h2>10. Phase 5 — Handling Conflicting Information</h2>
+            <p>This phase does not appear in most research guides, which is exactly why research quality is often lower than it should be. Conflicting information is not an exception in research — it is a regular occurrence. Knowing how to handle it is what separates a sophisticated researcher from someone who just picks the number they like.</p>
+            
+            <h3>10.1 Why Perplexity Returns Conflicting Information</h3>
+            <p>Different queries — even on the same topic — can surface contradicting data points, opposite conclusions, or incompatible statistics. This happens for several reasons:</p>
+            <ul>
+                <li><strong>Different sources use different methodologies</strong> — market size estimates vary because firms define the market differently, use different survey populations, or count differently</li>
+                <li><strong>Data is from different time periods</strong> — one source cites 2022 data, another 2024 data; the topic changed</li>
+                <li><strong>One source is lower quality</strong> — an aggregator blog reprinted a number incorrectly; a news article misquoted a report</li>
+                <li><strong>Genuine expert disagreement</strong> — sometimes the evidence genuinely does not point in one direction, and acknowledging that is the intellectually honest thing to do</li>
+            </ul>
+            
+            <h3>10.2 The Triangulation Process</h3>
+            <p>When you encounter conflicting information, do not pick arbitrarily and proceed. Work through this sequence:</p>
+            
+            <div class="diagram-container">
+                <svg width="700" height="300" viewBox="0 0 700 300">
+                    <rect x="50" y="50" width="150" height="50" rx="8" fill="#64ffda" opacity="0.4" stroke="#64ffda" stroke-width="2"/>
+                    <text x="125" y="80" fill="#64ffda" font-size="11" text-anchor="middle">Step 1: Find</text>
+                    <text x="125" y="95" fill="#64ffda" font-size="9" text-anchor="middle">original source</text>
+                    
+                    <path d="M200 75 L240 75" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <rect x="240" y="50" width="150" height="50" rx="8" fill="#48cae4" opacity="0.4" stroke="#48cae4" stroke-width="2"/>
+                    <text x="315" y="80" fill="#48cae4" font-size="11" text-anchor="middle">Step 2: Check</text>
+                    <text x="315" y="95" fill="#48cae4" font-size="9" text-anchor="middle">same thing?</text>
+                    
+                    <path d="M390 75 L430 75" stroke="#48cae4" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="430" y="50" width="150" height="50" rx="8" fill="#90e0ef" opacity="0.4" stroke="#90e0ef" stroke-width="2"/>
+                    <text x="505" y="80" fill="#90e0ef" font-size="11" text-anchor="middle">Step 3: Apply</text>
+                    <text x="505" y="95" fill="#90e0ef" font-size="9" text-anchor="middle">source hierarchy</text>
+                    
+                    <path d="M580 75 L620 75" stroke="#90e0ef" stroke-width="2" marker-end="url(#arrow4)"/>
+                    
+                    <rect x="620" y="50" width="80" height="50" rx="8" fill="#00b4d8" opacity="0.4" stroke="#00b4d8" stroke-width="2"/>
+                    <text x="660" y="80" fill="#00b4d8" font-size="11" text-anchor="middle">Step 4:</text>
+                    <text x="660" y="95" fill="#00b4d8" font-size="9" text-anchor="middle">Reconcile</text>
+                    
+                    <rect x="50" y="150" width="650" height="120" rx="8" fill="rgba(78, 204, 163, 0.1)" stroke="#64ffda" stroke-width="1"/>
+                    <text x="375" y="180" fill="#64ffda" font-size="12" text-anchor="middle">Step 1: Find the original source for each conflicting claim</text>
+                    <text x="375" y="200" fill="#48cae4" font-size="12" text-anchor="middle">Step 2: Check whether sources are measuring the same thing</text>
+                    <text x="375" y="220" fill="#90e0ef" font-size="12" text-anchor="middle">Step 3: Apply source hierarchy (higher tier wins)</text>
+                    <text x="375" y="240" fill="#00b4d8" font-size="12" text-anchor="middle">Step 4: Use Perplexity to surface and reconcile the conflict explicitly</text>
+                    
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#48cae4"/>
+                        </marker>
+                        <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#90e0ef"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <p><strong>Step 1: Find the original source for each conflicting claim.</strong></p>
+            <p>Most conflicts resolve when you trace back to the primary source. Perplexity often cites an article that cites a report. Go to the report. Frequently, you will find the original source does not actually say what the derivative article claimed.</p>
+            
+            <p><strong>Step 2: Check whether the sources are actually measuring the same thing.</strong></p>
+            <p>Two market size figures can both be correct if they are measuring different things — different geographies, different segments, different base years. Check the scope of each before concluding they conflict.</p>
+            
+            <p><strong>Step 3: Apply the source hierarchy.</strong></p>
+            <p>If two sources genuinely conflict on the same claim, the higher-tier source (from Section 9.3) wins by default. A NASSCOM report takes precedence over an industry blog. A peer-reviewed study takes precedence over a news article's interpretation of it.</p>
+            
+            <p><strong>Step 4: Use Perplexity to surface and reconcile the conflict explicitly.</strong></p>
+            <p>Ask Perplexity directly:</p>
+            <blockquote><em>"I have seen two different figures cited for [claim] — [Source A] says X and [Source B] says Y. Why might these differ, and which is more likely to be the reliable figure for a professional report"</em></blockquote>
+            
+            <p>This is a genuinely useful use of the LLM layer — using it not just to retrieve, but to reason about the quality of conflicting sources.</p>
+            
+            <h3>10.3 How to Handle Unresolved Conflicts in Your Deliverable</h3>
+            <p>Sometimes you cannot fully resolve a conflict in the time available. You have two options:</p>
+            
+            <p><strong>Option A — Pick the stronger source and note it explicitly.</strong></p>
+            <blockquote><em>"According to [NASSCOM/RBI/etc.], the market size is X. (Note: other estimates range from Y to Z depending on scope definition.)"</em></blockquote>
+            
+            <p>This is transparent, defensible, and actually increases credibility — it shows you know the data landscape rather than cherry-picking.</p>
+            
+            <p><strong>Option B — Surface the disagreement as an insight.</strong></p>
+            <blockquote><em>"Market sizing estimates for this sector vary significantly — from X to Y — depending on whether informal economy players are included. For strategy purposes, the conservative estimate of X is the appropriate planning baseline."</em></blockquote>
+            
+            <p>Turning a conflict into an analytical observation is a mark of genuine research quality. It demonstrates judgment, not just retrieval.</p>
+            
+            <p><strong>What you should never do:</strong> Pick one number because it supports your argument and present it as settled fact. If the data is genuinely contested, and you present it as certain, and someone in the room knows the actual picture — you lose credibility on everything else in your report.</p>
+        </section>
+        <section id="section11">
+            <h2>11. Phase 6 — Synthesis: From Research to Output</h2>
+            <p>Research is not your deliverable. The report, the presentation, the brief — that is your deliverable. Synthesis is where you do the actual intellectual work. Perplexity collects the evidence. You build the argument.</p>
+            
+            <h3>11.1 The Synthesis Workflow</h3>
+            
+            <div class="diagram-container">
+                <svg width="700" height="250" viewBox="0 0 700 250">
+                    <rect x="50" y="50" width="120" height="50" rx="8" fill="#64ffda" opacity="0.4" stroke="#64ffda" stroke-width="2"/>
+                    <text x="110" y="80" fill="#64ffda" font-size="11" text-anchor="middle">Step 1: Dump</text>
+                    
+                    <path d="M170 75 L210 75" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <rect x="210" y="50" width="120" height="50" rx="8" fill="#48cae4" opacity="0.4" stroke="#48cae4" stroke-width="2"/>
+                    <text x="270" y="80" fill="#48cae4" font-size="11" text-anchor="middle">Step 2: Return</text>
+                    <text x="270" y="95" fill="#48cae4" font-size="9" text-anchor="middle">to Phase 0</text>
+                    
+                    <path d="M330 75 L370 75" stroke="#48cae4" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="370" y="50" width="120" height="50" rx="8" fill="#90e0ef" opacity="0.4" stroke="#90e0ef" stroke-width="2"/>
+                    <text x="430" y="80" fill="#90e0ef" font-size="11" text-anchor="middle">Step 3: Find</text>
+                    <text x="430" y="95" fill="#90e0ef" font-size="9" text-anchor="middle">Narrative</text>
+                    
+                    <path d="M490 75 L530 75" stroke="#90e0ef" stroke-width="2" marker-end="url(#arrow4)"/>
+                    
+                    <rect x="530" y="50" width="120" height="50" rx="8" fill="#00b4d8" opacity="0.4" stroke="#00b4d8" stroke-width="2"/>
+                    <text x="590" y="80" fill="#00b4d8" font-size="11" text-anchor="middle">Step 4: Use</text>
+                    <text x="590" y="95" fill="#00b4d8" font-size="9" text-anchor="middle">Perplexity</text>
+                    
+                    <rect x="50" y="130" width="600" height="100" rx="8" fill="rgba(78, 204, 163, 0.1)" stroke="#64ffda" stroke-width="1"/>
+                    <text x="350" y="160" fill="#64ffda" font-size="12" text-anchor="middle">Step 1: Dump everything you found — unorganized, no pressure</text>
+                    <text x="350" y="180" fill="#48cae4" font-size="12" text-anchor="middle">Step 2: Return to Phase 0 — what evidence do I have for each claim?</text>
+                    <text x="350" y="200" fill="#90e0ef" font-size="12" text-anchor="middle">Step 3: Find the narrative — what does all of this mean?</text>
+                    <text x="350" y="220" fill="#00b4d8" font-size="12" text-anchor="middle">Step 4: Use Perplexity for synthesis assistance</text>
+                    
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#48cae4"/>
+                        </marker>
+                        <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#90e0ef"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <p><strong>Step 1: Dump before you structure.</strong></p>
+            <p>After your Perplexity session, write a rough dump of everything you found — unorganized, no pressure to make it good. Key facts, data points, interesting tensions, surprises, things you did not expect. This gets everything out of fragmented tabs and into one place. Do not skip this step. Dumping externalizes the information so your synthesis is not happening inside a browser tab.</p>
+            
+            <p><strong>Step 2: Return to Phase 0.</strong></p>
+            <p>Look at the claims you identified before you started. For each claim, answer: what evidence do I now have to support, challenge, or complicate it? If a claim has no evidence, either find it or drop the claim from your deliverable. If evidence contradicts the claim, decide whether to revise the claim or address the contradiction directly.</p>
+            
+            <p><strong>Step 3: Find the narrative.</strong></p>
+            <p>Every good report has a through-line — the single thing a reader walks away understanding. It is not "here is everything I found." It is "here is what all of this means."</p>
+            
+            <blockquote><em>Bad narrative: "ONDC is growing. Here are the numbers."</em></blockquote>
+            
+            <blockquote><em>Good narrative: "ONDC is growing fastest in the categories that traditional e-commerce ignored — hyperlocal and B2B2C — which suggests its strategic role is *complementary to*, not competitive with, Amazon and Flipkart. That reframing changes how we should think about whether and how to participate."</em></blockquote>
+            
+            <p>The narrative comes from you, not from Perplexity. Perplexity provides the evidence. Your judgment provides the interpretation.</p>
+            
+            <p><strong>Step 4: Use Perplexity for synthesis assistance.</strong></p>
+            <p>Once you have a draft structure, you can use Perplexity to help shape the output:</p>
+            
+            <blockquote><em>"I am writing a business brief arguing that [X]. I have the following evidence points: [paste them]. What is the strongest logical structure for this argument, and what counter-argument should I address to make it credible"</em></blockquote>
+            
+            <blockquote><em>"Summarize the following research findings in three sentences for a non-technical executive audience: [paste findings]"</em></blockquote>
+            
+            <blockquote><em>"I have data showing A, B, and C. What is the most intellectually honest conclusion I can draw — and where should I note uncertainty"</em></blockquote>
+            
+            <h3>11.2 The Intellectual Honesty Principle</h3>
+            <p>This is the thing that actually differentiates excellent research from adequate research.</p>
+            
+            <p>For any finding, you have three options:</p>
+            <ol>
+                <li><strong>Confirm:</strong> The evidence strongly supports the claim. State it directly and cite the source.</li>
+                <li><strong>Qualify:</strong> The evidence partially supports the claim, or is limited in scope. State the claim and the limitation together.</li>
+                <li><strong>Contradict:</strong> The evidence does not support the claim, or actively contradicts it. Acknowledge this — either revise the claim or address the contradiction head-on.</li>
+            </ol>
+            
+            <p>Most people only do Option 1. They find confirming evidence and present it. The people who build reputations for exceptional research do all three. They are the ones who say "the data generally supports X, but there is a notable gap in Y, which means we should approach Z with caution" — and that caveat is often the most valuable insight in the room, because everyone else has glossed over it.</p>
+            
+            <h3>11.3 Perplexity Pages — Turning Research into a Shareable Document <span class="pro-badge">PRO</span></h3>
+            <p>Pages is the most underused Pro feature for people who build reports and presentations.</p>
+            
+            <p>After completing a research thread, you can ask Perplexity to generate a <strong>Page</strong> — a formatted, structured, shareable article or document built directly from your research session. Perplexity organizes the information, adds headers, structures it logically, and produces something that looks like a polished piece of writing rather than a chat transcript.</p>
+            
+            <p><strong>How to use it:</strong></p>
+            
+            <p>At the end of a research thread, click the Pages option in the interface, or prompt directly:</p>
+            <blockquote><em>"Generate a Page from this research — structured as a professional brief with an executive summary, key findings, and implications sections"</em></blockquote>
+            
+            <p>You can specify:</p>
+            <ul>
+                <li>The document type (brief, article, report, explainer)</li>
+                <li>The audience (technical, executive, general business)</li>
+                <li>The sections you want included</li>
+                <li>The tone (formal, analytical, accessible)</li>
+            </ul>
+            
+            <p><strong>What Pages is useful for:</strong></p>
+            <ul>
+                <li>Quickly producing a shareable first draft from a research session</li>
+                <li>Creating a reference document to share with colleagues who were not part of the research</li>
+                <li>Generating a structured outline you then edit and refine in your own voice</li>
+                <li>Documentation of research outputs for projects that span multiple sessions</li>
+            </ul>
+            
+            <p><strong>What Pages is not a replacement for:</strong></p>
+            <ul>
+                <li>Your own writing and editorial judgment — the Page is a starting point, not a finished deliverable</li>
+                <li>Source verification — the Page inherits whatever Perplexity retrieved; the accuracy caveats from Phase 4 still apply</li>
+                <li>Strategic synthesis — a Page organizes information, it does not produce the narrative or the judgment calls that make research valuable</li>
+            </ul>
+            
+            <p>The workflow: use Perplexity for research → use Pages to generate a structured draft → edit in your own voice → verify key claims → finalize.</p>
+        </section>
+
+        <section id="section12">
+            <h2>12. Advanced Techniques</h2>
+            
+            <h3>12.1 Choosing the Right AI Model <span class="pro-badge">PRO</span></h3>
+            <p>Pro users can choose the underlying AI model Perplexity uses for synthesis. This is not a cosmetic choice — different models have meaningfully different strengths, and using the right one for the right task produces noticeably better outputs.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Strengths</th>
+                        <th>Best used for</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sonar</strong> (default)</td>
+                        <td>Fast, efficient, well-calibrated for web retrieval</td>
+                        <td>Standard factual queries, quick lookups, most general research</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sonar Large</strong></td>
+                        <td>Stronger synthesis than default Sonar</td>
+                        <td>Longer, more complex synthesis queries; structured reports</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sonar Reasoning</strong></td>
+                        <td>Multi-step reasoning, logical analysis</td>
+                        <td>Complex analytical questions; weighing trade-offs; questions that require reasoning chains, not just retrieval</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GPT-4o</strong></td>
+                        <td>Structured outputs, precise formatting, instruction-following</td>
+                        <td>Structured extraction queries; when you need clean, format-specific output like tables or bullet hierarchies</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Claude Sonnet</strong></td>
+                        <td>Nuanced synthesis, nuanced language, strong at holding complex instructions</td>
+                        <td>Long follow-up threads where context coherence matters; qualitative synthesis; writing assistance; when tone and precision of language matter</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p><strong>Practical recommendation:</strong></p>
+            <p>Start with Sonar for most queries. Switch to Sonar Reasoning when you are asking Perplexity to reason across multiple competing factors — not just retrieve and summarize. Switch to Claude Sonnet when you are asking for a synthesis that requires holding a lot of context and producing nuanced, well-structured prose. Use GPT-4o when you need precise structured output.</p>
+            
+            <h3>12.2 File Upload — The Full Workflow <span class="pro-badge">PRO</span></h3>
+            <p>The file upload feature is mentioned in the Free vs Pro comparison but deserves its own explanation because it is genuinely powerful when used correctly.</p>
+            
+            <p><strong>What you can upload:</strong> PDF, DOCX, CSV, images (including screenshots, charts, scanned documents)</p>
+            
+            <p><strong>What you can actually do with uploaded files:</strong></p>
+            <ul>
+                <li>Upload a competitor's annual report and ask: <em>"Summarize this company's stated strategic priorities and identify any risks they acknowledge in this document"</em></li>
+                <li>Upload a government policy document and ask: <em>"What does this policy require organizations in [your sector] to do, and by when"</em></li>
+                <li>Upload a research paper and ask: <em>"What is the core methodology used, what were the key findings, and what limitations did the authors acknowledge"</em></li>
+                <li>Upload raw data as a CSV and ask: <em>"What patterns or trends do you see in this data — summarize the key insights"</em></li>
+                <li>Upload your own draft report and ask: <em>"What claims in this document need stronger evidence, and what gaps do you see in the argument"</em></li>
+            </ul>
+            
+            <p><strong>The correct workflow for file-based research:</strong></p>
+            <ol>
+                <li>Upload the file first</li>
+                <li>Ask a scoped question — not "summarize this" but "what does this document say about [specific aspect]"</li>
+                <li>Use follow-up queries in the thread to drill into specific sections</li>
+                <li>Cross-reference with web searches in the same thread when you need external context for what the document says</li>
+            </ol>
+            
+            <p><strong>Important caveat:</strong> Perplexity reads the uploaded file and can quote or summarize it, but it cannot verify the claims <em>within</em> the file. If someone uploaded a fraudulent report, Perplexity would treat it as authoritative. The source evaluation of the uploaded document is still your responsibility.</p>
+            
+            <h3>12.3 The Two-Platform Research Stack</h3>
+            <p>Perplexity is exceptional at retrieval and good at synthesis. It is not the best tool for deep reasoning over complex, multi-part information. Knowing when to hand off to another tool is part of the professional workflow.</p>
+            
+            <p><strong>The stack:</strong></p>
+            <ol>
+                <li>Use <strong>Perplexity</strong> for research — retrieval, source discovery, initial synthesis</li>
+                <li>Export your findings — paste key outputs into a working document</li>
+                <li>Bring those findings into <strong>Claude</strong> (or another capable LLM) for deep reasoning, argument development, structuring, or writing</li>
+            </ol>
+            
+            <p><strong>Example:</strong> You research the competitive landscape of Indian neobanks using Perplexity across five threads. You collect the key findings into a document. You then open Claude and say: <em>"Based on these findings, draft the 'Competitive Landscape' section of a pitch deck for a new neobank targeting salaried millennials — each point as a bold insight followed by two to three supporting sentences, slide-ready."</em></p>
+            
+            <p>Each tool does what it does best. Perplexity retrieves. Claude reasons and writes. Trying to make Perplexity do heavy structural reasoning in a long thread is like using a screwdriver to hammer a nail — it can work, but it is not the right tool.</p>
+        </section>
+
+        <section id="section13">
+            <h2>13. Common Mistakes and How to Fix Them</h2>
+            
+            <div class="flip-card-container">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 1: Treating Perplexity as a Final Source</h4>
+                            <p class="warning">"Perplexity says X, so X is true."</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Perplexity is a retrieval and synthesis layer — not a verification layer. It tells you where to look. The citation is your prompt to verify, not Perplexity's guarantee of accuracy. Always ask: "If I cited this in a report and someone pushed back, could I defend the underlying source?"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 2: One Query, One Attempt</h4>
+                            <p class="warning">Type one query, get an answer, move on</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Almost no first query produces the best answer. The best answers come from the second and third iteration — after you have refined, narrowed, or reframed. Budget at least two queries per major research question, and use the Iterative Refinement follow-up technique before abandoning any thread.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 3: Ignoring the Mode</h4>
+                            <p class="warning">Using Web mode for everything</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Before you type your query, spend five seconds asking: where does the <em>best</em> version of this answer actually live — a scholarly database, Reddit, news publications, or the general web? That five seconds can fundamentally change the quality of what comes back.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 4: Research Without an Output Frame</h4>
+                            <p class="warning">Spending an hour researching with no destination</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Always define your deliverable and your specific claims before starting. If the deliverable changes mid-research, stop, reframe, and continue with the new frame in mind. Research without a frame is exploration, not research.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 5: Passive Follow-Ups</h4>
+                            <p class="warning">"Tell me more." / "Expand on that."</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Passive follow-ups produce more of the same surface-level content. Active follow-ups produce something new. Instead of "tell me more," say "focus specifically on [dimension X] of what you just described, with examples from [specific context], in [specific format]."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 6: Copying Perplexity's Language</h4>
+                            <p class="warning">Pasting Perplexity's exact phrasing</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Perplexity writes for a general audience in a general register. Your deliverable has a specific audience, a specific voice, and a specific argument. Take the information. Rewrite the language.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 7: Picking One Number When Data Conflicts</h4>
+                            <p class="warning">Choosing the number that supports your argument</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Apply the triangulation process from Phase 5. If you cannot fully resolve the conflict, acknowledge it explicitly in your deliverable — either as a footnote or as an analytical observation.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h4>Mistake 8: Ending Without the Gap Fill</h4>
+                            <p class="warning">Moving to synthesis without checking coverage</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>The Fix</h4>
+                            <p>Before every synthesis phase, run the Gap Fill follow-up: *"Based on what we have covered in this thread, what important dimensions of this topic have we not addressed — what would a thorough analyst want to know that we have not yet researched."* Budget five minutes for this.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section14">
+            <h2>14. Full Worked Example — A Research Session Start to Finish</h2>
+            <p>This section shows the entire pipeline applied to a single realistic scenario. Nothing in this example is theoretical — every query, follow-up, and decision maps to a technique described in this document.</p>
+            
+            <blockquote><strong>Scenario:</strong> Your manager walks in on a Tuesday and says: <em>"I need a brief by Friday on whether we should be exploring AI-based customer service tools — chatbots, automated ticketing, that kind of thing. Board meeting next month and they will probably ask. Keep it tight."</em></blockquote>
+            
+            <h3>Phase 0 — Defining the Output</h3>
+            <p>Before opening Perplexity:</p>
+            <ul>
+                <li><strong>Deliverable:</strong> A two-page brief for a board-level audience. Not a recommendation — a well-informed situational assessment with a clear "what this means for us" section.</li>
+                <li><strong>Claims I need:</strong> What is the state of AI customer service adoption (data); what outcomes have companies actually seen (not vendor marketing — real outcomes); what are the risks and implementation challenges; what does it cost roughly; what companies in our space are doing it.</li>
+                <li><strong>Audience pushback:</strong> "Is this just a trend or does it actually work?" and "What does implementation realistically look like for a company our size?" — I need to address both directly.</li>
+            </ul>
+            
+            <h3>Phase 1 — Query Architecture</h3>
+            <p>With Phase 0 done, the queries write themselves.</p>
+            
+            <h3>Phase 2 — Mode Selection</h3>
+            <p>Query 1 is about adoption trends and outcomes — Web mode.</p>
+            <p>Query 3 will be about real user and customer experiences — Reddit mode.</p>
+            <p>Query 4 will be about implementation challenges from practitioners — YouTube mode.</p>
+            
+            <h3>Phase 3 — Running the Thread</h3>
+            
+            <p><strong>Query 1 (Web mode, Pattern 4: Temporal Anchor + Pattern 9: Source-Anchored):</strong></p>
+            <blockquote><em>"What does the research from Gartner, McKinsey, or Forrester say about enterprise adoption of AI-powered customer service tools as of 2023–2025 — specifically quantified outcomes on resolution rates, cost per interaction, and customer satisfaction, not vendor claims"</em></blockquote>
+            
+            <p><em>Perplexity returns statistics on cost reduction, CSAT impact, and adoption rates with citations from a McKinsey report and a Gartner study. Good foundation.</em></p>
+            
+            <p><strong>Query 2 (Web mode, Pattern 3: Contrarian Query):</strong></p>
+            <blockquote><em>"What are the most commonly documented failures or disappointments in AI customer service implementations — specifically: types of companies where it has underperformed, common reasons implementations stall or get rolled back, and what customers actually say about their experience"</em></blockquote>
+            
+            <p><em>Returns three failure modes: over-automation without escalation paths, poor training data leading to wrong answers, customer frustration in complex service scenarios. Exactly the pushback the board will anticipate.</em></p>
+            
+            <p><strong>Query 3 (Reddit mode, Pattern 5: Perspective Shift):</strong></p>
+            <blockquote><em>"What do customer service professionals and CX managers say about AI chatbot implementations in their companies — real experiences, not case studies. What worked, what did not, and what would they do differently"</em></blockquote>
+            
+            <p><em>Returns candid Reddit threads from r/CustomerSuccess and r/CX. Surfaces a recurring complaint: tools work well for tier-1 FAQ-style queries but struggle with anything requiring judgment. Also reveals a common implementation regret — rushing to full deployment before adequate training data was collected.</em></p>
+            
+            <p><strong>Follow-up 1 (Drill-Down):</strong></p>
+            <blockquote><em>"From that Reddit discussion, the point about tier-1 vs. complex queries is important — what types of customer queries are AI tools reliably good at handling vs. where human agents are still clearly necessary, based on what practitioners report"</em></blockquote>
+            
+            <p><em>Returns a clear breakdown: billing FAQs, order status, password resets, appointment scheduling — AI handles well. Complaints, escalations, nuanced account issues, emotionally charged interactions — human agents still win.</em></p>
+            
+            <p><strong>Query 4 (YouTube mode, Pattern 6: Evidence Hunt — practitioner perspective):</strong></p>
+            <blockquote><em>"What do CX consultants or enterprise technology practitioners say in conference talks or interviews about what companies should do before implementing AI customer service — the preparation, the data requirements, the organizational changes needed"</em></blockquote>
+            
+            <p><em>Returns perspectives from Salesforce and Zendesk conference talks, plus a relevant CX podcast. Surfaces: data readiness is the most underestimated factor; companies that succeed spend 3–6 months preparing knowledge bases before going live.</em></p>
+            
+            <p><strong>Follow-up 2 (Gap Fill):</strong></p>
+            <blockquote><em>"Based on what we have covered in this thread — adoption data, failure modes, practitioner feedback, and implementation requirements — what important dimensions of this topic have we not addressed that a thorough brief should include"</em></blockquote>
+            
+            <p><em>Perplexity surfaces two gaps: cost benchmarks by company size (we only have enterprise numbers) and regulatory/privacy considerations for customer data used to train these models. Both legitimate gaps.</em></p>
+            
+            <p><strong>Query 5 (Web mode, Pattern 4: Temporal Anchor, addressing the gap):</strong></p>
+            <blockquote><em>"What are realistic cost benchmarks for AI customer service tool implementation and ongoing operation for mid-size companies (under 500 employees), not enterprise Fortune 500 — including platform costs, integration, and maintenance, as of 2023–2025"</em></blockquote>
+            
+            <p><em>Returns ranges. Less precise than enterprise data but sufficient for a board brief.</em></p>
+            
+            <p><strong>Query 6 (Web mode — addressing the second gap):</strong></p>
+            <blockquote><em>"What are the data privacy and regulatory considerations when using customer interaction data to train AI customer service models — specifically GDPR, India's DPDP Act, or relevant frameworks, and how have companies navigated this"</em></blockquote>
+            
+            <p><em>Returns the key regulatory context. This is now a section in the brief.</em></p>
+            
+            <h3>Phase 4 — Source Interrogation</h3>
+            <p>Before writing, verify the two most important claims:</p>
+            <ul>
+                <li>The McKinsey statistic on cost reduction — click the citation, find the source, confirm the figure is correctly represented and check the date (2023 — acceptable)</li>
+                <li>The Gartner adoption rate — trace it, find the original Gartner report is paywalled but the methodology is described in a reputable tech publication that excerpted it — acceptable with that noted</li>
+            </ul>
+            
+            <p>The Reddit and YouTube content is not for hard citation — it informs the "implementation reality" section without being formally cited.</p>
+            
+            <h3>Phase 5 — Conflicting Information</h3>
+            <p>The cost benchmarks from Query 5 conflict with each other — one source says implementation costs start at $15,000, another says $50,000+. Apply the triangulation process: the $15,000 figure is from a SaaS vendor's own marketing page (Tier 5 source). The $50,000+ figure comes from an independent CX consultancy's published analysis (Tier 2 source). Higher tier wins. Note the lower bound in the brief as the vendor's claimed minimum, not the realistic starting point.</p>
+            
+            <h3>Phase 6 — Synthesis</h3>
+            <p>With research done, the brief writes itself:</p>
+            <ul>
+                <li><strong>Executive Summary:</strong> AI customer service tools are delivering measurable results in enterprise settings, but implementation success depends heavily on preparation, data readiness, and scope discipline. Mid-size companies have a narrower cost-benefit window.</li>
+                <li><strong>What the data shows:</strong> [The quantified outcomes with proper attribution]</li>
+                <li><strong>Where it works, where it does not:</strong> [The tier-1 vs. complex query breakdown]</li>
+                <li><strong>What implementation actually requires:</strong> [The 3–6 month preparation finding — the thing that surprises most boards]</li>
+                <li><strong>Risks to address:</strong> [Failure modes from the contrarian query, privacy/regulatory note]</li>
+                <li><strong>What this means for us:</strong> [Your judgment, informed by all of the above]</li>
+            </ul>
+            
+            <p><strong>Total Perplexity time:</strong> Approximately 45 minutes across 6 queries and 2 structured follow-ups. A brief the board can actually engage with.</p>
+        </section>
+
+        <section id="section15">
+            <h2>15. Quick Reference Card</h2>
+            
+            <h3>The Six Phases:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>What You Do</th>
+                        <th>Key Question to Ask</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0 — Output First</td>
+                        <td>Define deliverable and specific claims</td>
+                        <td>What exactly am I building, and for whom?</td>
+                    </tr>
+                    <tr>
+                        <td>1 — Query Build</td>
+                        <td>Construct queries with context + question + constraint + format</td>
+                        <td>Am I actually asking for what I need?</td>
+                    </tr>
+                    <tr>
+                        <td>2 — Mode Select</td>
+                        <td>Choose the right retrieval channel</td>
+                        <td>Where does the best version of this answer actually live?</td>
+                    </tr>
+                    <tr>
+                        <td>3 — Thread</td>
+                        <td>Use follow-ups strategically, not reactively</td>
+                        <td>What angle, gap, or refinement have I not addressed?</td>
+                    </tr>
+                    <tr>
+                        <td>4 — Verify</td>
+                        <td>Check cited sources against the verification framework</td>
+                        <td>Can I defend this if someone pushes back?</td>
+                    </tr>
+                    <tr>
+                        <td>5 — Reconcile</td>
+                        <td>Handle conflicting data through triangulation</td>
+                        <td>Do I know why these sources disagree, and which wins?</td>
+                    </tr>
+                    <tr>
+                        <td>6 — Synthesize</td>
+                        <td>Build the deliverable; find the narrative</td>
+                        <td>What does all of this actually mean?</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Mode Quick Reference:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Best for</th>
+                        <th>Flag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Web</td>
+                        <td>Most professional research, market info, company data</td>
+                        <td>Default</td>
+                    </tr>
+                    <tr>
+                        <td>Academic</td>
+                        <td>Evidence-backed claims, scientific/medical topics</td>
+                        <td>PRO (5/day free)</td>
+                    </tr>
+                    <tr>
+                        <td>YouTube</td>
+                        <td>Practitioner perspectives, expert informal knowledge</td>
+                        <td>Standard</td>
+                    </tr>
+                    <tr>
+                        <td>Reddit</td>
+                        <td>Unfiltered user opinions, real-world failure stories</td>
+                        <td>Standard</td>
+                    </tr>
+                    <tr>
+                        <td>News</td>
+                        <td>Recent events and announcements (last 1–3 months)</td>
+                        <td>Standard</td>
+                    </tr>
+                    <tr>
+                        <td>Wolfram</td>
+                        <td>Numbers, calculations, structured data comparisons</td>
+                        <td>PRO</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Nine Query Patterns:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>Use when</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Specificity Ladder</td>
+                        <td>You are unfamiliar with the topic — orient then narrow</td>
+                    </tr>
+                    <tr>
+                        <td>Comparison Frame</td>
+                        <td>You need to evaluate options — specify the dimensions</td>
+                    </tr>
+                    <tr>
+                        <td>Contrarian Query</td>
+                        <td>You need to stress-test your argument</td>
+                    </tr>
+                    <tr>
+                        <td>Temporal Anchor</td>
+                        <td>The topic changes over time — lock to a date range</td>
+                    </tr>
+                    <tr>
+                        <td>Perspective Shift</td>
+                        <td>You need a specific stakeholder's point of view</td>
+                    </tr>
+                    <tr>
+                        <td>Evidence Hunt</td>
+                        <td>You have a claim and need data to back it — specify source type</td>
+                    </tr>
+                    <tr>
+                        <td>Gap Query</td>
+                        <td>You want to find what is not known or actively contested</td>
+                    </tr>
+                    <tr>
+                        <td>Structured Extraction</td>
+                        <td>You need output in a specific format for a document or slide</td>
+                    </tr>
+                    <tr>
+                        <td>Source-Anchored</td>
+                        <td>You need information from a specific tier of credible sources</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Four Follow-Up Types:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Drill-Down</td>
+                        <td>Go deeper on one specific element</td>
+                    </tr>
+                    <tr>
+                        <td>Angle Shift</td>
+                        <td>Same topic, different stakeholder perspective</td>
+                    </tr>
+                    <tr>
+                        <td>Gap Fill</td>
+                        <td>Audit research coverage before moving to synthesis</td>
+                    </tr>
+                    <tr>
+                        <td>Iterative Refinement</td>
+                        <td>Shape the output format through progressive narrowing</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Source Tiers (Fast Version):</h3>
+            <ul>
+                <li><strong>Tier 1:</strong> Government, academic journals → always cite</li>
+                <li><strong>Tier 2:</strong> McKinsey, RBI, NASSCOM, WHO → strong for business contexts</li>
+                <li><strong>Tier 3:</strong> Bloomberg, Economic Times, Reuters → good for events</li>
+                <li><strong>Tier 4:</strong> Trade publications → acceptable with noted bias</li>
+                <li><strong>Tier 5:</strong> Company blogs, press releases → primary attribution only</li>
+                <li><strong>Avoid:</strong> Undated, anonymous, AI-generated content</li>
+            </ul>
+        </section>
+
+        <section id="section16">
+            <h2>16. Putting It All Together</h2>
+            <p>You now have a complete system. The difference between someone who reads this document and someone who internalizes it is the difference between getting good answers from Perplexity and building a research capability that compounds over time.</p>
+            
+            <p>The system works because it is not a collection of tips. It is a pipeline with clear phases, each with a specific purpose. When you follow it, you stop being a passive recipient of whatever the algorithm returns and become the architect of your own research output.</p>
+            
+            <p>The mental model shift from "I have a question → I get an answer" to "I have a deliverable → I design the research to build it" is the single most important thing you can take from this document. Everything else — the query patterns, the mode selection, the follow-up strategy, the source verification — is the machinery that makes that shift operational.</p>
+            
+            <p>Use this document as a reference. Return to specific sections when you encounter a new type of research challenge. But most importantly, apply the system consistently. The quality of your research will compound faster than you expect.</p>
+            
+            <blockquote><em>The best researchers are not the ones who know the most. They are the ones who know how to find out what they need, verify what they find, and synthesize it into something others can use. This document is your system for doing exactly that.</em></blockquote>
+        </section>
+
+    </main>
+
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <script>
+        // Navigation functionality
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section');
+        const menuToggle = document.getElementById('menuToggle');
+        const navSidebar = document.getElementById('navSidebar');
+        const backToTop = document.getElementById('backToTop');
+
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', () => {
+            navSidebar.classList.toggle('open');
+        });
+
+        // Smooth scroll and active link highlighting
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Close mobile menu after click
+                navSidebar.classList.remove('open');
+            });
+        });
+
+        // Intersection Observer for scroll animations and active link highlighting
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '-100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Update active nav link
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Accordion functionality
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            header.addEventListener('click', () => {
+                // Close other items in the same accordion
+                const parentAccordion = item.parentElement;
+                const siblings = parentAccordion.querySelectorAll('.accordion-item');
+                siblings.forEach(sibling => {
+                    if (sibling !== item) {
+                        sibling.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Back to top button
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

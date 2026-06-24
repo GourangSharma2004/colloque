@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Why Self-Harm? — Documented</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    --bg: #050505;
+    --surface: #0f0f0f;
+    --surface-hover: #161616;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-bright: rgba(255, 255, 255, 0.15);
+    --accent: #e5c07b;
+    --accent-dim: rgba(229, 192, 123, 0.1);
+    --accent2: #61afef;
+    --accent3: #c678dd;
+    --text: #a9a9a9;
+    --text-bright: #e0e0e0;
+    --text-muted: #666;
+    --heading: #ffffff;
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Instrument Serif', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* ── DECORATIVE NEURAL MESH ── */
+  .neural-bg {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    overflow: hidden;
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .neural-bg svg {
+    position: absolute;
+    transform: scale(1.5);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ORNAMENT ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(229, 192, 123, 0.03) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(97, 175, 239, 0.03) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 60px;
+    padding: 0 40px;
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+      grid-template-columns: 1fr;
+      padding: 0 24px;
+    }
+    aside { display: none; }
+  }
+
+  /* ── SIDEBAR ── */
+  aside {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 80px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .nav-menu {
+    list-style: none;
+  }
+
+  .nav-item {
+    margin-bottom: 8px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 0;
+    transition: var(--transition);
+    border-right: 2px solid transparent;
+  }
+
+  .nav-link:hover {
+    color: var(--text-bright);
+  }
+
+  .nav-link.active {
+    color: var(--accent);
+    border-right-color: var(--accent);
+  }
+
+  .nav-link i {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    padding: 80px 0;
+    max-width: 760px;
+  }
+
+  /* ── HEADER REDESIGN ── */
+  header {
+    margin-bottom: 100px;
+    position: relative;
+    padding-top: 40px;
+  }
+  
+  header::after {
+    content: '';
+    position: absolute;
+    top: -50px; left: -50px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(229, 192, 123, 0.08) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: -1;
+  }
+
+  .tag-line {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .tag-line .badge {
+    background: var(--accent-dim);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(4rem, 12vw, 6.5rem);
+    font-weight: 400;
+    color: var(--heading);
+    line-height: 0.85;
+    margin-bottom: 40px;
+    letter-spacing: -0.04em;
+    position: relative;
+  }
+  
+  h1 span {
+    display: block;
+    color: var(--accent);
+    opacity: 0.9;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    color: var(--text-bright);
+    font-weight: 300;
+    line-height: 1.4;
+    max-width: 640px;
+    opacity: 0.9;
+    border-left: 1px solid var(--accent);
+    padding-left: 24px;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .sec-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 400;
+    color: var(--heading);
+    margin-bottom: 32px;
+    line-height: 1.1;
+  }
+
+  p { 
+    margin-bottom: 24px; 
+    font-size: 16px;
+    color: var(--text);
+  }
+
+  /* ── COMPARISON CARDS ── */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 40px 0;
+  }
+  @media(max-width:600px){ .comparison { grid-template-columns: 1fr; } }
+
+  .comp-card {
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .comp-card.negative { background: rgba(239, 97, 97, 0.03); border-color: rgba(239, 97, 97, 0.1); }
+  .comp-card.positive { background: rgba(97, 239, 175, 0.03); border-color: rgba(97, 239, 175, 0.1); }
+  
+  .comp-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+    opacity: 0.6;
+  }
+  .comp-card.negative .comp-label { color: #ef6161; }
+  .comp-card.positive .comp-label { color: #61efaf; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 40px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 4px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -32px; top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    z-index: 1;
+  }
+  .timeline-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .timeline-content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    padding: 40px;
+    margin: 40px 0;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .callout::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-family: var(--font-serif);
+    font-size: 120px;
+    color: var(--accent);
+    opacity: 0.05;
+    line-height: 1;
+  }
+
+  .callout-text {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    color: var(--text-bright);
+    font-style: italic;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── ARGUMENT LIST ── */
+  .arg-list { list-style: none; counter-reset: arg; }
+  .arg-list li {
+    counter-increment: arg;
+    display: flex;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    transition: var(--transition);
+  }
+  .arg-list li:hover {
+    background: rgba(255, 255, 255, 0.01);
+  }
+  .arg-list li::before {
+    content: counter(arg, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  /* ── CONCEPTS GRID ── */
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .concept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .concept-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 100% 0%, var(--accent), transparent 70%);
+    opacity: 0.03;
+  }
+  .concept-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    background: var(--surface-hover);
+  }
+  .concept-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .concept-desc { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+  /* ── DIAGRAMS ── */
+  .diagram-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 40px 0;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+
+  .diagram-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  /* ── STATS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 40px 0;
+    border: 1px solid var(--border);
+  }
+  .stat-item {
+    background: var(--bg);
+    padding: 32px;
+    text-align: center;
+    position: relative;
+  }
+  .stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.2;
+  }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .stat-desc {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  /* ── FOUR FACTOR MODEL ── */
+  .ff-table-wrap {
+    overflow-x: auto;
+    margin: 32px 0;
+  }
+  .ff-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+  .ff-table th, .ff-table td {
+    padding: 24px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  .ff-table th {
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .ff-cell-header {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .ff-cell-content { font-size: 14px; line-height: 1.5; }
+
+  /* ── COUNTER BLOCK ── */
+  .counter-block {
+    background: var(--accent-dim);
+    border-left: 2px solid var(--accent);
+    padding: 40px;
+    border-radius: 0 12px 12px 0;
+    margin: 40px 0;
+  }
+
+  /* ── TAKEAWAY ── */
+  .takeaway {
+    background: linear-gradient(to bottom right, #111, #050505);
+    border: 1px solid var(--border-bright);
+    padding: 60px;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .takeaway::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(229, 192, 123, 0.05), transparent 70%);
+  }
+  .takeaway-text {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    color: var(--heading);
+    line-height: 1.2;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── LOGIC FLOW MAP ── */
+  .logic-map {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 40px 0;
+    position: relative;
+  }
+  .logic-node {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 12px;
+    position: relative;
+    transition: var(--transition);
+  }
+  .logic-node:hover {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+  }
+  .logic-node::after {
+    content: '↓';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--border-bright);
+    font-size: 14px;
+    font-family: var(--font-mono);
+  }
+  .logic-node:last-child::after { display: none; }
+  
+  .node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .node-label {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .node-icon {
+    width: 18px; height: 18px;
+    color: var(--text-muted);
+  }
+
+  /* ── REINFORCEMENT LOOP SVG ── */
+  .loop-container {
+    padding: 60px 0;
+    text-align: center;
+    background: radial-gradient(circle at 50% 50%, rgba(229, 192, 123, 0.02), transparent 70%);
+  }
+
+  /* ── MATRIX GRID ── */
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 40px 0;
+  }
+  .matrix-cell {
+    background: var(--bg);
+    padding: 32px;
+    position: relative;
+  }
+  .matrix-cell::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+  }
+  .matrix-cell.intrapersonal::before { background: var(--accent); }
+  .matrix-cell.interpersonal::before { background: var(--accent2); }
+  
+  .matrix-tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .intrapersonal .matrix-tag { background: rgba(229, 192, 123, 0.1); color: var(--accent); }
+  .interpersonal .matrix-tag { background: rgba(97, 175, 239, 0.1); color: var(--accent2); }
+
+  /* ── KEY INSIGHT BOX ── */
+  .key-insight {
+    background: rgba(198, 120, 221, 0.03);
+    border: 1px solid rgba(198, 120, 221, 0.1);
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .insight-icon {
+    background: var(--accent3);
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .insight-content b { color: var(--text-bright); display: block; margin-bottom: 4px; }
+  .insight-content p { font-size: 14px; margin: 0; color: var(--text-muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .byline b { color: var(--accent); font-weight: 500; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section {
+    animation: reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- SIDEBAR NAVIGATION -->
+  <aside>
+    <nav>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#header" class="nav-link active">
+            <i data-lucide="home"></i> Introduction
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#claim" class="nav-link">
+            <i data-lucide="target"></i> Core Claim
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#problem" class="nav-link">
+            <i data-lucide="alert-circle"></i> The Problem
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#argument" class="nav-link">
+            <i data-lucide="git-branch"></i> The Argument
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#concepts" class="nav-link">
+            <i data-lucide="layers"></i> Key Concepts
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#counter" class="nav-link">
+            <i data-lucide="message-square"></i> Counterargument
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#takeaway" class="nav-link">
+            <i data-lucide="lightbulb"></i> Takeaway
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="nav-footer">
+      <div class="byline">Written by <br><b>Gourang Sharma</b></div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- HEADER -->
+    <header id="header">
+      <div class="tag-line">
+        <span class="badge">CLINICAL SERIES</span>
+        <i data-lucide="brain"></i> Philosophy &amp; Ethics · Neuroscience
+      </div>
+      <h1>Why Self-<span>Harm?</span></h1>
+      <p class="subtitle">Cutting brings relief because emotion and pain criss-cross in the brain. Can we untangle the circuits and stop the cycle?</p>
+    </header>
+
+    <!-- SECTION 1: CORE CLAIM -->
+    <section id="claim">
+      <div class="sec-label">01 // The Core Claim</div>
+      <h2>The Brain Doesn't Separate Emotional Pain from Physical Pain</h2>
+      
+      <div class="key-insight">
+        <div class="insight-icon"><i data-lucide="zap" style="width:20px;height:20px;"></i></div>
+        <div class="insight-content">
+          <b>Neurological Bridge</b>
+          <p>Self-harm persists because the brain's circuitry for emotional and physical pain is shared, not metaphorical.</p>
+        </div>
+      </div>
+
+      <!-- VISUAL ABSTRACT -->
+      <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 40px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid var(--border);">
+        <div style="flex: 1; text-align: center;">
+          <i data-lucide="heart" style="color: var(--accent2); width: 32px; height: 32px; margin-bottom: 8px;"></i>
+          <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--accent2);">Emotional Pain</div>
+        </div>
+        <i data-lucide="arrow-right-left" style="color: var(--accent3); opacity: 0.5;"></i>
+        <div style="flex: 1; text-align: center;">
+          <i data-lucide="zap" style="color: var(--accent); width: 32px; height: 32px; margin-bottom: 8px;"></i>
+          <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--accent);">Physical Pain</div>
+        </div>
+        <div style="width: 1px; height: 40px; background: var(--border);"></div>
+        <div style="flex: 2; font-size: 13px; color: var(--text-muted); line-height: 1.4;">
+          Both activate the <strong>Anterior Insula</strong> & <strong>ACC</strong>. Physical sensation can override emotional distress.
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-text">
+          Self-harm persists not because of weakness or performance, but because the brain's circuits for emotional and physical pain are shared — injuring the body temporarily interrupts overwhelming emotional distress through the same neural pathways.
+        </div>
+      </div>
+      <p>This is a neurological explanation for a behaviour that has historically been written off as psychiatric deviance, attention-seeking, or moral failing. The mechanism is not metaphorical — it is measurable, and it runs through specific, identifiable brain regions.</p>
+    </section>
+
+    <!-- SECTION 2: THE PROBLEM -->
+    <section id="problem">
+      <div class="neural-bg">
+        <svg viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="400" cy="300" r="1" fill="var(--accent)" fill-opacity="0.4"/>
+          <path d="M100 100L400 300L700 100M100 500L400 300L700 500" stroke="var(--border)" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="sec-label">02 // The Problem It's Addressing</div>
+      <h2>A Behaviour That Evades Every Easy Explanation</h2>
+      
+      <div class="comparison">
+        <div class="comp-card negative">
+          <span class="comp-label">Past Misconception</span>
+          <p style="font-size: 14px; margin: 0;">For over a century, medicine categorised it as a symptom of psychosis or borderline personality disorder — a severe condition limited to a narrow psychiatric population — rather than a widespread coping response seen across otherwise functional individuals.</p>
+        </div>
+        <div class="comp-card positive">
+          <span class="comp-label">Modern Reality</span>
+          <p style="font-size: 14px; margin: 0;">Self-harm persists because the brain's circuits for emotional and physical pain are shared. This misclassification shaped treatment: people were hospitalised when they didn't need to be, and the underlying mechanism — <em>why relief follows injury</em> — was never adequately explained.</p>
+        </div>
+      </div>
+
+      <p>Without that explanation, sufferers had no framework to understand their own behaviour, and clinicians had no rational basis for intervention.</p>
+      <p>The deeper intellectual problem: if physical pain is universally aversive, why would inducing it relieve psychological suffering? The answer requires looking at how the brain actually works, not how we assume it works.</p>
+    </section>
+
+    <!-- SECTION 3: THE ARGUMENT -->
+    <section id="argument">
+      <div class="sec-label">03 // The Argument — Step by Step</div>
+      <h2>The Reasoning Chain</h2>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">~20%</div>
+          <div class="stat-desc">College students have self-harmed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">6%</div>
+          <div class="stat-desc">Repeated self-injury rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1980s</div>
+          <div class="stat-desc">Treatment programs established</div>
+        </div>
+      </div>
+
+      <!-- CLINICAL EVOLUTION GRAPHIC -->
+      <div style="margin: 40px 0; padding: 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px;">
+        <div class="diagram-title" style="text-align: left; margin-bottom: 24px;">Clinical Evolution of Understanding</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; position: relative;">
+          <div style="text-align: center; z-index: 1;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(239, 97, 97, 0.1); border: 1px solid #ef6161; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+              <i data-lucide="skull" style="color: #ef6161; width: 20px; height: 20px;"></i>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 9px; color: #ef6161; margin-bottom: 4px;">1800s</div>
+            <div style="font-weight: bold; color: var(--text-bright); font-size: 11px;">Hysteria</div>
+          </div>
+          
+          <div style="flex: 1; height: 1px; background: linear-gradient(90deg, #ef6161, var(--accent)); margin: 0 10px; position: relative; top: -15px;"></div>
+
+          <div style="text-align: center; z-index: 1;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(229, 192, 123, 0.1); border: 1px solid var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+              <i data-lucide="stethoscope" style="color: var(--accent); width: 20px; height: 20px;"></i>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 9px; color: var(--accent); margin-bottom: 4px;">1980s</div>
+            <div style="font-weight: bold; color: var(--text-bright); font-size: 11px;">Outpatient Case</div>
+          </div>
+
+          <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--accent), var(--accent2)); margin: 0 10px; position: relative; top: -15px;"></div>
+
+          <div style="text-align: center; z-index: 1;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(97, 175, 239, 0.1); border: 1px solid var(--accent2); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+              <i data-lucide="check-circle" style="color: var(--accent2); width: 20px; height: 20px;"></i>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 9px; color: var(--accent2); margin-bottom: 4px;">2006</div>
+            <div style="font-weight: bold; color: var(--text-bright); font-size: 11px;">NSSI Defined</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="logic-map">
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">01 // Historical Mislabeling</span>
+            <i data-lucide="history" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Self-harm has a documented history across cultures and centuries, yet it was only clinically recognised in the late 1800s — and immediately mislabelled as hysteria, deception, and an expression of severe psychopathology.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">02 // Categorical Error</span>
+            <i data-lucide="shield-alert" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Until the early 2000s, psychiatric literature grouped non-suicidal self-injury exclusively with conditions like psychosis and borderline personality disorder, vastly overstating the severity of the typical self-harming individual.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">03 // High-Functioning Cases</span>
+            <i data-lucide="search" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Pioneer clinicians like Wendy Lader and Karen Conterio observed a very different population — high-functioning, non-psychotic individuals who self-harmed without suicidal intent — suggesting the clinical picture was fundamentally wrong.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">04 // Scale of Prevalence</span>
+            <i data-lucide="bar-chart" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Landmark studies by Ross &amp; Heath (2002) and Whitlock (published around 2006) found self-harm rates of 14–20% among adolescents and college students — drawn from community populations, not psychiatric wards — redefining the scope of the problem entirely.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">05 // Formal Definition</span>
+            <i data-lucide="file-check" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">The ISSS's 2006 formal definition — non-suicidal self-injury as deliberate, self-inflicted destruction of body tissue without suicidal intent and outside socially sanctioned practices — separated this from suicidality and made meaningful research possible.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">06 // Motivational Model</span>
+            <i data-lucide="grid" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Nock &amp; Prinstein's Four Factor Model (2004) identified the dominant motivation for self-injury across populations: the reduction of intolerable emotional states through intrapersonal negative reinforcement — the removal of something unbearable.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">07 // Pain Tolerance Deficit</span>
+            <i data-lucide="thermometer" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Franklin's pain tolerance experiments showed that individuals who self-harm endure significantly more physical pain, and that emotional distress and self-critical thinking independently raise this tolerance — implying that emotional pain actively suppresses physical pain perception.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">08 // Shared Circuitry</span>
+            <i data-lucide="brain-circuit" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Neuroscience confirms the mechanism: the anterior insula and anterior cingulate cortex process both physical and emotional pain using the same circuits — so physical pain can genuinely interrupt emotional suffering at the neurological level.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">09 // The Reinforcement Loop</span>
+            <i data-lucide="refresh-cw" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">Physical pain peaks and then recedes; as it fades, emotional distress recedes alongside it, creating a neurologically grounded reinforcement loop that is not a choice or a performance but a functional outcome of shared brain architecture.</div>
+        </div>
+        <div class="logic-node">
+          <div class="node-header">
+            <span class="node-label">10 // The Shame Cycle</span>
+            <i data-lucide="rotate-ccw" class="node-icon"></i>
+          </div>
+          <div class="timeline-content">The shame, secrecy, and social consequences of self-harm cause renewed distress shortly after, trapping individuals in a self-reinforcing cycle that conventional willpower or moral reasoning cannot interrupt.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: KEY CONCEPTS -->
+    <section id="concepts">
+      <div class="sec-label">04 // Key Concepts &amp; Distinctions</div>
+      <h2>The Frameworks That Matter</h2>
+
+      <!-- Brain Diagram -->
+      <div class="diagram-container">
+        <div class="diagram-title" style="font-size: 14px; margin-bottom: 40px;">NEUROLOGICAL OVERLAP: THE PAIN HUB</div>
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="max-width:700px; width:100%; display: block; margin: 0 auto;">
+          <defs>
+            <filter id="glow-large">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <marker id="arrow-head" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+              <path d="M0,0 L0,10 L9,5 z" fill="currentColor" />
+            </marker>
+          </defs>
+
+          <!-- Background Brain Silhouette (Abstract) -->
+          <path d="M 100 200 Q 100 50 300 50 Q 500 50 500 200 Q 500 350 300 350 Q 100 350 100 200" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1.5" />
+
+          <!-- Overlapping Circles (The Core Concept) -->
+          <!-- Physical Circuit -->
+          <circle cx="230" cy="200" r="110" fill="rgba(229, 192, 123, 0.08)" stroke="#e5c07b" stroke-width="3" stroke-dasharray="6 4" />
+          
+          <!-- Emotional Circuit -->
+          <circle cx="370" cy="200" r="110" fill="rgba(97, 175, 239, 0.08)" stroke="#61afef" stroke-width="3" stroke-dasharray="6 4" />
+
+          <!-- SHARED REGION (The Highlight) -->
+          <path d="M 300 118 A 110 110 0 0 1 300 282 A 110 110 0 0 1 300 118" fill="#c678dd" fill-opacity="0.2" stroke="#c678dd" stroke-width="4" filter="url(#glow-large)" />
+
+          <!-- Labels and Callouts -->
+          <!-- Physical Side -->
+          <text x="120" y="80" fill="#e5c07b" font-family="var(--font-mono)" font-size="14" font-weight="bold">PHYSICAL PAIN</text>
+          <path d="M 130 95 L 180 140" stroke="#e5c07b" stroke-width="2" marker-end="url(#arrow-head)" style="color: #e5c07b;" />
+          <text x="180" y="340" text-anchor="middle" fill="#e5c07b" font-family="var(--font-main)" font-size="11" opacity="0.9">Somatic Sensors</text>
+
+          <!-- Emotional Side -->
+          <text x="480" y="80" text-anchor="end" fill="#61afef" font-family="var(--font-mono)" font-size="14" font-weight="bold">EMOTIONAL DISTRESS</text>
+          <path d="M 470 95 L 420 140" stroke="#61afef" stroke-width="2" marker-end="url(#arrow-head)" style="color: #61afef;" />
+          <text x="420" y="340" text-anchor="middle" fill="#61afef" font-family="var(--font-main)" font-size="11" opacity="0.9">Limbic Circuits</text>
+
+          <!-- Shared Label -->
+          <text x="300" y="190" text-anchor="middle" fill="#ffffff" font-family="var(--font-mono)" font-size="15" font-weight="bold" filter="url(#glow-large)">SHARED HUB</text>
+          <text x="300" y="212" text-anchor="middle" fill="#c678dd" font-family="var(--font-mono)" font-size="11" font-weight="bold">Anterior Insula</text>
+          <text x="300" y="228" text-anchor="middle" fill="#c678dd" font-family="var(--font-mono)" font-size="11" font-weight="bold">& ACC</text>
+
+          <!-- Conclusion Note -->
+          <rect x="150" y="365" width="300" height="30" rx="15" fill="rgba(255,255,255,0.03)" stroke="var(--border)" />
+          <text x="300" y="384" text-anchor="middle" fill="var(--text-muted)" font-family="var(--font-main)" font-size="12" font-style="italic">One circuit interrupts the other in this shared space.</text>
+        </svg>
+      </div>
+
+      <!-- Four Factor Model -->
+      <div class="matrix-grid">
+        <div class="matrix-cell intrapersonal" style="padding: 40px;">
+          <span class="matrix-tag" style="font-size: 11px; padding: 4px 12px; margin-bottom: 20px;">Intrapersonal (+)</span>
+          <span class="ff-cell-header" style="font-size: 18px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 12px;">TO FEEL SOMETHING</span>
+          <div class="ff-cell-content" style="font-size: 15px; line-height: 1.6;">Feeling numb from depression → cut to feel <em>something</em>, even pain</div>
+        </div>
+        <div class="matrix-cell interpersonal" style="padding: 40px;">
+          <span class="matrix-tag" style="font-size: 11px; padding: 4px 12px; margin-bottom: 20px;">Interpersonal (+)</span>
+          <span class="ff-cell-header" style="font-size: 18px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 12px;">SOCIAL SIGNALING</span>
+          <div class="ff-cell-content" style="font-size: 15px; line-height: 1.6;">Demonstrating visible distress to elicit care or attention from others</div>
+        </div>
+        <div class="matrix-cell intrapersonal" style="padding: 40px; border-top: 1px solid var(--border);">
+          <span class="matrix-tag" style="font-size: 11px; padding: 4px 12px; margin-bottom: 20px;">Intrapersonal (-)</span>
+          <span class="ff-cell-header" style="font-size: 18px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 12px;">EMOTION REGULATION</span>
+          <div class="ff-cell-content" style="font-size: 15px; line-height: 1.6;">Overwhelmed by anxiety or rage → cut to turn down the emotional volume</div>
+        </div>
+        <div class="matrix-cell interpersonal" style="padding: 40px; border-top: 1px solid var(--border);">
+          <span class="matrix-tag" style="font-size: 11px; padding: 4px 12px; margin-bottom: 20px;">Interpersonal (-)</span>
+          <span class="ff-cell-header" style="font-size: 18px; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 12px;">SOCIAL INFLUENCE</span>
+          <div class="ff-cell-content" style="font-size: 15px; line-height: 1.6;">Self-injuring to make a loved one stop a distressing behaviour</div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-top:16px;">The most common driver across populations: <b style="color:var(--text-bright);">intrapersonal negative reinforcement</b> — eliminating intolerable feeling.</p>
+
+      <div class="concepts-grid">
+        <div class="concept-card">
+          <div class="concept-name"><i data-lucide="hash"></i> NSSI — Non-Suicidal Self-Injury</div>
+          <div class="concept-desc">The deliberate destruction of body tissue without suicidal intent and outside socially sanctioned practices. The formal distinction from suicidality is essential — though NSSI is a strong statistical predictor of future suicidal behaviour.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-name"><i data-lucide="activity"></i> Anterior Insula &amp; ACC</div>
+          <div class="concept-desc">Two brain regions that process both physical and emotional pain using overlapping circuits — the neurological basis for the pain-relief loop that underlies self-harm. Pain relievers like acetaminophen reduce activity in both.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-name"><i data-lucide="gauge"></i> Pain Tolerance as Variable</div>
+          <div class="concept-desc">Those who self-injure show measurably elevated pain thresholds, and this tolerance increases further under emotional distress and self-critical cognition — meaning the emotional state actively suppresses physical pain perception.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-name"><i data-lucide="heart-pulse"></i> Dialectical Behaviour Therapy</div>
+          <div class="concept-desc">The most widely used clinical treatment for self-harm; prioritises behaviour change before cognitive restructuring. Originally designed for borderline personality disorder, its results in NSSI contexts are mixed.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-name"><i data-lucide="wind"></i> Emotion Dysregulation</div>
+          <div class="concept-desc">The inability to process, modulate, or respond to emotional states adaptively. Consistently identified as the central vulnerability that predisposes individuals to self-injury as a coping mechanism.</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-name"><i data-lucide="refresh-cw"></i> Reinforcement Loop</div>
+          <div class="concept-desc">The cycle by which self-injury produces temporary relief (reinforcing the behaviour), followed by shame-induced distress (triggering the next episode) — a self-sustaining pattern driven by neurology, not choice.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REINFORCEMENT LOOP VISUAL -->
+    <section id="loop" style="background: rgba(229, 192, 123, 0.01); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+      <div class="loop-container">
+        <div class="diagram-title" style="font-size: 16px; margin-bottom: 60px; color: var(--text-bright);">THE CYCLE OF REINFORCEMENT</div>
+        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" style="max-width:600px; width:100%; margin: 0 auto; display: block;">
+          <defs>
+            <marker id="arrow-xl" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+              <path d="M0,0 L0,10 L9,5 z" fill="var(--border-bright)" />
+            </marker>
+            <filter id="heavy-glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          <!-- Large dashed guiding circle -->
+          <circle cx="300" cy="300" r="210" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="10 8" opacity="0.2" />
+          
+          <!-- Nodes -->
+          <g filter="url(#heavy-glow)">
+            <circle cx="300" cy="90" r="70" fill="var(--bg)" stroke="var(--accent3)" stroke-width="4" />
+            <text x="300" y="85" text-anchor="middle" fill="var(--accent3)" font-family="var(--font-mono)" font-size="15" font-weight="900">EMOTIONAL</text>
+            <text x="300" y="108" text-anchor="middle" fill="var(--accent3)" font-family="var(--font-mono)" font-size="15" font-weight="900">DISTRESS</text>
+          </g>
+          
+          <g filter="url(#heavy-glow)">
+            <circle cx="520" cy="300" r="70" fill="var(--bg)" stroke="var(--accent)" stroke-width="4" />
+            <text x="520" y="295" text-anchor="middle" fill="var(--accent)" font-family="var(--font-mono)" font-size="15" font-weight="900">PHYSICAL</text>
+            <text x="520" y="318" text-anchor="middle" fill="var(--accent)" font-family="var(--font-mono)" font-size="15" font-weight="900">INJURY</text>
+          </g>
+          
+          <g filter="url(#heavy-glow)">
+            <circle cx="300" cy="510" r="70" fill="var(--bg)" stroke="var(--accent2)" stroke-width="4" />
+            <text x="300" y="505" text-anchor="middle" fill="var(--accent2)" font-family="var(--font-mono)" font-size="15" font-weight="900">TEMPORARY</text>
+            <text x="300" y="528" text-anchor="middle" fill="var(--accent2)" font-family="var(--font-mono)" font-size="15" font-weight="900">RELIEF</text>
+          </g>
+          
+          <g filter="url(#heavy-glow)">
+            <circle cx="80" cy="300" r="70" fill="var(--bg)" stroke="#ef6161" stroke-width="4" />
+            <text x="80" y="295" text-anchor="middle" fill="#ef6161" font-family="var(--font-mono)" font-size="15" font-weight="900">SHAME &</text>
+            <text x="80" y="318" text-anchor="middle" fill="#ef6161" font-family="var(--font-mono)" font-size="15" font-weight="900">SECRECY</text>
+          </g>
+          
+          <!-- Connecting Arrows (Very Bold Paths) -->
+          <path d="M 375 110 Q 520 130 520 225" fill="none" stroke="var(--border-bright)" stroke-width="4" marker-end="url(#arrow-xl)" />
+          <path d="M 520 375 Q 520 510 375 510" fill="none" stroke="var(--border-bright)" stroke-width="4" marker-end="url(#arrow-xl)" />
+          <path d="M 225 510 Q 80 510 80 375" fill="none" stroke="var(--border-bright)" stroke-width="4" marker-end="url(#arrow-xl)" />
+          <path d="M 80 225 Q 80 90 225 90" fill="none" stroke="var(--border-bright)" stroke-width="4" marker-end="url(#arrow-xl)" />
+        </svg>
+        <p style="font-size: 16px; color: var(--text-muted); margin-top: 60px; font-style: italic; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.5;">A self-sustaining neurological outcome, not a choice.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: COUNTERARGUMENT -->
+    <section id="counter">
+      <div class="sec-label">05 // The Strongest Counterargument Acknowledged</div>
+      <h2>If Pain Relief Is Universal, Why Don't More People Self-Harm?</h2>
+      
+      <div class="key-insight">
+        <div class="insight-icon" style="background: #ef6161;"><i data-lucide="help-circle" style="width:20px;height:20px;"></i></div>
+        <div class="insight-content">
+          <b>The Aversion Gap</b>
+          <p>Most individuals have a powerful, instinctive aversion to bodily harm. The missing link is why this specific aversion is absent or reversed in some individuals.</p>
+        </div>
+      </div>
+
+      <div class="counter-block">
+        <p>The piece acknowledges this directly through Franklin's observation: if the cessation of physical pain is neurologically relieving for everyone, the harder question is not why some people self-harm — but why the overwhelming majority do not. The answer offered is that most individuals carry a powerful aversion to bodily mutilation, and when shown images of bodily harm, look away instinctively. Those who self-injure are instead drawn toward such imagery, a difference measurable via eye-tracking.</p>
+        <p style="margin-top:20px; color: var(--text-bright);">However, this answer displaces rather than resolves the question. What creates the differential aversion in the first place? The piece leaves this largely unaddressed — suggesting that the emotional regulation deficit and lowered pain threshold are necessary conditions, but not fully explaining why some emotionally dysregulated individuals develop this specific response while others do not.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 6: TAKEAWAY -->
+    <section id="takeaway" style="border-bottom: none;">
+      <div class="sec-label">06 // The Takeaway</div>
+      <div class="takeaway">
+        <div class="takeaway-text">
+          Self-harm is not a character flaw, a performance, or an inexplicable pathology — it is a neurologically grounded coping response in which the brain's shared circuitry for physical and emotional pain is exploited, often involuntarily, to interrupt intolerable feeling. The moral stigma that surrounds it is not only inaccurate but functionally harmful, since shame itself perpetuates the cycle. Understanding the mechanism demands a rethinking of how we treat emotional overwhelm — and what it means for a mind to reach the limit of its own resources.
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>&copy; 2026 Philosophy &amp; Ethics Documentation</div>
+      <div style="opacity: 0.5;">RIF Framework · Clinical Neuroscience Series</div>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // Simple ScrollSpy for Navigation
+  const sections = document.querySelectorAll('section, header');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').slice(1) === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>

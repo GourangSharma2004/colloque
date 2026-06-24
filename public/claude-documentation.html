@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Claude Insider — by Gourang Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f4f0e8;
+    --paper2: #ece8de;
+    --line: #d8d2c4;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --gold-bg: rgba(184,134,11,0.08);
+    --red: #9b2a2a;
+    --red-bg: rgba(155,42,42,0.07);
+    --green: #2a6b3f;
+    --green-bg: rgba(42,107,63,0.08);
+    --dim: #7a7060;
+    --white: #ffffff;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  #prog {
+    position: fixed; top:0; left:0;
+    height: 3px; background: var(--gold);
+    width: 0%; z-index: 9999;
+    transition: width 0.05s linear;
+  }
+
+  nav {
+    position: fixed; top:0; left:0; right:0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 56px;
+    background: rgba(244,240,232,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-brand {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px; color: var(--ink);
+  }
+  .nav-brand span { color: var(--gold); font-style: italic; }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 0.06em;
+    color: var(--dim); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-pill {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper);
+    padding: 6px 14px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 72px; overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 80px 56px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--line);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 0.15em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content:''; display:block; width:24px; height:1px; background:var(--gold); }
+
+  .hero h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(38px, 4.5vw, 64px);
+    line-height: 1.08; font-weight: 700;
+    margin-bottom: 28px; letter-spacing: -0.02em;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+
+  .hero-sub {
+    font-size: 15px; color: var(--dim);
+    max-width: 440px; line-height: 1.8; margin-bottom: 40px;
+  }
+
+  .hero-claim {
+    border-left: 3px solid var(--gold);
+    padding: 16px 20px; background: var(--gold-bg);
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic; font-size: 14px;
+    color: var(--ink); line-height: 1.7;
+  }
+
+  .hero-right {
+    background: var(--ink);
+    padding: 80px 56px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-right::before {
+    content:''; position:absolute; top:-100px; right:-100px;
+    width:400px; height:400px;
+    background: radial-gradient(circle, rgba(184,134,11,0.15) 0%, transparent 70%);
+    pointer-events:none;
+  }
+
+  .confession-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 24px;
+  }
+
+  .confession {
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px; line-height: 2.1; color: #c8c0b0;
+  }
+  .confession .c-gold { color: var(--gold-light); }
+  .confession .c-dim  { color: #4a4438; }
+  .confession .c-w    { color: #f0ebe0; font-weight: 700; }
+  .confession .c-red  { color: #c07070; }
+  .confession .c-grn  { color: #70b090; }
+
+  /* SECTIONS */
+  section { padding: 96px 56px; border-top: 1px solid var(--line); position: relative; }
+  section.dark { background: var(--ink); color: var(--paper); }
+
+  .sec-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .sec-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 16px; letter-spacing: -0.02em;
+  }
+  .sec-title em { font-style: italic; color: var(--gold); }
+  section.dark .sec-title { color: var(--paper); }
+
+  .sec-desc {
+    font-size: 15px; color: var(--dim);
+    max-width: 600px; line-height: 1.8; margin-bottom: 56px;
+  }
+  section.dark .sec-desc { color: #7a7060; }
+
+  /* REVEAL */
+  .reveal { opacity:0; transform:translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* TRUTH GRID */
+  .truth-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap:1px; background: var(--line); border:1px solid var(--line);
+  }
+
+  .truth-card { background: var(--paper); padding: 36px 32px; }
+
+  .truth-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 48px; font-weight: 700;
+    color: var(--line); line-height: 1; margin-bottom: 16px;
+  }
+
+  .truth-headline {
+    font-size: 15px; font-weight: 600;
+    color: var(--ink); margin-bottom: 10px; line-height: 1.4;
+  }
+
+  .truth-body {
+    font-size: 13px; color: var(--dim);
+    line-height: 1.7; margin-bottom: 16px;
+  }
+
+  .truth-proof {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; background: var(--gold-bg);
+    color: var(--gold); padding: 10px 12px;
+    border-left: 2px solid var(--gold); line-height: 1.6;
+  }
+
+  .truth-proof.rp {
+    background: var(--red-bg); color: var(--red); border-color: var(--red);
+  }
+
+  /* SYCOPHANCY */
+  .sych-demo {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap:1px; background: var(--line); border:1px solid var(--line); margin-bottom:2px;
+  }
+
+  .sych-col { padding: 40px; background: var(--paper); }
+
+  .sych-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .sych-col.bad .sych-tag { color: var(--red); }
+  .sych-col.good .sych-tag { color: var(--green); }
+
+  .sych-exchange { display: flex; flex-direction: column; gap: 12px; }
+
+  .bubble {
+    padding: 12px 16px; font-size: 13px;
+    line-height: 1.6; max-width: 90%; border-radius: 2px;
+  }
+  .bubble.user {
+    background: var(--paper2); border: 1px solid var(--line);
+    align-self: flex-end; text-align: right;
+  }
+  .bubble.cb {
+    background: var(--red-bg); border: 1px solid rgba(155,42,42,0.15);
+    align-self: flex-start; color: var(--red); font-style: italic;
+  }
+  .bubble.cg {
+    background: var(--green-bg); border: 1px solid rgba(42,107,63,0.15);
+    align-self: flex-start; color: var(--green);
+  }
+
+  .blabel {
+    font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 6px; color: var(--dim);
+  }
+
+  .sych-verdict {
+    font-size: 12px; padding: 12px 16px;
+    margin-top: 16px; line-height: 1.6;
+  }
+  .sych-col.bad .sych-verdict  { background: var(--red-bg); color: var(--red); }
+  .sych-col.good .sych-verdict { background: var(--green-bg); color: var(--green); }
+
+  /* WORKFLOW */
+  .workflow { display: flex; flex-direction: column; gap: 2px; }
+
+  .wf-step {
+    display: grid; grid-template-columns: 80px 1fr 1fr;
+    gap:0; background: var(--line);
+  }
+
+  .wf-num {
+    background: var(--ink); color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 28px; font-weight: 700; padding: 40px 0;
+  }
+
+  .wf-info {
+    background: #161616; padding: 36px;
+    border-right: 1px solid #2a2a2a;
+  }
+
+  .wf-prompt-area { background: #111; padding: 36px; }
+
+  .wf-act {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 10px;
+  }
+
+  .wf-title {
+    font-size: 16px; font-weight: 600;
+    color: var(--paper); margin-bottom: 10px;
+  }
+
+  .wf-body { font-size: 13px; color: #7a7060; line-height: 1.7; }
+
+  .wf-plabel {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    color: #5a5448; text-transform: uppercase; margin-bottom: 16px;
+  }
+
+  .wf-prompt {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; line-height: 1.9;
+    color: #c8c0b0; white-space: pre-wrap;
+  }
+  .wf-prompt .g { color: var(--gold-light); }
+  .wf-prompt .w { color: #f0ebe0; font-weight: 700; }
+  .wf-prompt .d { color: #5a5448; }
+
+  /* ANTI-PATTERNS */
+  .anti-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .anti-item {
+    display: grid; grid-template-columns: 1fr 40px 1fr;
+    gap:1px; background: var(--line); border:1px solid var(--line);
+  }
+
+  .anti-bad, .anti-fix { padding: 28px 32px; background: var(--paper); }
+
+  .anti-mid {
+    background: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--dim);
+  }
+
+  .anti-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .anti-bad .anti-label { color: var(--red); }
+  .anti-fix .anti-label { color: var(--green); }
+
+  .anti-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px; line-height: 1.8;
+  }
+  .anti-bad .anti-text { color: var(--red); }
+  .anti-fix .anti-text { color: var(--green); }
+
+  .anti-why {
+    font-size: 12px; color: var(--dim);
+    margin-top: 10px; line-height: 1.6;
+    padding-top: 10px; border-top: 1px solid var(--line);
+  }
+
+  /* VOICE MATCH */
+  .voice-steps {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap:2px; background: var(--line); border:1px solid var(--line);
+  }
+
+  .vs-card {
+    background: #161616; padding: 32px 28px; position: relative;
+  }
+  .vs-card::after {
+    content: attr(data-arrow);
+    position: absolute; top:50%; right:-16px;
+    transform: translateY(-50%);
+    color: var(--gold); font-size: 16px; z-index:1;
+  }
+  .vs-card:last-child::after { display: none; }
+
+  .vs-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 36px; color: #2a2a2a;
+    font-weight: 700; line-height: 1; margin-bottom: 16px;
+  }
+
+  .vs-title {
+    font-size: 14px; font-weight: 600;
+    color: var(--paper); margin-bottom: 10px;
+  }
+
+  .vs-body { font-size: 12px; color: #7a7060; line-height: 1.7; }
+
+  .vs-prompt {
+    margin-top: 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: var(--gold);
+    background: rgba(184,134,11,0.08);
+    padding: 10px 12px; border-left: 2px solid var(--gold); line-height: 1.6;
+  }
+
+  /* UNLOCK GRID */
+  .unlock-grid {
+    display: grid; grid-template-columns: repeat(2,1fr);
+    gap:2px; background: #2a2a2a; border:1px solid #2a2a2a;
+  }
+
+  .unlock-card { background: #141414; padding: 32px; }
+
+  .unlock-sit {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em;
+    color: #5a5448; text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .unlock-prompt {
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px; line-height: 1.9;
+    color: #d4a017; margin-bottom: 14px;
+  }
+
+  .unlock-why {
+    font-size: 12px; color: #7a7060;
+    line-height: 1.6; padding-top: 14px;
+    border-top: 1px solid #2a2a2a;
+  }
+  .unlock-why strong { color: #c8c0b0; font-weight: 500; }
+
+  /* CLOSING */
+  .closing { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+
+  .closing-left { padding: 80px 56px; background: var(--ink); color: var(--paper); }
+  .closing-right { padding: 80px 56px; background: var(--gold); }
+
+  .closing-right h3 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--ink); margin-bottom: 24px; line-height: 1.2;
+  }
+
+  .laws-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+
+  .laws-list li {
+    font-size: 13px; color: rgba(14,14,14,0.8);
+    display: flex; gap: 12px; line-height: 1.6;
+    padding-bottom: 14px; border-bottom: 1px solid rgba(14,14,14,0.12);
+  }
+  .laws-list li:last-child { border-bottom: none; }
+
+  .lnum {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--ink); min-width: 20px;
+  }
+
+  @media(max-width:900px){
+    nav { padding:14px 20px; }
+    .nav-links { display:none; }
+    .hero { grid-template-columns:1fr; }
+    .hero-right { display:none; }
+    section { padding:64px 20px; }
+    .truth-grid { grid-template-columns:1fr; }
+    .sych-demo { grid-template-columns:1fr; }
+    .wf-step { grid-template-columns:50px 1fr; }
+    .wf-prompt-area { display:none; }
+    .anti-item { grid-template-columns:1fr; }
+    .anti-mid { display:none; }
+    .voice-steps { grid-template-columns:1fr 1fr; }
+    .unlock-grid { grid-template-columns:1fr; }
+    .closing { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav>
+  <div class="nav-brand">The Claude <span>Insider</span></div>
+  <ul class="nav-links">
+    <li><a href="#truths">Hard Truths</a></li>
+    <li><a href="#sycophancy">The Problem</a></li>
+    <li><a href="#workflow">My Workflow</a></li>
+    <li><a href="#antipatterns">What Kills It</a></li>
+    <li><a href="#voice">Your Voice</a></li>
+    <li><a href="#unlocks">The Unlocks</a></li>
+  </ul>
+  <div class="nav-pill">by Gourang Sharma</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">A guide built from real usage</div>
+    <h1>I use Claude<br>for everything.<br>Here's what <em>actually</em> works.</h1>
+    <p class="hero-sub">PPTs for investor pitches. 15-page technical reports. Book summaries people actually share. YouTube scripts. Patent documentation. I've run it all through Claude — and I stopped getting average output the day I stopped treating it like a search engine.</p>
+    <div class="hero-claim">"This isn't a prompt engineering guide. Those are everywhere and they're all the same. This is what I figured out after genuinely thousands of hours — the stuff nobody writes about because they haven't dug deep enough."</div>
+  </div>
+  <div class="hero-right">
+    <div class="confession-label">// What Claude is actually doing when you type</div>
+    <div class="confession">
+<span class="c-dim">// You write a vague prompt...</span>
+<span class="c-red">→ Claude fills the gap with the most average</span>
+<span class="c-red">   version of what you probably want.</span>
+<span class="c-dim">   Generic every time.</span>
+
+<span class="c-dim">// You say "make it better"...</span>
+<span class="c-red">→ Claude doesn't know what better means to you.</span>
+<span class="c-dim">   It guesses. It's usually wrong.</span>
+
+<span class="c-dim">// You push back on its output...</span>
+<span class="c-gold">→ Claude will agree with you. Even if it was right.</span>
+<span class="c-dim">   This one cost me a lot.</span>
+
+<span class="c-dim">// You paste 3 lines of your own writing...</span>
+<span class="c-grn">→ Claude calibrates to your voice immediately.</span>
+<span class="c-dim">   Better than 500 words of instructions.</span>
+
+<span class="c-dim">// You ask Claude to critique its own output...</span>
+<span class="c-grn">→ It catches 60-70% of what you'd catch yourself.</span>
+<span class="c-dim">   Almost nobody asks it to do this.</span>
+    </div>
+  </div>
+</div>
+
+<!-- HARD TRUTHS -->
+<section id="truths">
+  <div class="reveal">
+    <div class="sec-eyebrow">01 — The Hard Truths</div>
+    <h2 class="sec-title">Six things about Claude<br>I wish someone had<br>told me <em>earlier.</em></h2>
+    <p class="sec-desc">Not tips. Not hacks. The actual behavioral patterns I kept running into — once I understood these, everything changed. Took me longer than I'd like to admit to figure all six out.</p>
+  </div>
+
+  <div class="truth-grid reveal">
+
+    <div class="truth-card">
+      <div class="truth-num">01</div>
+      <div class="truth-headline">The second output is almost always better than the first.</div>
+      <div class="truth-body">Claude's first response is its safest interpretation of your prompt. The moment you redirect it — more depth here, cut that, different angle — it recalibrates fast. I used to edit the first draft myself. Waste of time. Let Claude do that.</div>
+      <div class="truth-proof">Don't edit. Redirect.<br>"Good start. Go deeper on [X], cut [Y] entirely, make the tone sharper."</div>
+    </div>
+
+    <div class="truth-card">
+      <div class="truth-num">02</div>
+      <div class="truth-headline">Claude is sycophantic. It's a real problem and it's documented.</div>
+      <div class="truth-body">Push back on Claude's output and there's a good chance it'll agree with you — even if it was right the first time. I've lost genuinely good output this way. The fix is simple but you have to know to use it.</div>
+      <div class="truth-proof">Add this when it matters:<br>"If I challenge your output, defend your reasoning before you change anything."</div>
+    </div>
+
+    <div class="truth-card">
+      <div class="truth-num">03</div>
+      <div class="truth-headline">"Be creative" is the single worst thing you can say.</div>
+      <div class="truth-body">When you say "be creative" without constraints, Claude defaults to the statistical average of all creative writing it's seen. That's the opposite of creative. Tight constraints produce surprising output. Blank freedom produces the blandest stuff imaginable.</div>
+      <div class="truth-proof rp">❌ "Write a creative intro."<br>✓ "Write an intro that opens mid-scene, like the reader just walked into the room."</div>
+    </div>
+
+    <div class="truth-card">
+      <div class="truth-num">04</div>
+      <div class="truth-headline">Claude reads your prompt style and mirrors it back.</div>
+      <div class="truth-body">Write casually and Claude writes casually. Write with short punchy sentences and Claude matches that. I figured this out when I noticed my YouTube scripts felt like me and my formal reports didn't — the prompts were written differently. It's a lever, not just a quirk.</div>
+      <div class="truth-proof">Write the prompt in the style you want back. The prompt is a signal, not just an instruction.</div>
+    </div>
+
+    <div class="truth-card">
+      <div class="truth-num">05</div>
+      <div class="truth-headline">Claude will tell you when you're wrong — if you actually ask it to.</div>
+      <div class="truth-body">By default, Claude is in help mode. It'll execute your request even if your core assumption is flawed. I've submitted documents built on weak premises just because I never asked Claude to challenge me first. Turn this on every time the stakes matter.</div>
+      <div class="truth-proof">Before any big document:<br>"What's the weakest assumption I'm making here? What would a skeptic attack first?"</div>
+    </div>
+
+    <div class="truth-card">
+      <div class="truth-num">06</div>
+      <div class="truth-headline">One example does more than five paragraphs of instruction.</div>
+      <div class="truth-body">I spent months writing long prompts describing the tone I wanted. Then I just started pasting 3 sentences of my own writing and saying "match this." The output was better every single time. Examples calibrate faster than descriptions — there's no workaround.</div>
+      <div class="truth-proof">End complex prompts with:<br>"Here's a sample of the quality/tone I want: [paste 2-4 lines]. Match this exactly."</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SYCOPHANCY -->
+<section id="sycophancy" style="background: var(--paper2);">
+  <div class="reveal">
+    <div class="sec-eyebrow">02 — The Problem Nobody Talks About</div>
+    <h2 class="sec-title">Claude will agree with you<br>even when you're <em>wrong.</em><br>I learned this the hard way.</h2>
+    <p class="sec-desc">I once had a genuinely well-structured deck outline — Claude built it, I liked it. I second-guessed one slide order, Claude immediately agreed with me. The deck got weaker. It took me a while to realize what had happened. Here's the fix.</p>
+  </div>
+
+  <div class="sych-demo reveal">
+    <div class="sych-col bad">
+      <div class="sych-tag">✕ How it usually goes</div>
+      <div class="sych-exchange">
+        <div>
+          <div class="blabel">You</div>
+          <div class="bubble user">Here's my deck outline. What do you think?</div>
+        </div>
+        <div>
+          <div class="blabel">Claude (default)</div>
+          <div class="bubble cb">"This is a strong outline! The flow from problem to solution is clear and the market slide adds great context..."</div>
+        </div>
+        <div>
+          <div class="bubble user">Actually I think slide 3 should come before slide 2.</div>
+        </div>
+        <div>
+          <div class="bubble cb">"You're right — that actually creates better narrative tension. Moving slide 3 before slide 2 makes more sense..."</div>
+        </div>
+      </div>
+      <div class="sych-verdict">Claude agreed with the reorder even though the original structure was objectively better for a cold audience. Your confidence triggered its agreeableness. Deck is now weaker and you don't know it.</div>
+    </div>
+    <div class="sych-col good">
+      <div class="sych-tag">✓ How I do it now</div>
+      <div class="sych-exchange">
+        <div>
+          <div class="blabel">You (with the unlock)</div>
+          <div class="bubble user">Here's my deck outline. You're a harsh reviewer — not a supportive one. Give me the 3 biggest structural problems before anything else.</div>
+        </div>
+        <div>
+          <div class="blabel">Claude (unlocked)</div>
+          <div class="bubble cg">"Three problems: Slide 2 buries the tension — investors need to feel the pain before they care about your solution. Slide 5 is doing two jobs. Slide 9 has no payoff."</div>
+        </div>
+        <div>
+          <div class="bubble user">What if I move slide 3 before slide 2?</div>
+        </div>
+        <div>
+          <div class="bubble cg">"No — that makes it worse. Slide 2 sets the stakes. Without it first, slide 3 lands with no weight. Keep the order and rewrite slide 2's headline instead."</div>
+        </div>
+      </div>
+      <div class="sych-verdict">Claude held its ground because I told it to. The deck stayed strong. This is the difference between a yes-machine and an actual collaborator.</div>
+    </div>
+  </div>
+
+  <div class="reveal" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; margin-top:2px; background:var(--line); border:1px solid var(--line);">
+    <div style="background:var(--paper); padding:28px;">
+      <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--gold); text-transform:uppercase; margin-bottom:12px;">For getting honest feedback</div>
+      <div style="font-family:'Space Mono',monospace; font-size:12px; color:var(--gold); line-height:1.8;">"Review this harshly, not encouragingly. I need problems, not praise."</div>
+    </div>
+    <div style="background:var(--paper); padding:28px;">
+      <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--gold); text-transform:uppercase; margin-bottom:12px;">For when you push back</div>
+      <div style="font-family:'Space Mono',monospace; font-size:12px; color:var(--gold); line-height:1.8;">"If I challenge your output, defend your reasoning first before considering any changes."</div>
+    </div>
+    <div style="background:var(--paper); padding:28px;">
+      <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--gold); text-transform:uppercase; margin-bottom:12px;">When quality actually matters</div>
+      <div style="font-family:'Space Mono',monospace; font-size:12px; color:var(--gold); line-height:1.8;">"Don't tell me what's good. Tell me what's wrong and why."</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow" class="dark" style="padding:0; border-top:1px solid #2a2a2a;">
+  <div style="padding:80px 56px 48px;" class="reveal">
+    <div class="sec-eyebrow">03 — My Actual Workflow</div>
+    <h2 class="sec-title">Four acts. Every document.<br>I don't skip any of them <em>anymore.</em></h2>
+    <p class="sec-desc">I used to go straight to "write me the report." The output was always okay at best. This four-act structure is what changed things — for PharmaCommute documentation, investor decks, Colloque content, everything. It's slower to set up and faster to finish.</p>
+  </div>
+
+  <div class="workflow">
+
+    <div class="wf-step reveal">
+      <div class="wf-num">1</div>
+      <div class="wf-info">
+        <div class="wf-act">Act I — The Briefing</div>
+        <div class="wf-title">Talk to Claude before you write to it.</div>
+        <div class="wf-body">Don't open with "write me a report." Explain the situation like you'd explain it to a smart colleague who just joined the project. Then ask what you might be missing. This one act changes the entire quality of everything that follows — and 95% of people skip it completely.</div>
+      </div>
+      <div class="wf-prompt-area">
+        <div class="wf-plabel">// Act I — what I actually send</div>
+        <div class="wf-prompt"><span class="g">Before we build anything, let me explain</span>
+<span class="g">the situation:</span>
+
+<span class="w">[Context: what this is, who it's for, what's at stake,</span>
+<span class="w">what they already know, what decision this drives]</span>
+
+<span class="g">Now — before we write a single word — tell me:</span>
+<span class="g">what questions should this document answer that</span>
+<span class="g">I haven't thought of? What would a tough reader</span>
+<span class="g">want to see that I haven't mentioned?</span></div>
+      </div>
+    </div>
+
+    <div class="wf-step reveal">
+      <div class="wf-num">2</div>
+      <div class="wf-info">
+        <div class="wf-act">Act II — The Architecture</div>
+        <div class="wf-title">Structure only. No body yet.</div>
+        <div class="wf-body">Get the skeleton right before you put any flesh on it. An approved architecture means I'm not course-correcting on page 9. I learned this building the PharmaCommute documentation — tried to write and structure at the same time, and sections 7-11 were visibly weaker than 1-6.</div>
+      </div>
+      <div class="wf-prompt-area">
+        <div class="wf-plabel">// Act II — structure only</div>
+        <div class="wf-prompt"><span class="g">Good. Now give me architecture only — not content.</span>
+
+<span class="w">I need:</span>
+<span class="w">- Section titles (insight-led, not topic labels)</span>
+<span class="w">- One line on what job each section does</span>
+<span class="w">- Why this order makes sense</span>
+<span class="w">- Rough word count per section</span>
+
+<span class="d">// Do NOT write body content yet. Structure only.</span>
+<span class="d">// I'll approve this before we write anything.</span></div>
+      </div>
+    </div>
+
+    <div class="wf-step reveal">
+      <div class="wf-num">3</div>
+      <div class="wf-info">
+        <div class="wf-act">Act III — Section by Section</div>
+        <div class="wf-title">Never ask for the whole thing at once.</div>
+        <div class="wf-body">For anything over 800 words — which is most real documentation — I write in sections. Full attention on each piece. You can course-correct as you go. The depth is noticeably better. I know because I've done it both ways enough times to see the gap clearly.</div>
+      </div>
+      <div class="wf-prompt-area">
+        <div class="wf-plabel">// Act III — one section at a time</div>
+        <div class="wf-prompt"><span class="g">Architecture approved. Now write Section [N]</span>
+<span class="g">only — "[Section Title]"</span>
+
+<span class="w">For this section specifically:</span>
+<span class="w">- Word limit: [X]</span>
+<span class="w">- Tone: [specific note]</span>
+<span class="w">- Must include: [X]</span>
+<span class="w">- Must not include: [Y]</span>
+
+<span class="d">// Reference Section [N-1] for tone consistency:</span>
+<span class="d">// [paste previous section if needed]</span></div>
+      </div>
+    </div>
+
+    <div class="wf-step reveal">
+      <div class="wf-num">4</div>
+      <div class="wf-info">
+        <div class="wf-act">Act IV — The Self-Critique</div>
+        <div class="wf-title">Make Claude find the problems before you do.</div>
+        <div class="wf-body">After the document is assembled, paste it back and ask Claude to review it as a harsh editor — not as the person who built it. It catches things. Not everything. But enough to save 40 minutes of editing and protect you from the embarrassing gaps you'd otherwise miss entirely.</div>
+      </div>
+      <div class="wf-prompt-area">
+        <div class="wf-plabel">// Act IV — the self-critique</div>
+        <div class="wf-prompt"><span class="g">Here is the full document: [paste]</span>
+
+<span class="g">Switch roles. You're a ruthless editor with no</span>
+<span class="g">attachment to this. Find me:</span>
+
+<span class="w">1. The 3 weakest sections and exactly why</span>
+<span class="w">2. Any claim that needs stronger evidence</span>
+<span class="w">3. Any section doing two jobs — split it or cut one</span>
+<span class="w">4. The most forgettable sentence in the whole doc</span>
+<span class="w">5. What a critical reader attacks first</span>
+
+<span class="d">// Then give a specific fix for each.</span>
+<span class="d">// Not vague suggestions. Specific fixes.</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ANTI-PATTERNS -->
+<section id="antipatterns">
+  <div class="reveal">
+    <div class="sec-eyebrow">04 — What Kills Output Quality</div>
+    <h2 class="sec-title">The six prompts that<br>guarantee <em>mediocre output.</em><br>I've used all of them.</h2>
+    <p class="sec-desc">I'm not writing these from theory. I used every single one of these before I figured out what was going wrong. If any of these look familiar, that's where your quality is leaking.</p>
+  </div>
+
+  <div class="anti-list reveal">
+
+    <div class="anti-item">
+      <div class="anti-bad">
+        <div class="anti-label">Anti-Pattern 01</div>
+        <div class="anti-text">"Make it better."</div>
+        <div class="anti-why">Claude doesn't know what better means to you. It guesses. The guess is usually the safest version, which is the most average version. I said this constantly for months.</div>
+      </div>
+      <div class="anti-mid">→</div>
+      <div class="anti-fix">
+        <div class="anti-label">What I say now</div>
+        <div class="anti-text">"Shorten every section by 25%. Make every headline more specific. Cut any sentence that doesn't add a new idea."</div>
+        <div class="anti-why">Name the dimension you're optimizing. Claude needs a direction, not a destination.</div>
+      </div>
+    </div>
+
+    <div class="anti-item">
+      <div class="anti-bad">
+        <div class="anti-label">Anti-Pattern 02</div>
+        <div class="anti-text">"Write a professional report on [topic]."</div>
+        <div class="anti-why">"Professional" is the most useless adjective you can give. It means something different to everyone and nothing to Claude. You'll get the average of all professional reports — which is exactly what yours will look like.</div>
+      </div>
+      <div class="anti-mid">→</div>
+      <div class="anti-fix">
+        <div class="anti-label">What I say now</div>
+        <div class="anti-text">"Write like HBR — precise, no hedging, active voice. Like a senior partner explaining to a client, not an analyst writing for a committee."</div>
+        <div class="anti-why">A named reference calibrates instantly. An adjective doesn't.</div>
+      </div>
+    </div>
+
+    <div class="anti-item">
+      <div class="anti-bad">
+        <div class="anti-label">Anti-Pattern 03</div>
+        <div class="anti-text">"Summarize this document for me."</div>
+        <div class="anti-why">Claude compresses every section proportionally. You get a smaller version of the same structure — not an extraction of what actually matters. Still not useful for a presentation or a pitch.</div>
+      </div>
+      <div class="anti-mid">→</div>
+      <div class="anti-fix">
+        <div class="anti-label">What I say now</div>
+        <div class="anti-text">"Don't summarize sections. Extract: (1) the central argument, (2) the 3 findings that actually change how I should think, (3) what the author implies but doesn't say."</div>
+        <div class="anti-why">Extraction and compression are different tasks. Say which one you want.</div>
+      </div>
+    </div>
+
+    <div class="anti-item">
+      <div class="anti-bad">
+        <div class="anti-label">Anti-Pattern 04</div>
+        <div class="anti-text">"Be creative with the format."</div>
+        <div class="anti-why">Freedom without direction produces the statistical average of creative formats — bullets with icons, maybe a table. It'll look exactly like every other AI output. This is counterintuitive but I've tested it enough times to be certain.</div>
+      </div>
+      <div class="anti-mid">→</div>
+      <div class="anti-fix">
+        <div class="anti-label">What I say now</div>
+        <div class="anti-text">"Format this as a newspaper front page — headline, subhead, byline, lede, then body in inverted pyramid. Make it feel like breaking news."</div>
+        <div class="anti-why">Constraints create creativity. Blank space creates bland output.</div>
+      </div>
+    </div>
+
+    <div class="anti-item">
+      <div class="anti-bad">
+        <div class="anti-label">Anti-Pattern 05</div>
+        <div class="anti-text">"Write the full 20-page report."</div>
+        <div class="anti-why">Sections 15-20 will be noticeably weaker than sections 1-5. I've seen this pattern so many times it stopped surprising me. Attention spreads thin. Depth drops. Quality drifts.</div>
+      </div>
+      <div class="anti-mid">→</div>
+      <div class="anti-fix">
+        <div class="anti-label">What I say now</div>
+        <div class="anti-text">"Write Section 1 only — full depth, full attention, nothing held back. We'll do each section one at a time."</div>
+        <div class="anti-why">Each section gets its own full context. Consistent quality to the end.</div>
+      </div>
+    </div>
+
+    <div class="anti-item">
+      <div class="anti-bad">
+        <div class="anti-label">Anti-Pattern 06</div>
+        <div class="anti-text">Accepting the first output and editing it yourself.</div>
+        <div class="anti-why">You're doing Claude's job. I did this for a long time — sitting there rewriting sentences Claude should have rewritten. It's a waste of your time and you're usually not as good at it as Claude is on the second pass.</div>
+      </div>
+      <div class="anti-mid">→</div>
+      <div class="anti-fix">
+        <div class="anti-label">What I say now</div>
+        <div class="anti-text">"Good draft. Three changes: rewrite the intro to lead with the most surprising finding. Cut paragraph three. Tighten the conclusion to 2 sentences."</div>
+        <div class="anti-why">Direct it to revise. Your time is for judgment. Claude handles the execution.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VOICE MATCH -->
+<section id="voice" class="dark">
+  <div class="reveal">
+    <div class="sec-eyebrow">05 — Making It Sound Like You</div>
+    <h2 class="sec-title">The most common ask:<br>"How do I stop it sounding<br><em>like AI?"</em></h2>
+    <p class="sec-desc">The answer is not about hiding that you used Claude. It's about giving Claude enough signal to write in your voice instead of its default one. Four steps. I use all of them when the output is going public with my name on it.</p>
+  </div>
+
+  <div class="voice-steps reveal">
+
+    <div class="vs-card" data-arrow="→">
+      <div class="vs-num">1</div>
+      <div class="vs-title">Feed It Your Writing First</div>
+      <div class="vs-body">Paste 3-5 paragraphs from something you've written that you're proud of. Not a formal email — something that actually sounds like you. Tell Claude to study it before writing anything for you today.</div>
+      <div class="vs-prompt">"Before we start — read these 3 paragraphs and identify my stylistic tendencies. Then match that voice exactly in everything you write for me."</div>
+    </div>
+
+    <div class="vs-card" data-arrow="→">
+      <div class="vs-num">2</div>
+      <div class="vs-title">Name Your Banned Words</div>
+      <div class="vs-body">Claude has defaults. Naming the specific words and phrases it's not allowed to use forces it out of AI-default vocabulary. My list is mine. Yours will be different. That's the point.</div>
+      <div class="vs-prompt">"Never use: 'delve', 'robust', 'leverage' as a verb, 'dive deep', 'game-changer', 'it's worth noting'. If you write any of these, I'll reject the output."</div>
+    </div>
+
+    <div class="vs-card" data-arrow="→">
+      <div class="vs-num">3</div>
+      <div class="vs-title">Tell It Your Sentence Rhythm</div>
+      <div class="vs-body">Sentence length and rhythm is the most detectable AI tell. Claude's default is mid-length, balanced sentences everywhere. Tell it your actual pattern — short and punchy, long and flowing, deliberately asymmetric.</div>
+      <div class="vs-prompt">"Short sentences for key points. Vary length deliberately. Never more than two clauses per sentence. No passive voice. No hedging."</div>
+    </div>
+
+    <div class="vs-card">
+      <div class="vs-num">4</div>
+      <div class="vs-title">The Final Pass</div>
+      <div class="vs-body">After the draft, one final redirect. Not vague. Ask Claude to find the sentences that sound machine-written and rewrite only those. The imperfections it adds back are what make it feel human.</div>
+      <div class="vs-prompt">"Find 2 sentences in this that sound like they were written by a machine. Rewrite only those — like a person said it out loud first."</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- UNLOCK PROMPTS -->
+<section id="unlocks" class="dark" style="border-top:1px solid #2a2a2a;">
+  <div class="reveal">
+    <div class="sec-eyebrow">06 — The Unlocks</div>
+    <h2 class="sec-title">Nine follow-ups I use<br>constantly. Each one<br>shifts <em>what Claude does.</em></h2>
+    <p class="sec-desc">These aren't tips. They're mode switches. Use them after any first draft — on any document type. The situations below are real ones I keep running into. The prompts are exactly what I send.</p>
+  </div>
+
+  <div class="unlock-grid reveal">
+
+    <div class="unlock-card">
+      <div class="unlock-sit">When the output feels safe and predictable</div>
+      <div class="unlock-prompt">"What would the most contrarian version of this argument look like? Now write that version."</div>
+      <div class="unlock-why"><strong>Why it works:</strong> Forces Claude off the safe center. The contrarian version usually has the most interesting insight — and makes the original stronger when you compare.</div>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-sit">When a section feels weak but I can't pinpoint why</div>
+      <div class="unlock-prompt">"Find the most forgettable sentence in this document. Tell me why it's forgettable. Then rewrite it."</div>
+      <div class="unlock-why"><strong>Why it works:</strong> Claude is better at finding weakness than generating strength. Making it identify the specific problem forces precision that "improve this" never achieves.</div>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-sit">When the output is bloated</div>
+      <div class="unlock-prompt">"Cut this by 40% without losing a single idea. If you can't, tell me which ideas are actually redundant."</div>
+      <div class="unlock-why"><strong>Why it works:</strong> Reveals which sentences are actually carrying weight and which are filler. The constraint does the thinking for you.</div>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-sit">Before I share anything publicly</div>
+      <div class="unlock-prompt">"You're a skeptical reader who does not want to believe this document's central claim. What do you attack first?"</div>
+      <div class="unlock-why"><strong>Why it works:</strong> Exposes the weakest assumption before your actual audience does. Fix the hole before it's public. I use this every time something goes out with my name on it.</div>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-sit">When a complex idea isn't landing</div>
+      <div class="unlock-prompt">"Explain this using only an analogy. The analogy cannot involve technology, business, or academia."</div>
+      <div class="unlock-why"><strong>Why it works:</strong> The domain constraint forces genuine creativity. Removes the clichés. The best analogies I've seen come from domains you'd never expect.</div>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-sit">When I need the same content for different audiences</div>
+      <div class="unlock-prompt">"Give me three versions of the introduction: one for a skeptic, one for a believer, one for someone new to this topic."</div>
+      <div class="unlock-why"><strong>Why it works:</strong> The skeptic version is almost always the strongest because it's forced to be tight and defensible. I usually end up using that one.</div>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-sit">When the writing feels too safe for the stakes</div>
+      <div class="unlock-prompt">"Rewrite the opening paragraph as if this document is the only thing standing between the reader and a bad decision."</div>
+      <div class="unlock-why"><strong>Why it works:</strong> Changes the emotional register of the whole piece. Documents that feel consequential get read differently than documents that feel informational.</div>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-sit">When I want it to sound smarter</div>
+      <div class="unlock-prompt">"Read this as a genuine expert in the field. What's missing or treated too superficially? Then fix those gaps."</div>
+      <div class="unlock-why"><strong>Why it works:</strong> Peer-review mode. The gaps Claude finds are exactly what would expose shallow research to someone who actually knows the field.</div>
+    </div>
+
+    <div class="unlock-card" style="grid-column:1/-1; background:rgba(184,134,11,0.06); border:1px solid rgba(184,134,11,0.2);">
+      <div class="unlock-sit">The one I use before any complex project</div>
+      <div class="unlock-prompt" style="font-size:14px;">"Before I tell you what to make: given what I'm trying to achieve, what's the best prompt you could give yourself to produce the highest quality result? Write that prompt. Then use it."</div>
+      <div class="unlock-why" style="font-size:13px;"><strong>Why it works:</strong> Claude knows how it works. Asking it to design its own instruction set activates something you can't access any other way. Every time I've tried this, the prompt Claude writes for itself is better than the one I would've written. Use it.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-left">
+    <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">That's everything.</div>
+    <div style="font-family:'Libre Baskerville',serif; font-size:32px; font-weight:700; line-height:1.2; margin-bottom:24px; color:var(--paper);">
+      The tool hasn't changed.<br>Your understanding of it has.
+    </div>
+    <div style="font-size:14px; color:#7a7060; line-height:1.9; max-width:460px;">
+      I've built PharmaCommute documentation, investor decks, YouTube scripts, Colloque content, research summaries, and patent-adjacent technical writing all through Claude. The difference between the output from month one and now isn't the model. It's knowing what the model actually does under the hood — and using that.<br><br>
+      That's all this is. And now you know it too.
+    </div>
+    <div style="margin-top:48px; font-size:13px; color:#3a3430; font-style:italic;">
+      — Gourang Sharma · CS Engineer · Builder · jngLABS
+    </div>
+  </div>
+  <div class="closing-right">
+    <h3>10 Laws I Don't<br>Break Anymore</h3>
+    <ol class="laws-list">
+      <li><span class="lnum">I.</span> Brief Claude before you prompt it. Explain the situation first.</li>
+      <li><span class="lnum">II.</span> Structure before content. Architecture before body.</li>
+      <li><span class="lnum">III.</span> Section by section. Never the whole thing at once.</li>
+      <li><span class="lnum">IV.</span> The first draft is a calibration signal. Not the final product.</li>
+      <li><span class="lnum">V.</span> One example of your tone beats 500 words describing it.</li>
+      <li><span class="lnum">VI.</span> Claude is sycophantic. Override it explicitly every time.</li>
+      <li><span class="lnum">VII.</span> "Make it better" is useless. Name the dimension.</li>
+      <li><span class="lnum">VIII.</span> Make Claude critique it before you edit it yourself.</li>
+      <li><span class="lnum">IX.</span> Constraints create creativity. Freedom creates blandness.</li>
+      <li><span class="lnum">X.</span> Ask Claude to write the prompt. Then use that prompt.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('prog').style.width = pct + '%';
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time is an Object</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090f;
+    --bg2: #0f0f1a;
+    --bg3: #13131f;
+    --surface: #16162a;
+    --border: #2a2a45;
+    --gold: #c9a84c;
+    --gold-light: #e0c070;
+    --gold-dim: rgba(201,168,76,0.15);
+    --cream: #f0e8d8;
+    --cream-dim: rgba(240,232,216,0.6);
+    --teal: #4ab8c0;
+    --teal-dim: rgba(74,184,192,0.12);
+    --text: #d4cfc8;
+    --muted: #7a7a90;
+    --accent: #8b5cf6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── HERO BAND ── */
+  .hero {
+    position: relative;
+    padding: 80px 40px 60px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0.9;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 60px 0;
+    border-bottom: 1px solid rgba(42,42,69,0.5);
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+    position: relative;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section::before {
+    content: '';
+    position: absolute;
+    left: -32px; top: 48px; bottom: 48px; width: 2px;
+    background: linear-gradient(180deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .section.visible:hover::before { opacity: 0.45; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.38em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-body {
+    font-size: 15.5px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .section-body p + p { margin-top: 16px; }
+
+  /* ── MECHANISM LIST ── */
+  .mechanism-list {
+    list-style: none;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mechanism-list li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    position: relative;
+    transition: border-color 0.25s, background 0.25s;
+  }
+
+  .mechanism-list li:hover {
+    background: rgba(201,168,76,0.05);
+    border-color: var(--gold);
+  }
+
+  .mechanism-list li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    padding-top: 2px;
+  }
+
+  .mechanism-list li span {
+    font-size: 14.5px;
+    line-height: 1.75;
+  }
+
+  /* ── IMPLICATIONS LIST ── */
+  .implication-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .implication-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(42,42,69,0.5);
+    font-size: 14.5px;
+  }
+
+  .implication-list li:last-child { border-bottom: none; }
+
+  .implication-list li::before {
+    content: '→';
+    color: var(--teal);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+    padding: 32px 44px;
+    margin: 40px 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(74,184,192,0.04) 100%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.65;
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 110px;
+    color: var(--gold);
+    opacity: 0.15;
+    position: absolute;
+    top: -18px; left: 10px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* ── TAKEAWAY BOX ── */
+  .takeaway-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(74,184,192,0.05) 100%);
+    border: 1px solid var(--gold);
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .takeaway-box::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 180px;
+    color: var(--gold);
+    opacity: 0.06;
+    position: absolute;
+    top: -30px;
+    left: 10px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .takeaway-box p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--cream);
+    position: relative;
+  }
+
+  /* ── DIAGRAMS ── */
+  .diagram-wrap {
+    margin: 40px 0;
+    padding: 28px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .diagram-wrap .diagram-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  svg text { font-family: 'DM Mono', monospace; }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 48px 32px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(201,168,76,0.04) 0%, transparent 70%);
+  }
+
+  .footer-byline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-byline strong {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  /* ── HIGHLIGHT CHIP ── */
+  .chip {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+    margin: 2px 4px 2px 0;
+    vertical-align: middle;
+  }
+
+  .chip.gold { border-color: var(--gold); color: var(--gold); }
+  .chip.teal { border-color: var(--teal); color: var(--teal); }
+
+  /* ── EVIDENCE GRID ── */
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .evidence-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 26px 18px;
+    text-align: center;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  }
+
+  .evidence-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 28px rgba(201,168,76,0.12);
+    border-color: var(--gold);
+  }
+
+  .evidence-card:hover .ev-num { color: var(--gold); }
+
+  .evidence-card .ev-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 8px;
+    transition: color 0.28s ease;
+  }
+
+  .evidence-card .ev-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 60px 20px 48px; }
+    .container { padding: 0 20px; }
+    .evidence-grid { grid-template-columns: 1fr; }
+    .takeaway-box { padding: 24px 22px; }
+  }
+
+  /* ── SCROLL PROGRESS ── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+    background: linear-gradient(90deg, var(--gold), var(--teal), var(--gold));
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+    z-index: 1000;
+    transition: width 0.08s linear;
+    box-shadow: 0 0 8px rgba(201,168,76,0.5);
+  }
+  @keyframes shimmer {
+    from { background-position: 0% 0%; }
+    to   { background-position: 200% 0%; }
+  }
+
+  /* ── HERO GLOW ── */
+  .hero-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 80% 100% at 50% -10%, rgba(201,168,76,0.13) 0%, transparent 65%);
+    animation: glowPulse 6s ease-in-out infinite alternate;
+  }
+  @keyframes glowPulse {
+    from { opacity: 0.6; transform: scale(0.98); }
+    to   { opacity: 1; transform: scale(1.03); }
+  }
+
+  /* ── TIME PARTICLES ── */
+  .time-particles {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat linear infinite;
+  }
+  @keyframes particleFloat {
+    0% { opacity: 0; transform: translateY(100%) scale(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+  }
+
+  /* ── ANIMATED CLOCK ── */
+  .hero-clock {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 500px;
+    opacity: 0.08;
+    pointer-events: none;
+    animation: clockRotate 60s linear infinite;
+  }
+  @keyframes clockRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  .clock-hand {
+    transform-origin: center;
+    animation: handTick linear infinite;
+  }
+  .clock-hand.hour { animation-duration: 43200s; }
+  .clock-hand.minute { animation-duration: 3600s; }
+  .clock-hand.second { animation-duration: 60s; }
+  @keyframes handTick {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── HOURGLASS ANIMATION ── */
+  .hourglass-container {
+    position: absolute;
+    right: 8%; top: 50%;
+    transform: translateY(-50%);
+    width: 120px; height: 200px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .hourglass-sand {
+    animation: sandFlow 8s ease-in-out infinite;
+  }
+  @keyframes sandFlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(20px); }
+  }
+
+  /* ── TIME RINGS ── */
+  .time-rings {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .time-ring {
+    position: absolute;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: ringExpand linear infinite;
+  }
+  @keyframes ringExpand {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.4; }
+    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+  }
+
+  /* ── NAV DOTS ── */
+  #nav-dots {
+    position: fixed; right: 22px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 14px; z-index: 100;
+  }
+  .nav-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border); border: 1px solid var(--muted);
+    cursor: pointer; position: relative;
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
+  }
+  .nav-dot.active { background: var(--gold); border-color: var(--gold); transform: scale(1.7); }
+  .nav-dot:hover { background: var(--gold-light); border-color: var(--gold-light); }
+  .nav-dot::after {
+    content: attr(title);
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.2em;
+    color: var(--gold); white-space: nowrap; opacity: 0; pointer-events: none;
+    text-transform: uppercase; transition: opacity 0.2s;
+    background: var(--bg); padding: 2px 7px; border: 1px solid var(--border);
+  }
+  .nav-dot:hover::after { opacity: 1; }
+  @media (max-width: 900px) { #nav-dots { display: none; } }
+
+  /* ── CHIP HOVER ── */
+  .chip { transition: background 0.2s, color 0.2s, border-color 0.2s; }
+  .chip:hover { background: var(--gold-dim); color: var(--gold-light); border-color: var(--gold); }
+  .chip.teal:hover { background: var(--teal-dim); color: var(--teal); border-color: var(--teal); }
+
+  /* ── DIAGRAM WRAP ── */
+  .diagram-wrap {
+    border-top: 2px solid rgba(201,168,76,0.2);
+    transition: border-color 0.3s;
+  }
+  .diagram-wrap:hover { border-color: rgba(201,168,76,0.45); }
+
+  /* ── MECHANISM LIST HOVER ── */
+  .mechanism-list li { border-radius: 2px; }
+
+  /* ── HERO READING TIME ── */
+  .hero-meta {
+    margin-top: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .hero-meta span { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  
+  <!-- Animated Clock Background -->
+  <svg class="hero-clock" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+    <!-- Clock face -->
+    <circle cx="250" cy="250" r="240" fill="none" stroke="#c9a84c" stroke-width="2"/>
+    <circle cx="250" cy="250" r="200" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+    <circle cx="250" cy="250" r="160" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+    
+    <!-- Hour markers -->
+    <g stroke="#c9a84c" stroke-width="2">
+      <line x1="250" y1="20" x2="250" y2="40"/>
+      <line x1="250" y1="460" x2="250" y2="480"/>
+      <line x1="20" y1="250" x2="40" y2="250"/>
+      <line x1="460" y1="250" x2="480" y2="250"/>
+    </g>
+    
+    <!-- Clock hands -->
+    <line class="clock-hand hour" x1="250" y1="250" x2="250" y2="150" stroke="#c9a84c" stroke-width="4" stroke-linecap="round"/>
+    <line class="clock-hand minute" x1="250" y1="250" x2="250" y2="100" stroke="#e0c070" stroke-width="3" stroke-linecap="round"/>
+    <line class="clock-hand second" x1="250" y1="250" x2="250" y2="70" stroke="#4ab8c0" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="250" cy="250" r="8" fill="#c9a84c"/>
+  </svg>
+  
+  <!-- Expanding Time Rings -->
+  <div class="time-rings">
+    <div class="time-ring" style="width: 300px; height: 300px; animation-delay: 0s; animation-duration: 6s;"></div>
+    <div class="time-ring" style="width: 300px; height: 300px; animation-delay: 2s; animation-duration: 6s;"></div>
+    <div class="time-ring" style="width: 300px; height: 300px; animation-delay: 4s; animation-duration: 6s;"></div>
+  </div>
+  
+  <!-- Floating Particles Container -->
+  <div class="time-particles" id="particles"></div>
+  
+  <!-- Hourglass Animation -->
+  <svg class="hourglass-container" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Hourglass frame -->
+    <polygon points="20,10 100,10 85,90 60,100 35,90" fill="none" stroke="#c9a84c" stroke-width="2"/>
+    <polygon points="20,190 100,190 85,110 60,100 35,110" fill="none" stroke="#c9a84c" stroke-width="2"/>
+    <line x1="20" y1="10" x2="20" y2="190" stroke="#c9a84c" stroke-width="2"/>
+    <line x1="100" y1="10" x2="100" y2="190" stroke="#c9a84c" stroke-width="2"/>
+    
+    <!-- Sand in top -->
+    <polygon class="hourglass-sand" points="25,15 95,15 82,85 60,95 38,85" fill="#c9a84c" opacity="0.6"/>
+    
+    <!-- Sand in bottom -->
+    <polygon class="hourglass-sand" points="30,185 90,185 78,115 60,105 42,115" fill="#c9a84c" opacity="0.6" style="animation-delay: 4s;"/>
+    
+    <!-- Sand stream -->
+    <line x1="60" y1="100" x2="60" y2="100" stroke="#e0c070" stroke-width="3" class="hourglass-sand"/>
+  </svg>
+  
+  <div class="kicker">Assembly Theory · Physics of Time · 2024</div>
+  <h1>Time is an <em>Object</em></h1>
+  <p class="hero-sub">Not a backdrop, an illusion, or an emergent phenomenon — time has a physical size that can be measured in laboratories</p>
+  <div class="hero-meta">~<span>7 min</span> read &nbsp;·&nbsp; 7 sections</div>
+</div>
+
+<div class="container">
+
+  <!-- ── 1. CORE ARGUMENT ── -->
+  <section class="section">
+    <div class="section-label">Core Discovery</div>
+    <h2 class="section-heading">What This Is Really About</h2>
+    <div class="section-body">
+      <p>A new framework called <strong style="color:var(--cream)">assembly theory</strong> proposes that time is not a backdrop, an illusion, or a mere emergent side-effect of entropy — it is a fundamental, measurable physical property of matter itself. Complex objects that evolution and selection have produced — from proteins to computers — cannot exist outside of time, because time is the very stuff they are made from.</p>
+    </div>
+
+    <!-- DIAGRAM 1 — Three Views of Time -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Figure 01 — Three Historical Views vs. Assembly Theory</div>
+      <svg viewBox="0 0 800 218" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <!-- BG boxes -->
+        <rect x="10" y="20" width="175" height="160" rx="2" fill="#13131f" stroke="#2a2a45"/>
+        <rect x="207" y="20" width="175" height="160" rx="2" fill="#13131f" stroke="#2a2a45"/>
+        <rect x="404" y="20" width="175" height="160" rx="2" fill="#13131f" stroke="#2a2a45"/>
+        <rect x="601" y="20" width="190" height="160" rx="2" fill="rgba(201,168,76,0.06)" stroke="#c9a84c"/>
+
+        <!-- Labels -->
+        <text x="97" y="52" text-anchor="middle" font-size="12" fill="#7a7a90" letter-spacing="3">NEWTON</text>
+        <text x="294" y="52" text-anchor="middle" font-size="12" fill="#7a7a90" letter-spacing="3">EINSTEIN</text>
+        <text x="491" y="52" text-anchor="middle" font-size="12" fill="#7a7a90" letter-spacing="3">THERMODYNAMICS</text>
+        <text x="696" y="52" text-anchor="middle" font-size="12" fill="#c9a84c" letter-spacing="3">ASSEMBLY THEORY</text>
+
+        <!-- Newton icon — flat line -->
+        <line x1="40" y1="115" x2="160" y2="115" stroke="#4ab8c0" stroke-width="2"/>
+        <text x="97" y="148" text-anchor="middle" font-size="13" fill="#d4cfc8">Absolute Backdrop</text>
+        <text x="97" y="165" text-anchor="middle" font-size="12" fill="#7a7a90">fixed, external</text>
+
+        <!-- Einstein icon — diamond block -->
+        <polygon points="294,80 330,115 294,150 258,115" fill="none" stroke="#4ab8c0" stroke-width="1.5"/>
+        <text x="294" y="119" text-anchor="middle" font-size="11" fill="#4ab8c0">t</text>
+        <text x="294" y="163" text-anchor="middle" font-size="13" fill="#d4cfc8">Illusion / Block</text>
+        <text x="294" y="178" text-anchor="middle" font-size="12" fill="#7a7a90">all moments co-exist</text>
+
+        <!-- Thermo icon — arrow with heat decay -->
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#4ab8c0"/>
+          </marker>
+        </defs>
+        <line x1="430" y1="115" x2="560" y2="115" stroke="#4ab8c0" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="6,3"/>
+        <text x="491" y="148" text-anchor="middle" font-size="13" fill="#d4cfc8">Emergent Arrow</text>
+        <text x="491" y="165" text-anchor="middle" font-size="12" fill="#7a7a90">entropy-driven</text>
+
+        <!-- Assembly icon — branching tree in time -->
+        <circle cx="630" cy="115" r="4" fill="#c9a84c"/>
+        <circle cx="655" cy="95" r="5" fill="#c9a84c" opacity="0.8"/>
+        <circle cx="655" cy="135" r="5" fill="#c9a84c" opacity="0.8"/>
+        <circle cx="686" cy="80" r="6" fill="#c9a84c" opacity="0.7"/>
+        <circle cx="686" cy="110" r="6" fill="#c9a84c" opacity="0.7"/>
+        <circle cx="686" cy="150" r="7" fill="#c9a84c" opacity="0.6"/>
+        <line x1="634" y1="113" x2="651" y2="97" stroke="#c9a84c" stroke-width="1"/>
+        <line x1="634" y1="117" x2="651" y2="133" stroke="#c9a84c" stroke-width="1"/>
+        <line x1="660" y1="93" x2="680" y2="82" stroke="#c9a84c" stroke-width="1"/>
+        <line x1="660" y1="97" x2="680" y2="110" stroke="#c9a84c" stroke-width="1"/>
+        <line x1="660" y1="137" x2="679" y2="150" stroke="#c9a84c" stroke-width="1"/>
+        <text x="696" y="178" text-anchor="middle" font-size="13" fill="#e0c070">Material Property</text>
+        <text x="696" y="193" text-anchor="middle" font-size="12" fill="#c9a84c">encoded in objects</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── 2. PROBLEM ── -->
+  <section class="section">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-heading">The Knowledge Gap Being Filled</h2>
+    <div class="section-body">
+      <p>Physics has never had a theory in which time's movement and directionality are considered fundamental. Newton treated time as an external stage. Einstein folded it into a static four-dimensional block where all moments — past, present, future — coexist equally. Thermodynamics introduced time's arrow but only as an emergent consequence of heat and entropy, not as a basic feature of reality.</p>
+      <p>This leaves a serious explanatory gap: neither quantum mechanics nor thermodynamics can account for the existence of highly complex, evolved objects — DNA, proteins, cities, computers — that clearly cannot spring into being spontaneously. If time is not real and directional at a fundamental level, the origin and growth of complexity in the Universe remains physically unexplained.</p>
+    </div>
+  </section>
+
+  <!-- ── 3. MECHANISM ── -->
+  <section class="section">
+    <div class="section-label">Mechanism & Logic</div>
+    <h2 class="section-heading">How Assembly Theory Works</h2>
+
+    <!-- DIAGRAM 2 — Assembly Index Ladder -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Figure 02 — The Assembly Index: Depth in Time</div>
+      <svg viewBox="0 0 760 275" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <!-- Axis -->
+        <defs>
+          <marker id="ax" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#7a7a90"/>
+          </marker>
+          <marker id="gax" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#c9a84c"/>
+          </marker>
+        </defs>
+        <!-- Y axis: complexity -->
+        <line x1="80" y1="220" x2="80" y2="20" stroke="#7a7a90" stroke-width="1" marker-end="url(#ax)"/>
+        <text x="30" y="125" text-anchor="middle" font-size="12" fill="#7a7a90" transform="rotate(-90 30 125)" letter-spacing="2">ASSEMBLY INDEX →</text>
+        <!-- X axis: time -->
+        <line x1="80" y1="220" x2="740" y2="220" stroke="#7a7a90" stroke-width="1" marker-end="url(#ax)"/>
+        <text x="410" y="248" text-anchor="middle" font-size="12" fill="#7a7a90" letter-spacing="2">TIME →</text>
+
+        <!-- Threshold line at 13–15 -->
+        <line x1="80" y1="148" x2="740" y2="148" stroke="#c9a84c" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>
+        <text x="740" y="144" text-anchor="end" font-size="12" fill="#c9a84c" letter-spacing="1">LIFE THRESHOLD (13–15 steps)</text>
+
+        <!-- Abiotic zone -->
+        <rect x="81" y="149" width="659" height="71" fill="rgba(74,184,192,0.04)"/>
+        <text x="400" y="193" text-anchor="middle" font-size="13" fill="#4ab8c0" opacity="0.7">ABIOTIC — random chemistry, tar, minerals, snowflakes</text>
+
+        <!-- Biotic curve -->
+        <path d="M 110,215 C 200,200 280,170 360,140 S 500,95 610,60 S 690,38 730,32"
+              fill="none" stroke="#c9a84c" stroke-width="2.5"/>
+
+        <!-- Data points -->
+        <circle cx="130" cy="212" r="4" fill="#4ab8c0"/>
+        <text x="130" y="207" text-anchor="middle" font-size="11" fill="#4ab8c0">H₂O</text>
+
+        <circle cx="230" cy="198" r="5" fill="#4ab8c0"/>
+        <text x="230" y="193" text-anchor="middle" font-size="11" fill="#4ab8c0">Minerals</text>
+
+        <circle cx="365" cy="138" r="5.5" fill="#c9a84c"/>
+        <text x="365" y="130" text-anchor="middle" font-size="11" fill="#c9a84c">Amino acids</text>
+
+        <circle cx="480" cy="105" r="6" fill="#c9a84c"/>
+        <text x="480" y="97" text-anchor="middle" font-size="11" fill="#c9a84c">Proteins</text>
+
+        <circle cx="600" cy="65" r="7" fill="#e0c070"/>
+        <text x="600" y="56" text-anchor="middle" font-size="11" fill="#e0c070">DNA / RNA</text>
+
+        <circle cx="700" cy="38" r="8" fill="#e0c070"/>
+        <text x="700" y="29" text-anchor="middle" font-size="11" fill="#e0c070">Computers</text>
+      </svg>
+    </div>
+
+    <ol class="mechanism-list">
+      <li><span>The space of all possible molecules grows combinatorially — each additional chemical bond multiplies the number of reachable combinations, quickly reaching numbers far larger than the entire Universe can instantiate at once.</span></li>
+      <li><span>Because the search space is so vast, no complex molecule can form by random chance in any meaningful abundance; achieving a high-copy-number of a specific complex molecule requires <em>selection</em> — a process that narrows the space of possibilities over successive steps.</span></li>
+      <li><span>Selection requires <em>memory</em>: information encoded in existing objects that guides which components are joined in which sequence, the same way construction instructions specify each step of a build.</span></li>
+      <li><span>Assembly theory formalises this by assigning every molecule an <strong style="color:var(--gold-light)">assembly index</strong> — the minimum number of sequential steps needed to construct it from elementary parts, which is also the minimum amount of memory (history) required to produce it.</span></li>
+      <li><span>A molecule's full <em>Assembly number</em> combines its assembly index (complexity) with its copy number (how abundantly it exists), because a lone complex molecule is irrelevant — what matters is a complex structure that gets replicated repeatedly.</span></li>
+      <li><span>Objects with a high Assembly number could only have been produced by an evolutionary process; their very existence is physical evidence that time passed and selection occurred, making time an intrinsic measurable property of the object itself.</span></li>
+      <li><span>Laboratory experiments confirm that only living or once-living samples produce molecules with an assembly index above approximately 15 steps; non-living chemistry reliably stalls below 13, suggesting a sharp phase transition where evolution must take over from ordinary physics.</span></li>
+    </ol>
+  </section>
+
+  <!-- ── 4. EVIDENCE ── -->
+  <section class="section">
+    <div class="section-label">Evidence</div>
+    <h2 class="section-heading">What the Data Shows</h2>
+
+    <div class="evidence-grid">
+      <div class="evidence-card">
+        <div class="ev-num">15+</div>
+        <div class="ev-label">Assembly steps — threshold found only in living samples</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ev-num">≤13</div>
+        <div class="ev-label">Maximum achieved by random, non-living chemistry</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ev-num">3</div>
+        <div class="ev-label">Independent techniques: mass spec, IR, and NMR spectroscopy</div>
+      </div>
+    </div>
+
+    <div class="section-body">
+      <p>The theory's predictions were tested by dissolving solid samples — stone, bone, flesh, and fossilised material from across the solar system — in solvent and running them through high-resolution mass spectrometry, which "weighs" molecular fragments after breaking them apart. Counting those fragments maps directly onto the theoretical assembly index, providing a lab-measurable confirmation of the model's core claim.</p>
+      <p>The boundary between abiotic and biotic chemistry is experimentally sharp, not gradual — molecules produced by random processes appear unable to cross the 13-step mark, while living systems routinely generate molecular structures above 15 steps. This sharpness is interpreted as a genuine phase transition in the underlying physics, not measurement noise.</p>
+    </div>
+
+    <!-- DIAGRAM 3 — Mass Spec Process -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Figure 03 — Laboratory Measurement Pipeline</div>
+      <svg viewBox="0 0 760 140" width="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="pipe-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#4ab8c0"/>
+          </marker>
+          <marker id="gold-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#c9a84c"/>
+          </marker>
+        </defs>
+        <!-- Steps -->
+        <!-- Box 1 -->
+        <rect x="10" y="30" width="130" height="70" rx="2" fill="#13131f" stroke="#2a2a45"/>
+        <text x="75" y="52" text-anchor="middle" font-size="13" fill="#d4cfc8">Sample</text>
+        <text x="75" y="68" text-anchor="middle" font-size="11" fill="#7a7a90">rock / flesh / fossil</text>
+        <text x="75" y="84" text-anchor="middle" font-size="11" fill="#7a7a90">dissolved in solvent</text>
+
+        <line x1="140" y1="65" x2="168" y2="65" stroke="#4ab8c0" stroke-width="1.5" marker-end="url(#pipe-arrow)"/>
+
+        <!-- Box 2 -->
+        <rect x="170" y="30" width="140" height="70" rx="2" fill="#13131f" stroke="#2a2a45"/>
+        <text x="240" y="52" text-anchor="middle" font-size="13" fill="#d4cfc8">Mass Spectrometry</text>
+        <text x="240" y="68" text-anchor="middle" font-size="11" fill="#7a7a90">molecules weighed &amp;</text>
+        <text x="240" y="84" text-anchor="middle" font-size="11" fill="#7a7a90">fragmented by energy</text>
+
+        <line x1="310" y1="65" x2="338" y2="65" stroke="#4ab8c0" stroke-width="1.5" marker-end="url(#pipe-arrow)"/>
+
+        <!-- Box 3 -->
+        <rect x="340" y="30" width="140" height="70" rx="2" fill="#13131f" stroke="#2a2a45"/>
+        <text x="410" y="52" text-anchor="middle" font-size="13" fill="#d4cfc8">Fragment Count</text>
+        <text x="410" y="68" text-anchor="middle" font-size="11" fill="#7a7a90">unique parts counted</text>
+        <text x="410" y="84" text-anchor="middle" font-size="11" fill="#7a7a90">= assembly index</text>
+
+        <line x1="480" y1="65" x2="508" y2="65" stroke="#4ab8c0" stroke-width="1.5" marker-end="url(#pipe-arrow)"/>
+
+        <!-- Box 4 -->
+        <rect x="510" y="30" width="140" height="70" rx="2" fill="#13131f" stroke="#2a2a45"/>
+        <text x="580" y="52" text-anchor="middle" font-size="13" fill="#d4cfc8">Copy Number</text>
+        <text x="580" y="68" text-anchor="middle" font-size="11" fill="#7a7a90">abundance measured</text>
+        <text x="580" y="84" text-anchor="middle" font-size="11" fill="#7a7a90">in volume of sample</text>
+
+        <line x1="650" y1="65" x2="678" y2="65" stroke="#c9a84c" stroke-width="1.5" marker-end="url(#gold-arrow)"/>
+
+        <!-- Result -->
+        <rect x="680" y="25" width="72" height="80" rx="2" fill="rgba(201,168,76,0.08)" stroke="#c9a84c"/>
+        <text x="716" y="52" text-anchor="middle" font-size="13" fill="#c9a84c" font-weight="bold">Assembly</text>
+        <text x="716" y="68" text-anchor="middle" font-size="12" fill="#e0c070">Number A</text>
+        <text x="716" y="84" text-anchor="middle" font-size="11" fill="#7a7a90">life signal</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── 5. WHAT THIS CHANGES ── -->
+  <section class="section">
+    <div class="section-label">Implications</div>
+    <h2 class="section-heading">What This Changes</h2>
+
+    <ul class="implication-list">
+      <li>Time can no longer be treated as merely a backdrop or illusion in physical theory — it becomes a measurable, material dimension of complex objects, analogous to spatial size.</li>
+      <li>The long-standing incompatibility between physics (which handles elementary particles with no need for history) and evolutionary biology (which requires accumulated memory over time) may finally have a unifying framework.</li>
+      <li>Life detection becomes a universal chemical test — by measuring assembly index and copy number in any molecular sample, it becomes possible to determine whether that chemistry was produced by an evolutionary process, regardless of the biochemistry involved, including potential extraterrestrial life.</li>
+      <li>The "block universe" model, in which past, present, and future all coexist equally, is directly challenged: if complex objects have irreducible depth in time, the future cannot simply co-exist with the present as a static structure.</li>
+      <li>The concept of emergence is reframed — what physics has called "emergent" phenomena (cells from atoms, minds from neurons) may instead be objects with high Assembly numbers that are fundamental in time, even if not fundamental in space.</li>
+      <li>The determinism-vs-contingency debate in physics shifts: the future may be determined by what currently exists, but because the present grows richer in information over time, the set of possible futures expands — novelty is built into the physics.</li>
+    </ul>
+  </section>
+
+  <!-- ── 6. OPEN QUESTIONS ── -->
+  <section class="section">
+    <div class="section-label">Open Questions</div>
+    <h2 class="section-heading">What Remains Unresolved</h2>
+    <div class="section-body">
+      <p>The framework is still developing its relationship with quantum mechanics — assembly theory currently operates at the molecular scale and must be reconciled with the timeless wave-function descriptions that underpin quantum theory, which remain incompatible with time as a fundamental feature.</p>
+      <p>The precise mechanism by which the first self-replicating chemical networks "discovered" their assembly pathway — crossing the phase transition from abiotic to biotic chemistry — is unaddressed; assembly theory describes the transition's existence but not yet the physical dynamics of how it first occurs.</p>
+      <p>Whether space itself is emergent from time (as some quantum gravity proposals suggest) is a possibility the framework opens but does not resolve; how assembly theory integrates with existing approaches to quantum gravity remains an open frontier.</p>
+    </div>
+
+    <div class="pull-quote">
+      "The future of the Universe is more open-ended than we could have predicted — not because it is random, but because the objects that exist now are richer in information than those that existed before."
+    </div>
+  </section>
+
+  <!-- ── 7. TAKEAWAY ── -->
+  <section class="section" style="border-bottom:none; padding-bottom:20px;">
+    <div class="section-label">The Takeaway</div>
+    <h2 class="section-heading">What to Carry Forward</h2>
+    <div class="takeaway-box">
+      <p>If assembly theory holds, the passing of time is not a human perception to be explained away — it is the physical material from which the most complex structures in the Universe are built. Every evolved object, from a protein to a city, is simultaneously a record of the past and a constraint on what futures are reachable, which means the Universe is not expanding through space as much as it is expanding through time.</p>
+    </div>
+
+    <!-- Concept tags -->
+    <div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:4px;">
+      <span class="chip gold">Assembly Index</span>
+      <span class="chip gold">Time as Material</span>
+      <span class="chip">Evolution</span>
+      <span class="chip">Combinatorial Space</span>
+      <span class="chip teal">Life Detection</span>
+      <span class="chip">Block Universe</span>
+      <span class="chip teal">Phase Transition</span>
+      <span class="chip">Quantum Gravity</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <p class="footer-byline">Written by <strong>Gourang Sharma</strong></p>
+</footer>
+
+<nav id="nav-dots" aria-label="Page sections">
+  <div class="nav-dot active" title="Core Discovery"></div>
+  <div class="nav-dot" title="The Problem"></div>
+  <div class="nav-dot" title="Mechanism"></div>
+  <div class="nav-dot" title="Evidence"></div>
+  <div class="nav-dot" title="Implications"></div>
+  <div class="nav-dot" title="Open Questions"></div>
+  <div class="nav-dot" title="Takeaway"></div>
+</nav>
+
+<script>
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = Math.min(pct, 100) + '%';
+  }, { passive: true });
+
+  const sections = document.querySelectorAll('.section');
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  sections.forEach(s => revealObs.observe(s));
+
+  const dots = document.querySelectorAll('.nav-dot');
+  const sArr = Array.from(sections);
+  function updateDots() {
+    const mid = window.innerHeight * 0.45;
+    let active = 0;
+    sArr.forEach((s, i) => { if (s.getBoundingClientRect().top <= mid) active = i; });
+    dots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+  window.addEventListener('scroll', updateDots, { passive: true });
+
+  // Generate floating time particles
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 30;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    const size = Math.random() * 4 + 2;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 10 + 8;
+    const delay = Math.random() * 8;
+    
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = left + '%';
+    particle.style.animationDuration = duration + 's';
+    particle.style.animationDelay = delay + 's';
+    
+    particlesContainer.appendChild(particle);
+  }
+  dots.forEach((d, i) => d.addEventListener('click', () => sArr[i].scrollIntoView({ behavior: 'smooth' })));
+  updateDots();
+</script>
+
+</body>
+</html>

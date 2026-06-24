@@ -1,0 +1,2490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinking in Systems - A Comprehensive Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #0f0f1a;
+            --color-secondary: #1a1a2e;
+            --color-accent: #e94560;
+            --color-accent-light: #ff6b6b;
+            --color-accent-dark: #c73e54;
+            --color-text: #2d3436;
+            --color-text-light: #636e72;
+            --color-bg: #f7f7fb;
+            --color-bg-alt: #ffffff;
+            --color-border: #e4e4f0;
+            --color-success: #00b894;
+            --color-warning: #fdcb6e;
+            --color-info: #74b9ff;
+            --color-callout-bg: #fff5f7;
+            --color-callout-border: #fdd0d8;
+            --color-action-bg: #f0fff8;
+            --color-action-border: #b2f0d8;
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-xxl: 4rem;
+            --border-radius: 10px;
+            --border-radius-lg: 18px;
+            --shadow-sm: 0 2px 8px rgba(15,15,26,0.07);
+            --shadow-md: 0 6px 20px rgba(15,15,26,0.10);
+            --shadow-lg: 0 16px 48px rgba(15,15,26,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ── Reading Progress Bar ── */
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #e94560, #fdcb6e, #00b894);
+            z-index: 9999;
+            transition: width 0.1s linear;
+            border-radius: 0 2px 2px 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background: var(--color-bg);
+            line-height: 1.8;
+            font-size: 16.5px;
+        }
+
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        /* ── Cover Page ── */
+        #cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--color-primary);
+            position: relative;
+            overflow: hidden;
+            padding: var(--spacing-xxl) var(--spacing-lg);
+        }
+
+        #cover::before {
+            content: '';
+            position: absolute;
+            width: 700px; height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
+            top: -200px; right: -200px;
+            pointer-events: none;
+        }
+
+        #cover::after {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,184,148,0.10) 0%, transparent 70%);
+            bottom: -150px; left: -150px;
+            pointer-events: none;
+        }
+
+        .cover-grid-lines {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .cover-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-title span {
+            color: var(--color-accent);
+        }
+
+        .cover-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.65);
+            font-weight: 300;
+            margin-bottom: var(--spacing-xl);
+            max-width: 560px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-warning));
+            margin: 0 auto var(--spacing-xl);
+            border-radius: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-meta .book-by {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            font-style: italic;
+        }
+
+        .cover-meta .book-author {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.85);
+            font-weight: 600;
+        }
+
+        .cover-meta .summary-by {
+            margin-top: var(--spacing-md);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }
+
+        .cover-meta .summarizer {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: var(--color-success);
+            font-weight: 600;
+        }
+
+        .cover-scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1;
+        }
+
+        .cover-scroll-hint::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+            animation: scrollLine 1.8s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+
+        /* ── Old header hidden — cover replaces it ── */
+        header { display: none; }
+
+        /* ── Navigation ── */
+        nav {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        nav a {
+            color: var(--color-text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.78rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+            background: rgba(233,69,96,0.05);
+        }
+
+        /* ── Main Content ── */
+        main { padding: var(--spacing-xl) 0; }
+
+        /* ── Section Dividers ── */
+        section {
+            position: relative;
+        }
+
+        /* ── Headings ── */
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
+            color: var(--color-primary);
+            margin: var(--spacing-xxl) 0 var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 3px solid var(--color-accent);
+            position: relative;
+        }
+
+        h2::before {
+            content: attr(data-chapter);
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 0.4rem;
+            opacity: 0.8;
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.7rem;
+            color: var(--color-secondary);
+            margin: var(--spacing-xl) 0 var(--spacing-md);
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        h3::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0.25em;
+            width: 4px;
+            height: 1.2em;
+            background: linear-gradient(to bottom, var(--color-accent), var(--color-warning));
+            border-radius: 2px;
+        }
+
+        h4 {
+            font-size: 1.15rem;
+            color: var(--color-primary);
+            margin: var(--spacing-lg) 0 var(--spacing-sm);
+            font-weight: 700;
+        }
+
+        h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-accent-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        p { margin-bottom: var(--spacing-md); }
+
+        ul, ol {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-lg);
+        }
+
+        li { margin-bottom: 0.4rem; }
+
+        /* ── Blockquote ── */
+        blockquote {
+            border-left: 4px solid var(--color-accent);
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+            background: linear-gradient(135deg, #fff5f7 0%, #fff9fb 100%);
+            font-style: italic;
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            box-shadow: var(--shadow-sm);
+            color: #3d2234;
+        }
+
+        blockquote cite {
+            display: block;
+            margin-top: var(--spacing-sm);
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            font-style: normal;
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+
+        /* ── Callout ── */
+        .callout {
+            background: linear-gradient(135deg, #fff5f7 0%, #fff0f4 100%);
+            border: 1px solid var(--color-callout-border);
+            border-left: 5px solid var(--color-accent);
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+            border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .callout::before {
+            content: '💡';
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        .callout h4 {
+            color: var(--color-accent-dark);
+            margin-top: 0;
+        }
+
+        /* ── Action Box ── */
+        .action-box {
+            background: linear-gradient(135deg, #f0fff8 0%, #eafff4 100%);
+            border: 1px solid var(--color-action-border);
+            border-left: 5px solid var(--color-success);
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+            border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .action-box::before {
+            content: '✦';
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            font-size: 1.2rem;
+            color: var(--color-success);
+            opacity: 0.4;
+        }
+
+        .action-box h4 { color: #006845; margin-top: 0; }
+
+        .action-box ul { list-style: none; padding-left: 0; }
+
+        .action-box li {
+            padding: 0.45rem 0 0.45rem var(--spacing-lg);
+            position: relative;
+            border-bottom: 1px solid rgba(0,184,148,0.1);
+        }
+
+        .action-box li:last-child { border-bottom: none; }
+
+        .action-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: 700;
+        }
+
+        /* ── Life Stage Content ── */
+        .life-stage-content {
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-md) 0 var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .life-stage-content h4 {
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-text-light);
+            margin-top: var(--spacing-md);
+            margin-bottom: 0.4rem;
+            padding-top: var(--spacing-md);
+            border-top: 1px dashed var(--color-border);
+        }
+
+        .life-stage-content h4:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .life-stage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0 var(--spacing-xl);
+        }
+
+        .life-stage-item {
+            background: var(--color-bg-alt);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .life-stage-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .life-stage-item h5 {
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* ── Diagrams ── */
+        .diagram-container {
+            text-align: center;
+            margin: var(--spacing-xl) 0;
+            padding: var(--spacing-lg);
+            background: var(--color-bg-alt);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-md);
+            transition: box-shadow 0.3s;
+        }
+
+        .diagram-container:hover { box-shadow: var(--shadow-lg); }
+
+        .diagram-container svg { max-width: 100%; height: auto; }
+
+        .diagram-caption {
+            margin-top: var(--spacing-md);
+            font-size: 0.88rem;
+            color: var(--color-text-light);
+            font-style: italic;
+            font-family: var(--font-mono);
+        }
+
+        /* ── Vocabulary ── */
+        .vocabulary-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .vocabulary-item {
+            background: var(--color-bg-alt);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border);
+            border-top: 3px solid var(--color-accent);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .vocabulary-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .vocabulary-item .term {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--color-accent);
+            font-size: 0.95rem;
+        }
+
+        .vocabulary-item .definition {
+            margin-top: var(--spacing-xs);
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            line-height: 1.6;
+        }
+
+        /* ── Day Item (kept for any potential uses) ── */
+        .day-item {
+            display: flex;
+            gap: var(--spacing-md);
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .day-item:last-child { border-bottom: none; }
+
+        .day-number {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--color-accent);
+            min-width: 60px;
+        }
+
+        .day-content { flex: 1; }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 5rem 0 3rem;
+            background: var(--color-primary);
+            color: white;
+            margin-top: var(--spacing-xxl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        footer .footer-inner { position: relative; z-index: 1; }
+
+        footer .footer-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        footer .footer-book {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        footer .footer-divider {
+            width: 48px; height: 2px;
+            background: var(--color-accent);
+            margin: var(--spacing-md) auto;
+            border-radius: 1px;
+        }
+
+        footer p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        footer .footer-credit {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--color-success);
+            margin-top: 0.25rem;
+        }
+
+        footer .footer-made {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.5rem;
+        }
+
+        /* ── Smooth scroll ── */
+        html { scroll-behavior: smooth; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cover-title { font-size: 2.5rem; }
+            h2 { font-size: 1.9rem; }
+            h3 { font-size: 1.45rem; }
+            .container { padding: var(--spacing-md); }
+            .life-stage-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Cover Page -->
+    <div id="cover">
+        <div class="cover-grid-lines"></div>
+
+        <p class="cover-eyebrow">Comprehensive Summary</p>
+
+        <h1 class="cover-title">Thinking in<br><span>Systems</span></h1>
+
+        <p class="cover-subtitle">A deep, actionable summary of Donella H. Meadows' landmark work on systems thinking — from stocks and flows to leverage points and living wisdom.</p>
+
+        <div class="cover-divider"></div>
+
+        <div class="cover-meta">
+            <span class="book-by">Original book by</span>
+            <span class="book-author">Donella H. Meadows</span>
+            <span class="summary-by">Summary curated by</span>
+            <span class="summarizer">Gourang Sharma</span>
+        </div>
+
+        <div class="cover-scroll-hint">Scroll to read</div>
+    </div>
+
+    <header>
+        <div class="container">
+            <h1>Thinking in Systems</h1>
+            <p class="subtitle">A Comprehensive, Actionable Summary</p>
+            <p class="author">Based on the book by Donella H. Meadows</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container" style="max-width: 1200px;">
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#chapter1">Chapter 1</a></li>
+                <li><a href="#chapter2">Chapter 2</a></li>
+                <li><a href="#chapter3">Chapter 3</a></li>
+                <li><a href="#chapter4">Chapter 4</a></li>
+                <li><a href="#chapter5">Chapter 5</a></li>
+                <li><a href="#chapter6">Chapter 6</a></li>
+                <li><a href="#chapter7">Chapter 7</a></li>
+                <li><a href="#lifestages">Life Stages</a></li>
+                <li><a href="#vocabulary">Vocabulary</a></li>
+                <li><a href="#appendix">Appendix</a></li>
+                <li><a href="#modern">Modern Applications</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Systems thinking is a discipline for seeing wholes. It is a framework for seeing interrelationships rather than things, for seeing patterns of change rather than static snapshots. This summary distills Donella Meadows' seminal work into actionable insights that you can apply across your life—at 22, 35, or 55 years old.</p>
+            
+            <blockquote>
+                "You think that because you understand 'one' that you must therefore understand 'two' because one and one make two. But you forget that you must also understand 'and'."
+                <cite>— Sufi teaching story</cite>
+            </blockquote>
+
+            <div class="callout">
+                <h4>Why This Matters</h4>
+                <p>Systems thinking helps us understand complex problems, avoid unintended consequences, and find leverage points for meaningful change. Whether you're building a career, raising a family, or leading an organization, systems thinking provides tools for seeing the bigger picture and acting wisely.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Mindset Shift Required</h4>
+                <ul>
+                    <li>From linear thinking to circular thinking</li>
+                    <li>From blame to understanding interconnections</li>
+                    <li>From quick fixes to addressing root causes</li>
+                    <li>From prediction to learning and adaptation</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="chapter1">
+            <h2>Chapter 1: The Basics</h2>
+            <p>A system is an interconnected set of elements that is coherently organized in a way that achieves something. Every system has three components: elements, interconnections, and a function or purpose.</p>
+
+            <h3>The Three Components of a System</h3>
+            
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="540" height="300" rx="15" fill="#ffffff" stroke="#f0f0f0" stroke-width="1"/>
+                    
+                    <!-- Elements Circle -->
+                    <circle cx="100" cy="160" r="75" fill="#e94560" fill-opacity="0.05" stroke="#e94560" stroke-width="2"/>
+                    <text x="100" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#1a1a2e">ELEMENTS</text>
+                    <text x="100" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">What the system</text>
+                    <text x="100" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">is made of</text>
+                    
+                    <!-- Interconnections Circle -->
+                    <circle cx="280" cy="160" r="80" fill="#74b9ff" fill-opacity="0.05" stroke="#74b9ff" stroke-width="2"/>
+                    <text x="280" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">INTERCONNECTIONS</text>
+                    <text x="280" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">How elements</text>
+                    <text x="280" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">affect each other</text>
+                    
+                    <!-- Function/Purpose Circle -->
+                    <circle cx="460" cy="160" r="75" fill="#00b894" fill-opacity="0.05" stroke="#00b894" stroke-width="2"/>
+                    <text x="460" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#1a1a2e">FUNCTION</text>
+                    <text x="460" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">What the system</text>
+                    <text x="460" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">achieves</text>
+                    
+                    <!-- Arrows between circles -->
+                    <path d="M 180 160 L 195 160" stroke="#636e72" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M 365 160 L 380 160" stroke="#636e72" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#636e72"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 1: The three essential components of any system</p>
+            </div>
+
+            <h4>Elements</h4>
+            <p>Elements are the things you can see, count, or touch. They are often the most visible part of a system. In a school system, elements include students, teachers, classrooms, books, and buildings. In a forest, elements include trees, animals, soil, and water.</p>
+
+            <h4>Interconnections</h4>
+            <p>Interconnections are the relationships that hold the system together. They can be physical flows (water, money, information) or causal relationships (rules, information signals). In a school, interconnections include the flow of students through grades, the rules of conduct, and the information flow between teachers and parents.</p>
+
+            <h4>Function or Purpose</h4>
+            <p>Function is the behavior or outcome the system produces. Purpose is the goal toward which the system tends. Crucially, purpose is deduced from behavior, not stated intentions. A school's stated purpose might be education, but its actual function might be socialization or credentialing.</p>
+
+            <blockquote>
+                "Remember that all parts of a system are interconnected, that you can't do just one thing."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <div class="callout">
+                <h4>Key Insight: The Least Visible Component is Most Important</h4>
+                <p>Elements are easiest to see but least important for understanding system behavior. Interconnections are harder to see but more important. Function or purpose is hardest to see but most critical. Changing elements rarely changes system behavior; changing interconnections or purpose does.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps</h4>
+                <ul>
+                    <li>Practice identifying the three components in systems around you</li>
+                    <li>When analyzing a problem, ask: What are the elements? How do they connect? What is the actual function?</li>
+                    <li>Look for mismatches between stated purpose and actual behavior</li>
+                    <li>Map the interconnections in a system you care about</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Build</h4>
+                <ul>
+                    <li>Ask "what connects to this?" before asking "what is this?"</li>
+                    <li>Look for patterns rather than isolated events</li>
+                    <li>Consider purpose from behavior, not statements</li>
+                    <li>Draw system maps for complex situations</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Eliminate</h4>
+                <ul>
+                    <li>Blaming individual elements for system problems</li>
+                    <li>Focusing only on visible components</li>
+                    <li>Assuming stated purposes reflect actual functions</li>
+                    <li>Trying to fix systems by changing only elements</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="chapter2">
+            <h2>Chapter 2: A Brief Visit to the Systems Zoo</h2>
+            <p>Systems can be categorized by their structure and behavior. Understanding these types helps us recognize patterns and predict behavior. Meadows introduces us to several fundamental system types.</p>
+
+            <h3>Stocks and Flows</h3>
+            <p>A stock is the foundation of any system. Stocks are accumulations—things you can see, feel, or count at a specific moment. Flows are what change stocks. Stocks change over time through the actions of flows.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="540" height="300" rx="15" fill="#ffffff" stroke="#f0f0f0" stroke-width="1"/>
+                    
+                    <!-- Bathtub representation -->
+                    <rect x="140" y="80" width="280" height="140" rx="12" fill="#e94560" fill-opacity="0.05" stroke="#e94560" stroke-width="3"/>
+                    
+                    <!-- Water level -->
+                    <path d="M 145 150 Q 280 145 415 150 L 415 210 Q 280 215 145 210 Z" fill="#74b9ff" fill-opacity="0.2"/>
+                    
+                    <!-- Stock label -->
+                    <text x="280" y="180" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1a1a2e">STOCK</text>
+                    <text x="280" y="245" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">(Water in tub)</text>
+                    
+                    <!-- Inflow Section -->
+                    <rect x="40" y="40" width="100" height="24" rx="5" fill="#00b894" fill-opacity="0.1" stroke="#00b894" stroke-width="2"/>
+                    <text x="90" y="32" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#00b894">INFLOW</text>
+                    <path d="M 140 52 L 180 52 L 180 110" stroke="#00b894" stroke-width="3" fill="none" marker-end="url(#arrowhead-green)"/>
+                    
+                    <!-- Outflow Section -->
+                    <rect x="420" y="160" width="100" height="24" rx="5" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="470" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#e94560">OUTFLOW</text>
+                    <path d="M 380 172 L 420 172" stroke="#e94560" stroke-width="3" fill="none" marker-end="url(#arrowhead-red)"/>
+                    
+                    <!-- Drain -->
+                    <circle cx="280" cy="218" r="10" fill="#636e72" fill-opacity="0.2" stroke="#636e72" stroke-width="2"/>
+                    
+                    <defs>
+                        <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#00b894"/>
+                        </marker>
+                        <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#e94560"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 2: The classic bathtub model showing stock and flows</p>
+            </div>
+
+            <h4>Stock Examples from the Book</h4>
+            <p>Meadows uses specific, memorable examples to illustrate stocks and flows:</p>
+            
+            <div class="callout">
+                <h4>Coffee Prices: A Stock-Flow System</h4>
+                <p>The coffee market demonstrates stock-flow dynamics. Coffee trees are a stock—they take years to grow. Coffee beans in warehouses are another stock. The flow of harvest (inflow) depends on planting decisions made years earlier. The flow of consumption (outflow) depends on consumer demand. When prices are high, farmers plant more trees, but the increased supply doesn't arrive for years—causing price oscillations. This is a classic example of delays in stock-flow systems.</p>
+            </div>
+
+            <div class="callout">
+                <h4>Thermostat: A Balancing Loop</h4>
+                <p>A heating system is a classic example of a balancing loop with a stock (room temperature) and flows (heat from furnace, heat loss to outside). The thermostat compares the actual temperature to the goal temperature and adjusts the furnace. If there's a delay in the system (slow heating response), the temperature will oscillate around the goal—overshooting and undershooting. This illustrates how delays in balancing loops cause oscillation.</p>
+            </div>
+
+            <div class="callout">
+                <h4>Population: A Reinforcing Loop</h4>
+                <p>Population growth demonstrates a reinforcing loop. More people → more births → more people. The birth rate is the inflow, death rate is the outflow. When births exceed deaths, population grows exponentially. This is a simple one-stock system with reinforcing feedback. Meadows uses this to show how reinforcing loops can lead to explosive growth when not balanced by other factors.</p>
+            </div>
+
+            <div class="callout">
+                <h4>Oil Production: A Non-Renewable Resource System</h4>
+                <p>Oil reserves are a finite stock with no regeneration flow. Discovery adds to the stock (inflow), extraction removes it (outflow). As reserves deplete, extraction becomes more expensive, eventually leading to peak production and decline. This is a two-stock system: oil reserves and capital investment in extraction capacity. The system inevitably reaches a peak and declines because the resource is non-renewable. Meadows uses this to illustrate the dynamics of finite resource systems.</p>
+            </div>
+
+            <h4>Key Properties of Stocks</h4>
+            <p>Stocks integrate flows—they accumulate changes over time. Stocks provide inertia and memory in systems. They are the source of delays. Stocks can only be changed by flows. If you understand the stocks governing a system, you understand its behavior.</p>
+
+            <h3>Feedback Loops</h3>
+            <p>Feedback loops are circular chains of cause and effect. A change in one element affects another, which then affects the first element again. There are two types: reinforcing (positive) and balancing (negative).</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Reinforcing Loop -->
+                    <circle cx="160" cy="150" r="100" fill="none" stroke="#00b894" stroke-width="3" stroke-dasharray="8,4"/>
+                    <text x="160" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#00b894">REINFORCING</text>
+                    <text x="160" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">(Positive Feedback)</text>
+                    
+                    <!-- R loop arrows -->
+                    <path d="M 160 70 Q 240 70 240 150 Q 240 230 160 230" stroke="#00b894" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+                    <text x="245" y="150" font-family="Inter, sans-serif" font-size="24" fill="#00b894">R</text>
+                    
+                    <!-- Balancing Loop -->
+                    <circle cx="400" cy="150" r="100" fill="none" stroke="#e94560" stroke-width="3" stroke-dasharray="8,4"/>
+                    <text x="400" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#e94560">BALANCING</text>
+                    <text x="400" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">(Negative Feedback)</text>
+                    
+                    <!-- B loop arrows -->
+                    <path d="M 400 70 Q 480 70 480 150 Q 480 230 400 230" stroke="#e94560" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+                    <text x="485" y="150" font-family="Inter, sans-serif" font-size="24" fill="#e94560">B</text>
+                    
+                    <!-- Plus/Minus indicators -->
+                    <text x="160" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#00b894">+</text>
+                    <text x="400" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#e94560">−</text>
+                    
+                    <defs>
+                        <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#00b894"/>
+                        </marker>
+                        <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#e94560"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 3: The two types of feedback loops</p>
+            </div>
+
+            <h4>Reinforcing Loops</h4>
+            <p>Reinforcing loops amplify change—more leads to more. They generate growth, explosion, erosion, and collapse. Examples: compound interest, population growth, viral spread, panic, confidence building.</p>
+
+            <blockquote>
+                "Reinforcing feedback loops are sources of growth, explosion, erosion, and collapse in systems. A system with an unchecked reinforcing loop ultimately will destroy itself."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <h4>Balancing Loops</h4>
+            <p>Balancing loops counteract change—they stabilize systems. They maintain equilibrium, goal-seeking behavior, and adaptation. Examples: thermostat, body temperature, market supply and demand, hunger and eating.</p>
+
+            <h3>Delays</h3>
+            <p>Delays are interruptions in flows that cause mismatch between action and response. They are critical because they cause oscillation, instability, and unexpected behavior. Understanding delays is essential for effective intervention.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Timeline -->
+                    <line x1="40" y1="150" x2="520" y2="150" stroke="#636e72" stroke-width="2"/>
+                    
+                    <!-- Action point -->
+                    <circle cx="80" cy="150" r="8" fill="#e94560"/>
+                    <text x="80" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#e94560">ACTION</text>
+                    
+                    <!-- Delay zone -->
+                    <rect x="120" y="100" width="280" height="50" rx="8" fill="#fdcb6e" fill-opacity="0.2" stroke="#fdcb6e" stroke-width="2" stroke-dasharray="5,3"/>
+                    <text x="260" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#d4a017">DELAY</text>
+                    
+                    <!-- Response point -->
+                    <circle cx="480" cy="150" r="8" fill="#00b894"/>
+                    <text x="480" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#00b894">RESPONSE</text>
+                    
+                    <!-- Arrow showing delay -->
+                    <path d="M 88 150 L 472 150" stroke="#636e72" stroke-width="2" stroke-dasharray="4,4"/>
+                    
+                    <!-- Time labels -->
+                    <text x="40" y="175" font-family="Inter, sans-serif" font-size="10" fill="#636e72">t₀</text>
+                    <text x="480" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">t₁</text>
+                </svg>
+                <p class="diagram-caption">Figure 4: Delays between action and response</p>
+            </div>
+
+            <div class="callout">
+                <h4>Key Insight: Delays Cause Oscillation</h4>
+                <p>When there are delays in balancing loops, systems oscillate. The longer the delay relative to the adjustment rate, the more severe the oscillation. This is why thermostats overshoot, markets boom and bust, and diets fail. Understanding delays helps you time interventions correctly.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps</h4>
+                <ul>
+                    <li>Map the stocks and flows in systems you care about</li>
+                    <li>Identify reinforcing and balancing loops in your life</li>
+                    <li>Notice where delays cause problems in your decisions</li>
+                    <li>Before intervening, ask: What are the delays in this system?</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Build</h4>
+                <ul>
+                    <li>Look for stocks behind every problem</li>
+                    <li>Trace feedback loops before taking action</li>
+                    <li>Consider time delays in cause and effect</li>
+                    <li>Draw stock-flow diagrams for complex situations</li>
+                </ul>
+            </div>
+
+            <h3>Specific System Types in the Systems Zoo</h3>
+            <p>Meadows describes specific categories of systems with characteristic behaviors. Understanding these types helps recognize patterns in real-world systems.</p>
+
+            <h4>One-Stock Systems</h4>
+            <p>The simplest systems have a single stock with inflows and outflows. Even these simple systems can exhibit complex behavior depending on the structure of flows and delays.</p>
+
+            <h5>One-Stock System with No Delays</h5>
+            <p>A stock with immediate response to changes in inflows or outflows. The stock adjusts quickly to reach equilibrium. Example: a bank account with immediate deposits and withdrawals.</p>
+
+            <h5>One-Stock System with Delays</h5>
+            <p>When there are delays in the feedback loops, the system can oscillate. The longer the delay relative to the adjustment rate, the more severe the oscillation. Example: inventory management with production delays.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Stock -->
+                    <rect x="200" y="80" width="160" height="100" rx="8" fill="#74b9ff" fill-opacity="0.2" stroke="#74b9ff" stroke-width="3"/>
+                    <text x="280" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a2e">STOCK</text>
+                    <text x="280" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">One stock system</text>
+                    
+                    <!-- Inflow -->
+                    <path d="M 100 130 L 200 130" stroke="#00b894" stroke-width="3" marker-end="url(#arrow-green)"/>
+                    <text x="150" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#00b894">INFLOW</text>
+                    
+                    <!-- Outflow -->
+                    <path d="M 360 130 L 460 130" stroke="#e94560" stroke-width="3" marker-end="url(#arrow-red)"/>
+                    <text x="410" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#e94560">OUTFLOW</text>
+                    
+                    <!-- Delay indicator -->
+                    <rect x="240" y="200" width="80" height="30" rx="4" fill="#fdcb6e" fill-opacity="0.2" stroke="#fdcb6e" stroke-width="2" stroke-dasharray="4,2"/>
+                    <text x="280" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#d4a017">± DELAY</text>
+                </svg>
+                <p class="diagram-caption">Figure 4a: One-stock system structure</p>
+            </div>
+
+            <h4>Two-Stock Systems</h4>
+            <p>Systems with two interacting stocks can produce more complex behaviors, including oscillations, overshoot, and collapse.</p>
+
+            <h5>Renewable Resource System</h5>
+            <p>A stock of resource and a stock of harvesters. The resource regenerates (reinforcing loop) but is depleted by harvesters. If harvesters grow too fast, they can deplete the resource and collapse. Example: fishery, forest.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Resource stock -->
+                    <rect x="80" y="80" width="120" height="80" rx="8" fill="#00b894" fill-opacity="0.2" stroke="#00b894" stroke-width="2"/>
+                    <text x="140" y="125" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">RESOURCE</text>
+                    
+                    <!-- Harvester stock -->
+                    <rect x="360" y="80" width="120" height="80" rx="8" fill="#e94560" fill-opacity="0.2" stroke="#e94560" stroke-width="2"/>
+                    <text x="420" y="125" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">HARVESTERS</text>
+                    
+                    <!-- Regeneration flow -->
+                    <path d="M 140 160 L 140 200 L 140 160" stroke="#00b894" stroke-width="2" marker-end="url(#arrow-green)"/>
+                    <text x="140" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#00b894">Regeneration</text>
+                    
+                    <!-- Harvest flow -->
+                    <path d="M 200 120 L 360 120" stroke="#e94560" stroke-width="2" marker-end="url(#arrow-red)"/>
+                    <text x="280" y="110" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#e94560">Harvest</text>
+                    
+                    <!-- Growth flow -->
+                    <path d="M 420 160 L 420 200 L 420 160" stroke="#e94560" stroke-width="2" marker-end="url(#arrow-red)"/>
+                    <text x="420" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#e94560">Growth</text>
+                </svg>
+                <p class="diagram-caption">Figure 4b: Renewable resource system</p>
+            </div>
+
+            <h5>Non-Renewable Resource System</h5>
+            <p>A stock of finite resource and a stock of harvesters. The resource does not regenerate. As the resource depletes, harvesters must eventually decline. Example: oil, minerals.</p>
+
+            <h4>Oscillating Systems</h4>
+            <p>Systems with balancing loops and delays tend to oscillate. The system overshoots its goal, corrects, undershoots, and corrects again. This is the behavior of thermostats, inventory systems, and many biological systems.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Oscillation curve -->
+                    <path d="M 40 120 Q 80 60 120 120 Q 160 180 200 120 Q 240 60 280 120 Q 320 180 360 120 Q 400 60 440 120 Q 480 180 520 120" 
+                          stroke="#e94560" stroke-width="3" fill="none"/>
+                    
+                    <!-- Goal line -->
+                    <line x1="40" y1="120" x2="520" y2="120" stroke="#636e72" stroke-width="2" stroke-dasharray="5,5"/>
+                    
+                    <!-- Labels -->
+                    <text x="280" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a2e">OSCILLATION</text>
+                    <text x="280" y="58" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">System overshoots and undershoots goal</text>
+                    
+                    <text x="40" y="220" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Time →</text>
+                    <text x="20" y="80" font-family="Inter, sans-serif" font-size="10" fill="#636e72" transform="rotate(-90, 20, 80)">Stock Level →</text>
+                </svg>
+                <p class="diagram-caption">Figure 4c: Oscillating system behavior</p>
+            </div>
+
+            <h4>Chaos and Complexity</h4>
+            <p>Some systems exhibit chaotic behavior—small changes in initial conditions lead to vastly different outcomes. These systems are deterministic but unpredictable. Complex systems can self-organize and exhibit emergent properties that cannot be predicted from the parts alone.</p>
+
+            <blockquote>
+                "Chaos is not randomness—it's deterministic behavior that looks random because it depends sensitively on initial conditions. Complex systems can self-organize into ordered patterns without central control."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <div class="callout">
+                <h4>Key Insight: System Types Reveal Patterns</h4>
+                <p>By recognizing these system types, you can predict behavior. If you see a renewable resource system, you can predict potential collapse if harvest rates exceed regeneration. If you see delays in balancing loops, you can predict oscillation.</p>
+            </div>
+        </section>
+
+        <section id="chapter3">
+            <h2>Chapter 3: Why Systems Work So Well</h2>
+            <p>Systems exhibit remarkable properties: resilience, self-organization, and hierarchy. These properties emerge from the system's structure and enable it to function effectively in complex environments.</p>
+
+            <h3>Resilience</h3>
+            <p>Resilience is the ability of a system to recover from perturbation—to bounce back after disturbance. It's not about avoiding change but about maintaining identity and function through change.</p>
+
+            <blockquote>
+                "Resilience is a measure of a system's ability to survive and persist within a variable environment. Resilience arises from a rich structure of many feedback loops that can work in different ways."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Resilience curve -->
+                    <path d="M 40 200 Q 80 200 100 180 Q 120 140 140 160 Q 160 180 180 170 Q 200 160 220 175 Q 240 190 260 165 Q 280 140 300 160 Q 320 180 340 170 Q 360 160 380 175 Q 400 190 420 165 Q 440 140 460 160 Q 480 180 500 170 Q 520 160 520 200" 
+                          stroke="#00b894" stroke-width="3" fill="none"/>
+                    
+                    <!-- Baseline -->
+                    <line x1="40" y1="200" x2="520" y2="200" stroke="#636e72" stroke-width="2" stroke-dasharray="5,5"/>
+                    
+                    <!-- Perturbation points -->
+                    <circle cx="100" cy="180" r="6" fill="#e94560"/>
+                    <circle cx="180" cy="170" r="6" fill="#e94560"/>
+                    <circle cx="260" cy="165" r="6" fill="#e94560"/>
+                    <circle cx="340" cy="170" r="6" fill="#e94560"/>
+                    <circle cx="420" cy="165" r="6" fill="#e94560"/>
+                    
+                    <!-- Labels -->
+                    <text x="280" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a2e">RESILIENCE</text>
+                    <text x="280" y="58" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">System returns to equilibrium after disturbances</text>
+                    
+                    <text x="100" y="165" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#e94560">disturbance</text>
+                    <text x="40" y="220" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Time →</text>
+                    <text x="20" y="100" font-family="Inter, sans-serif" font-size="10" fill="#636e72" transform="rotate(-90, 20, 100)">System State →</text>
+                </svg>
+                <p class="diagram-caption">Figure 5: A resilient system bouncing back from disturbances</p>
+            </div>
+
+            <h4>Characteristics of Resilient Systems</h4>
+            <ul>
+                <li>Multiple feedback loops operating at different scales</li>
+                <li>Redundancy—backup systems and alternative pathways</li>
+                <li>Diversity—different elements that can serve similar functions</li>
+                <li>Modularity—independent subsystems that can fail without collapsing the whole</li>
+            </ul>
+
+            <div class="callout">
+                <h4>Key Insight: Efficiency vs. Resilience</h4>
+                <p>Modern systems often optimize for efficiency at the expense of resilience. Just-in-time inventory, monoculture agriculture, and centralized control all increase efficiency but decrease resilience. When optimizing systems, always consider the resilience trade-off.</p>
+            </div>
+
+            <h3>Self-Organization</h3>
+            <p>Self-organization is the capacity of a system to change its structure spontaneously. It's the source of evolution, learning, and development. Self-organizing systems create new patterns, new structures, and new behaviors without external direction.</p>
+
+            <blockquote>
+                "Self-organization is perhaps the most mysterious and wonderful property of systems. It is the capacity of a system to make its own structure more complex, to learn, diversify, and evolve."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <h4>Conditions for Self-Organization</h4>
+            <ul>
+                <li>Freedom from excessive top-down control</li>
+                <li>Diversity of elements and interactions</li>
+                <li>Information flow between elements</li>
+                <li>Negative feedback to prevent runaway growth</li>
+                <li>Positive feedback to drive exploration and change</li>
+            </ul>
+
+            <h3>Hierarchy</h3>
+            <p>Hierarchical systems are composed of subsystems that are themselves systems. Every system is nested within larger systems. This nested structure is essential for managing complexity.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Level 1: Cell -->
+                    <rect x="40" y="220" width="100" height="60" rx="8" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="90" y="255" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">CELL</text>
+                    
+                    <!-- Level 2: Organ -->
+                    <rect x="160" y="180" width="120" height="100" rx="8" fill="#74b9ff" fill-opacity="0.1" stroke="#74b9ff" stroke-width="2"/>
+                    <text x="220" y="235" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">ORGAN</text>
+                    
+                    <!-- Level 3: Organism -->
+                    <rect x="300" y="140" width="140" height="140" rx="8" fill="#00b894" fill-opacity="0.1" stroke="#00b894" stroke-width="2"/>
+                    <text x="370" y="215" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">ORGANISM</text>
+                    
+                    <!-- Level 4: Population -->
+                    <rect x="460" y="100" width="80" height="180" rx="8" fill="#fdcb6e" fill-opacity="0.1" stroke="#fdcb6e" stroke-width="2"/>
+                    <text x="500" y="195" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">POPULATION</text>
+                    
+                    <!-- Hierarchy arrows -->
+                    <path d="M 140 250 L 155 250" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    <path d="M 280 230 L 295 230" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    <path d="M 440 210 L 455 210" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    
+                    <!-- Level labels -->
+                    <text x="90" y="295" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Level 1</text>
+                    <text x="220" y="295" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Level 2</text>
+                    <text x="370" y="295" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Level 3</text>
+                    <text x="500" y="295" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Level 4</text>
+                    
+                    <defs>
+                        <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#636e72"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 6: Hierarchical nesting in biological systems</p>
+            </div>
+
+            <h4>Principles of Hierarchical Systems</h4>
+            <ul>
+                <li>Subsystems are organized in hierarchies</li>
+                <li>Each level serves the levels above it</li>
+                <li>Higher levels set goals for lower levels</li>
+                <li>Lower levels provide functions for higher levels</li>
+                <li>Communication flows both up and down the hierarchy</li>
+            </ul>
+
+            <blockquote>
+                "Hierarchical systems evolve from the bottom up. The purpose of the upper layers of the hierarchy is to serve the purposes of the lower layers."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <div class="callout">
+                <h4>Key Insight: Hierarchy Enables Complexity</h4>
+                <p>Without hierarchy, complex systems would be unmanageable. Hierarchy allows subsystems to be relatively independent while contributing to larger purposes. But when hierarchies become too rigid or when higher levels forget their purpose to serve lower levels, systems fail.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps</h4>
+                <ul>
+                    <li>Identify where you can increase resilience in your life systems</li>
+                    <li>Create conditions for self-organization in teams or projects</li>
+                    <li>Examine hierarchies you're part of—are they serving their purpose?</li>
+                    <li>Before optimizing for efficiency, consider resilience trade-offs</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Build</h4>
+                <ul>
+                    <li>Build redundancy and diversity into important systems</li>
+                    <li>Allow space for self-organization and emergence</li>
+                    <li>Question whether hierarchies serve or control</li>
+                    <li>Design systems that can adapt to change</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="chapter4">
+            <h2>Chapter 4: Why Systems Surprise Us</h2>
+            <p>Systems often behave in counterintuitive ways. Our mental models—our assumptions about how systems work—frequently fail to match reality. Understanding why systems surprise us helps us avoid common traps.</p>
+
+            <h3>The Iceberg Model</h3>
+            <p>The iceberg model illustrates different levels of system understanding. At the surface are events—what we can see. Below are patterns of behavior, then underlying structures, and finally mental models.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Water line -->
+                    <line x1="20" y1="120" x2="540" y2="120" stroke="#74b9ff" stroke-width="3"/>
+                    
+                    <!-- Iceberg above water -->
+                    <path d="M 200 120 L 250 60 L 300 120 Z" fill="#e9ecef" stroke="#636e72" stroke-width="2"/>
+                    
+                    <!-- Iceberg below water -->
+                    <path d="M 160 120 L 200 120 L 250 60 L 300 120 L 340 120 L 300 350 L 200 350 Z" fill="#dfe6e9" stroke="#636e72" stroke-width="2"/>
+                    
+                    <!-- Events label -->
+                    <text x="250" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">EVENTS</text>
+                    <text x="250" y="108" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#636e72">What happened?</text>
+                    
+                    <!-- Patterns label -->
+                    <text x="250" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">PATTERNS</text>
+                    <text x="250" y="173" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#636e72">Trends over time</text>
+                    
+                    <!-- Structure label -->
+                    <text x="250" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">STRUCTURE</text>
+                    <text x="250" y="243" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#636e72">System relationships</text>
+                    
+                    <!-- Mental Models label -->
+                    <text x="250" y="300" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">MENTAL MODELS</text>
+                    <text x="250" y="313" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#636e72">Beliefs, assumptions</text>
+                    
+                    <!-- Depth indicator -->
+                    <line x1="350" y1="120" x2="350" y2="350" stroke="#636e72" stroke-width="1" stroke-dasharray="4,4"/>
+                    <text x="355" y="235" font-family="Inter, sans-serif" font-size="9" fill="#636e72">deeper understanding</text>
+                    
+                    <!-- Water label -->
+                    <text x="500" y="100" font-family="Inter, sans-serif" font-size="10" fill="#74b9ff">observable</text>
+                    <text x="500" y="200" font-family="Inter, sans-serif" font-size="10" fill="#636e72">less observable</text>
+                </svg>
+                <p class="diagram-caption">Figure 7: The iceberg model of system understanding</p>
+            </div>
+
+            <h4>Levels of Understanding</h4>
+            <ul>
+                <li><strong>Events:</strong> What just happened? Reactive level</li>
+                <li><strong>Patterns:</strong> What trends are occurring? Predictive level</li>
+                <li><strong>Structure:</strong> What causes the patterns? Systems level</li>
+                <li><strong>Mental Models:</strong> What beliefs shape the structure? Transformative level</li>
+            </ul>
+
+            <blockquote>
+                "The only way to change a system deeply is to change the mental models that shape it."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <h3>Common Sources of Surprise</h3>
+            
+            <h4>1. Linear Thinking in a Nonlinear World</h4>
+            <p>We expect proportional relationships—if we push twice as hard, we expect twice the result. But systems are nonlinear. Small causes can have large effects, and large causes can have small effects.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Linear expectation -->
+                    <line x1="40" y1="180" x2="520" y2="60" stroke="#636e72" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="480" y="50" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Linear expectation</text>
+                    
+                    <!-- Nonlinear reality -->
+                    <path d="M 40 180 Q 150 170 200 140 Q 250 110 300 100 Q 350 90 400 40 Q 450 10 520 20" 
+                          stroke="#e94560" stroke-width="3" fill="none"/>
+                    <text x="480" y="30" font-family="Inter, sans-serif" font-size="10" fill="#e94560">Nonlinear reality</text>
+                    
+                    <!-- Axes -->
+                    <line x1="40" y1="180" x2="520" y2="180" stroke="#636e72" stroke-width="2"/>
+                    <line x1="40" y1="180" x2="40" y2="20" stroke="#636e72" stroke-width="2"/>
+                    
+                    <!-- Labels -->
+                    <text x="280" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Input →</text>
+                    <text x="25" y="100" font-family="Inter, sans-serif" font-size="10" fill="#636e72" transform="rotate(-90, 25, 100)">Output →</text>
+                </svg>
+                <p class="diagram-caption">Figure 8: Linear expectations vs. nonlinear reality</p>
+            </div>
+
+            <h4>2. Bounded Rationality</h4>
+            <p>People make rational decisions based on limited information, limited cognitive capacity, and limited time. These locally rational decisions can lead to globally irrational outcomes.</p>
+
+            <h4>3. The Illusion of Control</h4>
+            <p>We often believe we can control complex systems, but our interventions frequently have unintended consequences. The more tightly we try to control a system, the more likely we are to create problems.</p>
+
+            <h4>4. Delays and Oscillations</h4>
+            <p>Because we don't account for delays, our interventions often overshoot or arrive too late. This causes oscillations that we then misinterpret as system failure, leading to more intervention and more oscillation.</p>
+
+            <div class="callout">
+                <h4>Key Insight: Move Down the Iceberg</h4>
+                <p>Most people spend their lives reacting to events. Systems thinkers move down the iceberg to patterns, then structure, then mental models. The deeper you go, the more leverage you have for change. Mental models are the deepest leverage point.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps</h4>
+                <ul>
+                    <li>When a problem occurs, ask: What pattern does this fit?</li>
+                    <li>Map the structure that creates patterns you observe</li>
+                    <li>Identify the mental models behind the structure</li>
+                    <li>Look for nonlinear relationships before assuming proportionality</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Build</h4>
+                <ul>
+                    <li>Always look for patterns, not just events</li>
+                    <li>Question your assumptions about how systems work</li>
+                    <li>Consider delays before taking action</li>
+                    <li>Seek to understand structure before intervening</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Eliminate</h4>
+                <ul>
+                    <li>Reacting immediately to events without deeper analysis</li>
+                    <li>Assuming linear relationships in complex systems</li>
+                    <li>Believing you can control complex systems</li>
+                    <li>Blaming individuals for system-level problems</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="chapter5">
+            <h2>Chapter 5: System Traps</h2>
+            <p>Systems can fall into predictable patterns of behavior that lead to problems. These "system traps" or "archetypes" appear repeatedly in many different contexts. Recognizing them is the first step to avoiding or escaping them.</p>
+
+            <h3>1. Policy Resistance</h3>
+            <p>When a policy change is resisted by the system, it's often because different actors have different goals. The system pushes back against the intervention, leading to unintended consequences.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Central goal -->
+                    <circle cx="280" cy="140" r="50" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="3"/>
+                    <text x="280" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">SYSTEM</text>
+                    <text x="280" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">GOAL</text>
+                    
+                    <!-- Actor A -->
+                    <circle cx="100" cy="80" r="40" fill="#74b9ff" fill-opacity="0.1" stroke="#74b9ff" stroke-width="2"/>
+                    <text x="100" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">Actor A</text>
+                    
+                    <!-- Actor B -->
+                    <circle cx="460" cy="80" r="40" fill="#00b894" fill-opacity="0.1" stroke="#00b894" stroke-width="2"/>
+                    <text x="460" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">Actor B</text>
+                    
+                    <!-- Actor C -->
+                    <circle cx="100" cy="200" r="40" fill="#fdcb6e" fill-opacity="0.1" stroke="#fdcb6e" stroke-width="2"/>
+                    <text x="100" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">Actor C</text>
+                    
+                    <!-- Actor D -->
+                    <circle cx="460" cy="200" r="40" fill="#a29bfe" fill-opacity="0.1" stroke="#a29bfe" stroke-width="2"/>
+                    <text x="460" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">Actor D</text>
+                    
+                    <!-- Arrows showing conflict -->
+                    <path d="M 140 80 L 230 120" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    <path d="M 420 80 L 330 120" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    <path d="M 140 200 L 230 160" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    <path d="M 420 200 L 330 160" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    
+                    <!-- Conflict indicator -->
+                    <text x="280" y="240" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#e94560">Conflicting goals → resistance</text>
+                </svg>
+                <p class="diagram-caption">Figure 9: Policy resistance from conflicting actor goals</p>
+            </div>
+
+            <blockquote>
+                "Policy resistance happens when different actors in a system have different goals, and when a policy change favors one actor's goals over another's, the system resists."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <h4>Solution: Align Goals</h4>
+            <p>The solution to policy resistance is to find a higher-level goal that all actors can agree on. Bring all actors together to understand the system and find win-win solutions.</p>
+
+            <h3>2. The Tragedy of the Commons</h3>
+            <p>When a shared resource is available to all, individuals acting in their self-interest overuse the resource, leading to depletion for everyone. This occurs when there is no feedback between individual consumption and the state of the resource.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Commons resource -->
+                    <rect x="200" y="40" width="160" height="100" rx="8" fill="#74b9ff" fill-opacity="0.2" stroke="#74b9ff" stroke-width="3"/>
+                    <text x="280" y="75" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">SHARED</text>
+                    <text x="280" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">RESOURCE</text>
+                    <text x="280" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">(The Commons)</text>
+                    
+                    <!-- Users -->
+                    <circle cx="80" cy="200" r="35" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="80" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">User 1</text>
+                    
+                    <circle cx="200" cy="200" r="35" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="200" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">User 2</text>
+                    
+                    <circle cx="320" cy="200" r="35" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="320" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">User 3</text>
+                    
+                    <circle cx="440" cy="200" r="35" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="440" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">User 4</text>
+                    
+                    <!-- Arrows showing consumption -->
+                    <path d="M 80 165 L 220 140" stroke="#e94560" stroke-width="2" marker-end="url(#arrow-red)"/>
+                    <path d="M 200 165 L 260 140" stroke="#e94560" stroke-width="2" marker-end="url(#arrow-red)"/>
+                    <path d="M 320 165 L 300 140" stroke="#e94560" stroke-width="2" marker-end="url(#arrow-red)"/>
+                    <path d="M 440 165 L 340 140" stroke="#e94560" stroke-width="2" marker-end="url(#arrow-red)"/>
+                    
+                    <!-- Depletion arrow -->
+                    <path d="M 280 140 L 280 250" stroke="#636e72" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-gray)"/>
+                    <text x="280" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#e94560">Resource depletion</text>
+                </svg>
+                <p class="diagram-caption">Figure 10: The tragedy of the commons</p>
+            </div>
+
+            <h4>Solution: Add Feedback or Regulation</h4>
+            <p>Solutions include: educating users to regulate themselves, privatizing the resource, or regulating use through quotas or taxes. The key is to create feedback between individual actions and resource consequences.</p>
+
+            <h3>3. Drift to Low Performance</h3>
+            <p>When a system's performance goal is allowed to adjust based on actual performance, the goal can drift downward over time. Each small decline in performance becomes the new normal, leading to gradual erosion of standards.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="540" height="300" rx="15" fill="#ffffff" stroke="#f0f0f0" stroke-width="1"/>
+                    
+                    <!-- Axes -->
+                    <line x1="60" y1="260" x2="520" y2="260" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-axis)"/>
+                    <line x1="60" y1="260" x2="60" y2="40" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-axis)"/>
+                    <text x="290" y="290" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">Time →</text>
+                    <text x="30" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72" transform="rotate(-90, 30, 150)">Performance →</text>
+
+                    <!-- Original Goal (Standard) -->
+                    <line x1="60" y1="70" x2="500" y2="70" stroke="#00b894" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="65" y="60" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#00b894">Original Standard</text>
+
+                    <!-- Perceived Normal (Drifting Goal) -->
+                    <path d="M 60 70 C 150 75, 300 130, 500 200" stroke="#636e72" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+                    <text x="380" y="150" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#636e72" transform="rotate(18, 380, 150)">Perceived Normal</text>
+
+                    <!-- Actual Performance -->
+                    <path d="M 60 85 C 150 95, 300 155, 500 230" stroke="#e94560" stroke-width="3" fill="none"/>
+                    <text x="505" y="240" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#e94560">Actual Performance</text>
+
+                    <!-- Drift Indication -->
+                    <path d="M 450 75 L 450 175" stroke="#fdcb6e" stroke-width="2" marker-end="url(#arrow-yellow)"/>
+                    <text x="458" y="130" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#d4a017">DRIFT</text>
+
+                    <defs>
+                        <marker id="arrow-axis" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#636e72"/>
+                        </marker>
+                        <marker id="arrow-yellow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#fdcb6e"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 11: Drift to low performance (the erosion of standards)</p>
+            </div>
+
+            <h4>Solution: Keep Standards Absolute</h4>
+            <p>Keep performance goals absolute rather than relative. Compare performance to best practices, not past performance. Celebrate improvements rather than accepting decline.</p>
+
+            <h3>4. Escalation</h3>
+            <p>When one party's action is seen as a threat by another, and the second party responds in kind, a reinforcing loop of escalation can develop. This is the arms race dynamic.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Party A -->
+                    <rect x="40" y="100" width="100" height="80" rx="8" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="90" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">Party A</text>
+                    
+                    <!-- Party B -->
+                    <rect x="420" y="100" width="100" height="80" rx="8" fill="#74b9ff" fill-opacity="0.1" stroke="#74b9ff" stroke-width="2"/>
+                    <text x="470" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">Party B</text>
+                    
+                    <!-- Escalation arrows -->
+                    <path d="M 140 120 L 420 120" stroke="#e94560" stroke-width="3" marker-end="url(#arrow-red)"/>
+                    <path d="M 420 160 L 140 160" stroke="#74b9ff" stroke-width="3" marker-end="url(#arrow-blue)"/>
+                    
+                    <!-- Labels on arrows -->
+                    <text x="280" y="110" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#e94560">Action by A</text>
+                    <text x="280" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#74b9ff">Response by B</text>
+                    
+                    <!-- Escalation indicator -->
+                    <text x="280" y="220" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#e94560">Escalating spiral</text>
+                    
+                    <defs>
+                        <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#74b9ff"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 12: Escalation trap</p>
+            </div>
+
+            <h4>Solution: Disarm Unilaterally or Negotiate</h4>
+            <p>One party can break the cycle by refusing to escalate, or both parties can negotiate to limit the competition. The key is to change the rules of the game.</p>
+
+            <h3>5. Success to the Successful</h3>
+            <p>When those who have more get more, a reinforcing loop creates winner-take-all dynamics. The rich get richer, the popular get more popular, and the successful get more resources to become even more successful.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Winner -->
+                    <circle cx="160" cy="130" r="60" fill="#00b894" fill-opacity="0.2" stroke="#00b894" stroke-width="3"/>
+                    <text x="160" y="125" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">WINNER</text>
+                    <text x="160" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">More resources</text>
+                    
+                    <!-- Loser -->
+                    <circle cx="400" cy="130" r="40" fill="#e94560" fill-opacity="0.2" stroke="#e94560" stroke-width="2"/>
+                    <text x="400" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">LOSER</text>
+                    
+                    <!-- Resource flow -->
+                    <path d="M 220 130 L 360 130" stroke="#636e72" stroke-width="3" marker-end="url(#arrow-gray)"/>
+                    <text x="290" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">Resources flow</text>
+                    
+                    <!-- Reinforcing arrows -->
+                    <path d="M 160 70 Q 160 40 280 40 Q 400 40 400 90" stroke="#00b894" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+                    <text x="280" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#00b894">Reinforcing loop</text>
+                </svg>
+                <p class="diagram-caption">Figure 13: Success to the successful trap</p>
+            </div>
+
+            <h4>Solution: Diversify Success Criteria</h4>
+            <p>Create multiple ways to succeed. Level the playing field through redistribution or affirmative action. Recognize that winner-take-all dynamics can harm the whole system.</p>
+
+            <div class="callout">
+                <h4>Key Insight: System Traps Are Predictable</h4>
+                <p>These traps appear again and again in different contexts. Once you recognize them, you can anticipate them and design systems to avoid them. The key is to look for the underlying structure, not just the surface symptoms.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps</h4>
+                <ul>
+                    <li>Learn to recognize the six system traps in your environment</li>
+                    <li>When you see a trap, map its structure</li>
+                    <li>Design interventions that address the root cause, not symptoms</li>
+                    <li>Share your understanding of traps with others</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Build</h4>
+                <ul>
+                    <li>Look for reinforcing loops that might lead to escalation</li>
+                    <li>Check if goals are drifting downward over time</li>
+                    <li>Consider whether success is concentrating unfairly</li>
+                    <li>Ask: What feedback is missing in this system?</li>
+                </ul>
+            </div>
+
+            <h3>6. Shifting the Burden to the Intervenor (Addiction)</h3>
+            <p>When a system problem arises, an intervenor provides a solution that addresses the symptom but not the root cause. The original system's ability to solve the problem atrophies, creating dependence on the intervenor. This is the structure of addiction.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="540" height="300" rx="15" fill="#ffffff" stroke="#f0f0f0" stroke-width="1"/>
+                    
+                    <!-- Problem symptom -->
+                    <rect x="200" y="30" width="160" height="50" rx="8" fill="#e94560" fill-opacity="0.08" stroke="#e94560" stroke-width="2"/>
+                    <text x="280" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">PROBLEM SYMPTOM</text>
+                    
+                    <!-- Original system response -->
+                    <circle cx="120" cy="180" r="60" fill="#74b9ff" fill-opacity="0.08" stroke="#74b9ff" stroke-width="2"/>
+                    <text x="120" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1a2e">ORIGINAL</text>
+                    <text x="120" y="192" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">SYSTEM</text>
+                    
+                    <!-- Intervenor -->
+                    <circle cx="440" cy="180" r="60" fill="#00b894" fill-opacity="0.08" stroke="#00b894" stroke-width="2"/>
+                    <text x="440" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1a2e">INTERVENOR</text>
+                    <text x="440" y="192" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">SOLUTION</text>
+                    
+                    <!-- Arrows from problem to systems -->
+                    <path d="M 240 80 Q 180 120 150 135" stroke="#74b9ff" stroke-width="2" fill="none" marker-end="url(#arrow-blue)"/>
+                    <path d="M 320 80 Q 380 120 410 135" stroke="#00b894" stroke-width="3" fill="none" marker-end="url(#arrow-green)"/>
+                    
+                    <!-- Atrophy arrow -->
+                    <path d="M 185 180 L 375 180" stroke="#e94560" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)"/>
+                    <text x="280" y="170" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#e94560">Original system atrophies</text>
+                    
+                    <!-- Dependence loop -->
+                    <path d="M 440 240 Q 440 275 280 275 Q 120 275 120 245" stroke="#636e72" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow-gray)"/>
+                    <text x="280" y="292" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#636e72">Dependence grows</text>
+                    
+                    <defs>
+                        <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#74b9ff"/>
+                        </marker>
+                        <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#00b894"/>
+                        </marker>
+                        <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#e94560"/>
+                        </marker>
+                        <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#636e72"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 13a: Shifting the burden to the intervenor (addiction structure)</p>
+            </div>
+
+            <blockquote>
+                "Addiction is when a system's ability to solve its own problems is weakened by an intervenor that provides relief from symptoms, allowing the underlying problem to worsen."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <h4>Solution: Strengthen Original System</h4>
+            <p>The way out is to strengthen the original system's ability to solve the problem while gradually withdrawing the intervenor's support. Focus on root causes, not symptoms. Build resilience in the system itself.</p>
+
+            <h3>7. Rule Beating</h3>
+            <p>When rules exist, people find ways to beat them. This is inevitable—rules create incentives for rule-beating behavior. The system then responds with more rules, creating an escalating cycle of regulation and evasion.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Rule -->
+                    <rect x="40" y="100" width="120" height="80" rx="8" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="100" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#1a1a2e">RULE</text>
+                    
+                    <!-- Rule beating -->
+                    <rect x="220" y="100" width="120" height="80" rx="8" fill="#fdcb6e" fill-opacity="0.1" stroke="#fdcb6e" stroke-width="2"/>
+                    <text x="280" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">RULE</text>
+                    <text x="280" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">BEATING</text>
+                    
+                    <!-- More rules -->
+                    <rect x="400" y="100" width="120" height="80" rx="8" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="460" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">MORE</text>
+                    <text x="460" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">RULES</text>
+                    
+                    <!-- Escalation arrows -->
+                    <path d="M 160 140 L 220 140" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    <path d="M 340 140 L 400 140" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    
+                    <!-- Loop back -->
+                    <path d="M 460 180 Q 460 220 280 220 Q 100 220 100 180" stroke="#e94560" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow-red)"/>
+                    <text x="280" y="240" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#e94560">Escalating cycle</text>
+                </svg>
+                <p class="diagram-caption">Figure 13b: Rule beating escalation</p>
+            </div>
+
+            <h4>Solution: Redesign Rules</h4>
+            <p>Design or redesign rules to release creativity in the direction of the system's purpose, not in the direction of beating the rules. Align incentives with desired outcomes. Simplify rules where possible.</p>
+
+            <h3>8. Seeking the Wrong Goal</h3>
+            <p>When a system pursues a goal that is not aligned with its true purpose, it can achieve the wrong goal brilliantly while the system deteriorates. This happens when metrics substitute for values.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Stated goal -->
+                    <circle cx="160" cy="150" r="60" fill="#00b894" fill-opacity="0.1" stroke="#00b894" stroke-width="2"/>
+                    <text x="160" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">STATED</text>
+                    <text x="160" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">GOAL</text>
+                    
+                    <!-- System behavior -->
+                    <rect x="260" y="100" width="140" height="100" rx="8" fill="#74b9ff" fill-opacity="0.1" stroke="#74b9ff" stroke-width="2"/>
+                    <text x="330" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">SYSTEM</text>
+                    <text x="330" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1a1a2e">BEHAVIOR</text>
+                    
+                    <!-- Actual outcome -->
+                    <circle cx="480" cy="150" r="50" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="480" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">ACTUAL</text>
+                    <text x="480" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">OUTCOME</text>
+                    
+                    <!-- Arrows -->
+                    <path d="M 220 150 L 260 150" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    <path d="M 400 150 L 430 150" stroke="#636e72" stroke-width="2" marker-end="url(#arrow-gray)"/>
+                    
+                    <!-- Mismatch indicator -->
+                    <text x="330" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#e94560">Goal achieved, system deteriorates</text>
+                    
+                    <!-- True purpose label -->
+                    <text x="160" y="240" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#636e72">(not true purpose)</text>
+                </svg>
+                <p class="diagram-caption">Figure 13c: Seeking the wrong goal</p>
+            </div>
+
+            <blockquote>
+                "If the goal is defined in terms of a proxy variable that is not a true measure of system purpose, then the system will produce the proxy variable in abundance, while the true purpose may actually be eroded."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <h4>Solution: Align Goals with True Purpose</h4>
+            <p>Specify goals that reflect the true purpose of the system. Use multiple indicators rather than single metrics. Be wary of proxy variables that substitute for values. Continuously question whether goals are serving the system's real purpose.</p>
+
+            <div class="callout">
+                <h4>Key Insight: All Eight Traps Are Predictable</h4>
+                <p>These eight traps appear again and again in different contexts. Once you recognize them, you can anticipate them and design systems to avoid them. The key is to look for the underlying structure, not just the surface symptoms.</p>
+            </div>
+        </section>
+
+        <section id="chapter6">
+            <h2>Chapter 6: Leverage Points</h2>
+            <p>Leverage points are places in a system where a small change can lead to large improvements in system behavior. Meadows identifies twelve leverage points, ordered from least effective to most effective.</p>
+
+            <h3>The Twelve Leverage Points (from least to most effective)</h3>
+
+            <h4>12. Constants, Parameters, and Numbers</h4>
+            <p>These are the easiest things to change—tax rates, minimum wages, budgets. But they rarely change system behavior significantly. They're the most common intervention but the least effective.</p>
+
+            <h4>11. Buffer Sizes</h4>
+            <p>The size of stabilizing buffers relative to flows. Larger buffers increase resilience but decrease efficiency. Examples: inventory, emergency funds, spare capacity.</p>
+
+            <h4>10. Stock-and-Flow Structures</h4>
+            <p>The physical structure of stocks and flows. These are harder to change than parameters but more powerful. Rebuilding infrastructure or changing supply chains falls here.</p>
+
+            <h4>9. Delays</h4>
+            <p>The length of time relative to the rate of system change. Shortening delays can improve system response, but some delays are necessary for stability.</p>
+
+            <h4>8. Balancing Feedback Loops</h4>
+            <p>The strength of feedback loops that keep the system in balance. Strengthening these loops can improve stability, but they need to be designed carefully.</p>
+
+            <h4>7. Reinforcing Feedback Loops</h4>
+            <p>The strength of loops that drive growth or decline. These are powerful leverage points but dangerous—small changes can lead to exponential effects.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="540" height="380" rx="15" fill="#ffffff" stroke="#f0f0f0" stroke-width="1"/>
+                    
+                    <!-- Leverage points pyramid -->
+                    <polygon points="280,30 520,350 40,350" fill="none" stroke="#636e72" stroke-width="2"/>
+                    
+                    <!-- Level labels with better spacing -->
+                    <text x="280" y="340" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#e94560">12. Parameters</text>
+                    <text x="280" y="315" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">11. Buffers</text>
+                    <text x="280" y="290" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">10. Structure</text>
+                    <text x="280" y="265" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">9. Delays</text>
+                    <text x="280" y="240" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">8. Balancing Loops</text>
+                    <text x="280" y="215" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">7. Reinforcing Loops</text>
+                    <text x="280" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">6. Information Flows</text>
+                    <text x="280" y="165" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">5. Rules</text>
+                    <text x="280" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">4. Self-Organization</text>
+                    <text x="280" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">3. Goals</text>
+                    <text x="280" y="90" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">2. Paradigms</text>
+                    <text x="280" y="65" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#00b894">1. Transcending Paradigms</text>
+                    
+                    <!-- Effectiveness labels on sides -->
+                    <text x="510" y="340" text-anchor="end" font-family="Inter, sans-serif" font-size="9" fill="#e94560" font-style="italic">Least Effective</text>
+                    <text x="510" y="65" text-anchor="end" font-family="Inter, sans-serif" font-size="9" fill="#00b894" font-style="italic">Most Effective</text>
+                    
+                    <!-- Arrow indicating effectiveness -->
+                    <path d="M 525 335 L 525 70" stroke="#636e72" stroke-width="1.5" marker-end="url(#arrow-effectiveness)"/>
+                    
+                    <defs>
+                        <marker id="arrow-effectiveness" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#636e72"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p class="diagram-caption">Figure 14: The twelve leverage points ordered by effectiveness</p>
+            </div>
+
+            <h4>6. Information Flows</h4>
+            <p>The structure of who does and does not have access to information. Adding missing information flows can be powerful—think of publishing pollution data or making prices transparent.</p>
+
+            <h4>5. Rules of the System</h4>
+            <p>Incentives, punishments, and constraints. Rules are high leverage points because they shape behavior. Changing rules can quickly change system behavior.</p>
+
+            <h4>4. The Power of Self-Organization</h4>
+            <p>The ability to add, change, or evolve system structure. This is the power to change the system itself. It's about fostering diversity and allowing new structures to emerge.</p>
+
+            <h4>3. The Goals of the System</h4>
+            <p>The purpose or goal of the system. Changing the goal changes everything. If you change the goal of a corporation from profit to sustainability, the entire system changes.</p>
+
+            <h4>2. The Paradigm from Which the System Arises</h4>
+            <p>The mindset or paradigm out of which the system—its goals, rules, and structure—arises. Paradigms are the sources of systems. Changing paradigms is difficult but powerful.</p>
+
+            <h4>1. The Power to Transcend Paradigms</h4>
+            <p>The ability to stay unattached to any particular paradigm. This is the highest leverage point—recognizing that paradigms are tools, not truths. It's the power to choose how to think.</p>
+
+            <blockquote>
+                "The highest leverage point is to become able to perceive the paradigm and to realize that you can choose to change it. This is the power to transcend paradigms."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <div class="callout">
+                <h4>Key Insight: Work Deeper, Not Harder</h4>
+                <p>Most people spend their time at the shallow end of the leverage spectrum—tweaking parameters and complaining about rules. Real change comes from working at deeper levels: changing goals, paradigms, and transcending paradigms entirely.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps</h4>
+                <ul>
+                    <li>Before intervening, ask: Where is the leverage in this system?</li>
+                    <li>Practice identifying which leverage point you're working at</li>
+                    <li>Try to move your interventions to deeper levels</li>
+                    <li>Challenge your own paradigms regularly</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Build</h4>
+                <ul>
+                    <li>Ask "what's the goal?" before accepting a system's purpose</li>
+                    <li>Look for the paradigm behind system design</li>
+                    <li>Practice holding multiple paradigms simultaneously</li>
+                    <li>Focus on rules and information flows, not just parameters</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="chapter7">
+            <h2>Chapter 7: Living in a World of Systems</h2>
+            <p>Systems thinking is not just a tool for analysis—it's a way of living. This chapter offers guidance for how to live wisely in a world of complex systems.</p>
+
+            <h3>Guidelines for Living with Systems</h3>
+
+            <h4>1. Get the Beat of the System</h4>
+            <p>Before disturbing the system, observe it. Learn its history. Understand its dynamics. Feel its rhythms. You can't intervene wisely if you don't understand how the system works.</p>
+
+            <blockquote>
+                "Before you disturb the system in any way, watch how it behaves. Learn its history. Ask people who've been around a long time."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <h4>2. Expose Your Mental Models to the Light of Day</h4>
+            <p>Make your assumptions explicit. Test them against reality. Be willing to be wrong. The biggest barrier to systems thinking is our own certainty about how things work.</p>
+
+            <h4>3. Honor, Respect, and Distribute Information</h4>
+            <p>Information is the lifeblood of systems. Don't hoard it. Make it accessible. Recognize that different people have different pieces of the puzzle. Your mental model is always incomplete.</p>
+
+            <h4>4. Pay Attention to What Is Important, Not Just What Is Quantifiable</h4>
+            <p>Not everything that matters can be measured. Don't let what's easily measured drive out what's important. Quality, beauty, meaning, and relationships often resist quantification but matter deeply.</p>
+
+            <h4>5. Make Feedback Policies for Feedback Systems</h4>
+            <p>Design policies that learn from experience. Build in mechanisms for adjustment. Don't set policies in stone—create feedback loops that allow policies to evolve.</p>
+
+            <h4>6. Aim for Enhancing Resilience, Not Just Optimizing for Efficiency</h4>
+            <p>Efficient systems are fragile. Resilient systems can adapt. When designing systems, prioritize the ability to withstand shocks over the elimination of all waste.</p>
+
+            <h4>7. Expand Your Time Horizon</h4>
+            <p>Systems operate over different time scales. Short-term thinking leads to long-term problems. Consider consequences across multiple time scales—immediate, intermediate, and long-term.</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Time horizon circles -->
+                    <circle cx="100" cy="120" r="50" fill="#e94560" fill-opacity="0.1" stroke="#e94560" stroke-width="2"/>
+                    <text x="100" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">SHORT</text>
+                    <text x="100" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">TERM</text>
+                    
+                    <circle cx="280" cy="120" r="70" fill="#74b9ff" fill-opacity="0.1" stroke="#74b9ff" stroke-width="2"/>
+                    <text x="280" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">MEDIUM</text>
+                    <text x="280" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">TERM</text>
+                    
+                    <circle cx="480" cy="120" r="50" fill="#00b894" fill-opacity="0.1" stroke="#00b894" stroke-width="2"/>
+                    <text x="480" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#1a1a2e">LONG</text>
+                    <text x="480" y="130" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#636e72">TERM</text>
+                    
+                    <!-- Overlap indicators -->
+                    <text x="190" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#636e72">+</text>
+                    <text x="380" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#636e72">+</text>
+                    
+                    <!-- Label -->
+                    <text x="280" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#636e72">Consider all time scales</text>
+                </svg>
+                <p class="diagram-caption">Figure 15: Multiple time horizons</p>
+            </div>
+
+            <h4>8. Watch Your Language</h4>
+            <p>Language shapes thought. Be careful with words that imply linear causality, blame, or control. Use language that reflects system complexity—interconnections, feedback, and emergence.</p>
+
+            <h4>9. Stay Humble</h4>
+            <p>Systems are more complex than any one mind can comprehend. Stay humble about what you know. Be open to surprise. Recognize that your interventions will have unintended consequences.</p>
+
+            <h4>10. Celebrate Complexity</h4>
+            <p>Complexity is not a problem to be solved but a condition to be embraced. Beautiful, resilient, self-organizing systems are complex. Celebrate the mystery and wonder of complex systems.</p>
+
+            <blockquote>
+                "Living in a world of systems means learning to live with surprise, complexity, and mystery. It means learning to see, learning to trust, and learning to act with wisdom."
+                <cite>— Donella Meadows</cite>
+            </blockquote>
+
+            <div class="callout">
+                <h4>Key Insight: Systems Thinking is a Practice</h4>
+                <p>Systems thinking is not something you master once and then done. It's a lifelong practice of observation, humility, and learning. The more you practice, the better you get at seeing systems and intervening wisely.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps</h4>
+                <ul>
+                    <li>Before intervening in any system, spend time observing it</li>
+                    <li>Write down your assumptions about how a system works</li>
+                    <li>Share information widely rather than hoarding it</li>
+                    <li>Consider consequences across short, medium, and long term</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Build</h4>
+                <ul>
+                    <li>Observe before acting</li>
+                    <li>Question your own assumptions regularly</li>
+                    <li>Share information and seek diverse perspectives</li>
+                    <li>Consider multiple time horizons in decisions</li>
+                    <li>Stay humble about what you can know and control</li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                <h4>Habits to Eliminate</h4>
+                <ul>
+                    <li>Acting without understanding the system</li>
+                    <li>Being certain about your mental models</li>
+                    <li>Hoarding information</li>
+                    <li>Focusing only on short-term consequences</li>
+                    <li>Believing you can fully understand or control complex systems</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="lifestages">
+            <h2>Life Stage Applications</h2>
+            <p>How to apply systems thinking concepts at different stages of life—age 22, 35, and 55. All applications from across the book are organized by age group for easy reference.</p>
+
+            <h3>Age 22: Building Foundations</h3>
+            <div class="life-stage-content">
+                <h4>From Chapter 1: System Components</h4>
+                <p>Identify the elements of your career system (skills, network, job market). Map interconnections (how skills lead to opportunities, how network provides information). Clarify your true purpose—not just "get a job" but what kind of life you want to build.</p>
+                
+                <h4>From Chapter 2: Stocks, Flows, and Feedback</h4>
+                <p>Recognize reinforcing loops in habit formation. Small wins build confidence (reinforcing). But also recognize balancing loops—your body resists change (delayed response). Work with delays, not against them. Give new habits time to show results.</p>
+                
+                <h4>From Chapter 3: Resilience, Self-Organization, Hierarchy</h4>
+                <p>Build resilience in your life systems—multiple income sources, diverse skills, strong relationships. Allow self-organization in your learning—follow curiosity, explore diverse interests. Understand hierarchies in organizations you join.</p>
+                
+                <h4>From Chapter 4: Why Systems Surprise Us</h4>
+                <p>When you face problems, don't just react to events. Look for patterns in your failures and successes. Examine the structures—your habits, environment, relationships—that create those patterns. Question your mental models about what success means.</p>
+                
+                <h4>From Chapter 5: System Traps</h4>
+                <p>Watch for escalation in competitive environments. Don't get drawn into unnecessary arms races. Recognize success-to-the-successful dynamics in your industry—find niches where you can compete without being crushed by established players.</p>
+                
+                <h4>From Chapter 6: Leverage Points</h4>
+                <p>Don't just tweak parameters in your life—work deeper. Examine your goals (level 3). Question your paradigms about success (level 2). Practice paradigm transcendence by considering multiple perspectives (level 1).</p>
+                
+                <h4>From Chapter 7: Living in a World of Systems</h4>
+                <p>Practice observing systems before intervening. Expose your mental models—ask others what they see. Expand your time horizon beyond immediate gratification. Build resilience into your life systems.</p>
+            </div>
+
+            <h3>Age 35: Navigating Complexity</h3>
+            <div class="life-stage-content">
+                <h4>From Chapter 1: System Components</h4>
+                <p>Examine your organization's systems. What are the elements, interconnections, and actual functions? Are stated purposes aligned with outcomes? Use this understanding to navigate organizational politics and identify leverage points for change.</p>
+                
+                <h4>From Chapter 2: Stocks, Flows, and Feedback</h4>
+                <p>Identify reinforcing loops in your career (skills → opportunities → more skills). Watch for balancing loops that might stall growth (burnout, market saturation). Understand delays in career moves—promotions often lag performance by years.</p>
+                
+                <h4>From Chapter 3: Resilience, Self-Organization, Hierarchy</h4>
+                <p>Design resilient teams—redundant skills, diverse perspectives, modular structure. Enable self-organization—give teams autonomy, set clear goals, allow emergence. Remember hierarchy exists to serve, not control.</p>
+                
+                <h4>From Chapter 4: Why Systems Surprise Us</h4>
+                <p>In work and life, practice moving down the iceberg. When a team fails, don't blame the event. Look for patterns of failure. Examine the team structure and processes. Challenge the mental models about how work should be done.</p>
+                
+                <h4>From Chapter 5: System Traps</h4>
+                <p>In organizations, watch for policy resistance when proposing changes. Build coalitions and align goals. Avoid drift to low performance by maintaining high standards. Recognize when success-to-the-successful is harming team diversity.</p>
+                
+                <h4>From Chapter 6: Leverage Points</h4>
+                <p>When proposing changes at work, don't just suggest parameter tweaks. Consider changing rules (level 5) or information flows (level 6). Align team goals with organizational purpose (level 3). Challenge paradigms about how work should be done (level 2).</p>
+                
+                <h4>From Chapter 7: Living in a World of Systems</h4>
+                <p>In work and family, get the beat of systems before changing them. Honor information—share what you know, seek what you don't. Watch your language—avoid blame, embrace complexity. Stay humble about what you can control.</p>
+            </div>
+
+            <h3>Age 55: Wisdom and Leadership</h3>
+            <div class="life-stage-content">
+                <h4>From Chapter 1: System Components</h4>
+                <p>Apply systems thinking to family systems, community organizations, or societal issues. Help others see beyond elements to interconnections and purpose. Your experience allows you to identify patterns that younger people miss.</p>
+                
+                <h4>From Chapter 2: Stocks, Flows, and Feedback</h4>
+                <p>Use your experience to identify delays others miss. When leading change, account for organizational delays in response. Help others understand that quick fixes often fail because they ignore system delays.</p>
+                
+                <h4>From Chapter 3: Resilience, Self-Organization, Hierarchy</h4>
+                <p>Assess organizational resilience—where are single points of failure? Encourage self-organization where appropriate. Ensure hierarchies serve their purpose. Help organizations balance efficiency with resilience.</p>
+                
+                <h4>From Chapter 4: Why Systems Surprise Us</h4>
+                <p>Help others see beyond events to patterns and structures. Share your understanding of how mental models shape outcomes. Mentor others in systems thinking by always asking: What's the pattern? What's the structure? What's the mental model?</p>
+                
+                <h4>From Chapter 5: System Traps</h4>
+                <p>Design systems that avoid these traps. Create checks against escalation. Maintain absolute performance standards. Ensure success criteria are diverse. Help others recognize when they're falling into predictable traps.</p>
+                
+                <h4>From Chapter 6: Leverage Points</h4>
+                <p>Use your experience to identify high-leverage interventions. Help others see beyond parameters to paradigms. Model paradigm transcendence by holding multiple perspectives. Focus on goals and paradigms in your leadership.</p>
+                
+                <h4>From Chapter 7: Living in a World of Systems</h4>
+                <p>Your long time horizon is a gift. Use it to help others see beyond the short term. Model humility and openness to surprise. Celebrate complexity rather than seeking to control it. Share your systems thinking practice with others.</p>
+            </div>
+
+            <div class="callout">
+                <h4>Key Insight: Systems Thinking Applies Across Life Stages</h4>
+                <p>Whether you're 22, 35, or 55, systems thinking provides tools for understanding and acting wisely. The applications change with context, but the principles remain the same. Return to this section as you navigate different life stages and challenges.</p>
+            </div>
+        </section>
+
+        <section id="vocabulary">
+            <h2>Key Vocabulary</h2>
+            <p>A comprehensive glossary of systems thinking terminology from "Thinking in Systems."</p>
+
+            <div class="vocabulary-list">
+                <div class="vocabulary-item">
+                    <span class="term">Balancing Feedback Loop</span>
+                    <p class="definition">A feedback loop that counteracts change, stabilizing the system and maintaining equilibrium. Also called negative feedback.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Bounded Rationality</span>
+                    <p class="definition">The idea that people make rational decisions based on limited information, cognitive capacity, and time, leading to locally rational but globally suboptimal outcomes.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Buffer</span>
+                    <p class="definition">A stock that provides stability by absorbing shocks. Larger buffers increase resilience but decrease efficiency.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Delay</span>
+                    <p class="definition">An interruption in flows that causes a mismatch between action and response. Delays are a major source of oscillation and instability in systems.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Element</span>
+                    <p class="definition">The tangible components of a system—things you can see, count, or touch. Elements are the most visible but least important component for understanding system behavior.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Feedback Loop</span>
+                    <p class="definition">A circular chain of cause and effect where a change in one element affects another, which then affects the first element again.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Flow</span>
+                    <p class="definition">The rate of change in a stock over time. Flows are what cause stocks to increase or decrease.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Function/Purpose</span>
+                    <p class="definition">What the system achieves or the goal toward which it tends. Purpose is deduced from behavior, not stated intentions.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Hierarchy</span>
+                    <p class="definition">A nested structure where subsystems are organized within larger systems. Hierarchy enables complexity by allowing relative independence of subsystems.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Interconnection</span>
+                    <p class="definition">The relationships that hold a system together, including physical flows and causal relationships through rules and information.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Leverage Point</span>
+                    <p class="definition">A place in a system where a small change can lead to large improvements in system behavior. Leverage points range from shallow (parameters) to deep (paradigms).</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Mental Model</span>
+                    <p class="definition">The beliefs, assumptions, and worldviews that shape how we perceive and interpret systems. Mental models are the deepest leverage point for change.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Paradigm</span>
+                    <p class="definition">The mindset or set of assumptions from which a system's goals, rules, and structure arise. Paradigms are the sources of systems.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Reinforcing Feedback Loop</span>
+                    <p class="definition">A feedback loop that amplifies change, leading to growth, explosion, erosion, or collapse. Also called positive feedback.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Resilience</span>
+                    <p class="definition">The ability of a system to recover from perturbation and maintain its identity and function through change.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Self-Organization</span>
+                    <p class="definition">The capacity of a system to change its structure spontaneously, creating new patterns and behaviors without external direction.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Stock</span>
+                    <p class="definition">An accumulation—something you can see, feel, or count at a specific moment. Stocks integrate flows and provide inertia and memory in systems.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">System</span>
+                    <p class="definition">An interconnected set of elements that is coherently organized in a way that achieves something. Every system has elements, interconnections, and a function or purpose.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">System Archetype</span>
+                    <p class="definition">A common pattern of system behavior that appears repeatedly in different contexts, such as policy resistance or tragedy of the commons.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">System Trap</span>
+                    <p class="definition">A predictable pattern of behavior that leads to problems, such as escalation, drift to low performance, or success to the successful.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="appendix">
+            <h2>Appendix: Expanded Systems Resources</h2>
+            <p>Additional materials from the book's appendix to deepen your understanding and practice of systems thinking.</p>
+
+            <h3>Summary of Systems Principles</h3>
+            <p>Core principles that govern system behavior, distilled from throughout the book.</p>
+
+            <div class="vocabulary-list">
+                <div class="vocabulary-item">
+                    <span class="term">Everything is connected</span>
+                    <p class="definition">You can't do just one thing. Every action has multiple effects through system interconnections.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Stocks provide inertia and memory</span>
+                    <p class="definition">Stocks integrate flows over time, giving systems persistence and the ability to remember past conditions.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Feedback loops control system behavior</span>
+                    <p class="definition">Reinforcing loops drive growth and collapse; balancing loops maintain stability and goals.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Delays cause oscillation</span>
+                    <p class="definition">When delays exist in balancing loops, systems oscillate. Longer delays relative to adjustment rates cause more severe oscillation.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Structure determines behavior</span>
+                    <p class="definition">System behavior emerges from its structure—stocks, flows, feedback loops, and delays—not from individual elements.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Purpose is deduced from behavior</span>
+                    <p class="definition">A system's true purpose is revealed by what it actually does, not by what it says it does.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Resilience requires redundancy</span>
+                    <p class="definition">Resilient systems have multiple feedback loops, redundancy, diversity, and modularity—all of which reduce efficiency.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Self-organization requires freedom</span>
+                    <p class="definition">Systems can only self-organize when they have freedom from excessive control, diversity of elements, and information flow.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Hierarchy enables complexity</span>
+                    <p class="definition">Complex systems are organized hierarchically, with subsystems nested within larger systems. Higher levels serve lower levels.</p>
+                </div>
+                <div class="vocabulary-item">
+                    <span class="term">Leverage points vary in effectiveness</span>
+                    <p class="definition">Shallow leverage points (parameters) are easy to change but ineffective. Deep leverage points (paradigms) are hard to change but powerful.</p>
+                </div>
+            </div>
+
+            <h3>Springing the System Traps: Detailed Escape Strategies</h3>
+            <p>Specific strategies for escaping each of the eight system traps identified in Chapter 5.</p>
+
+            <h4>1. Escaping Policy Resistance</h4>
+            <ul>
+                <li>Bring all actors together to understand the system</li>
+                <li>Find a higher-level goal that all actors can agree on</li>
+                <li>Redesign the system to align individual goals with collective purpose</li>
+                <li>Create win-win solutions rather than zero-sum compromises</li>
+            </ul>
+
+            <h4>2. Escaping the Tragedy of the Commons</h4>
+            <ul>
+                <li>Educate users to regulate themselves</li>
+                <li>Privatize the resource to create ownership feedback</li>
+                <li>Regulate use through quotas, taxes, or permits</li>
+                <li>Create mutual monitoring and sanctioning systems</li>
+            </ul>
+
+            <h4>3. Escaping Drift to Low Performance</h4>
+            <ul>
+                <li>Keep performance goals absolute, not relative</li>
+                <li>Compare performance to best practices, not past performance</li>
+                <li>Celebrate improvements rather than accepting decline</li>
+                <li>Set explicit standards and refuse to lower them</li>
+            </ul>
+
+            <h4>4. Escaping Escalation</h4>
+            <ul>
+                <li>One party can disarm unilaterally to break the cycle</li>
+                <li>Both parties can negotiate to limit the competition</li>
+                <li>Change the rules of the game to remove escalation incentives</li>
+                <li>Introduce a third party to mediate</li>
+            </ul>
+
+            <h4>5. Escaping Success to the Successful</h4>
+            <ul>
+                <li>Create multiple ways to succeed</li>
+                <li>Level the playing field through redistribution or affirmative action</li>
+                <li>Diversify success criteria</li>
+                <li>Recognize that winner-take-all dynamics harm the whole system</li>
+            </ul>
+
+            <h4>6. Escaping Shifting the Burden (Addiction)</h4>
+            <ul>
+                <li>Strengthen the original system's ability to solve the problem</li>
+                <li>Gradually withdraw the intervenor's support</li>
+                <li>Focus on root causes, not symptoms</li>
+                <li>Build resilience in the system itself</li>
+            </ul>
+
+            <h4>7. Escaping Rule Beating</h4>
+            <ul>
+                <li>Design rules to release creativity in the direction of system purpose</li>
+                <li>Align incentives with desired outcomes</li>
+                <li>Simplify rules where possible</li>
+                <li>Focus on purpose rather than compliance</li>
+            </ul>
+
+            <h4>8. Escaping Seeking the Wrong Goal</h4>
+            <ul>
+                <li>Specify goals that reflect the true purpose of the system</li>
+                <li>Use multiple indicators rather than single metrics</li>
+                <li>Be wary of proxy variables that substitute for values</li>
+                <li>Continuously question whether goals serve the system's real purpose</li>
+            </ul>
+
+            <h3>Places to Intervene in a System (Expanded Leverage Points)</h3>
+            <p>Detailed guidance on working with leverage points, expanding on Chapter 6.</p>
+
+            <h4>Working with Parameters (Level 12)</h4>
+            <p>Parameters are the easiest to change but least effective. Use them for fine-tuning, not fundamental change. Examples: budgets, tax rates, standards. Recognize that parameter changes rarely alter system behavior significantly.</p>
+
+            <h4>Working with Buffers (Level 11)</h4>
+            <p>Buffer sizes determine system resilience. Larger buffers increase stability but decrease efficiency. Consider the trade-off: how much efficiency are you willing to sacrifice for resilience? Examples: inventory levels, emergency funds, spare capacity.</p>
+
+            <h4>Working with Structure (Level 10)</h4>
+            <p>Stock-and-flow structures are harder to change but more powerful. Rebuilding infrastructure or changing supply chains falls here. These changes require investment and time but can fundamentally alter system behavior.</p>
+
+            <h4>Working with Delays (Level 9)</h4>
+            <p>Delays are critical leverage points. Shortening delays can improve system response, but some delays are necessary for stability. Consider where delays exist and whether shortening or lengthening them would improve system behavior.</p>
+
+            <h4>Working with Feedback Loops (Levels 7-8)</h4>
+            <p>Balancing loops maintain stability; reinforcing loops drive change. Strengthening or weakening these loops can dramatically alter system behavior. These are powerful but dangerous leverage points—small changes can have large effects.</p>
+
+            <h4>Working with Information Flows (Level 6)</h4>
+            <p>Adding missing information flows is often a high-leverage intervention. Making information transparent can change behavior dramatically. Examples: publishing pollution data, making prices transparent, sharing performance metrics.</p>
+
+            <h4>Working with Rules (Level 5)</h4>
+            <p>Rules are high-leverage because they shape behavior. Incentives, punishments, and constraints all fall here. Changing rules can quickly change system behavior. Consider both formal rules and informal norms.</p>
+
+            <h4>Working with Self-Organization (Level 4)</h4>
+            <p>Enabling self-organization is about fostering diversity and allowing new structures to emerge. This requires giving up some control and trusting the system's ability to organize itself. Create conditions for self-organization rather than directing outcomes.</p>
+
+            <h4>Working with Goals (Level 3)</h4>
+            <p>Changing the goal changes everything. If you change a corporation's goal from profit to sustainability, the entire system changes. Goals are powerful leverage points but require paradigm shifts to implement.</p>
+
+            <h4>Working with Paradigms (Level 2)</h4>
+                <p>Paradigms are the mindsets from which systems arise. Changing paradigms is difficult but powerful. Examples: shifting from growth-at-all-costs to sustainability, from competition to cooperation, from control to trust.</p>
+
+            <h4>Transcending Paradigms (Level 1)</h4>
+            <p>The highest leverage point is the ability to stay unattached to any particular paradigm. This means recognizing that paradigms are tools, not truths. It's the power to choose how to think, to hold multiple perspectives simultaneously.</p>
+
+            <h3>Guidelines for Living in a World of Systems (Expanded)</h3>
+            <p>Detailed guidance for applying systems thinking in daily life, expanding on Chapter 7.</p>
+
+            <h4>Get the Beat of the System</h4>
+            <p>Before disturbing the system, observe it. Learn its history. Understand its dynamics. Feel its rhythms. Ask people who've been around a long time. Read about similar systems. Watch how the system responds to disturbances. Only intervene when you understand the system's behavior.</p>
+
+            <h4>Expose Your Mental Models</h4>
+            <p>Make your assumptions explicit. Write them down. Share them with others. Test them against reality. Be willing to be wrong. The biggest barrier to systems thinking is our own certainty about how things work. Challenge your own beliefs regularly.</p>
+
+            <h4>Honor, Respect, and Distribute Information</h4>
+            <p>Information is the lifeblood of systems. Don't hoard it. Make it accessible. Recognize that different people have different pieces of the puzzle. Your mental model is always incomplete. Share what you know. Seek what you don't know. Create systems for information flow.</p>
+
+            <h4>Pay Attention to What Is Important</h4>
+            <p>Not everything that matters can be measured. Don't let what's easily measured drive out what's important. Quality, beauty, meaning, relationships, and trust often resist quantification but matter deeply. Find ways to give attention to the unmeasurable.</p>
+
+            <h4>Make Feedback Policies</h4>
+            <p>Design policies that learn from experience. Build in mechanisms for adjustment. Don't set policies in stone—create feedback loops that allow policies to evolve. Monitor outcomes and adjust based on what you learn.</p>
+
+            <h4>Aim for Resilience</h4>
+            <p>Efficient systems are fragile. Resilient systems can adapt. When designing systems, prioritize the ability to withstand shocks over the elimination of all waste. Build redundancy, diversity, and modularity. Accept some inefficiency for greater resilience.</p>
+
+            <h4>Expand Your Time Horizon</h4>
+            <p>Systems operate over different time scales. Short-term thinking leads to long-term problems. Consider consequences across multiple time scales—immediate, intermediate, and long-term. Make decisions that work across all time horizons.</p>
+
+            <h4>Watch Your Language</h4>
+            <p>Language shapes thought. Be careful with words that imply linear causality, blame, or control. Use language that reflects system complexity—interconnections, feedback, and emergence. Say "the system produced this outcome" rather than "they caused this problem."</p>
+
+            <h4>Stay Humble</h4>
+            <p>Systems are more complex than any one mind can comprehend. Stay humble about what you know. Be open to surprise. Recognize that your interventions will have unintended consequences. Admit what you don't know. Learn from mistakes.</p>
+
+            <h4>Celebrate Complexity</h4>
+            <p>Complexity is not a problem to be solved but a condition to be embraced. Beautiful, resilient, self-organizing systems are complex. Celebrate the mystery and wonder of complex systems. Don't oversimplify. Embrace the richness of reality.</p>
+
+            <div class="callout">
+                <h4>Key Insight: Systems Thinking is a Lifelong Practice</h4>
+                <p>These guidelines are not rules to master once but practices to cultivate over a lifetime. The more you practice, the better you get at seeing systems and intervening wisely. Return to these guidelines regularly. Deepen your understanding over time.</p>
+            </div>
+
+            <h3>Practical Guidance on Modeling Systems</h3>
+            <p>How to actually build and analyze system models, moving from concepts to practice.</p>
+
+            <h4>Steps to Build a System Model</h4>
+            <ol>
+                <li><strong>Define the problem:</strong> What question are you trying to answer? What behavior do you want to understand?</li>
+                <li><strong>Identify the boundary:</strong> What's included in the system? What's excluded? The boundary determines what you consider.</li>
+                <li><strong>Identify stocks:</strong> What accumulations matter? What can you measure or observe at a point in time?</li>
+                <li><strong>Identify flows:</strong> What changes the stocks? What are the inflows and outflows?</li>
+                <li><strong>Identify feedback loops:</strong> How do stocks affect flows? What are the reinforcing and balancing loops?</li>
+                <li><strong>Identify delays:</strong> Where are the lags between cause and effect? How long are they?</li>
+                <li><strong>Draw the model:</strong> Create a stock-flow diagram or causal loop diagram to visualize the structure.</li>
+                <li><strong>Quantify if possible:</strong> Add numbers to stocks, flows, and relationships if data is available.</li>
+                <li><strong>Simulate behavior:</strong> Run the model to see what behavior emerges from the structure.</li>
+                <li><strong>Test and refine:</strong> Compare model behavior to real-world behavior. Adjust the model as needed.</li>
+            </ol>
+
+            <h4>Types of System Diagrams</h4>
+
+            <h5>Causal Loop Diagrams (CLDs)</h5>
+            <p>Causal loop diagrams show the causal relationships between variables without distinguishing stocks from flows. They use arrows to show influence and signs (+/-) to show whether the relationship is reinforcing or balancing. CLDs are good for qualitative analysis and communication.</p>
+
+            <h5>Stock-Flow Diagrams (SFDs)</h5>
+            <p>Stock-flow diagrams explicitly show stocks (accumulations) and flows (rates of change). They use standard symbols: rectangles for stocks, valves for flows, and arrows for connections. SFDs are necessary for quantitative modeling and simulation.</p>
+
+            <h5>Behavior Over Time Graphs</h5>
+            <p>These graphs show how variables change over time. They're essential for understanding system dynamics and comparing model behavior to real-world data. They reveal patterns like growth, oscillation, overshoot, and collapse.</p>
+
+            <h4>Modeling Principles</h4>
+            <ul>
+                <li><strong>Start simple:</strong> Begin with the simplest model that captures the essential dynamics. Add complexity only when needed.</li>
+                <li><strong>Focus on structure:</strong> The goal is to understand the structure that produces behavior, not to predict exact outcomes.</li>
+                <li><strong>Test assumptions:</strong> Every model contains assumptions. Make them explicit and test their impact on behavior.</li>
+                <li><strong>Use multiple perspectives:</strong> Different people see different parts of the system. Incorporate diverse viewpoints.</li>
+                <li><strong>Iterate:</strong> Modeling is iterative. Build, test, refine, build again.</li>
+            </ul>
+
+            <h4>Common Modeling Mistakes</h4>
+            <ul>
+                <li>Making the model too complex too quickly</li>
+                <li>Confusing correlation with causation</li>
+                <li>Ignoring delays that are critical to behavior</li>
+                <li>Failing to test the model against real data</li>
+                <li>Assuming the model is reality rather than a simplification</li>
+                <li>Forgetting that all models are wrong, but some are useful</li>
+            </ul>
+
+            <h4>Using Models for Decision Making</h4>
+            <p>Models are tools for thinking, not crystal balls. Use them to:</p>
+            <ul>
+                <li>Test hypotheses about how a system works</li>
+                <li>Explore the consequences of different policies</li>
+                <li>Identify leverage points for intervention</li>
+                <li>Communicate complex ideas to others</li>
+                <li>Build shared understanding among stakeholders</li>
+            </ul>
+
+            <div class="callout">
+                <h4>Key Insight: Models Are Tools for Learning</h4>
+                <p>The value of modeling is not in the answers it provides but in the thinking it requires. Building a model forces you to make your assumptions explicit, identify key relationships, and test your understanding. Even simple models can reveal insights that weren't obvious before.</p>
+            </div>
+        </section>
+
+        <section id="modern">
+            <h2>Modern Real-World Applications</h2>
+            <p>Systems thinking principles apply to today's most pressing challenges. Here's how Meadows' insights bridge to contemporary issues.</p>
+
+            <h3>Climate Change and Environmental Systems</h3>
+            <p>Climate change is the ultimate systems problem. It involves reinforcing loops (greenhouse gases → warming → more greenhouse gases), delays (carbon accumulation in atmosphere), and tragedy of the commons (shared atmosphere). Systems thinking helps us see that:</p>
+            <ul>
+                <li>Parameter tweaks (carbon taxes) are shallow leverage points</li>
+                <li>Deeper leverage lies in changing paradigms about growth and consumption</li>
+                <li>Resilience matters—we need systems that can withstand climate impacts</li>
+                <li>International policy resistance reflects conflicting national goals</li>
+            </ul>
+
+            <h3>Social Media and Information Systems</h3>
+            <p>Social media platforms exhibit classic system dynamics. Engagement algorithms create reinforcing loops of outrage and polarization. The tragedy of the commons appears in shared attention and information quality. Systems thinking reveals:</p>
+            <ul>
+                <li>Algorithm design is a high-leverage intervention (rules and information flows)</li>
+                <li>Short-term engagement goals conflict with long-term social health</li>
+                <li>Delays between content posting and societal impact are significant</li>
+                <li>Self-organization in communities can counteract platform design</li>
+            </ul>
+
+            <h3>Organizational Design and Remote Work</h3>
+            <p>The shift to remote work changed organizational systems dramatically. New interconnections emerged, old ones dissolved. Systems thinking helps navigate:</p>
+            <ul>
+                <li>Informal information flows that previously happened organically</li>
+                <li>New delays in communication and feedback</li>
+                <li>Changes in organizational resilience (more fragile or more robust?)</li>
+                <li>Need for explicit self-organization structures</li>
+            </ul>
+
+            <h3>Public Health and Pandemic Response</h3>
+            <p>COVID-19 demonstrated system dynamics in real time. Stock-flow dynamics (infections, recoveries), delays (exposure to symptoms), and policy resistance all played roles. Key insights:</p>
+            <ul>
+                <li>Information flows (testing data) are critical leverage points</li>
+                <li>Delays between intervention and effect caused oscillation in policies</li>
+                <li>Tragedy of the commons in individual vs. collective behavior</li>
+                <li>Resilience in healthcare systems proved essential</li>
+            </ul>
+
+            <h3>Economic Inequality and Success to the Successful</h3>
+            <p>Modern economies exhibit strong success-to-the-successful dynamics. Wealth concentration, winner-take-all markets, and network effects create reinforcing loops. Systems thinking suggests:</p>
+            <ul>
+                <li>Redistribution addresses symptoms, not structure</li>
+                <li>Diversifying success criteria creates more balanced systems</li>
+                <li>Paradigm shift from growth-at-all-costs to shared prosperity needed</li>
+                <li>Rules (tax policy, antitrust) are high-leverage points</li>
+            </ul>
+
+            <h3>Artificial Intelligence and Technological Systems</h3>
+            <p>AI systems are themselves systems, embedded in larger social systems. They exhibit feedback loops (training data → outputs → more training data) and emergent behavior. Systems thinking helps us:</p>
+            <ul>
+                <li>Design AI with appropriate feedback loops and delays</li>
+                <li>Consider AI's place in larger organizational and social systems</li>
+                <li>Recognize paradigm shifts AI might enable or require</li>
+                <li>Build resilience into AI-dependent systems</li>
+            </ul>
+
+            <h3>Urban Planning and City Systems</h3>
+            <p>Cities are complex adaptive systems. Transportation, housing, and economic systems interact in unpredictable ways. Systems thinking guides:</p>
+            <ul>
+                <li>Understanding how changes ripple through urban systems</li>
+                <li>Designing resilient infrastructure</li>
+                <li>Avoiding tragedy of the commons in shared resources</li>
+                <li>Enabling self-organization in communities</li>
+            </ul>
+
+            <div class="callout">
+                <h4>Key Insight: Old Principles, New Contexts</h4>
+                <p>The systems thinking principles Meadows articulated decades ago apply more than ever to today's complex, interconnected challenges. Technology changes, but system dynamics remain the same. The tools she provided are timeless.</p>
+            </div>
+
+            <div class="action-box">
+                <h4>Actionable Steps for Modern Contexts</h4>
+                <ul>
+                    <li>Apply the iceberg model to current events and trends</li>
+                    <li>Identify system traps in news stories and organizational challenges</li>
+                    <li>Use leverage point thinking when evaluating technological solutions</li>
+                    <li>Design personal and professional systems with resilience in mind</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <p class="footer-title">Thinking in Systems</p>
+            <p class="footer-book">A Comprehensive Summary — Based on the book by Donella H. Meadows</p>
+            <div class="footer-divider"></div>
+            <p>Made with love by</p>
+            <p class="footer-credit">Gourang Sharma</p>
+            <p class="footer-made">© 2026 · All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        const bar = document.getElementById('progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            bar.style.width = progress + '%';
+        });
+    </script>
+</body>
+</html>

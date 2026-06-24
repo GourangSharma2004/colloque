@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>COLLOQUE · AI Dispatch · Issue 01</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Cormorant+Garamond:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+/* ── TOKENS ── */
+:root{
+  --bg:        #07070E;
+  --bg-card:   #0D0D18;
+  --bg-card2:  #111120;
+  --border:    rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.13);
+  --text:      #F0EEF8;
+  --text-dim:  rgba(240,238,248,0.45);
+  --text-mid:  rgba(240,238,248,0.70);
+  --gold:      #C9A84C;
+  --gold-dim:  rgba(201,168,76,0.18);
+  --gold-glow: rgba(201,168,76,0.08);
+
+  --model:   #3B82F6;
+  --product: #A855F7;
+  --biz:     #10B981;
+  --research:#EF4444;
+  --reg:     #F59E0B;
+  --contro:  #EC4899;
+
+  --r: 4px;
+  --gap: 12px;
+}
+
+/* ── BASE ── */
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* subtle noise texture */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.6;
+}
+
+a{text-decoration:none;color:inherit;}
+
+/* ── TOP HEADER ── */
+.header{
+  position:relative;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;
+  border-bottom:1px solid var(--border);
+  background:rgba(7,7,14,0.95);
+  backdrop-filter:blur(12px);
+}
+.wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text);
+}
+.wordmark span{color:var(--gold);}
+.header-right{
+  display:flex;align-items:center;gap:20px;
+}
+.issue-badge{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid var(--gold-dim);
+  padding:4px 10px;
+  border-radius:2px;
+}
+.header-date{
+  font-size:10px;color:var(--text-dim);
+  letter-spacing:.06em;
+}
+
+/* ── TICKER ── */
+.ticker{
+  position:relative;z-index:9;
+  background:var(--gold);
+  padding:8px 0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.ticker-track{
+  display:inline-flex;gap:0;
+  animation:tick 40s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'DM Mono',monospace;
+  font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:#07070E;
+  padding:0 32px;
+}
+.ticker-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:#07070E;opacity:0.4;
+}
+
+/* ── LAYOUT WRAPPER ── */
+.page{padding:24px 28px 80px;position:relative;z-index:1;}
+
+/* ── SECTION HEADERS ── */
+.s-head{
+  display:flex;align-items:center;gap:12px;
+  margin:40px 0 20px;
+}
+.s-head-line{flex:1;height:1px;background:var(--border-hi);}
+.s-head-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);white-space:nowrap;padding:0 2px;
+}
+.s-head-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--text-dim);
+}
+
+/* ── HERO BLOCK ── */
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 280px;
+  grid-template-rows:auto auto;
+  gap:var(--gap);
+  margin-bottom:var(--gap);
+}
+.hero-main{
+  grid-row:1/3;
+  background:var(--bg-card);
+  border:1px solid var(--border-hi);
+  border-radius:var(--r);
+  overflow:hidden;
+  position:relative;
+  padding:40px 36px 36px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:340px;
+}
+.hero-main::before{
+  content:'';position:absolute;inset:0;
+  background:
+    url('first.webp') center/cover no-repeat,
+    radial-gradient(ellipse 70% 60% at 100% 0%, rgba(201,168,76,.15) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 80% at 0% 100%, rgba(59,130,246,.08) 0%, transparent 50%),
+    linear-gradient(160deg,rgba(10,10,26,0.85) 0%,rgba(7,7,16,0.9) 100%);
+}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+  position:relative;z-index:1;
+}
+.hero-eyebrow::before{
+  content:'◆';font-size:6px;
+}
+.hero-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(36px,4.5vw,52px);
+  font-weight:800;line-height:1.05;
+  color:#FFFFFF;
+  position:relative;z-index:1;
+  margin-bottom:16px;
+  text-transform:uppercase;
+  letter-spacing:.01em;
+}
+.hero-title em{
+  color:var(--gold);font-style:normal;
+  display:block;
+}
+.hero-sub{
+  font-size:13px;line-height:1.65;color:var(--text-mid);
+  max-width:480px;margin-bottom:24px;
+  position:relative;z-index:1;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:#07070E;
+  padding:9px 18px;
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  border-radius:2px;width:fit-content;
+  position:relative;z-index:1;
+  transition:opacity .15s;
+}
+.hero-cta:hover{opacity:.82;}
+.hero-cta svg{width:12px;height:12px;}
+
+/* stat cards beside hero */
+.stat-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:24px 22px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.stat-card::after{
+  content:'';position:absolute;
+  inset:-1px;border-radius:var(--r);
+  background:linear-gradient(135deg,var(--gold-dim),transparent 50%);
+  pointer-events:none;
+}
+.stat-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:56px;font-weight:800;
+  color:var(--gold);line-height:1;
+  letter-spacing:-.01em;
+}
+.stat-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-dim);
+  margin-top:6px;
+}
+.stat-sub{
+  font-size:11.5px;color:var(--text-mid);
+  margin-top:8px;line-height:1.5;
+}
+
+/* ── CATEGORY TAG ── */
+.cat-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'DM Mono',monospace;
+  font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;
+  margin-bottom:14px;
+}
+.cat-tag.model   {color:var(--model);   background:rgba(59,130,246,.1);}
+.cat-tag.product {color:var(--product); background:rgba(168,85,247,.1);}
+.cat-tag.biz     {color:var(--biz);     background:rgba(16,185,129,.1);}
+.cat-tag.research{color:var(--research);background:rgba(239,68,68,.1);}
+.cat-tag.reg     {color:var(--reg);     background:rgba(245,158,11,.1);}
+.cat-tag.contro  {color:var(--contro);  background:rgba(236,72,153,.1);}
+
+/* ── BENTO GRID ── */
+.bento{
+  display:grid;
+  gap:var(--gap);
+  margin-bottom:var(--gap);
+}
+.bento-3{grid-template-columns:repeat(3,1fr);}
+.bento-2{grid-template-columns:repeat(2,1fr);}
+.bento-21{grid-template-columns:2fr 1fr;}
+.bento-12{grid-template-columns:1fr 2fr;}
+.bento-211{grid-template-columns:2fr 1fr 1fr;}
+.bento-112{grid-template-columns:1fr 1fr 2fr;}
+
+/* ── BASE CARD ── */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .2s, transform .2s;
+  position:relative;
+}
+.card:hover{border-color:var(--border-hi);transform:translateY(-2px);}
+
+/* coloured top strip per category */
+.card::before{
+  content:'';display:block;height:2px;width:100%;
+  background:var(--strip-color,transparent);
+  flex-shrink:0;
+}
+.card.model   {--strip-color:var(--model);}
+.card.product {--strip-color:var(--product);}
+.card.biz     {--strip-color:var(--biz);}
+.card.research{--strip-color:var(--research);}
+.card.reg     {--strip-color:var(--reg);}
+.card.contro  {--strip-color:var(--contro);}
+
+.card-visual{
+  width:100%;height:120px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  flex-shrink:0;
+  position:relative;overflow:hidden;
+}
+.card-visual::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 40%, var(--bg-card) 100%);
+}
+
+.card-body{
+  padding:16px 18px 18px;
+  flex:1;display:flex;flex-direction:column;
+}
+.card-headline{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:19px;font-weight:700;line-height:1.18;
+  color:var(--text);margin-bottom:8px;
+  text-transform:uppercase;letter-spacing:.01em;
+}
+.card-text{
+  font-size:12px;line-height:1.65;
+  color:var(--text-mid);
+  flex:1;margin-bottom:14px;
+}
+.card-foot{
+  display:flex;align-items:center;justify-content:flex-end;
+}
+.card-link{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);
+  display:inline-flex;align-items:center;gap:5px;
+  border-bottom:1px solid var(--gold-dim);
+  padding-bottom:1px;
+  transition:color .15s,border-color .15s;
+}
+.card-link:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+.card-link::after{content:' →';}
+
+/* tall card */
+.card.tall .card-visual{height:160px;}
+
+/* ── SECTION TITLE inside category ── */
+.cat-section-head{
+  display:flex;align-items:center;gap:10px;
+  margin:28px 0 12px;
+}
+.cat-section-head .dot{
+  width:8px;height:8px;border-radius:50%;
+  flex-shrink:0;
+}
+.cat-section-head .dot.model   {background:var(--model);}
+.cat-section-head .dot.product {background:var(--product);}
+.cat-section-head .dot.biz     {background:var(--biz);}
+.cat-section-head .dot.research{background:var(--research);}
+.cat-section-head .dot.reg     {background:var(--reg);}
+.cat-section-head .dot.contro  {background:var(--contro);}
+.cat-section-head h3{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--text-dim);
+}
+.cat-section-head .line{flex:1;height:1px;background:var(--border);}
+
+/* ── WHAT MATTERS ── */
+.matters-wrap{
+  background:var(--bg-card2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-top:40px;
+}
+.matters-header{
+  padding:24px 28px 0;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  padding-bottom:18px;
+}
+.matters-title{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);
+}
+.matters-sub{
+  font-size:11px;color:var(--text-dim);font-style:italic;
+}
+.matters-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--border);
+}
+.matters-card{
+  padding:28px;
+  border-right:1px solid var(--border);
+  position:relative;
+  display:flex;flex-direction:column;
+}
+.matters-card:last-child{border-right:none;}
+.matters-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+}
+.matters-n{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:80px;font-weight:800;
+  color:rgba(201,168,76,.07);
+  line-height:.9;
+  margin-bottom:12px;
+  user-select:none;
+  letter-spacing:-.02em;
+}
+.matters-h{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:18px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.02em;
+  color:var(--text);line-height:1.2;
+  margin-bottom:12px;
+  flex:1;
+}
+.matters-h em{color:var(--gold);font-style:normal;}
+.matters-p{
+  font-size:12px;line-height:1.7;
+  color:var(--text-mid);
+  margin-bottom:20px;
+}
+.matters-link{
+  font-family:'DM Mono',monospace;
+  font-size:8.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);
+  display:inline-flex;align-items:center;gap:4px;
+}
+.matters-link::after{content:'→';}
+
+/* ── OVERHYPED ── */
+.hype-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:var(--gap);
+  margin-top:12px;
+}
+.hype-card{
+  background:var(--bg-card);
+  border:1px solid rgba(236,72,153,.2);
+  border-top:2px solid var(--contro);
+  border-radius:var(--r);
+  padding:24px;
+  position:relative;overflow:hidden;
+}
+.hype-card::before{
+  content:'';position:absolute;
+  top:-40px;right:-40px;
+  width:120px;height:120px;
+  border-radius:50%;
+  background:rgba(236,72,153,.04);
+}
+.hype-tag{
+  font-family:'DM Mono',monospace;
+  font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--contro);
+  background:rgba(236,72,153,.1);
+  display:inline-block;padding:3px 8px;
+  border-radius:2px;margin-bottom:14px;
+}
+.hype-h{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:21px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.01em;color:var(--text);
+  line-height:1.15;margin-bottom:10px;
+}
+.hype-p{
+  font-size:12px;line-height:1.68;
+  color:var(--text-mid);margin-bottom:16px;
+}
+.hype-verdict{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--contro);
+  border-top:1px solid rgba(236,72,153,.15);
+  padding-top:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:60px;
+  border-top:1px solid var(--border);
+  padding:20px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text);
+}
+.footer-wordmark span{color:var(--gold);}
+.footer-tagline{
+  font-size:11px;font-style:italic;
+  font-family:'DM Sans',sans-serif;
+  color:var(--text-dim);
+}
+.footer-issue{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);
+}
+
+/* ── PRINT ── */
+@media print{
+  body::before{display:none;}
+  .ticker{display:none;}
+  .card:hover{transform:none;border-color:var(--border);}
+  .page{padding:16px 20px 40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="wordmark">Con<span>v</span>erse</div>
+  <div class="header-right">
+    <div class="header-date">May 4–9, 2026</div>
+    <div class="issue-badge">Issue No. 01</div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">GPT-5.5 is now your default<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Anthropic Mythos: $100M · 10 firms · Zero public access<span class="ticker-dot"></span></span>
+    <span class="ticker-item">19 AI bills passed in one month<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Grok 4.3 claims 1M token context<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Claude Code leaked · Emergency patch shipped<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mistral Medium 3.5 · Gemma 4 · ERNIE updated<span class="ticker-dot"></span></span>
+    <span class="ticker-item">EU AI Act timelines shift again<span class="ticker-dot"></span></span>
+    <span class="ticker-item">SWE-bench 93.9% — but no independent verification<span class="ticker-dot"></span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">GPT-5.5 is now your default<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Anthropic Mythos: $100M · 10 firms · Zero public access<span class="ticker-dot"></span></span>
+    <span class="ticker-item">19 AI bills passed in one month<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Grok 4.3 claims 1M token context<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Claude Code leaked · Emergency patch shipped<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Mistral Medium 3.5 · Gemma 4 · ERNIE updated<span class="ticker-dot"></span></span>
+    <span class="ticker-item">EU AI Act timelines shift again<span class="ticker-dot"></span></span>
+    <span class="ticker-item">SWE-bench 93.9% — but no independent verification<span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <div class="hero-grid">
+    <div class="hero-main">
+      <div class="hero-eyebrow">Cover · Anthropic · Cybersecurity</div>
+      <h1 class="hero-title">
+        The AI that finds<br>
+        <em>zero-days</em><br>
+        you can't use it.
+      </h1>
+      <p class="hero-sub">
+        Claude Mythos discovered thousands of critical vulnerabilities autonomously. Anthropic's response: hand it to Apple, Google, Microsoft — not the public. The consortium model is new. The problem it tries to solve isn't going away.
+      </p>
+      <a class="hero-cta" href="https://techcrunch.com/2026/04/07/anthropic-mythos-ai-model-preview-security/" target="_blank">
+        Read full story
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <div class="stat-card">
+      <div>
+        <div class="stat-num">20</div>
+        <div class="stat-label">Stories this issue</div>
+      </div>
+      <div class="stat-sub">Models, money, policy, controversies — all covered.</div>
+    </div>
+
+    <div class="stat-card">
+      <div>
+        <div class="stat-num">$100M</div>
+        <div class="stat-label">Anthropic credit pledge</div>
+      </div>
+      <div class="stat-sub">For Project Glasswing — the most coordinated defensive AI move yet.</div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════ WHAT DROPPED ════════════════ -->
+  <div class="s-head">
+    <div class="s-head-line"></div>
+    <div class="s-head-label">What Dropped</div>
+    <div class="s-head-line"></div>
+  </div>
+
+
+  <!-- MODEL RELEASES -->
+  <div class="cat-section-head">
+    <div class="dot model"></div>
+    <h3>Model Releases &amp; Updates</h3>
+    <div class="line"></div>
+  </div>
+
+  <div class="bento bento-3">
+    <div class="card model tall">
+      <div class="card-visual" style="background:url('chat.webp') top center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag model">OpenAI</div>
+        <div class="card-headline">GPT-5.5 Launches — Then Silently Becomes Your Default</div>
+        <div class="card-text">52.5% fewer hallucinations claimed. AIME + MMMU-Pro gains reported. By May 5, every developer on <em>chat-latest</em> was already on it — no announcement, no opt-in required.</div>
+        <div class="card-foot"><a class="card-link" href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card model tall">
+      <div class="card-visual" style="background:url('grok.jpg') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag model">xAI</div>
+        <div class="card-headline">Grok 4.3 — 1M Tokens, Video, Voice, Hard Deadline</div>
+        <div class="card-text">One million token context (claimed), multimodal video and voice upgrades. Older Grok models retire May 15. Migrate or your integration breaks.</div>
+        <div class="card-foot"><a class="card-link" href="https://artificialanalysis.ai/articles/xai-launches-grok-4-3-with-improved-agentic-performance-and-lower-pricing" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card model tall">
+      <div class="card-visual" style="background:url('claude.webp') center center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag model">Anthropic</div>
+        <div class="card-headline">Claude Opus 4.7 — The One the Public Actually Gets</div>
+        <div class="card-text">While Mythos went to a locked consortium, Opus 4.7 shipped for general use. Anthropic's two-track release strategy, made explicit for the first time.</div>
+        <div class="card-foot"><a class="card-link" href="https://www.cnbc.com/2026/04/16/anthropic-claude-opus-4-7-model-mythos.html" target="_blank">Full story</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bento bento-3">
+    <div class="card model">
+      <div class="card-visual" style="background:url('spark.png') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag model">Meta</div>
+        <div class="card-headline">Muse Spark + Llama 4 Surfaces</div>
+        <div class="card-text">Muse Spark rolling across WhatsApp, Workplace, Oculus. Llama 4 spotted on release trackers. Meta's multimodal play continues in the background.</div>
+        <div class="card-foot"><a class="card-link" href="https://aireleasetracker.com" target="_blank">Tracker</a></div>
+      </div>
+    </div>
+
+    <div class="card model">
+      <div class="card-visual" style="background:url('3.png') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag model">Mistral</div>
+        <div class="card-headline">Medium 3.5 — Frontier Claims, Sparse Benchmarks</div>
+        <div class="card-text">Open-weight, cost-efficient, mid-sized. Mistral's playbook is unchanged — but it keeps applying pressure on the enterprise fine-tuning market.</div>
+        <div class="card-foot"><a class="card-link" href="https://fazm.ai/blog/new-llm-releases-april-2026" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card model">
+      <div class="card-visual" style="background:url('gemma.png') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag model">Google · Baidu</div>
+        <div class="card-headline">Gemma 4, Flash TTS, ERNIE — The Quiet Sprint</div>
+        <div class="card-text">Gemma 4 announced. Gemma 3.1 Flash TTS brings speech to smaller models. Baidu pushed ERNIE updates. No fanfare — just relentless velocity.</div>
+        <div class="card-foot"><a class="card-link" href="https://aireleasetracker.com" target="_blank">Tracker</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PRODUCT LAUNCHES -->
+  <div class="cat-section-head">
+    <div class="dot product"></div>
+    <h3>Product Launches</h3>
+    <div class="line"></div>
+  </div>
+
+  <div class="bento bento-3">
+    <div class="card product">
+      <div class="card-visual" style="background:url('ai.webp') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag product">OpenAI</div>
+        <div class="card-headline">ChatGPT Now Shows You What It Actually Remembers</div>
+        <div class="card-text">Plus and Pro users can inspect and revoke individual memory sources. Not just an on/off toggle — the first real personalisation transparency move.</div>
+        <div class="card-foot"><a class="card-link" href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card product">
+      <div class="card-visual" style="background:url('Grok4.webp') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag product">xAI</div>
+        <div class="card-headline">Grok Goes Enterprise — Video, Voice, Automation Live</div>
+        <div class="card-text">A product layer shipped on top of Grok 4.3: video analysis, voice tooling, workflow automation. Grok is entering the enterprise stack, not just the API.</div>
+        <div class="card-foot"><a class="card-link" href="https://www.timesofai.com/news/grok-4-3-all-new-features-explained/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card product">
+      <div class="card-visual" style="background:url('cursor.webp') center center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag product">Industry</div>
+        <div class="card-headline">Cursor SDK · Devin for Terminal · DeepSeek V4 Pro</div>
+        <div class="card-text">Three tooling launches that individually seem small. Collectively they're thickening the infrastructure layer for AI-native developer workflows.</div>
+        <div class="card-foot"><a class="card-link" href="https://www.ptechpartners.com/2026/05/07/april-2026-ai-news-roundup-success-v-expense-popularity-and-code-overload/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- BUSINESS & MONEY -->
+  <div class="cat-section-head">
+    <div class="dot biz"></div>
+    <h3>Business &amp; Money</h3>
+    <div class="line"></div>
+  </div>
+
+  <div class="bento bento-211">
+    <div class="card biz tall">
+      <div class="card-visual" style="background:url('glass.jpeg') center/cover no-repeat;height:100px;"></div>
+      <div class="card-body">
+        <div class="cat-tag biz">Anthropic</div>
+        <div class="card-headline">Glasswing: $100M, 10 Firms, Zero Public Access</div>
+        <div class="card-text">AWS, Apple, Cisco, CrowdStrike, Google, JPMorgan, Microsoft, NVIDIA, Palo Alto, Linux Foundation — all inside the Mythos consortium. $100M in usage credits committed. This is coordinated defensive AI deployment. Not a product launch — a new industry structure.</div>
+        <div class="card-foot"><a class="card-link" href="https://www.infoq.com/news/2026/04/anthropic-claude-mythos/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card biz">
+      <div class="card-visual" style="background:url('capex.avif') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag biz">Industry</div>
+        <div class="card-headline">Capex Surging. Hiring Hot. Spend Cycle Continues.</div>
+        <div class="card-text">No single mega-round dominated. But infrastructure spend, talent costs, and strategic positioning moves are all accelerating in lockstep.</div>
+        <div class="card-foot"><a class="card-link" href="https://substack.com/@thursdai/note/c-251854343" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card biz">
+      <div class="card-visual" style="background:url('com.avif') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag biz">xAI</div>
+        <div class="card-headline">Older Grok Models Retired. Migrate or Break.</div>
+        <div class="card-text">May 15 deprecation deadline removes older Grok API variants. Forced migration, pricing disruption, consolidation toward Grok 4.3.</div>
+        <div class="card-foot"><a class="card-link" href="https://docs.x.ai/developers/migration/may-15-retirement" target="_blank">Migration docs</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- RESEARCH & PAPERS -->
+  <div class="cat-section-head">
+    <div class="dot research"></div>
+    <h3>Research &amp; Papers</h3>
+    <div class="line"></div>
+  </div>
+
+  <div class="bento bento-3">
+    <div class="card research">
+      <div class="card-visual" style="background:url('pro.webp') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag research">Anthropic</div>
+        <div class="card-headline">Mythos System Card — Anthropic's Most Important Doc This Year</div>
+        <div class="card-text">Capabilities, limitations, safety mitigations, rationale for restricted access. Primary reading for every safety researcher and policymaker in the space.</div>
+        <div class="card-foot"><a class="card-link" href="https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf" target="_blank">Read the card</a></div>
+      </div>
+    </div>
+
+    <div class="card research">
+      <div class="card-visual" style="background:url('bench.jpg') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag research">Multiple Labs</div>
+        <div class="card-headline">Benchmark Flood: 93.9% SWE, AIME Gains, Industry Indices</div>
+        <div class="card-text">Anthropic claims 93.9% SWE-bench. OpenAI reports AIME and MMMU-Pro gains. xAI claims index improvements. No independent verification of any of it yet.</div>
+        <div class="card-foot"><a class="card-link" href="https://artificialanalysis.ai/articles/xai-launches-grok-4-3-with-improved-agentic-performance-and-lower-pricing" target="_blank">Analysis</a></div>
+      </div>
+    </div>
+
+    <div class="card research">
+      <div class="card-visual" style="background:url('zero.png') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag research">Anthropic</div>
+        <div class="card-headline">Mythos Found Thousands of Zero-Days. Autonomously.</div>
+        <div class="card-text">Not just detection — chaining. Mythos discovered and demonstrated end-to-end exploits in OSS targets. That capability is the reason it isn't public.</div>
+        <div class="card-foot"><a class="card-link" href="https://thehackernews.com/2026/04/anthropics-claude-mythos-finds.html" target="_blank">Full story</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- REGULATION & POLICY -->
+  <div class="cat-section-head">
+    <div class="dot reg"></div>
+    <h3>Regulation &amp; Policy</h3>
+    <div class="line"></div>
+  </div>
+
+  <div class="bento bento-2">
+    <div class="card reg tall">
+      <div class="card-visual" style="background:url('bill.cms') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag reg">United States</div>
+        <div class="card-headline">19 AI Bills. One Month. A Compliance Nightmare in Progress.</div>
+        <div class="card-text">Colorado SB11. Idaho S1227/S1297. New York S8828. Washington HB1170/HB2225. Each with different definitions, thresholds, enforcement. One model deployment, nineteen legal interpretations. Only large companies can navigate this.</div>
+        <div class="card-foot"><a class="card-link" href="https://pluralpolicy.com/blog/the-ai-governance-watch-april-2026-nineteen-new-ai-bills-passed-into-law/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card reg tall">
+      <div class="card-visual" style="background:url('eu.webp') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag reg">European Union</div>
+        <div class="card-headline">EU AI Act Timelines Shift — ISO 42001 Becomes the Real Benchmark</div>
+        <div class="card-text">Adjusted enforcement windows. Targeted clarifications. The practical outcome: ISO 42001 is quietly becoming the global audit-readiness standard for high-risk AI systems. The framework that may outlast the Act's own delays.</div>
+        <div class="card-foot"><a class="card-link" href="https://bytexel.org/ai-regulation-updates-april-2026-the-new-compliance-reality/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CONTROVERSIES & CRITICISM -->
+  <div class="cat-section-head">
+    <div class="dot contro"></div>
+    <h3>Controversies &amp; Criticism</h3>
+    <div class="line"></div>
+  </div>
+
+  <div class="bento bento-3">
+    <div class="card contro">
+      <div class="card-visual" style="background:url('myth.jpg') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag contro">Anthropic</div>
+        <div class="card-headline">Mythos Can Chain Exploits. Who Controls What Comes Next?</div>
+        <div class="card-text">Autonomous exploit discovery raises a question no lab has answered: when AI finds a zero-day, what's the disclosure protocol? Current frameworks weren't built for this speed or scale.</div>
+        <div class="card-foot"><a class="card-link" href="https://thehackernews.com/2026/04/anthropics-claude-mythos-finds.html" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card contro">
+      <div class="card-visual" style="background:url('slop.png') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag contro">Industry</div>
+        <div class="card-headline">"AI Slop" and Developer Fatigue Are Real. And Growing.</div>
+        <div class="card-text">Unreliable outputs, silent regressions, a release pace that breaks integrations overnight. Enterprise trust is being spent faster than it's being earned.</div>
+        <div class="card-foot"><a class="card-link" href="https://www.ptechpartners.com/2026/05/07/april-2026-ai-news-roundup-success-v-expense-popularity-and-code-overload/" target="_blank">Full story</a></div>
+      </div>
+    </div>
+
+    <div class="card contro">
+      <div class="card-visual" style="background:url('leak.jpg') center/cover no-repeat;"></div>
+      <div class="card-body">
+        <div class="cat-tag contro">Multiple Labs</div>
+        <div class="card-headline">Claude Code Leaked. GPT Images Leaked. Patches Followed.</div>
+        <div class="card-text">Claude Code leak, GPT image generation leaks, Claude Code v2.1.90 emergency patch. Deployment speed and security hygiene are diverging — visibly.</div>
+        <div class="card-foot"><a class="card-link" href="https://substack.com/@thursdai/note/c-251854343" target="_blank">Full story</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════ WHAT MATTERS ════════════════ -->
+  <div class="matters-wrap">
+    <div class="matters-header">
+      <div class="matters-title">◆ What Matters</div>
+      <div class="matters-sub">Three signals that will still matter six months from now</div>
+    </div>
+    <div class="matters-grid">
+
+      <div class="matters-card">
+        <div class="matters-n">01</div>
+        <div class="matters-h">Mythos Is Not a Security Product. It's a <em>Capability Threshold.</em></div>
+        <div class="matters-p">Project Glasswing is the first example of a lab building access architecture before public deployment — not after an incident. The consortium buys time. It doesn't solve what happens when a state actor builds the same thing without the guardrails or the $100M accountability structure.</div>
+        <a class="matters-link" href="https://techcrunch.com/2026/04/07/anthropic-mythos-ai-model-preview-security/" target="_blank">Deep dive </a>
+      </div>
+
+      <div class="matters-card">
+        <div class="matters-n">02</div>
+        <div class="matters-h"><em>chat-latest</em> Flipped. That's an Infrastructure Story.</div>
+        <div class="matters-p">Every developer on that alias woke up to a different model in production. No opt-in. That's how OpenAI moves markets — change as default, resistance as friction. GPT-5 is becoming a platform. The switching costs compound with every integration.</div>
+        <a class="matters-link" href="https://fortune.com/2026/04/23/openai-releases-gpt-5-5/" target="_blank">Deep dive </a>
+      </div>
+
+      <div class="matters-card">
+        <div class="matters-n">03</div>
+        <div class="matters-h">19 Bills in One Month Is <em>Fragmentation</em>, Not Progress.</div>
+        <div class="matters-p">The same deployment: compliant in Idaho, borderline in Colorado, non-compliant in New York. Only firms with large legal teams can navigate this. Smaller labs will over-comply or ignore it until enforcement arrives. Neither outcome is what the legislation was designed to produce.</div>
+        <a class="matters-link" href="https://pluralpolicy.com/blog/the-ai-governance-watch-april-2026-nineteen-new-ai-bills-passed-into-law/" target="_blank">Deep dive </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════ WHAT'S OVERHYPED ════════════════ -->
+  <div class="s-head" style="margin-top:40px;">
+    <div class="s-head-line"></div>
+    <div class="s-head-label">What's Overhyped</div>
+    <div class="s-head-line"></div>
+  </div>
+
+  <div class="hype-grid">
+    <div class="hype-card">
+      <div class="hype-tag">⚠ Overhyped</div>
+      <div class="hype-h">The Benchmark Parade — 93.9% SWE, AIME Scores, MMMU-Pro</div>
+      <div class="hype-p">Every lab dropped numbers. Every outlet ran them. Nobody asked who picked the baselines, which runs were cherry-picked, or what the production gap is. A jump from 90% to 93.9% on SWE-bench does not mean your codebase gets fixed. It means a lab tested something under conditions they chose.</div>
+      <div class="hype-verdict">Useful directionally. Useless as headlines.</div>
+    </div>
+
+    <div class="hype-card">
+      <div class="hype-tag">⚠ Overhyped</div>
+      <div class="hype-h">Grok 4.3's 1M Token Context — Announced, Not Validated</div>
+      <div class="hype-p">Long context is genuinely valuable. But xAI published zero retrieval accuracy data at depth. The "lost in the middle" degradation problem is well-documented. A million-token window is a real engineering achievement. Whether it works reliably at 800K tokens in production is a different, unanswered question.</div>
+      <div class="hype-verdict">Feature confirmed. Capability unverified.</div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-wordmark">Con<span>v</span>erse</div>
+    <div class="footer-tagline">Read well. Think sharp. Speak with weight.</div>
+    <div class="footer-issue">Issue No. 01 · Weekly AI Dispatch</div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

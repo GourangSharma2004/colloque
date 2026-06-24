@@ -1,11 +1,30 @@
-"use client";
 // TEMPLATE: Clone this file for other pillar pages
 
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import SearchHighlight from "@/components/SearchHighlight";
 import { motion } from "framer-motion";
+import { getBookSummaries } from "@/lib/sanity-fetch";
 
-// ── Featured books data ───────────────────────────────────────────────────────
-const FEATURED_BOOKS = [
+import { urlFor } from "@/sanity/lib/image";
+import { isSanityConfigured } from "@/sanity/env";
+import BookSummariesClient from "./BookSummariesClient";
+
+export const metadata: Metadata = {
+  title: "Book Summaries",
+  description: "Deep-read summaries of books worth your time — philosophy, science, business, and the examined life.",
+  openGraph: {
+    title: "Book Summaries | Colloque",
+    description: "Deep-read summaries of books worth your time.",
+    url: "https://colloque.in/book-summaries",
+    images: [{ url: "/api/og?title=Book+Summaries", width: 1200, height: 630 }],
+  },
+};
+
+export const revalidate = 60;
+
+// ── Featured books data (fallback) ─────────────────────────────────────────────
+const FEATURED_BOOKS_STATIC = [
   {
     title: "Ikigai",
     author: "Héctor García & Francesc Miralles",
@@ -111,8 +130,26 @@ const FEATURED_BOOKS = [
     tags: "Sales · Business",
     quote: "Every single person you meet is a potential customer — if you treat them like a human being first.",
     cover: "/sell.jpg",
-    href: "/book-summaries/how-to-sell-anything",
+    href: "/how-to-sell-anything-girard.html",
     coverBg: "#D6CFC6",
+  },
+  {
+    title: "Thinking in Systems",
+    author: "Donella H. Meadows",
+    tags: "Systems · Strategy",
+    quote: "You can't understand a system until you see it as a whole — not as a collection of parts.",
+    cover: "/think.jpg",
+    href: "/systems.html",
+    coverBg: "#E2DAD0",
+  },
+  {
+    title: "Stillness is the Key",
+    author: "Ryan Holiday",
+    tags: "Stoicism · Mindfulness",
+    quote: "In a world that never stops, the ability to be still is the ultimate competitive advantage.",
+    cover: "/stillness.jpg",
+    href: "/Stillness.html",
+    coverBg: "#E0D8CE",
   },
 ];
 
@@ -197,622 +234,37 @@ const labelStyle: React.CSSProperties = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function BookSummariesPage() {
+export default async function BookSummariesPage({
+  searchParams,
+}: {
+  searchParams: { q?: string; section?: string };
+}) {
+  const query = searchParams.q?.toLowerCase().trim() ?? "";
+  const targetId = searchParams.section ?? "";
+
+  // Fetch from Sanity or use static fallback
+  let featuredBooks = FEATURED_BOOKS_STATIC;
+  if (isSanityConfigured) {
+    const sanityBooks = await getBookSummaries();
+    if (sanityBooks.length > 0) {
+      featuredBooks = sanityBooks.map((book) => ({
+        title: book.title,
+        author: book.author,
+        tags: book.categories?.join(" · ") ?? "",
+        quote: book.excerpt ?? "",
+        cover: book.coverImage ? urlFor(book.coverImage).width(600).url() : "",
+        href: `/book-summaries/${book.slug.current}`,
+        coverBg: "#E2DAD0",
+      }));
+    }
+  }
+
   return (
-    <div style={{ backgroundColor: "#F0EBE3", minHeight: "100vh" }}>
-
-      {/* ── A. Navbar ───────────────────────────────────────────────────────── */}
-      <Navbar active="book-summaries" />
-
-      {/* ── B. Hero ─────────────────────────────────────────────────────────── */}
-      <section
-        className="relative flex flex-col items-center justify-center text-center px-6 overflow-hidden"
-        style={{ height: "38vh", minHeight: "240px", paddingTop: "56px" }}
-      >
-        {/* Video background */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center 40%",
-          }}
-        >
-          <source src="/video/Book-Summary.mp4" type="video/mp4" />
-        </video>
-
-        {/* Dark gradient overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.40) 50%, rgba(0,0,0,0.65) 100%)",
-          }}
-        />
-
-        {/* Content */}
-        <div style={{ position: "relative", zIndex: 10 }}>
-          <motion.h1
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              fontFamily: "var(--font-cormorant), Georgia, serif",
-              fontSize: "clamp(52px, 8vw, 96px)",
-              fontStyle: "italic",
-              fontWeight: 700,
-              lineHeight: 1,
-              color: "#F5EFE6",
-              letterSpacing: "-0.02em",
-              textShadow: "0 2px 40px rgba(0,0,0,0.45)",
-            }}
-          >
-            Book Summaries
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "17px",
-              fontWeight: 300,
-              color: "rgba(245, 239, 230, 0.80)",
-              marginTop: "1.25rem",
-              lineHeight: 1.6,
-              textShadow: "0 1px 20px rgba(0,0,0,0.5)",
-            }}
-          >
-            The book took years to write. You&apos;ll feel it in thirty minutes.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.45 }}
-            style={{
-              width: "96px",
-              borderTop: "1px solid rgba(245,239,230,0.40)",
-              marginTop: "1.5rem",
-              marginLeft: "auto",
-              marginRight: "auto",
-              transformOrigin: "center",
-            }}
-          />
-        </div>
-      </section>
-
-      {/* ── C. Featured Reads — 3-column portrait grid ──────────────────────── */}
-      <section
-        className={`${sp} py-16`}
-        style={{ borderTop: "1px solid #E0D9D0" }}
-      >
-        <p style={{ ...labelStyle, marginBottom: "2rem" }}>Featured Reads</p>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "1.5rem",
-          }}
-        >
-          {FEATURED_BOOKS.map((book, idx) => (
-            <div
-              key={idx}
-              style={{
-                border: "1px solid #C9B99A",
-                backgroundColor: "#EAE4DC",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {/* Cover image */}
-              <div
-                style={{
-                  backgroundColor: book.coverBg,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "1.5rem 0.75rem",
-                  height: "260px",
-                }}
-              >
-                {book.cover ? (
-                  <img
-                    src={book.cover}
-                    alt={book.title}
-                    style={{
-                      maxHeight: "220px",
-                      width: "auto",
-                      objectFit: "contain",
-                      display: "block",
-                    }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: "140px",
-                      height: "210px",
-                      backgroundColor: "#1C1A17",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      padding: "1.25rem 1rem",
-                      boxShadow: "4px 4px 16px rgba(0,0,0,0.25)",
-                      gap: "0.75rem",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "32px",
-                        height: "1px",
-                        backgroundColor: "#C9A84C",
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontFamily: "var(--font-cormorant), Georgia, serif",
-                        fontSize: "15px",
-                        fontStyle: "italic",
-                        fontWeight: 700,
-                        color: "#F5EFE6",
-                        textAlign: "center",
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {book.title}
-                    </p>
-                    <div
-                      style={{
-                        width: "32px",
-                        height: "1px",
-                        backgroundColor: "#C9A84C",
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "10px",
-                        fontWeight: 300,
-                        color: "#9A8E7E",
-                        textAlign: "center",
-                        letterSpacing: "0.05em",
-                      }}
-                    >
-                      {book.author}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Text area */}
-              <div
-                style={{
-                  padding: "1.75rem 1.75rem 2rem",
-                  borderTop: "2px solid #C9B99A",
-                  display: "flex",
-                  flexDirection: "column",
-                  flex: 1,
-                  textAlign: "center",
-                  alignItems: "center",
-                }}
-              >
-                <h2
-                  style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
-                    fontSize: "clamp(24px, 2.5vw, 34px)",
-                    fontStyle: "italic",
-                    fontWeight: 700,
-                    lineHeight: 1.05,
-                    color: "#1C1A17",
-                    marginBottom: "0.4rem",
-                  }}
-                >
-                  {book.title}
-                </h2>
-
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "12px",
-                    fontWeight: 300,
-                    color: "#7A7060",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  {book.author}
-                </p>
-
-                <div style={{ borderTop: "1px solid #C9B99A", marginBottom: "1rem" }} />
-
-                <p
-                  style={{
-                    fontFamily: "var(--font-cormorant), Georgia, serif",
-                    fontSize: "17px",
-                    fontStyle: "italic",
-                    fontWeight: 400,
-                    color: "#3D3730",
-                    lineHeight: 1.5,
-                    flex: 1,
-                    marginBottom: "1rem",
-                  }}
-                >
-                  &ldquo;{book.quote}&rdquo;
-                </p>
-
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "10px",
-                    color: "#9A8E7E",
-                    letterSpacing: "0.06em",
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  {book.tags}
-                </p>
-
-                <a
-                  href={book.href}
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                    letterSpacing: "0.08em",
-                    color: "#1C1A17",
-                    border: "1px solid #1C1A17",
-                    padding: "8px 20px",
-                    textDecoration: "none",
-                    display: "inline-block",
-                    transition: "all 0.3s",
-                    backgroundColor: "transparent",
-                    alignSelf: "center",
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.backgroundColor = "#1C1A17";
-                    el.style.color = "#F0EBE3";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.backgroundColor = "transparent";
-                    el.style.color = "#1C1A17";
-                  }}
-                >
-                  Read the Summary →
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── D. Coming Next + Vote Form (side by side) ────────────────────────── */}
-      <section
-        className={`${sp} py-16`}
-        style={{ borderTop: "1px solid #E0D9D0", backgroundColor: "#EAE4DC" }}
-      >
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
-
-          {/* Left — Coming Next list */}
-          <div>
-            <p style={{ ...labelStyle, marginBottom: "1.5rem" }}>Coming Next</p>
-
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {[
-                { genre: "Memoir",        title: "Shoe Dog",                    author: "Phil Knight",                          hook: "The obsessive, risk-everything origin story of the shoe that changed sport forever." },
-                { genre: "Creativity",    title: "Big Magic",                   author: "Elizabeth Gilbert",                    hook: "Ideas are alive. They're looking for a worthy partner — the question is whether that's you." },
-                { genre: "Relationships", title: "Mating in Captivity",         author: "Esther Perel",                         hook: "Desire and domesticity are opposites. Can you sustain both inside the same relationship?" },
-                { genre: "Stoicism",      title: "Meditations",                 author: "Marcus Aurelius",                      hook: "Private notes from the most powerful man in the world — written only for himself." },
-              ].map((book, idx, arr) => (
-                <div
-                  key={idx}
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "1.25rem",
-                    padding: "1.1rem 0",
-                    borderBottom: idx < arr.length - 1 ? "1px solid #D4C9B8" : "none",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 500,
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                      color: "#9A8E7E",
-                      minWidth: "90px",
-                      flexShrink: 0,
-                      paddingTop: "4px",
-                    }}
-                  >
-                    {book.genre}
-                  </span>
-                  {/* Title + Author */}
-                  <div style={{ minWidth: "200px", flexShrink: 0 }}>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-cormorant), Georgia, serif",
-                        fontSize: "22px",
-                        fontStyle: "italic",
-                        fontWeight: 600,
-                        color: "#1C1A17",
-                        lineHeight: 1.1,
-                      }}
-                    >
-                      {book.title}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "12px",
-                        fontWeight: 300,
-                        color: "#7A7060",
-                        marginTop: "0.2rem",
-                      }}
-                    >
-                      {book.author}
-                    </p>
-                  </div>
-
-                  {/* Hook — same horizontal level */}
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "13px",
-                      fontWeight: 300,
-                      color: "#5A5348",
-                      lineHeight: 1.55,
-                      flex: 1,
-                    }}
-                  >
-                    {book.hook}
-                  </p>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "10px",
-                      fontStyle: "italic",
-                      color: "#B0A394",
-                      flexShrink: 0,
-                      paddingTop: "4px",
-                    }}
-                  >
-                    Soon
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right — Vote form */}
-          <div style={{ textAlign: "center" }}>
-            <p style={{ ...labelStyle, marginBottom: "0.75rem" }}>Vote Next</p>
-
-            <h2
-              style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
-                fontSize: "clamp(26px, 3vw, 38px)",
-                fontStyle: "italic",
-                fontWeight: 700,
-                color: "#1C1A17",
-                lineHeight: 1.1,
-                marginBottom: "0.6rem",
-              }}
-            >
-              Which book should we summarise next?
-            </h2>
-
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "14px",
-                fontWeight: 300,
-                color: "#7A7060",
-                marginBottom: "1.75rem",
-                lineHeight: 1.6,
-              }}
-            >
-              Drop a title. If enough readers ask for it, it moves to the top of the queue.
-            </p>
-
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              style={{ display: "flex", flexDirection: "column", gap: "0.875rem", alignItems: "center" }}
-            >
-              {/* Row 1: Book Title + Author Name side by side */}
-              <div style={{ display: "flex", gap: "0.75rem", width: "100%" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", flex: 1 }}>
-                  <label
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 500,
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                      color: "#9A8E7E",
-                    }}
-                  >
-                    Book Title
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. The Almanack of Naval Ravikant"
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "14px",
-                      fontWeight: 300,
-                      color: "#1C1A17",
-                      backgroundColor: "#F0EBE3",
-                      border: "1px solid #C9B99A",
-                      padding: "11px 16px",
-                      outline: "none",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", flex: 1 }}>
-                  <label
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 500,
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                      color: "#9A8E7E",
-                    }}
-                  >
-                    Author Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Eric Jorgenson"
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "14px",
-                      fontWeight: 300,
-                      color: "#1C1A17",
-                      backgroundColor: "#F0EBE3",
-                      border: "1px solid #C9B99A",
-                      padding: "11px 16px",
-                      outline: "none",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Row 2: Your Name — centered, same width as row above */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", alignItems: "center", width: "50%" }}>
-                <label
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "10px",
-                    fontWeight: 500,
-                    letterSpacing: "0.15em",
-                    textTransform: "uppercase",
-                    color: "#9A8E7E",
-                  }}
-                >
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Gourang"
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "14px",
-                    fontWeight: 300,
-                    color: "#1C1A17",
-                    backgroundColor: "#F0EBE3",
-                    border: "1px solid #C9B99A",
-                    padding: "11px 16px",
-                    outline: "none",
-                    width: "100%",
-                    textAlign: "center",
-                  }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  letterSpacing: "0.08em",
-                  color: "#F0EBE3",
-                  backgroundColor: "#1C1A17",
-                  border: "1px solid #1C1A17",
-                  padding: "12px 24px",
-                  cursor: "pointer",
-                  transition: "all 0.3s",
-                  marginTop: "0.25rem",
-                  alignSelf: "center",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLButtonElement;
-                  el.style.backgroundColor = "#3D3730";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLButtonElement;
-                  el.style.backgroundColor = "#1C1A17";
-                }}
-              >
-                Submit Recommendation →
-              </button>
-
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "11px",
-                  color: "#9A8E7E",
-                  letterSpacing: "0.03em",
-                }}
-              >
-                No sign-up needed. We read every suggestion.
-              </p>
-            </form>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── F. Footer ───────────────────────────────────────────────────────── */}
-      <footer
-        className={`${sp} py-8 flex items-center justify-center relative`}
-        style={{ backgroundColor: "#1C1A17" }}
-      >
-        <p
-          style={{
-            fontFamily: "var(--font-cormorant), Georgia, serif",
-            fontSize: "18px",
-            fontStyle: "italic",
-            fontWeight: 600,
-            color: "#F0EBE3",
-            position: "absolute",
-            left: "1.5rem",
-          }}
-        >
-          &ldquo;Not what it says. What it does to you — and what you do differently after.&rdquo;
-        </p>
-
-        <p
-          style={{
-            fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "16px",
-            fontWeight: 600,
-            color: "#F0EBE3",
-          }}
-        >
-          © Converse · Built for thinkers.
-        </p>
-        <p
-          style={{
-            fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "12px",
-            fontWeight: 500,
-            fontStyle: "italic",
-            color: "#F0EBE3",
-            position: "absolute",
-            right: "6rem",
-          }}
-        >
-          One summary every week.
-        </p>
-      </footer>
-    </div>
+    <BookSummariesClient
+      featuredBooks={featuredBooks}
+      libraryBooks={LIBRARY_BOOKS}
+      query={query}
+      targetId={targetId}
+    />
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Gloria_Hallelujah } from "next/font/google";
 import "./globals.css";
+import ColloqueBot from "@/components/ColloqueBot";
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -17,9 +18,28 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500"],
 });
 
+const gloriaHallelujah = Gloria_Hallelujah({
+  subsets: ["latin"],
+  variable: "--font-gloria",
+  display: "swap",
+  weight: ["400"],
+});
+
 export const metadata: Metadata = {
-  title: "Converse",
+  title: {
+    default: "Colloque",
+    template: "%s | Colloque",
+  },
   description: "Read well. Think sharp. Speak with weight.",
+  metadataBase: new URL("https://colloque.in"),
+  openGraph: {
+    siteName: "Colloque",
+    type: "website",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
@@ -30,9 +50,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${cormorantGaramond.variable} ${dmSans.variable} antialiased`}
+        className={`${cormorantGaramond.variable} ${dmSans.variable} ${gloriaHallelujah.variable} antialiased`}
       >
         {children}
+        <ColloqueBot />
       </body>
     </html>
   );

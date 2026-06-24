@@ -1,0 +1,223 @@
+# Colloque Project Rules
+
+## Tech Stack
+
+- **Framework**: Next.js 14.2.35 (App Router)
+- **React**: 18
+- **TypeScript**: 5 (strict mode enabled)
+- **Styling**: Tailwind CSS 3.4.1
+- **Animations**: GSAP 3.15.0 + @gsap/react 2.1.2, Framer Motion 12.38.0
+- **Icons**: Lucide React 1.8.0
+- **PostCSS**: For Tailwind processing
+
+## Design System
+
+### Color Palette
+- **Primary**: cream `#F5EFE6` (background), charcoal `#2C2C2C` (foreground/text)
+- **Accent**: gold `#C9A84C` (highlights, active states)
+- **Dark**: `#1C1914` (dark backgrounds)
+- **Extended palette**: amber `#E8A830`, walnut `#8B5E3C`, taupe `#C4A882`, blue-colloque `#2D7DD2`, coral `#E05C3A`, emerald-colloque `#3DAA5C`, purple-colloque `#7B4FBE`, teal-colloque `#1FA8C7`
+
+### Typography
+- **Headings**: Cormorant Garamond (serif, italic for emphasis) - weights 300, 400, 600, 700
+- **Body**: DM Sans (sans-serif) - weights 300, 400, 500
+- Font variables: `--font-cormorant`, `--font-dm-sans`
+
+### Styling Conventions
+- **Inline styles only** - No CSS modules, no styled-components, no Tailwind classes for complex layouts
+- Use inline style objects with `React.CSSProperties` type
+- Design tokens defined as constants in component files (e.g., `labelStyle`)
+- Scrollbar hidden globally via CSS (Firefox and WebKit)
+- Responsive typography using `clamp()`
+
+## Project Structure
+
+```
+colloque/
+├── app/                          # Next.js App Router
+│   ├── ai-resources/            # AI tools/resources page
+│   │   ├── page.tsx             # Server component wrapper
+│   │   ├── data.ts              # All static content (DISPATCH_WEEKS, MODELS, TOOLS, TASK_RULES, QUIZ_QUESTIONS, PROMPTS, LEARNING_LEVELS)
+│   │   └── components/          # Page-specific components
+│   │       ├── SectionNav.tsx   # Sticky nav with IntersectionObserver
+│   │       ├── WeeklyDispatch.tsx
+│   │       ├── ToolFinder.tsx
+│   │       ├── LiteracyQuiz.tsx
+│   │       ├── PromptLibrary.tsx
+│   │       └── LearningPath.tsx
+│   ├── book-summaries/          # Book summaries
+│   │   ├── page.tsx             # Listing page with featured books
+│   │   └── [slug]/              # Individual book pages (iframe to HTML)
+│   ├── intellect/               # Ideas/articles
+│   │   ├── page.tsx             # Listing page with search
+│   │   └── [slug]/              # Individual article pages (iframe to HTML)
+│   ├── community/               # Community page
+│   ├── the-log/                 # Blog/log page
+│   ├── fonts/                   # Font files (GeistMonoVF.woff, GeistVF.woff)
+│   ├── layout.tsx               # Root layout with font configuration
+│   ├── page.tsx                 # Home page
+│   └── globals.css              # Global styles, CSS variables
+├── components/                   # Shared components
+│   ├── Navbar.tsx               # Navigation with bookmarks, search, login modal
+│   ├── SectionWrapper.tsx       # Empty placeholder component
+│   └── VideoHero.tsx            # Scroll-based video hero (192 frame sequence)
+├── public/                      # Static assets
+│   ├── frames/                  # Video frame sequence (frame_0001.jpg to frame_0192.jpg)
+│   ├── cheatsheet-hires.webp    # High-res cheat sheet image
+│   ├── CheatSheet.pdf           # Downloadable PDF
+│   └── *.html                   # Legacy content (book summaries, intellect articles)
+├── package.json
+├── tsconfig.json                # Path alias: @/* -> ./*
+├── tailwind.config.ts           # Custom color palette
+├── next.config.mjs
+├── postcss.config.mjs
+└── .eslintrc.json               # Extends: next/core-web-vitals, next/typescript
+```
+
+## Coding Patterns
+
+### Component Architecture
+- **"use client" directive** on all interactive components (most components)
+- **Server components** for thin wrappers (e.g., `/app/ai-resources/page.tsx`)
+- **Client components** for interactivity, animations, state management
+- Page-specific components live in `/app/[page]/components/`
+- Shared components live in `/components/`
+
+### Data Management
+- **Static content** centralized in `data.ts` files within feature directories
+- TypeScript interfaces defined at top of data files
+- Export constants: `DISPATCH_WEEKS`, `MODELS`, `TOOLS`, `TASK_RULES`, `QUIZ_QUESTIONS`, `PROMPTS`, `LEARNING_LEVELS`
+- No external APIs or databases currently used
+- LocalStorage used for bookmarks in Navbar
+
+### Animation Patterns
+- **GSAP with @gsap/react** for scroll-triggered animations
+- **useGSAP hook** with `scope` parameter for cleanup
+- **ScrollTrigger plugin** registered at component level
+- Common animation pattern:
+  ```tsx
+  useGSAP(
+    () => {
+      gsap.from(ref.current, {
+        y: 30,
+        opacity: 0,
+        duration: 0.75,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ref.current, start: "top 88%" },
+      });
+    },
+    { scope: sectionRef }
+  );
+  ```
+- Stagger animations for lists using class selectors (`.pl-card`, `.lp-card`)
+- VideoHero uses frame sequence with canvas rendering (192 frames)
+
+### Styling Patterns
+- **Inline style objects** for all component styling
+- Design tokens as constants:
+  ```tsx
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "var(--font-dm-sans), sans-serif",
+    fontSize: "11px",
+    fontWeight: 500,
+    letterSpacing: "0.2em",
+    textTransform: "uppercase",
+    color: "#9A8E7A",
+  };
+  ```
+- Mouse event handlers for hover states (no CSS :hover)
+- Conditional styling based on state
+- Responsive values using `clamp()` for typography
+
+### Routing & Navigation
+- **Next.js App Router** - file-based routing
+- **Path alias**: `@/*` imports from root
+- Navbar active prop for current page highlighting
+- Smooth scroll with offset calculation for section navigation
+- Section IDs: `dispatch`, `finder`, `quiz`, `prompts`, `learning`
+
+### Special Patterns
+- **Iframe pattern** for legacy HTML content (book summaries, intellect articles)
+- **IntersectionObserver** for active section tracking in SectionNav
+- **LocalStorage** for bookmark persistence (key: `colloque_bookmarks`)
+- **Clipboard API** for copy-to-clipboard functionality
+- **Zoom/pan pattern** for image viewing (PromptLibrary cheat sheet)
+
+## What to Avoid
+
+- **Do not use CSS modules** - this project uses inline styles exclusively
+- **Do not use styled-components** - not part of the stack
+- **Do not use Tailwind classes for complex layouts** - use inline styles
+- **Do not create new CSS files** - all styling is inline or in globals.css
+- **Do not use external CSS-in-JS libraries** - not part of the stack
+- **Do not add new animation libraries** - GSAP and Framer Motion are already used
+- **Do not use "use client" unnecessarily** - only for interactive components
+- **Do not hardcode color values** - use design tokens or defined palette
+- **Do not break the inline styling pattern** - maintain consistency
+- **Do not add new font families** - Cormorant Garamond and DM Sans only
+
+## Conventions
+
+### File Naming
+- **Components**: PascalCase (e.g., `SectionNav.tsx`, `VideoHero.tsx`)
+- **Pages**: `page.tsx` (App Router convention)
+- **Data files**: `data.ts` (lowercase)
+- **Static assets**: kebab-case (e.g., `cheatsheet-hires.webp`)
+- **Frame sequence**: `frame_####.jpg` (4-digit zero-padded)
+
+### TypeScript
+- **Strict mode enabled** - all types must be defined
+- **Interface definitions** for data structures at top of files
+- **Type exports** from data files for reuse
+- **React.CSSProperties** type for inline style objects
+- **No `any` types** - use proper TypeScript typing
+
+### Component Organization
+- **Imports at top** - React hooks, then libraries, then local imports
+- **Type definitions** after imports
+- **Constants** after types
+- **Component function** after constants
+- **Helper functions** inside component or before main component
+- **useGSAP** calls after state initialization
+- **Return statement** at end
+
+### Code Style
+- **Inline styles** as objects, not strings
+- **Mouse handlers** for all interactive states (hover, focus)
+- **Conditional rendering** with ternary operators
+- **Early returns** for edge cases
+- **Comment sections** with visual separators (e.g., `// ── Section ──`)
+
+### Section IDs (for navigation)
+- AI Resources: `dispatch`, `finder`, `quiz`, `prompts`, `learning`
+- Used by SectionNav for scroll tracking
+- Must match in data and components
+
+## Key Files to Reference
+
+- `/app/layout.tsx` - Font configuration, root layout
+- `/app/globals.css` - CSS variables, scrollbar hiding
+- `/tailwind.config.ts` - Color palette
+- `/components/Navbar.tsx` - Bookmark system, search, login modal pattern
+- `/components/VideoHero.tsx` - Frame sequence animation, scroll-based video
+- `/app/ai-resources/data.ts` - Data structure pattern
+- `/app/ai-resources/components/SectionNav.tsx` - IntersectionObserver pattern
+- `/app/ai-resources/components/WeeklyDispatch.tsx` - GSAP animation pattern
+- `/app/ai-resources/components/PromptLibrary.tsx` - Zoom/pan pattern, copy button
+
+## Development Workflow
+
+1. **Add new page**: Create directory in `/app/`, add `page.tsx`
+2. **Add new component**: Place in `/components/` (shared) or `/app/[page]/components/` (page-specific)
+3. **Add new data**: Extend existing `data.ts` or create new one following the pattern
+4. **Add animation**: Use `useGSAP` hook with `ScrollTrigger`
+5. **Add interactivity**: Add `"use client"` directive
+6. **Style components**: Use inline style objects with design tokens
+7. **Add new section**: Update SectionNav with new section ID
+
+## Testing
+
+- No testing framework currently configured
+- Manual testing in browser
+- Test animations by scrolling
+- Test responsive behavior with viewport resizing

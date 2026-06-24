@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Orgasm Cure — Colloque</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a08;
+    --surface: #141411;
+    --border: #26241f;
+    --cream: #f5f2eb;
+    --cream-dim: #a39f94;
+    --gold: #d4af37;
+    --gold-dim: #8c732a;
+    --rose: #e07a7a;
+    --sage: #8ab6a0;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .font-serif { font-family: 'Cormorant Garamond', serif; }
+
+  /* ─── CUSTOM UTILS ─── */
+  .glass {
+    background: rgba(20, 20, 17, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal { animation: reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+  
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 8, 0.8);
+    backdrop-filter: blur(8px);
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .neuro-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .neuro-fill {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 1.5s ease-out;
+  }
+
+  .hero-blob {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(60px);
+    animation: pulse-blob 12s infinite alternate ease-in-out;
+  }
+
+  @keyframes pulse-blob {
+    0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+    50% { transform: scale(1.2) translate(5%, 2%); opacity: 0.6; }
+    100% { transform: scale(1) translate(-2%, 5%); opacity: 0.3; }
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.8;
+    filter: blur(0.5px);
+    pointer-events: none;
+    animation: float-particle 15s infinite ease-in-out;
+    box-shadow: 0 0 10px currentColor;
+  }
+
+  @keyframes float-particle {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { transform: translateY(-80vh) translateX(100px) scale(1.5); opacity: 0; }
+  }
+
+  .neural-flow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.8;
+    mask-image: linear-gradient(to bottom, black 70%, transparent);
+  }
+</style>
+</head>
+<body class="selection:bg-gold selection:text-black">
+
+<!-- BACKGROUND ELEMENTS -->
+<div class="hero-blob top-[-10%] left-[-10%]"></div>
+<div class="hero-blob bottom-[-10%] right-[-10%]"></div>
+
+<!-- NAV -->
+<nav class="py-4">
+  <div class="container mx-auto px-6 flex justify-between items-center">
+    <div class="text-xs font-bold tracking-[0.3em] uppercase text-gold">The Orgasm Cure</div>
+    <div class="hidden md:flex gap-8 text-[10px] uppercase tracking-widest text-cream-dim font-medium">
+      <a href="#mechanism" class="hover:text-gold transition-colors">Mechanism</a>
+      <a href="#manifestations" class="hover:text-gold transition-colors">Impact</a>
+      <a href="#history" class="hover:text-gold transition-colors">History</a>
+      <a href="#research" class="hover:text-gold transition-colors">Science</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="pt-48 pb-32 relative overflow-hidden min-h-[80vh] flex items-center">
+  <!-- Neural Flow Animation -->
+  <div class="neural-flow">
+    <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="blurMe">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+        </filter>
+      </defs>
+      <g filter="url(#blurMe)">
+        <circle cx="500" cy="500" r="300" fill="url(#hero-grad)" opacity="0.4">
+          <animate attributeName="r" values="300;350;300" dur="15s" repeatCount="indefinite" />
+        </circle>
+        <radialGradient id="hero-grad">
+          <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="var(--bg)" stop-opacity="0" />
+        </radialGradient>
+      </g>
+      <!-- Floating Neuro-paths -->
+      <path d="M0,500 Q250,400 500,500 T1000,500" stroke="var(--gold)" stroke-width="2" fill="none" opacity="0.4">
+        <animate attributeName="d" values="M0,500 Q250,400 500,500 T1000,500; M0,500 Q250,600 500,500 T1000,500; M0,500 Q250,400 500,500 T1000,500" dur="10s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.2;0.5;0.2" dur="5s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,600 Q250,500 500,600 T1000,600" stroke="var(--rose)" stroke-width="2" fill="none" opacity="0.3">
+        <animate attributeName="d" values="M0,600 Q250,500 500,600 T1000,600; M0,600 Q250,700 500,600 T1000,600; M0,600 Q250,500 500,600 T1000,600" dur="12s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.1;0.4;0.1" dur="7s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,400 Q250,300 500,400 T1000,400" stroke="var(--sage)" stroke-width="1.5" fill="none" opacity="0.2">
+        <animate attributeName="d" values="M0,400 Q250,300 500,400 T1000,400; M0,400 Q250,500 500,400 T1000,400; M0,400 Q250,300 500,400 T1000,400" dur="15s" repeatCount="indefinite" />
+      </path>
+    </svg>
+  </div>
+
+  <div id="particles-container" class="absolute inset-0 pointer-events-none"></div>
+
+  <div class="container mx-auto px-6 text-center max-w-4xl reveal relative z-10">
+    <span class="inline-block px-4 py-1.5 border border-gold/30 text-[10px] uppercase tracking-[0.25em] text-gold mb-10 rounded-full bg-gold/5 backdrop-blur-sm">
+      Psychology & Human Behavior
+    </span>
+    <h1 class="font-serif text-7xl md:text-9xl font-light leading-none mb-10">
+      The <span class="italic gold-gradient">Orgasm</span> Cure
+    </h1>
+    <p class="font-serif italic text-2xl md:text-3xl text-cream-dim max-w-3xl mx-auto leading-relaxed">
+      "What if we could expand ecstasy, reduce stress, and lift depression — all by delaying and extending orgasm?"
+    </p>
+    
+    <div class="mt-20 flex flex-col items-center">
+      <div class="text-[10px] uppercase tracking-[0.4em] text-gold-dim mb-4">Scroll to Explore</div>
+      <div class="w-px h-24 bg-gradient-to-b from-gold to-transparent"></div>
+    </div>
+  </div>
+</header>
+
+<main class="container mx-auto px-6 max-w-5xl">
+  
+  <!-- CORE INSIGHT -->
+  <section id="insight" class="py-24 border-b border-border">
+    <div class="grid md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-4">
+        <h2 class="text-[11px] uppercase tracking-[0.3em] text-gold mb-4 font-bold">Core Insight</h2>
+        <div class="text-4xl font-serif leading-tight">Beyond the <br/><span class="italic text-gold-dim">Biological Endpoint</span></div>
+      </div>
+      <div class="md:col-span-8">
+        <div class="glass p-10 rounded-2xl glow-gold relative overflow-hidden">
+          <i data-lucide="quote" class="absolute top-6 right-8 w-12 h-12 text-gold/10"></i>
+          <p class="font-serif text-2xl italic leading-relaxed text-cream relative z-10">
+            "The human orgasm is not a fixed biological endpoint but a malleable psychological and physiological state — and the deliberate prolongation of climax may produce neurological and emotional depths that standard release simply does not reach."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="py-24 border-b border-border">
+    <div class="max-w-3xl">
+      <h2 class="text-[11px] uppercase tracking-[0.3em] text-gold mb-8 font-bold">The Crisis of Speed</h2>
+      <p class="text-xl text-cream-dim font-light leading-relaxed mb-8">
+        Modern sexual culture has optimized almost entirely for <span class="text-cream font-medium">speed and climax</span>, producing a persistent undertow of dissatisfaction. We have misunderstood orgasm as a destination rather than a traversable state.
+      </p>
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        <div class="p-6 border-l-2 border-rose/30 bg-rose/5 rounded-r-xl">
+          <div class="text-rose text-xs font-bold mb-2 uppercase tracking-widest">The Symptom</div>
+          <div class="text-cream font-medium mb-1">Post-Coital Tristesse</div>
+          <p class="text-sm text-cream-dim">The inevitable crash after rapid climax, quietly normalized as a "natural" end rather than a system failure.</p>
+        </div>
+        <div class="p-6 border-l-2 border-sage/30 bg-sage/5 rounded-r-xl">
+          <div class="text-sage text-xs font-bold mb-2 uppercase tracking-widest">The Discovery</div>
+          <div class="text-cream font-medium mb-1">Malleable Ecstasy</div>
+          <p class="text-sm text-cream-dim">Neuroscience suggests our systems are built for something much richer than simple mechanical release.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MECHANISM -->
+  <section id="mechanism" class="py-24 border-b border-border">
+    <h2 class="text-[11px] uppercase tracking-[0.3em] text-gold mb-12 font-bold text-center">The Mechanism</h2>
+    
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <!-- Visual Side -->
+      <div class="sticky top-32">
+        <div class="glass p-8 rounded-3xl border-gold/20 shadow-2xl overflow-hidden relative group">
+          <div class="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          
+          <svg viewBox="0 0 400 300" class="w-full h-auto drop-shadow-2xl">
+            <!-- Brain Base -->
+            <path d="M100,150 C100,80 150,50 200,50 C250,50 300,80 300,150 C300,220 250,250 200,250 C150,250 100,220 100,150" fill="none" stroke="var(--border)" stroke-width="2" />
+            <path d="M120,150 C120,100 150,80 200,80 C250,80 280,100 280,150 C280,200 250,220 200,220 C150,220 120,200 120,150" fill="none" stroke="var(--border)" stroke-width="1" opacity="0.5" />
+            
+            <!-- Nodes -->
+            <circle cx="160" cy="160" r="15" fill="var(--rose)" fill-opacity="0.2" class="animate-pulse" />
+            <circle cx="160" cy="160" r="4" fill="var(--rose)" />
+            <text x="140" y="195" fill="var(--rose)" font-size="12" font-weight="bold" class="uppercase tracking-tight">Amygdala</text>
+            
+            <circle cx="200" cy="180" r="15" fill="var(--gold)" fill-opacity="0.2" class="animate-pulse" style="animation-delay: 0.5s" />
+            <circle cx="200" cy="180" r="4" fill="var(--gold)" />
+            <text x="180" y="215" fill="var(--gold)" font-size="12" font-weight="bold" class="uppercase tracking-tight">Hypothalamus</text>
+            
+            <circle cx="180" cy="110" r="15" fill="var(--sage)" fill-opacity="0.2" class="animate-pulse" style="animation-delay: 1s" />
+            <circle cx="180" cy="110" r="4" fill="var(--sage)" />
+            <text x="140" y="90" fill="var(--sage)" font-size="12" font-weight="bold" class="uppercase tracking-tight">Orbitofrontal Cx</text>
+
+            <!-- Vagus Pathway -->
+            <path d="M200,250 Q205,275 200,300" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.6" />
+            <text x="215" y="285" fill="var(--gold-dim)" font-size="10" font-style="italic">Vagus Nerve Pathway</text>
+          </svg>
+          
+          <div class="mt-8 space-y-4">
+            <div>
+              <div class="flex justify-between text-xs uppercase tracking-widest text-cream-dim mb-1">
+                <span>Dopamine (Reward)</span>
+                <span>95%</span>
+              </div>
+              <div class="neuro-bar"><div class="neuro-fill w-0" style="background-color: var(--rose);" data-width="95%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs uppercase tracking-widest text-cream-dim mb-1">
+                <span>Oxytocin (Bonding)</span>
+                <span>88%</span>
+              </div>
+              <div class="neuro-bar"><div class="neuro-fill w-0" style="background-color: var(--gold);" data-width="88%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs uppercase tracking-widest text-cream-dim mb-1">
+                <span>Endorphins (Relief)</span>
+                <span>72%</span>
+              </div>
+              <div class="neuro-bar"><div class="neuro-fill w-0" style="background-color: var(--sage);" data-width="72%"></div></div>
+            </div>
+          </div>
+          <p class="text-[10px] text-center text-cream-dim mt-6 uppercase tracking-[0.2em]">Fig 1: Neural Saturation in Sustained Arousal</p>
+        </div>
+      </div>
+
+      <!-- Content Side -->
+      <div class="space-y-12">
+        <div class="flex gap-6">
+          <div class="flex-none w-10 h-10 rounded-full border border-border flex items-center justify-center font-serif text-gold italic">01</div>
+          <div>
+            <h4 class="text-cream font-medium mb-2">The Neurochemical Bath</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">Deep limbic structures activate during arousal, flooding the brain with the most intense neurochemical state outside of a seizure.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex-none w-10 h-10 rounded-full border border-border flex items-center justify-center font-serif text-gold italic">02</div>
+          <div>
+            <h4 class="text-cream font-medium mb-2">Preventing the Withdrawal</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">By withholding climax, the arousal state is sustained, preventing the abrupt dopamine withdrawal that causes post-coital flatness.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex-none w-10 h-10 rounded-full border border-border flex items-center justify-center font-serif text-gold italic">03</div>
+          <div>
+            <h4 class="text-cream font-medium mb-2">Vagal Activation</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">Prolonged stimulation activates the vagus nerve, sending signals from the genitals through every major organ to the brainstem.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex-none w-10 h-10 rounded-full border border-border flex items-center justify-center font-serif text-gold italic">04</div>
+          <div>
+            <h4 class="text-cream font-medium mb-2">Cortical Quieting</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">The brain's anxiety centre (Orbitofrontal Cortex) quiets down, inducing a meditative state indistinguishable from deep absorption.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex-none w-10 h-10 rounded-full border border-border flex items-center justify-center font-serif text-gold italic">05</div>
+          <div>
+            <h4 class="text-cream font-medium mb-2">Avoiding the Crash</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">Standard rapid climax triggers a sharp dopamine withdrawal—the basis of post-coital tristesse. Extending arousal prevents this deficit.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex-none w-10 h-10 rounded-full border border-border flex items-center justify-center font-serif text-gold italic">06</div>
+          <div>
+            <h4 class="text-cream font-medium mb-2">Attentional Shift</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">Redirects attention from performance and outcome to pure sensation, mirroring the dynamics of deep meditation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONDITIONS -->
+  <section id="conditions" class="py-24 border-b border-border">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-[11px] uppercase tracking-[0.3em] text-gold mb-8 font-bold">The Necessary Conditions</h2>
+        <div class="space-y-6">
+          <p class="text-lg text-cream-dim leading-relaxed">
+            The pattern emerges most potently when the encounter is framed as <span class="text-gold font-medium">practice rather than performance</span>. Goal-orientation is the chief suppressor of the experience.
+          </p>
+          <div class="p-6 glass rounded-xl border-l-2 border-gold">
+            <p class="text-sm text-cream italic">"Psychological safety, physical stillness, and the absence of social pressure are powerful amplifiers; their presence distinguishes a transformative experience from a merely functional one."</p>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-4">
+        <div class="p-5 bg-surface rounded-xl border border-border">
+          <div class="flex items-center gap-4 mb-2">
+            <i data-lucide="shield-check" class="text-sage w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-widest text-cream">Psychological Safety</span>
+          </div>
+          <p class="text-xs text-cream-dim">The absence of anxiety about appearance or adequacy allows the arousal state to deepen.</p>
+        </div>
+        <div class="p-5 bg-surface rounded-xl border border-border">
+          <div class="flex items-center gap-4 mb-2">
+            <i data-lucide="timer-off" class="text-rose w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-widest text-cream">Stillness</span>
+          </div>
+          <p class="text-xs text-cream-dim">Slowing down counteracts cultural environments that prize speed and novelty.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTATIONS -->
+  <section id="manifestations" class="py-24 border-b border-border">
+    <div class="text-center mb-16">
+      <h2 class="text-[11px] uppercase tracking-[0.3em] text-gold mb-4 font-bold">Real World Impact</h2>
+      <p class="font-serif text-3xl italic text-cream-dim">How this principle alters the human experience</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Item 1 -->
+      <div class="glass p-8 rounded-2xl hover:border-gold/50 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <i data-lucide="heart" class="text-gold w-6 h-6"></i>
+        </div>
+        <h3 class="text-cream font-medium mb-3">Relational Depth</h3>
+        <p class="text-sm text-cream-dim leading-relaxed">Breaks the "performance loop" where each encounter is a race, building deep intimacy through shared stillness.</p>
+      </div>
+      <!-- Item 2 -->
+      <div class="glass p-8 rounded-2xl hover:border-gold/50 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-rose/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <i data-lucide="brain-circuit" class="text-rose w-6 h-6"></i>
+        </div>
+        <h3 class="text-cream font-medium mb-3">Mental Health</h3>
+        <p class="text-sm text-cream-dim leading-relaxed">Mitigates the dopamine trough and emotional crash common in modern casual sexual encounters.</p>
+      </div>
+      <!-- Item 3 -->
+      <div class="glass p-8 rounded-2xl hover:border-gold/50 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-sage/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <i data-lucide="sparkles" class="text-sage w-6 h-6"></i>
+        </div>
+        <h3 class="text-cream font-medium mb-3">Female Autonomy</h3>
+        <p class="text-sm text-cream-dim leading-relaxed">Offers satisfaction outside of intercourse oriented entirely around traditional climax patterns.</p>
+      </div>
+      <!-- Item 4 -->
+      <div class="glass p-8 rounded-2xl hover:border-gold/50 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-cream/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <i data-lucide="activity" class="text-cream-dim w-6 h-6"></i>
+        </div>
+        <h3 class="text-cream font-medium mb-3">Addiction Recovery</h3>
+        <p class="text-sm text-cream-dim leading-relaxed">Helps rewire the brain's reward system by decoupling arousal from the spike-and-trough cycle.</p>
+      </div>
+      <!-- Item 5 -->
+      <div class="glass p-8 rounded-2xl hover:border-gold/50 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <i data-lucide="wind" class="text-gold w-6 h-6"></i>
+        </div>
+        <h3 class="text-cream font-medium mb-3">Somatic Therapy</h3>
+        <p class="text-sm text-cream-dim leading-relaxed">Operationalizes slow-sex and Tantric principles to heal sexual trauma and disconnect.</p>
+      </div>
+      <!-- Item 6 -->
+      <div class="glass p-8 rounded-2xl hover:border-gold/50 transition-all group">
+        <div class="w-12 h-12 rounded-xl bg-rose/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <i data-lucide="eye" class="text-rose w-6 h-6"></i>
+        </div>
+        <h3 class="text-cream font-medium mb-3">Meditation Analog</h3>
+        <p class="text-sm text-cream-dim leading-relaxed">Provides a physical anchor for cortical quieting for those who find breath-meditation difficult.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="history" class="py-24 border-b border-border">
+    <div class="grid lg:grid-cols-12 gap-16">
+      <div class="lg:col-span-4 lg:sticky lg:top-32 h-fit">
+        <h2 class="text-[11px] uppercase tracking-[0.3em] text-gold mb-4 font-bold">Historical Thread</h2>
+        <div class="text-4xl font-serif leading-tight mb-6">A <span class="italic gold-gradient">Universal</span> Discovery</div>
+        <p class="text-cream-dim text-sm leading-relaxed">
+          This is not a modern fad, but a repeatedly discovered feature of human physiology across vastly different civilizations.
+        </p>
+      </div>
+      
+      <div class="lg:col-span-8">
+        <div class="relative timeline-line pl-12 space-y-16">
+          <!-- 1 -->
+          <div class="relative">
+            <div class="absolute -left-[54px] top-1.5 w-3 h-3 rounded-full bg-gold glow-gold border-2 border-bg"></div>
+            <div class="text-[10px] uppercase tracking-widest text-gold font-bold mb-2">11th Century — Taoist China</div>
+            <h4 class="text-xl font-serif text-cream mb-2">The Jade Stem Practice</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">Court practitioners withheld ejaculation for longevity and to deepen relational pleasure, extending encounters to hours.</p>
+          </div>
+          <!-- 2 -->
+          <div class="relative">
+            <div class="absolute -left-[54px] top-1.5 w-3 h-3 rounded-full bg-gold/50 border-2 border-bg"></div>
+            <div class="text-[10px] uppercase tracking-widest text-gold font-bold mb-2">Medieval India</div>
+            <h4 class="text-xl font-serif text-cream mb-2">Tantric Tradition</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">Adepts used yogic muscle control to ascend into ecstatic states, understanding it as a "spiritual technology" built on physiology.</p>
+          </div>
+          <!-- 3 -->
+          <div class="relative">
+            <div class="absolute -left-[54px] top-1.5 w-3 h-3 rounded-full bg-gold/50 border-2 border-bg"></div>
+            <div class="text-[10px] uppercase tracking-widest text-gold font-bold mb-2">Early Christian Gnostics</div>
+            <h4 class="text-xl font-serif text-cream mb-2">Bodily Embrace</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">A widespread practice of sacred union without orgasm, significant enough to alarm Saint Jerome.</p>
+          </div>
+          <!-- 4 -->
+          <div class="relative">
+            <div class="absolute -left-[54px] top-1.5 w-3 h-3 rounded-full bg-gold/50 border-2 border-bg"></div>
+            <div class="text-[10px] uppercase tracking-widest text-gold font-bold mb-2">Medieval Europe</div>
+            <h4 class="text-xl font-serif text-cream mb-2">The Cathar Knights</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">A practice called "donnoi" — prolonged physical union as the highest expression of devotion and courtly love.</p>
+          </div>
+          <!-- 5 -->
+          <div class="relative">
+            <div class="absolute -left-[54px] top-1.5 w-3 h-3 rounded-full bg-gold/50 border-2 border-bg"></div>
+            <div class="text-[10px] uppercase tracking-widest text-gold font-bold mb-2">1950s San Francisco</div>
+            <h4 class="text-xl font-serif text-cream mb-2">Alan Watts</h4>
+            <p class="text-sm text-cream-dim leading-relaxed">Synthesized Tantric and Western traditions into "contemplative love" as a corrective to modern brevity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research" class="py-24 border-b border-border">
+    <h2 class="text-[11px] uppercase tracking-[0.3em] text-gold mb-12 font-bold text-center">The Scientific Verdict</h2>
+    
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div class="glass p-8 rounded-2xl relative">
+        <div class="text-gold mb-4"><i data-lucide="flask-conical" class="w-8 h-8 opacity-50"></i></div>
+        <h4 class="text-cream font-medium mb-1">Barry Komisaruk</h4>
+        <div class="text-[10px] uppercase text-gold-dim mb-4 tracking-widest">Rutgers University</div>
+        <p class="text-xs text-cream-dim mb-2 leading-relaxed">Identified the Vagus Nerve bypass, proving the body has secondary highways for pleasure that bypass the spinal cord entirely. Women with complete spinal injuries were still capable of orgasm through this pathway.</p>
+        <p class="text-[10px] text-gold-dim italic">Documented that vaginal stimulation produces pain-suppressing peptides in the body.</p>
+      </div>
+      <div class="glass p-8 rounded-2xl relative">
+        <div class="text-rose mb-4"><i data-lucide="scan" class="w-8 h-8 opacity-50"></i></div>
+        <h4 class="text-cream font-medium mb-1">Gert Holstege</h4>
+        <div class="text-[10px] uppercase text-gold-dim mb-4 tracking-widest">Groningen</div>
+        <p class="text-xs text-cream-dim leading-relaxed">PET scans confirmed the silencing of the Orbitofrontal Cortex during arousal — essentially turning off the "anxious self."</p>
+      </div>
+      <div class="glass p-8 rounded-2xl relative">
+        <div class="text-sage mb-4"><i data-lucide="database" class="w-8 h-8 opacity-50"></i></div>
+        <h4 class="text-cream font-medium mb-1">Michael et al.</h4>
+        <div class="text-[10px] uppercase text-gold-dim mb-4 tracking-widest">Sex in America</div>
+        <p class="text-xs text-cream-dim leading-relaxed">Found that satisfaction does not correlate perfectly with climax frequency, challenging the "climax as currency" myth.</p>
+      </div>
+    </div>
+
+    <div class="bg-surface/50 border border-border p-8 rounded-xl text-center">
+      <p class="text-sm text-cream-dim italic max-w-2xl mx-auto leading-relaxed">
+        "The neuroscience behind extended arousal remains an open research area — Komisaruk's fMRI work has not fully replicated Holstege's cortical findings, and orgasmic meditation itself lacks controlled clinical trials. What is well-established is the neurochemical architecture: dopamine, oxytocin, and endorphin dynamics during and after arousal are documented; the practical implications of manipulating those dynamics through climax-delay remain genuinely contested."
+      </p>
+    </div>
+  </section>
+
+  <!-- TAKEAWAY -->
+  <section class="py-32">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-block p-4 rounded-full bg-gold/10 mb-8">
+        <i data-lucide="compass" class="text-gold w-8 h-8"></i>
+      </div>
+      <h2 class="text-5xl font-serif text-cream mb-8 leading-tight">Inhabit the <span class="italic gold-gradient">Threshold</span></h2>
+      <p class="text-2xl font-serif italic text-cream-dim leading-relaxed">
+        The pursuit of climax may be the very thing standing between us and genuine depth. Learning to inhabit the threshold may be one of the most underexplored routes to wellbeing available to us.
+      </p>
+      <div class="mt-16 flex flex-col items-center">
+        <div class="w-px h-16 bg-border mb-8"></div>
+        <div class="text-[10px] uppercase tracking-[0.4em] text-gold-dim font-bold">End of Document</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="py-16 border-t border-border">
+  <div class="container mx-auto px-6 flex flex-col items-center">
+    <div class="text-gold-dim text-[10px] uppercase tracking-[0.3em] font-medium mb-4">Curated & Designed</div>
+    <div class="font-serif text-2xl text-cream">Gourang Sharma</div>
+  </div>
+</footer>
+
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // Create floating particles for the header
+  const container = document.getElementById('particles-container');
+  if (container) {
+    for (let i = 0; i < 40; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      const size = Math.random() * 6 + 3;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100 + 10}%`;
+      particle.style.animationDelay = `${Math.random() * 15}s`;
+      particle.style.animationDuration = `${Math.random() * 8 + 10}s`;
+      
+      // Randomly color particles based on theme
+      const colors = ['var(--gold)', 'var(--rose)', 'var(--sage)'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.background = color;
+      particle.style.color = color; // For currentColor box-shadow
+      
+      container.appendChild(particle);
+    }
+  }
+
+  // Simple scroll reveal
+  const observerOptions = {
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal');
+        
+        // Animate neuro-bars if present in this section
+        const bars = entry.target.querySelectorAll('.neuro-fill');
+        bars.forEach(bar => {
+          setTimeout(() => {
+            bar.style.width = bar.getAttribute('data-width');
+          }, 400);
+        });
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('section').forEach(section => {
+    section.style.opacity = '0';
+    observer.observe(section);
+  });
+</script>
+</body>
+</html>

@@ -4,10 +4,8 @@ import { useState, useEffect } from "react";
 
 const SECTIONS = [
   { id: "dispatch", label: "Weekly Dispatch" },
-  { id: "finder", label: "Tool Finder" },
-  { id: "quiz", label: "Literacy Score" },
-  { id: "prompts", label: "Prompt Library" },
-  { id: "learning", label: "Learning Path" },
+  { id: "stack", label: "The Stack" },
+  { id: "literacy-path", label: "Literacy & Path" },
 ];
 
 export default function SectionNav() {
@@ -40,16 +38,18 @@ export default function SectionNav() {
   return (
     <nav
       style={{
-        position: "sticky",
+        position: "fixed", // Changed from sticky to fixed for stability
         top: "56px",
+        left: 0,
+        right: 0,
         zIndex: 40,
-        backgroundColor: "#F5EFE6",
-        borderBottom: "1px solid rgba(44,44,44,0.08)",
+        backgroundColor: "transparent", // Slightly darker for contrast against video
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
       }}
     >
       <div
         style={{
-          maxWidth: "1100px",
+          maxWidth: "1600px",
           margin: "0 auto",
           padding: "0 1.5rem",
           display: "flex",
@@ -82,24 +82,24 @@ export default function SectionNav() {
                     fontSize: "11px",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
-                    color: isActive ? "#C9A84C" : "rgba(44,44,44,0.40)",
-                    fontWeight: isActive ? 500 : 400,
+                    color: isActive ? "#C9A84C" : "rgba(245,239,230,0.5)",
+                    fontWeight: isActive ? 600 : 400,
                     padding: "14px 20px",
                     borderBottom: isActive
                       ? "2px solid #C9A84C"
                       : "2px solid transparent",
-                    transition: "all 0.2s",
+                    transition: "all 0.3s ease",
                     whiteSpace: "nowrap",
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive)
                       (e.currentTarget as HTMLButtonElement).style.color =
-                        "rgba(44,44,44,0.75)";
+                        "rgba(245,239,230,0.8)";
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive)
                       (e.currentTarget as HTMLButtonElement).style.color =
-                        "rgba(44,44,44,0.40)";
+                        "rgba(245,239,230,0.5)";
                   }}
                 >
                   {label}

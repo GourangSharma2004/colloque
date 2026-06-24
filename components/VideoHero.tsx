@@ -336,17 +336,22 @@ export default function VideoHero() {
             <div
               ref={(el) => { s0TitleRef.current = el; }}
               style={{
-                fontFamily: "var(--font-cormorant), Georgia, serif",
-                fontSize: "clamp(5rem, 12vw, 11rem)",
-                fontWeight: 300,
-                fontStyle: "italic",
-                letterSpacing: "0.25em",
-                color: "#F5EFE6",
-                textShadow: "0 2px 60px rgba(0,0,0,0.3)",
                 opacity: 0,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              CONVERSE
+              <img
+                src="/logo.png"
+                alt="Colloque"
+                style={{
+                  width: "clamp(550px, 75vw, 1100px)",
+                  height: "auto",
+                  display: "block",
+                  filter: "drop-shadow(0 2px 60px rgba(0,0,0,0.3))",
+                }}
+              />
             </div>
             <div
               ref={(el) => { s0TaglineRef.current = el; }}
@@ -421,7 +426,7 @@ export default function VideoHero() {
                 opacity: 0,
               }}
             >
-              Converse is made to be carried.
+              Colloque is made to be carried.
             </div>
             <p
               ref={(el) => { s1Lines.current[2] = el as HTMLElement; }}

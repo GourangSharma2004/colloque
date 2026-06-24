@@ -1,18 +1,19 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Bookmark, Search, User, X } from "lucide-react";
+import { Bookmark, Search, User, X, LogOut } from "lucide-react";
+import { useUser } from "@/lib/auth";
+import { search, type SearchResult } from "@/lib/search-index";
 
 type BookmarkItem = {
-  key: string;
+  id: string;
   label: string;
   href: string;
-  savedAt: number;
+  lastRead: number;
 };
 
-const STORAGE_KEY = "converse_bookmarks";
+const STORAGE_KEY = "colloque_bookmarks";
 
 function loadBookmarks(): BookmarkItem[] {
   if (typeof window === "undefined") return [];
@@ -22,6 +23,17 @@ function loadBookmarks(): BookmarkItem[] {
 
 function saveBookmarks(bm: BookmarkItem[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(bm));
+}
+
+function getTimeAgo(timestamp: number): string {
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  if (seconds < 60) return "just now";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
 }
 
 type NavLink = {
@@ -47,38 +59,49 @@ export default function Navbar({ active }: NavbarProps) {
   const [loginOpen, setLoginOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [sectionMatchCounts, setSectionMatchCounts] = useState<Record<string, number>>({});
   const [bookmarkOpen, setBookmarkOpen] = useState(false);
   const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
   const bookmarkBtnRef = useRef<HTMLButtonElement>(null);
-  const router = useRouter();
+  const { user, signInWithMagicLink, signOut, getDisplayName } = useUser();
+  const [email, setEmail] = useState("");
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
+
+  useEffect(() => {
+    const handleOpenLogin = () => setLoginOpen(true);
+    window.addEventListener("colloque-open-login", handleOpenLogin);
+    return () => window.removeEventListener("colloque-open-login", handleOpenLogin);
+  }, []);
 
   useEffect(() => {
     setBookmarks(loadBookmarks());
   }, []);
 
-  const currentPage = active ? NAV_LINKS.find((l) => l.key === active) : null;
-  const isBookmarked = !!currentPage && bookmarks.some((b) => b.key === currentPage.key);
-
-  const toggleBookmark = () => {
-    if (!currentPage) { setBookmarkOpen((o) => !o); return; }
-    let updated: BookmarkItem[];
-    if (isBookmarked) {
-      updated = bookmarks.filter((b) => b.key !== currentPage.key);
-    } else {
-      updated = [
-        { key: currentPage.key, label: currentPage.label, href: currentPage.href, savedAt: Date.now() },
-        ...bookmarks,
-      ];
-    }
+  const removeBookmark = (id: string) => {
+    const updated = bookmarks.filter((b) => b.id !== id);
     setBookmarks(updated);
     saveBookmarks(updated);
-    if (!isBookmarked) setBookmarkOpen(true);
   };
 
-  const removeBookmark = (key: string) => {
-    const updated = bookmarks.filter((b) => b.key !== key);
-    setBookmarks(updated);
-    saveBookmarks(updated);
+  const handleMagicLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setAuthError(null);
+    setAuthLoading(true);
+    const { error } = await signInWithMagicLink(email);
+    setAuthLoading(false);
+    if (error) {
+      setAuthError(error.message || "Failed to send magic link");
+    } else {
+      setMagicLinkSent(true);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
   };
 
   return (
@@ -87,9 +110,7 @@ export default function Navbar({ active }: NavbarProps) {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12"
       style={{
         height: "56px",
-        backgroundColor: "rgba(26, 26, 26, 0.95)",
-        backdropFilter: "blur(6px)",
-        WebkitBackdropFilter: "blur(6px)",
+        backgroundColor: "transparent",
         borderBottom: "1px solid rgba(245,239,230,0.06)",
       }}
     >
@@ -107,7 +128,7 @@ export default function Navbar({ active }: NavbarProps) {
           whiteSpace: "nowrap",
         }}
       >
-        Converse
+        Colloque
       </Link>
 
       {/* ── Center: Nav links ── */}
@@ -117,6 +138,8 @@ export default function Navbar({ active }: NavbarProps) {
       >
         {NAV_LINKS.map((link) => {
           const isActive = active === link.key;
+          const matchCount = sectionMatchCounts[link.key] || 0;
+          const hasMatch = matchCount > 0;
           return (
             <li
               key={link.key}
@@ -137,23 +160,51 @@ export default function Navbar({ active }: NavbarProps) {
                   fontStyle: link.separator ? "italic" : "normal",
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: isActive ? "#F5EFE6" : link.separator ? "rgba(245,239,230,0.85)" : "rgba(245,239,230,0.55)",
+                  color: hasMatch ? "#C4973A" : isActive ? "#F5EFE6" : link.separator ? "rgba(245,239,230,0.85)" : "rgba(245,239,230,0.55)",
                   fontWeight: link.separator ? 600 : 400,
                   textDecoration: "none",
-                  transition: "opacity 0.2s",
+                  transition: "opacity 0.2s, color 0.2s",
                   paddingBottom: "4px",
+                  ...(hasMatch ? {
+                    animation: "pulse 2s ease-in-out infinite",
+                  } : {}),
                 }}
                 onMouseEnter={(e) => {
-                  if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = "#F5EFE6";
+                  if (!isActive && !hasMatch) (e.currentTarget as HTMLAnchorElement).style.color = "#F5EFE6";
                 }}
                 onMouseLeave={(e) => {
-                  if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = link.separator ? "rgba(245,239,230,0.85)" : "rgba(245,239,230,0.55)";
+                  if (!isActive && !hasMatch) (e.currentTarget as HTMLAnchorElement).style.color = link.separator ? "rgba(245,239,230,0.85)" : "rgba(245,239,230,0.55)";
                 }}
               >
                 {link.label}
               </Link>
+              {/* Match count badge */}
+              {hasMatch && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "-6px",
+                    right: "-12px",
+                    backgroundColor: "#C4973A",
+                    color: "#0e0e0e",
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 600,
+                    minWidth: "18px",
+                    height: "18px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "0 4px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  {matchCount > 9 ? "9+" : matchCount}
+                </span>
+              )}
               {/* Active indicator dot */}
-              {isActive && (
+              {isActive && !hasMatch && (
                 <span
                   style={{
                     display: "block",
@@ -178,18 +229,18 @@ export default function Navbar({ active }: NavbarProps) {
         <button
           ref={bookmarkBtnRef}
           aria-label="Bookmark"
-          onClick={toggleBookmark}
+          onClick={() => setBookmarkOpen((o) => !o)}
           style={{
             background: "none", border: "none", cursor: "pointer", padding: 0,
-            color: isBookmarked ? "#C4973A" : bookmarkOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)",
+            color: bookmarkOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)",
             transition: "color 0.2s",
             position: "relative",
           }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = isBookmarked ? "#D4A843" : "#F5EFE6"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = isBookmarked ? "#C4973A" : bookmarkOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)"; }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#F5EFE6"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = bookmarkOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)"; }}
         >
-          <Bookmark size={18} strokeWidth={1.5} fill={isBookmarked ? "#C4973A" : "none"} />
-          {bookmarks.length > 0 && !isBookmarked && (
+          <Bookmark size={18} strokeWidth={1.5} fill={bookmarks.length > 0 ? "#C4973A" : "none"} />
+          {bookmarks.length > 0 && (
             <span style={{
               position: "absolute", top: "-4px", right: "-5px",
               width: "8px", height: "8px", borderRadius: "50%",
@@ -207,15 +258,44 @@ export default function Navbar({ active }: NavbarProps) {
         >
           <Search size={18} strokeWidth={1.5} />
         </button>
-        <button
-          aria-label="Sign In"
-          onClick={() => setLoginOpen(true)}
-          style={{ background: "none", border: "none", cursor: "pointer", color: loginOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)", padding: 0, transition: "color 0.2s" }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#F5EFE6"; }}
-          onMouseLeave={(e) => { if (!loginOpen) (e.currentTarget as HTMLButtonElement).style.color = "rgba(245,239,230,0.55)"; }}
-        >
-          <User size={18} strokeWidth={1.5} />
-        </button>
+        {user ? (
+          <div style={{ position: "relative" }}>
+            <button
+              aria-label="Account"
+              onClick={() => setLoginOpen(true)}
+              style={{
+                background: "none", border: "none", cursor: "pointer",
+                color: loginOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)",
+                padding: 0, transition: "color 0.2s",
+                display: "flex", alignItems: "center", gap: "0.5rem",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#F5EFE6"; }}
+              onMouseLeave={(e) => { if (!loginOpen) (e.currentTarget as HTMLButtonElement).style.color = "rgba(245,239,230,0.55)"; }}
+            >
+              <div
+                style={{
+                  width: "28px", height: "28px", borderRadius: "50%",
+                  backgroundColor: "#C4973A",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "11px", fontWeight: 600, color: "#0e0e0e",
+                }}
+              >
+                {getDisplayName().charAt(0).toUpperCase()}
+              </div>
+            </button>
+          </div>
+        ) : (
+          <button
+            aria-label="Sign In"
+            onClick={() => setLoginOpen(true)}
+            style={{ background: "none", border: "none", cursor: "pointer", color: loginOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)", padding: 0, transition: "color 0.2s" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#F5EFE6"; }}
+            onMouseLeave={(e) => { if (!loginOpen) (e.currentTarget as HTMLButtonElement).style.color = "rgba(245,239,230,0.55)"; }}
+          >
+            <User size={18} strokeWidth={1.5} />
+          </button>
+        )}
       </div>
     </nav>
 
@@ -249,22 +329,6 @@ export default function Navbar({ active }: NavbarProps) {
               letterSpacing: "0.14em", textTransform: "uppercase",
               color: "rgba(245,239,230,0.45)",
             }}>Bookmarks</span>
-            {currentPage && (
-              <button
-                onClick={toggleBookmark}
-                style={{
-                  background: "none", border: "none", cursor: "pointer",
-                  display: "flex", alignItems: "center", gap: "0.35rem",
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "11px", fontWeight: 500,
-                  color: isBookmarked ? "#C4973A" : "rgba(245,239,230,0.55)",
-                  padding: 0, transition: "color 0.2s",
-                }}
-              >
-                <Bookmark size={13} strokeWidth={1.5} fill={isBookmarked ? "#C4973A" : "none"} />
-                {isBookmarked ? "Saved" : "Save this page"}
-              </button>
-            )}
           </div>
 
           {/* Bookmark list */}
@@ -276,13 +340,16 @@ export default function Navbar({ active }: NavbarProps) {
               fontSize: "13px", fontWeight: 300,
               color: "rgba(245,239,230,0.30)",
             }}>
-              No bookmarks yet
+              No bookmarked documentation
             </div>
           ) : (
             <ul style={{ listStyle: "none", margin: 0, padding: "0.4rem 0", maxHeight: "320px", overflowY: "auto" }}>
-              {bookmarks.map((bm) => (
+              {bookmarks
+                .sort((a, b) => b.lastRead - a.lastRead)
+                .slice(0, 1)
+                .map((bm) => (
                 <li
-                  key={bm.key}
+                  key={bm.id}
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     padding: "0.55rem 1rem",
@@ -290,24 +357,35 @@ export default function Navbar({ active }: NavbarProps) {
                     gap: "0.5rem",
                   }}
                 >
-                  <Link
-                    href={bm.href}
-                    onClick={() => setBookmarkOpen(false)}
-                    style={{
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <Link
+                      href={bm.href}
+                      onClick={() => setBookmarkOpen(false)}
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "13px", fontWeight: 400,
+                        color: active === bm.id ? "#C4973A" : "rgba(245,239,230,0.80)",
+                        textDecoration: "none",
+                        display: "block",
+                        transition: "color 0.15s",
+                      }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#F5EFE6"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = active === bm.id ? "#C4973A" : "rgba(245,239,230,0.80)"; }}
+                    >
+                      {bm.label}
+                    </Link>
+                    <span style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "13px", fontWeight: 400,
-                      color: active === bm.key ? "#C4973A" : "rgba(245,239,230,0.80)",
-                      textDecoration: "none",
-                      flex: 1,
-                      transition: "color 0.15s",
-                    }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#F5EFE6"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = active === bm.key ? "#C4973A" : "rgba(245,239,230,0.80)"; }}
-                  >
-                    {bm.label}
-                  </Link>
+                      fontSize: "10px", fontWeight: 400,
+                      color: "rgba(245,239,230,0.35)",
+                      marginTop: "0.2rem",
+                      display: "block",
+                    }}>
+                      Last read: {getTimeAgo(bm.lastRead)}
+                    </span>
+                  </div>
                   <button
-                    onClick={() => removeBookmark(bm.key)}
+                    onClick={() => removeBookmark(bm.id)}
                     title="Remove bookmark"
                     style={{
                       background: "none", border: "none", cursor: "pointer",
@@ -353,13 +431,21 @@ export default function Navbar({ active }: NavbarProps) {
               type="text"
               value={searchQuery}
               placeholder="Search topics, ideas…"
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                const query = e.target.value;
+                setSearchQuery(query);
+                const results = search(query);
+                setSearchResults(results);
+                
+                // Calculate match counts per section
+                const counts: Record<string, number> = {};
+                results.forEach(result => {
+                  counts[result.section] = (counts[result.section] || 0) + 1;
+                });
+                setSectionMatchCounts(counts);
+              }}
               onKeyDown={(e) => {
-                if (e.key === "Escape") { setSearchOpen(false); setSearchQuery(""); }
-                if (e.key === "Enter" && searchQuery.trim()) {
-                  router.push(`/intellect?q=${encodeURIComponent(searchQuery.trim())}`);
-                  setSearchOpen(false);
-                }
+                if (e.key === "Escape") { setSearchOpen(false); setSearchQuery(""); setSearchResults([]); setSectionMatchCounts({}); }
               }}
               style={{
                 width: "100%",
@@ -376,6 +462,62 @@ export default function Navbar({ active }: NavbarProps) {
               }}
             />
           </div>
+
+          {/* Search Results */}
+          {searchQuery && (
+            <div style={{ marginTop: "0.5rem", maxHeight: "320px", overflowY: "auto" }}>
+              {searchResults.length === 0 ? (
+                <div style={{ padding: "0.75rem 0.5rem", textAlign: "center", color: "rgba(245,239,230,0.40)", fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "12px" }}>
+                  No results found
+                </div>
+              ) : (
+                <ul style={{ listStyle: "none", margin: 0, padding: "0.4rem 0" }}>
+                  {searchResults.slice(0, 8).map((result) => (
+                    <li key={result.id}>
+                      <Link
+                        href={`${result.href}${result.sectionId ? `#${result.sectionId}` : ''}`}
+                        onClick={() => { setSearchOpen(false); setSearchQuery(""); setSearchResults([]); setSectionMatchCounts({}); }}
+                        style={{
+                          display: "block",
+                          padding: "0.6rem 0.75rem",
+                          textDecoration: "none",
+                          borderRadius: "4px",
+                          transition: "background-color 0.15s",
+                        }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "rgba(245,239,230,0.08)"; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent"; }}
+                      >
+                        <div style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "13px", fontWeight: 500, color: "#F5EFE6", marginBottom: "0.25rem" }}>
+                          {result.title}
+                        </div>
+                        <div style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "11px", fontWeight: 300, color: "rgba(245,239,230,0.60)", lineHeight: 1.4 }}>
+                          {result.description}
+                        </div>
+                        {result.textMatch && result.textMatch.length > 0 && (
+                          <div style={{ marginTop: "0.25rem", fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 300, color: "rgba(196, 151, 58, 0.8)", fontStyle: "italic" }}>
+                            &ldquo;{result.textMatch[0].substring(0, 80)}&rdquo;...
+                          </div>
+                        )}
+                        <div style={{ marginTop: "0.35rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                          <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: "#C4973A" }}>
+                            {result.category}
+                          </span>
+                          <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 400, color: "rgba(245,239,230,0.35)" }}>
+                            · {result.section}
+                          </span>
+                          {result.matchType && (
+                            <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 400, color: "rgba(196, 151, 58, 0.6)" }}>
+                              · {result.matchType}
+                            </span>
+                          )}
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
         </div>
       </>
     )}
@@ -419,108 +561,123 @@ export default function Navbar({ active }: NavbarProps) {
             <X size={18} strokeWidth={1.5} />
           </button>
 
-          {/* Heading */}
-          <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "28px", fontStyle: "italic", fontWeight: 700, color: "#F5EFE6", marginBottom: "0.35rem", letterSpacing: "-0.01em" }}>
-            Welcome back
-          </h2>
-          <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "13px", fontWeight: 300, color: "rgba(245,239,230,0.45)", marginBottom: "1.75rem" }}>
-            Sign in to your Converse account
-          </p>
+          {user ? (
+            <>
+              {/* Logged in view */}
+              <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "28px", fontStyle: "italic", fontWeight: 700, color: "#F5EFE6", marginBottom: "0.35rem", letterSpacing: "-0.01em" }}>
+                Hello, {getDisplayName()}
+              </h2>
+              <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "13px", fontWeight: 300, color: "rgba(245,239,230,0.45)", marginBottom: "2rem" }}>
+                {user.email}
+              </p>
 
-          {/* Google */}
-          <button
-            style={{
-              width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem",
-              padding: "0.65rem 1rem",
-              backgroundColor: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(245,239,230,0.12)",
-              borderRadius: "5px",
-              cursor: "pointer",
-              color: "#F5EFE6",
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "13px", fontWeight: 400,
-              marginBottom: "1.5rem",
-              transition: "background-color 0.2s",
-            }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.11)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.06)"; }}
-          >
-            <svg width="16" height="16" viewBox="0 0 48 48" fill="none">
-              <path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 20-7.6 20-21 0-1.4-.1-2.7-.5-4z" fill="#FFC107"/>
-              <path d="M6.3 14.7l7 5.1C15.1 16.1 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 5.1 29.6 3 24 3c-7.6 0-14.2 4.3-17.7 10.7z" fill="#FF3D00"/>
-              <path d="M24 45c5.5 0 10.5-1.9 14.3-5.1l-6.6-5.6C29.7 35.9 27 37 24 37c-6 0-11.1-4-12.9-9.4l-7 5.4C7.6 40.5 15.2 45 24 45z" fill="#4CAF50"/>
-              <path d="M44.5 20H24v8.5h11.8c-.9 2.6-2.6 4.7-4.9 6.2l6.6 5.6C41.5 36.8 45 31 45 24c0-1.4-.1-2.7-.5-4z" fill="#1976D2"/>
-            </svg>
-            Continue with Google
-          </button>
+              <button
+                onClick={handleSignOut}
+                style={{
+                  width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
+                  padding: "0.75rem",
+                  backgroundColor: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(245,239,230,0.12)",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  color: "#F5EFE6",
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "13px", fontWeight: 400,
+                  transition: "background-color 0.2s",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.11)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.06)"; }}
+              >
+                <LogOut size={16} strokeWidth={1.5} />
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              {magicLinkSent ? (
+                /* ── Confirmation ── */
+                <>
+                  <div style={{ textAlign: "center", padding: "1rem 0" }}>
+                    <div style={{ width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "26px", fontStyle: "italic", fontWeight: 700, color: "#F5EFE6", marginBottom: "0.75rem" }}>Check your inbox</h2>
+                    <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "13px", fontWeight: 300, color: "rgba(245,239,230,0.55)", lineHeight: 1.6, marginBottom: "2rem" }}>
+                      We sent a magic link to <span style={{ color: "#C9A84C" }}>{email}</span>. Click it to sign in — no password needed.
+                    </p>
+                    <button
+                      onClick={() => { setMagicLinkSent(false); setEmail(""); setLoginOpen(false); }}
+                      style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(245,239,230,0.40)", fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "12px", letterSpacing: "0.1em" }}
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </>
+              ) : (
+                /* ── Magic link form ── */
+                <>
+                  <h2 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "28px", fontStyle: "italic", fontWeight: 700, color: "#F5EFE6", marginBottom: "0.35rem", letterSpacing: "-0.01em" }}>
+                    Welcome back
+                  </h2>
+                  <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "13px", fontWeight: 300, color: "rgba(245,239,230,0.45)", marginBottom: "1.75rem" }}>
+                    Enter your email to receive a magic sign-in link
+                  </p>
 
-          {/* Divider */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(245,239,230,0.10)" }} />
-            <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "11px", color: "rgba(245,239,230,0.30)", letterSpacing: "0.1em" }}>or</span>
-            <div style={{ flex: 1, height: "1px", backgroundColor: "rgba(245,239,230,0.10)" }} />
-          </div>
+                  <form onSubmit={handleMagicLink}>
+                    <div style={{ marginBottom: "1.25rem" }}>
+                      <label style={{ display: "block", fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245,239,230,0.45)", marginBottom: "0.5rem" }}>
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="you@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        style={{
+                          width: "100%", padding: "0.65rem 0.9rem",
+                          backgroundColor: "rgba(255,255,255,0.05)",
+                          border: "1px solid rgba(245,239,230,0.12)",
+                          borderRadius: "5px",
+                          color: "#F5EFE6",
+                          fontFamily: "var(--font-dm-sans), sans-serif",
+                          fontSize: "14px", fontWeight: 300,
+                          outline: "none",
+                          boxSizing: "border-box",
+                        }}
+                      />
+                    </div>
 
-          {/* Email */}
-          <div style={{ marginBottom: "1rem" }}>
-            <label style={{ display: "block", fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245,239,230,0.45)", marginBottom: "0.5rem" }}>
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              style={{
-                width: "100%", padding: "0.65rem 0.9rem",
-                backgroundColor: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(245,239,230,0.12)",
-                borderRadius: "5px",
-                color: "#F5EFE6",
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "14px", fontWeight: 300,
-                outline: "none",
-              }}
-            />
-          </div>
+                    {authError && (
+                      <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "12px", color: "#ff6b6b", marginBottom: "1rem" }}>
+                        {authError}
+                      </p>
+                    )}
 
-          {/* Password */}
-          <div style={{ marginBottom: "1.75rem" }}>
-            <label style={{ display: "block", fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245,239,230,0.45)", marginBottom: "0.5rem" }}>
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              style={{
-                width: "100%", padding: "0.65rem 0.9rem",
-                backgroundColor: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(245,239,230,0.12)",
-                borderRadius: "5px",
-                color: "#F5EFE6",
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "14px", fontWeight: 300,
-                outline: "none",
-              }}
-            />
-          </div>
-
-          {/* Submit */}
-          <button
-            style={{
-              width: "100%", padding: "0.75rem",
-              backgroundColor: "#C4973A",
-              border: "none", borderRadius: "5px",
-              color: "#0e0e0e",
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "13px", fontWeight: 600,
-              letterSpacing: "0.1em", textTransform: "uppercase",
-              cursor: "pointer",
-              transition: "background-color 0.2s",
-            }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#D4A843"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#C4973A"; }}
-          >
-            Sign In
-          </button>
+                    <button
+                      type="submit"
+                      disabled={authLoading}
+                      style={{
+                        width: "100%", padding: "0.75rem",
+                        backgroundColor: authLoading ? "rgba(196,151,58,0.5)" : "#C4973A",
+                        border: "none", borderRadius: "5px",
+                        color: "#0e0e0e",
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "13px", fontWeight: 600,
+                        letterSpacing: "0.1em", textTransform: "uppercase",
+                        cursor: authLoading ? "not-allowed" : "pointer",
+                        transition: "background-color 0.2s",
+                      }}
+                      onMouseEnter={(e) => { if (!authLoading) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#D4A843"; }}
+                      onMouseLeave={(e) => { if (!authLoading) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#C4973A"; }}
+                    >
+                      {authLoading ? "Sending…" : "Send Magic Link"}
+                    </button>
+                  </form>
+                </>
+              )}
+            </>
+          )}
         </div>
       </>
     )}

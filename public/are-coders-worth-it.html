@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are Coders Worth It?</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5EFE6;
+    --charcoal: #0D0D0D;
+    --mid: #1A1A1A;
+    --gold: #C9A84C;
+    --gold-dim: #a8883a;
+    --text-primary: #F0E8D8;
+    --text-secondary: #9E9080;
+    --text-muted: #5C5448;
+    --border: rgba(201,168,76,0.18);
+    --border-light: rgba(240,232,216,0.08);
+    --surface: rgba(255,255,255,0.03);
+    --surface2: rgba(255,255,255,0.055);
+    --gradient-hero: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0a0a0a 100%);
+    --glow: rgba(201,168,76,0.3);
+  }
+
+  html { font-size: 16px; background: var(--charcoal); color: var(--text-primary); scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; font-weight: 300; max-width: 900px; margin: 0 auto; padding: 0 2rem 6rem; line-height: 1.7; position: relative; overflow-x: hidden; }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: var(--charcoal);
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    animation: fadeInUp 1s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hero-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 60px rgba(201,168,76,0.2);
+  }
+  
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .hero h1 em::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: shimmer 2s ease-in-out infinite;
+  }
+  
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.5; transform: scaleX(0.8); }
+    50% { opacity: 1; transform: scaleX(1); }
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto;
+    opacity: 0.9;
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+  }
+  
+  .scroll-indicator svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--gold);
+    opacity: 0.6;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 4rem; opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .section.visible { opacity: 1; transform: translateY(0); }
+  .section-label { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+  .section-label::before { content: ''; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--glow); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--text-primary); margin-bottom: 1.5rem; line-height: 1.25; }
+  .section-body { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.85; }
+  .section-body p + p { margin-top: 1rem; }
+
+  /* ── CLAIM BLOCK ── */
+  .claim-block { background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.03) 100%); border: 1px solid var(--border); border-left: 4px solid var(--gold); padding: 2rem 2.5rem; margin-bottom: 4rem; border-radius: 8px; position: relative; overflow: hidden; }
+  .claim-block::before { content: '"'; position: absolute; top: -10px; left: 20px; font-family: 'Cormorant Garamond', serif; font-size: 8rem; color: var(--gold); opacity: 0.1; line-height: 1; }
+  .claim-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; line-height: 1.7; color: var(--text-primary); font-style: italic; position: relative; z-index: 1; }
+
+  /* ── NUMBERED LIST ── */
+  ol.logic-list { list-style: none; padding: 0; }
+  ol.logic-list li { display: flex; gap: 1.2rem; align-items: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--border-light); }
+  ol.logic-list li:last-child { border-bottom: none; }
+  .num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--gold); line-height: 1; min-width: 2rem; padding-top: 0.1rem; }
+  .logic-text { font-size: 0.91rem; color: var(--text-secondary); line-height: 1.75; }
+
+  /* ── INCENTIVE CARDS ── */
+  .incentive-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .incentive-card { background: var(--surface); border: 1px solid var(--border-light); padding: 1.8rem; border-radius: 12px; transition: all 0.3s ease; cursor: default; }
+  .incentive-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 40px rgba(201,168,76,0.15); }
+  .incentive-actor { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .incentive-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+
+  /* ── DATA PILLS ── */
+  .data-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+  .data-pill { background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.05) 100%); border: 1px solid var(--border); padding: 0.8rem 1.4rem; font-size: 0.9rem; color: var(--text-secondary); border-radius: 50px; transition: all 0.3s ease; }
+  .data-pill:hover { border-color: var(--gold); transform: scale(1.05); }
+  .data-pill strong { color: var(--gold); font-weight: 600; }
+
+  /* ── IMPLICATIONS ── */
+  ul.implication-list { list-style: none; padding: 0; }
+  ul.implication-list li { padding: 1.2rem 0 1.2rem 2rem; border-bottom: 1px solid var(--border-light); font-size: 0.95rem; color: var(--text-secondary); line-height: 1.75; position: relative; transition: all 0.3s ease; }
+  ul.implication-list li:hover { padding-left: 2.5rem; color: var(--text-primary); }
+  ul.implication-list li:last-child { border-bottom: none; }
+  ul.implication-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 1rem; top: 1.3rem; transition: transform 0.3s ease; }
+  ul.implication-list li:hover::before { transform: translateX(5px); }
+
+  /* ── TAKEAWAY ── */
+  .takeaway { border-top: 2px solid var(--border); padding-top: 3rem; margin-top: 2rem; position: relative; }
+  .takeaway::before { content: ''; position: absolute; top: -1px; left: 0; width: 100px; height: 2px; background: var(--gold); }
+  .takeaway .section-label { margin-bottom: 1.5rem; }
+  .takeaway p { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; line-height: 1.65; color: var(--text-primary); font-style: italic; max-width: 750px; position: relative; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border-light); margin: 4rem 0; position: relative; }
+  .divider::after { content: '◆'; position: absolute; left: 50%; top: -8px; transform: translateX(-50%); color: var(--gold); font-size: 0.8rem; opacity: 0.5; }
+
+  /* ── SVG diagram area ── */
+  .diagram-wrap { margin: 1.5rem 0; overflow: visible; }
+
+  /* ── BYLINE ── */
+  .byline { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; text-align: center; }
+  
+  /* ── BACKGROUND PATTERN ── */
+  .bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.03;
+    background-image: 
+      linear-gradient(rgba(201,168,76,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* ── EFFECTS chart ── */
+  .effects-row { display: flex; flex-direction: column; gap: 1.2rem; }
+  .effect-item { display: flex; gap: 1.2rem; align-items: flex-start; transition: transform 0.3s ease; }
+  .effect-item:hover { transform: translateX(10px); }
+  .effect-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-top: 0.6rem; flex-shrink: 0; box-shadow: 0 0 10px var(--glow); }
+  .effect-text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; }
+
+  @media (max-width: 580px) {
+    body { padding: 2rem 1.2rem 4rem; }
+    .incentive-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND PATTERN -->
+<div class="bg-pattern"></div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Economics & Systems · Labor Markets</div>
+    <h1>Are <em>Coders</em> Worth It?</h1>
+    <p class="hero-subtitle">A structural examination of how tech labor markets create enormous wage premiums — and what that premium actually signals about value, scarcity, and the stories we tell ourselves.</p>
+  </div>
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+    </svg>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main style="position: relative; z-index: 1;">
+
+<!-- CENTRAL CLAIM -->
+<section class="section">
+  <div class="section-label">Central Claim</div>
+  <div class="claim-block">
+    <p>The early-2010s web developer wage premium was not a signal of exceptional intellectual contribution — it was a structural artifact of temporary supply scarcity at a bottleneck created by infrastructure commoditization. A market can consistently overpay for a technically necessary but intellectually modest role, and those at the receiving end will almost inevitably mistake the windfall for deserved reward.</p>
+  </div>
+</section>
+
+<!-- SYSTEM BEING EXAMINED -->
+<section class="section">
+  <div class="section-label">The System Being Examined</div>
+  <div class="section-title">The Web Startup Ecosystem, circa 2012</div>
+  <div class="section-body">
+    <p>The system under scrutiny is the early-2010s venture-backed web startup economy — a dense network of small software companies funded by risk capital, employing web developers as their primary productive asset. The basic operating rules changed dramatically after the first dotcom era: broadband infrastructure, cloud computing, open-source frameworks, and social distribution had already been built, collapsing the cost of launching a new software product from hundreds of millions to hundreds of thousands of dollars. The key players are venture capitalists deploying capital across many small experiments, startup founders competing to attract scarce developer talent, and web developers who became, almost by accident, the singular bottleneck in this new production system.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- THE LOGIC — SVG DIAGRAM -->
+<section class="section">
+  <div class="section-label">The Logic — Causal Chain</div>
+  <div class="section-title">How the System Produces This Outcome</div>
+
+  <div class="diagram-wrap">
+    <svg width="100%" viewBox="0 0 900 820" role="img" xmlns="http://www.w3.org/2000/svg">
+      <title>Causal chain: how infrastructure commoditization produces developer wage premiums and misallocated prestige</title>
+      <desc>Seven-step flowchart showing the causal sequence from infrastructure commoditization to developer ego inflation and talent misallocation.</desc>
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Step 1 -->
+      <g>
+        <rect x="150" y="10" width="600" height="85" rx="4" fill="rgba(255,255,255,0.04)" stroke="#C9A84C" stroke-width="0.8"/>
+        <text x="450" y="32" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="500" fill="#C9A84C" letter-spacing="0.12em">STEP 1</text>
+        <text x="450" y="55" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#E8D8C0">Infrastructure commoditized — broadband,</text>
+        <text x="450" y="75" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#E8D8C0">cloud, open-source already built</text>
+      </g>
+
+      <!-- Arrow -->
+      <line x1="450" y1="95" x2="450" y2="129" stroke="#C9A84C" stroke-width="0.9" marker-end="url(#arr)"/>
+
+      <!-- Step 2 -->
+      <g>
+        <rect x="150" y="131" width="600" height="85" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+        <text x="450" y="153" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="500" fill="#C9A84C" letter-spacing="0.12em">STEP 2</text>
+        <text x="450" y="176" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">Startup capital requirements collapse:</text>
+        <text x="450" y="196" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">$100M → $100K to validate an idea</text>
+      </g>
+
+      <!-- Arrow -->
+      <line x1="450" y1="216" x2="450" y2="250" stroke="#C9A84C" stroke-width="0.9" marker-end="url(#arr)"/>
+
+      <!-- Step 3 -->
+      <g>
+        <rect x="150" y="252" width="600" height="85" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+        <text x="450" y="274" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="500" fill="#C9A84C" letter-spacing="0.12em">STEP 3</text>
+        <text x="450" y="297" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">VCs run 1,000 small experiments instead</text>
+        <text x="450" y="317" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">of 5 large bets — demand for developers multiplies</text>
+      </g>
+
+      <!-- Arrow -->
+      <line x1="450" y1="337" x2="450" y2="371" stroke="#C9A84C" stroke-width="0.9" marker-end="url(#arr)"/>
+
+      <!-- Step 4 -->
+      <g>
+        <rect x="150" y="373" width="600" height="85" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+        <text x="450" y="395" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="500" fill="#C9A84C" letter-spacing="0.12em">STEP 4</text>
+        <text x="450" y="418" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">Developer supply stays scarce — wages and</text>
+        <text x="450" y="438" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">perks bid up aggressively by competing startups</text>
+      </g>
+
+      <!-- Arrow -->
+      <line x1="450" y1="458" x2="450" y2="492" stroke="#C9A84C" stroke-width="0.9" marker-end="url(#arr)"/>
+
+      <!-- Step 5 -->
+      <g>
+        <rect x="150" y="494" width="600" height="85" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+        <text x="450" y="516" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="500" fill="#C9A84C" letter-spacing="0.12em">STEP 5</text>
+        <text x="450" y="539" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">Frameworks like Ruby on Rails automate most</text>
+        <text x="450" y="559" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">of the creative challenge — execution becomes rote</text>
+      </g>
+
+      <!-- Arrow -->
+      <line x1="450" y1="579" x2="450" y2="613" stroke="#C9A84C" stroke-width="0.9" marker-end="url(#arr)"/>
+
+      <!-- Step 6 -->
+      <g>
+        <rect x="150" y="615" width="600" height="85" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+        <text x="450" y="637" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="500" fill="#C9A84C" letter-spacing="0.12em">STEP 6</text>
+        <text x="450" y="660" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">Price of writing and analysis is simultaneously</text>
+        <text x="450" y="680" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#9E9080">bid toward zero — content abundance kills scarcity</text>
+      </g>
+
+      <!-- Arrow -->
+      <line x1="450" y1="700" x2="450" y2="734" stroke="#C9A84C" stroke-width="0.9" marker-end="url(#arr)"/>
+
+      <!-- Step 7 — outcome box, slightly different treatment -->
+      <g>
+        <rect x="100" y="736" width="700" height="80" rx="4" fill="rgba(201,168,76,0.07)" stroke="#C9A84C" stroke-width="1.2"/>
+        <text x="450" y="759" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="13" font-weight="500" fill="#C9A84C" letter-spacing="0.12em">OUTCOME</text>
+        <text x="450" y="782" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#E8D8C0">Wage gap is interpreted as moral validation —</text>
+        <text x="450" y="802" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="15" font-weight="300" fill="#E8D8C0">developers dismiss non-technical work as structurally less valuable</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INCENTIVE STRUCTURES -->
+<section class="section">
+  <div class="section-label">Incentive Structures</div>
+  <div class="section-title">Who is incentivized to do what, and why</div>
+  <div class="incentive-grid">
+    <div class="incentive-card">
+      <div class="incentive-actor">Venture Capitalists</div>
+      <div class="incentive-desc">Incentivized to fund many small experiments rather than a few large ones, because low capital costs allow this while keeping expected portfolio returns positive.</div>
+    </div>
+    <div class="incentive-card">
+      <div class="incentive-actor">Startups</div>
+      <div class="incentive-desc">Incentivized to offer unusually generous developer compensation, perks, and autonomy — because developers are the single bottleneck to product viability and can simply walk across the street.</div>
+    </div>
+    <div class="incentive-card">
+      <div class="incentive-actor">Web Developers</div>
+      <div class="incentive-desc">Incentivized to interpret high market wages as personal validation — a story of hard work rewarded — rather than recognizing it as a temporary structural windfall driven by supply/demand imbalance.</div>
+    </div>
+    <div class="incentive-card">
+      <div class="incentive-actor">Writers &amp; Thinkers</div>
+      <div class="incentive-desc">Incentivized to abandon their comparative advantage and pursue technical skills, because the market provides no viable alternative price signal — the price of intellectual work is being bid toward zero.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECOND & THIRD ORDER EFFECTS -->
+<section class="section">
+  <div class="section-label">Second &amp; Third Order Effects</div>
+  <div class="section-title">What happens as a result of what happens</div>
+  <div class="effects-row">
+    <div class="effect-item">
+      <div class="effect-dot"></div>
+      <div class="effect-text">Developer ego inflates beyond what actual contribution warrants — leading to active dismissal of non-technical candidates and a labor market where credential sorting substitutes for competence assessment.</div>
+    </div>
+    <div class="effect-item">
+      <div class="effect-dot"></div>
+      <div class="effect-text">Capital and talent flow toward low-ambition consumer applications (photo sharing, bar finders, dating apps with minor twists) rather than hard technical problems, because the developer constraint is easier to satisfy in frivolous domains.</div>
+    </div>
+    <div class="effect-item">
+      <div class="effect-dot"></div>
+      <div class="effect-text">Serious technical and intellectual work — mechanical engineering, drug compliance devices, long-form analysis — is structurally crowded out by a frenzy of "play companies" that absorb developer attention without producing proportional social value.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DATA & EVIDENCE -->
+<section class="section">
+  <div class="section-label">The Data &amp; Evidence</div>
+  <div class="section-title">What the numbers actually show</div>
+
+  <div class="data-row">
+    <div class="data-pill"><strong>$120K</strong> salary offer, plus $10K signing bonus and stock — for a generalist web developer</div>
+    <div class="data-pill"><strong>6 months</strong> from first line of code to $85K full-time role — friend's career trajectory</div>
+    <div class="data-pill"><strong>$1M</strong> per developer — startup valuation rule of thumb at the time</div>
+    <div class="data-pill"><strong>200 hires</strong> — Bloomberg's NYC tech hiring shortfall in a single quarter</div>
+    <div class="data-pill"><strong>$100M → $100K</strong> — cost of validating a startup idea, before vs. after infrastructure commoditization</div>
+  </div>
+
+  <div class="section-body">
+    <p>The historical contrast is structurally important: 1999 dotcoms burned hundreds of millions on poor products and still went public. By 2012, the same experiment cost a few laptops and founders' salaries. The evidential foundation is primarily anecdotal and autobiographical, but the specific salary figures, valuation rules of thumb, and institutional hiring data points are concrete enough to establish the wage premium as real — even if the author's self-aware bias is the most honest part of the argument.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- VALUE vs PRICE DIAGRAM -->
+<section class="section">
+  <div class="section-label">Core Tension</div>
+  <div class="section-title">Price versus contribution — a structural mismatch</div>
+  <div class="diagram-wrap">
+    <svg width="100%" viewBox="0 0 800 200" role="img" xmlns="http://www.w3.org/2000/svg">
+      <title>Diagram showing the mismatch between market price and intellectual contribution for coders vs. writers</title>
+      <desc>Two parallel bars comparing market wage to intellectual contribution for web developers and writers, revealing a structural inversion.</desc>
+
+      <!-- Coders column -->
+      <text x="200" y="24" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" font-weight="500" fill="#C9A84C" letter-spacing="0.15em">WEB DEVELOPERS</text>
+
+      <!-- Market wage bar — high -->
+      <text x="60" y="52" text-anchor="start" font-family="'DM Sans',sans-serif" font-size="10" fill="#E8D8C0">Market Wage</text>
+      <rect x="60" y="58" width="280" height="24" rx="3" fill="rgba(201,168,76,0.15)" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+      <rect x="60" y="58" width="248" height="24" rx="3" fill="rgba(201,168,76,0.35)"/>
+      <text x="320" y="75" text-anchor="end" font-family="'DM Sans',sans-serif" font-size="11" font-weight="500" fill="#C9A84C">Very high</text>
+
+      <!-- Intellectual contribution bar — moderate -->
+      <text x="60" y="104" text-anchor="start" font-family="'DM Sans',sans-serif" font-size="10" fill="#E8D8C0">Intellectual Contribution</text>
+      <rect x="60" y="110" width="280" height="24" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(240,232,216,0.12)" stroke-width="0.8"/>
+      <rect x="60" y="110" width="100" height="24" rx="3" fill="rgba(240,232,216,0.12)"/>
+      <text x="172" y="127" text-anchor="end" font-family="'DM Sans',sans-serif" font-size="11" font-weight="300" fill="#E8D8C0">Moderate</text>
+
+      <!-- Mismatch label -->
+      <line x1="162" y1="82" x2="162" y2="110" stroke="#C9A84C" stroke-width="0.7" stroke-dasharray="3 3"/>
+      <text x="170" y="98" font-family="'DM Sans',sans-serif" font-size="9.5" fill="#C9A84C">gap</text>
+
+      <!-- Divider -->
+      <line x1="400" y1="20" x2="400" y2="165" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+
+      <!-- Writers column -->
+      <text x="600" y="24" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" font-weight="500" fill="#C9A84C" letter-spacing="0.15em">WRITERS / ANALYSTS</text>
+
+      <!-- Market wage bar — near zero -->
+      <text x="460" y="52" text-anchor="start" font-family="'DM Sans',sans-serif" font-size="10" fill="#E8D8C0">Market Wage</text>
+      <rect x="460" y="58" width="280" height="24" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(240,232,216,0.12)" stroke-width="0.8"/>
+      <rect x="460" y="58" width="28" height="24" rx="3" fill="rgba(240,232,216,0.1)"/>
+      <text x="496" y="75" text-anchor="start" font-family="'DM Sans',sans-serif" font-size="11" font-weight="300" fill="#E8D8C0">Near zero</text>
+
+      <!-- Intellectual contribution bar — high -->
+      <text x="460" y="104" text-anchor="start" font-family="'DM Sans',sans-serif" font-size="10" fill="#E8D8C0">Intellectual Contribution</text>
+      <rect x="460" y="110" width="280" height="24" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(240,232,216,0.12)" stroke-width="0.8"/>
+      <rect x="460" y="110" width="230" height="24" rx="3" fill="rgba(240,232,216,0.14)"/>
+      <text x="700" y="127" text-anchor="end" font-family="'DM Sans',sans-serif" font-size="11" font-weight="300" fill="#E8D8C0">High</text>
+
+      <text x="400" y="185" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="13" font-style="italic" fill="#E8D8C0">The price of a thing is not the same as its worth.</text>
+    </svg>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- REAL WORLD IMPLICATIONS -->
+<section class="section">
+  <div class="section-label">What This Means for the Real World</div>
+  <div class="section-title">Practical implications for markets, individuals, and policy</div>
+  <ul class="implication-list">
+    <li>Market wages are a reliable signal of scarcity, not of social value — confusing the two produces both individual delusion and systemic misallocation of talent.</li>
+    <li>Infrastructure commoditization creates temporary wage windfalls for whoever sits at the newly exposed bottleneck — and those windfalls are structural, not a reward for superior intelligence or work ethic.</li>
+    <li>Prestige follows market price signals, not intellectual difficulty — so economies under this dynamic tend to misdirect ambitious talent toward technically simple, structurally scarce roles.</li>
+    <li>The "learn to code" policy prescription mistakes a temporary market anomaly for a replicable route to value creation — it optimizes for the bottleneck of today, not the contribution that matters.</li>
+    <li>Low-cost startup ecosystems systematically favor frivolous consumer applications over hard technical problems, because ambition is not a competitive differentiator when developer attention is the limiting resource.</li>
+  </ul>
+</section>
+
+<hr class="divider">
+
+<!-- TAKEAWAY -->
+<div class="takeaway">
+  <div class="section-label">The Takeaway</div>
+  <p>"A market can systematically overpay for a technically necessary but intellectually modest role when supply is temporarily short — and the people receiving that premium will almost always mistake structural luck for earned distinction. Price tells you what something is scarce. It says very little about what something is worth."</p>
+</div>
+
+<!-- BYLINE -->
+<div class="byline">Written by Gourang Sharma</div>
+
+</main>
+
+<script>
+  // Scroll-triggered animations
+  const sections = document.querySelectorAll('.section');
+  
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
