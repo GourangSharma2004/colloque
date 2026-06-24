@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getArticleBySlug, getArticleSlugs } from "@/lib/sanity-fetch";
 import { urlFor } from "@/sanity/lib/image";
@@ -6,6 +6,21 @@ import { isSanityConfigured } from "@/sanity/env";
 import ArticleReader from "./ArticleReader";
 
 export const revalidate = 60;
+
+const INTELLECT_HTML_FALLBACK: Record<string, string> = {
+  "case-against-sugar": "/case_against_sugar.html",
+  "problem-of-mindfulness": "/mindfulness.html",
+  "end-of-work-crisis-of-meaning": "/work.html",
+  "golden-quarter": "/innovation.html",
+  "are-coders-worth-it": "/are-coders-worth-it.html",
+  "the-power-thinker": "/foucault-power-thinker.html",
+  "the-orgasm-cure": "/orgasm_cure_rif.html",
+  "poor-teeth": "/poor-teeth.html",
+  "the-presence-of-power": "/presence-of-power.html",
+  "time-is-an-object": "/time-is-an-object.html",
+  "why-self-harm": "/why-self-harm-doc.html",
+  "why-english-is-weird": "",
+};
 
 export async function generateMetadata({
   params,
@@ -47,10 +62,16 @@ export default async function IntellectArticlePage({
 }: {
   params: { slug: string };
 }) {
-  if (!isSanityConfigured) notFound();
+  let article = null;
+  if (isSanityConfigured) {
+    article = await getArticleBySlug(params.slug);
+  }
 
-  const article = await getArticleBySlug(params.slug);
-  if (!article) notFound();
+  if (!article || !article.body || article.body.length === 0) {
+    const htmlPath = INTELLECT_HTML_FALLBACK[params.slug];
+    if (htmlPath) redirect(htmlPath);
+    notFound();
+  }
 
   const coverImageUrl = article.coverImage
     ? urlFor(article.coverImage).width(1200).url()

@@ -138,15 +138,20 @@ export default async function IntellectPage() {
   if (isSanityConfigured) {
     const sanityArticles = await getArticles();
     if (sanityArticles.length >= IDEAS_STATIC.length) {
-      ideas = sanityArticles.map((a) => ({
-        slug: a.slug.current,
-        title: a.title,
-        hook: a.excerpt ?? "",
-        opening: "",
-        domain: a.categories?.[0] ?? "",
-        origin: a.author ?? "",
-        image: a.coverImage ? urlFor(a.coverImage).width(800).url() : "",
-      }));
+      ideas = sanityArticles.map((a) => {
+        const staticMatch = IDEAS_STATIC.find((s) => s.slug === a.slug.current);
+        return {
+          slug: a.slug.current,
+          title: a.title,
+          hook: a.excerpt ?? staticMatch?.hook ?? "",
+          opening: "",
+          domain: a.categories?.[0] ?? staticMatch?.domain ?? "",
+          origin: a.author ?? staticMatch?.origin ?? "",
+          image: a.coverImage
+            ? urlFor(a.coverImage).width(800).url()
+            : (staticMatch?.image ?? ""),
+        };
+      });
     }
   }
 
