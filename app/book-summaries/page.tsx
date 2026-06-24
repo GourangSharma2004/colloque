@@ -31,7 +31,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Philosophy · Japan",
     quote: "The Japanese secret to a long and happy life — and what it actually demands of you.",
     cover: "/ikigai-cover.jpg",
-    href: "/book-summaries/ikigai",
+    href: "/ikigai-summary.html",
     coverBg: "#E2DAD0",
   },
   {
@@ -40,7 +40,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Entrepreneurship · Startups",
     quote: "Every great business is built on a secret the world hasn't found yet.",
     cover: "/zero to one.jpg",
-    href: "/book-summaries/zero-to-one",
+    href: "/zero-to-one-summary.html",
     coverBg: "#E0D8CE",
   },
   {
@@ -49,7 +49,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Neuroscience · Addiction",
     quote: "We are all, in some way, addicted. The question is whether we're willing to feel the pain.",
     cover: "/Dopamine Nation.jpg",
-    href: "/book-summaries/dopamine-nation",
+    href: "/dopamine-nation-summary.html",
     coverBg: "#E2DAD0",
   },
   {
@@ -58,7 +58,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Mindset · Resilience",
     quote: "Most people only use 40% of their potential. The question is what you're willing to do with the rest.",
     cover: "/Cant hurt Me.jpg",
-    href: "/book-summaries/cant-hurt-me",
+    href: "/cant-hurt-me-summary.html",
     coverBg: "#E0D8CE",
   },
   {
@@ -67,7 +67,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Entrepreneurship · Personal Brand",
     quote: "Your passion is the one unfair advantage no one else can replicate.",
     cover: "/crush it.jpg",
-    href: "/book-summaries/crush-it",
+    href: "/crush-it-summary.html",
     coverBg: "#E2DAD0",
   },
   {
