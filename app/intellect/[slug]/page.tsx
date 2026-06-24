@@ -19,7 +19,7 @@ const INTELLECT_HTML_FALLBACK: Record<string, string> = {
   "the-presence-of-power": "/presence-of-power.html",
   "time-is-an-object": "/time-is-an-object.html",
   "why-self-harm": "/why-self-harm-doc.html",
-  "why-english-is-weird": "",
+  "why-english-is-weird": "/why-english-is-genuinely-weird.html",
 };
 
 export async function generateMetadata({
