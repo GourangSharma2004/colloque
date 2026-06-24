@@ -14,6 +14,7 @@ export interface IdeaItem {
   domain: string;
   origin: string;
   image: string;
+  href?: string;
 }
 
 const sp = "px-6 md:px-16 lg:px-24";
@@ -40,7 +41,7 @@ function IdeaCard({
 
   return (
     <Link
-      href={`/intellect/${idea.slug}`}
+      href={idea.href ?? `/intellect/${idea.slug}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

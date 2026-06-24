@@ -28,6 +28,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Metabolic Biology",
     origin: "via Gary Taubes",
     image: "/Sugar.avif",
+    href: "/case_against_sugar.html",
   },
   {
     slug: "why-english-is-weird",
@@ -37,6 +38,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Linguistic History",
     origin: "Original",
     image: "/English Language.jpg",
+    href: "/why-english-is-genuinely-weird.html",
   },
   {
     slug: "problem-of-mindfulness",
@@ -46,6 +48,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Philosophy & Ethics",
     origin: "Original",
     image: "/Mindfullness.jpg",
+    href: "/mindfulness.html",
   },
   {
     slug: "end-of-work-crisis-of-meaning",
@@ -55,6 +58,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Labour & Political Economy",
     origin: "Original",
     image: "/Work.png",
+    href: "/work.html",
   },
   {
     slug: "golden-quarter",
@@ -64,6 +68,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "History of Science",
     origin: "Original",
     image: "/innovation.webp",
+    href: "/innovation.html",
   },
   {
     slug: "are-coders-worth-it",
@@ -73,6 +78,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Labour Economics",
     origin: "Original",
     image: "/Code.jpg",
+    href: "/are-coders-worth-it.html",
   },
   {
     slug: "the-power-thinker",
@@ -82,6 +88,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Political Philosophy",
     origin: "via Michel Foucault",
     image: "/Power.webp",
+    href: "/foucault-power-thinker.html",
   },
   {
     slug: "the-orgasm-cure",
@@ -91,6 +98,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Psychology & Physiology",
     origin: "Original",
     image: "/Orgasm.jpg",
+    href: "/orgasm_cure_rif.html",
   },
   {
     slug: "poor-teeth",
@@ -100,6 +108,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Social Inequality",
     origin: "Original",
     image: "/teeth.jpg",
+    href: "/poor-teeth.html",
   },
   {
     slug: "the-presence-of-power",
@@ -109,6 +118,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Political Theory",
     origin: "via Rammohun Roy",
     image: "/presence.jpg",
+    href: "/presence-of-power.html",
   },
   {
     slug: "time-is-an-object",
@@ -118,6 +128,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Physics & Philosophy",
     origin: "Original",
     image: "/time.jpg",
+    href: "/time-is-an-object.html",
   },
   {
     slug: "why-self-harm",
@@ -127,6 +138,7 @@ const IDEAS_STATIC: IdeaItem[] = [
     domain: "Neuroscience",
     origin: "Original",
     image: "/self-harm.jpg",
+    href: "/why-self-harm-doc.html",
   },
 ];
 
@@ -135,25 +147,7 @@ const IDEAS_STATIC: IdeaItem[] = [
 export default async function IntellectPage() {
   let ideas: IdeaItem[] = IDEAS_STATIC;
 
-  if (isSanityConfigured) {
-    const sanityArticles = await getArticles();
-    if (sanityArticles.length >= IDEAS_STATIC.length) {
-      ideas = sanityArticles.map((a) => {
-        const staticMatch = IDEAS_STATIC.find((s) => s.slug === a.slug.current);
-        return {
-          slug: a.slug.current,
-          title: a.title,
-          hook: a.excerpt ?? staticMatch?.hook ?? "",
-          opening: "",
-          domain: a.categories?.[0] ?? staticMatch?.domain ?? "",
-          origin: a.author ?? staticMatch?.origin ?? "",
-          image: a.coverImage
-            ? urlFor(a.coverImage).width(800).url()
-            : (staticMatch?.image ?? ""),
-        };
-      });
-    }
-  }
+  // Sanity override intentionally disabled until CMS is fully populated
 
   return (
     <Suspense fallback={null}>
