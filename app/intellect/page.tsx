@@ -137,7 +137,7 @@ export default async function IntellectPage() {
 
   if (isSanityConfigured) {
     const sanityArticles = await getArticles();
-    if (sanityArticles.length > 0) {
+    if (sanityArticles.length >= IDEAS_STATIC.length) {
       ideas = sanityArticles.map((a) => ({
         slug: a.slug.current,
         title: a.title,

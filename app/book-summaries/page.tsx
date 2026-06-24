@@ -246,7 +246,7 @@ export default async function BookSummariesPage({
   let featuredBooks = FEATURED_BOOKS_STATIC;
   if (isSanityConfigured) {
     const sanityBooks = await getBookSummaries();
-    if (sanityBooks.length > 0) {
+    if (sanityBooks.length >= FEATURED_BOOKS_STATIC.length) {
       featuredBooks = sanityBooks.map((book) => ({
         title: book.title,
         author: book.author,
