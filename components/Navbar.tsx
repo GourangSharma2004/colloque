@@ -122,7 +122,7 @@ export default function Navbar({ active }: NavbarProps) {
           fontSize: "22px",
           fontStyle: "italic",
           fontWeight: 600,
-          color: "#2C2C2C",
+          color: "#000000",
           letterSpacing: "0.06em",
           textDecoration: "none",
           whiteSpace: "nowrap",
