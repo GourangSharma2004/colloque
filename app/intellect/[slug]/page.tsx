@@ -69,7 +69,7 @@ export default async function IntellectArticlePage({
 
   if (!article || !article.body || article.body.length === 0) {
     const htmlPath = INTELLECT_HTML_FALLBACK[params.slug];
-    if (htmlPath) redirect(htmlPath);
+    if (htmlPath) redirect('/read?file=' + htmlPath);
     notFound();
   }
 

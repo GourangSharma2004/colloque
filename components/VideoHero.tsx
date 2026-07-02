@@ -112,6 +112,22 @@ export default function VideoHero() {
       ctx2d.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
 
+    const startLogoAnimation = () => {
+      // ── Scene 0 — title: fade in + scale 0.92 → 1 ────────────────────────
+      gsap.fromTo(
+        s0TitleRef.current,
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 1.4, ease: "power3.out", delay: 0.3 }
+      );
+
+      // ── Scene 0 — tagline: fade in + translateY 20 → 0 ───────────────────
+      gsap.fromTo(
+        s0TaglineRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.9 }
+      );
+    };
+
     const resizeCanvas = () => {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -135,13 +151,25 @@ export default function VideoHero() {
       canvas.height = window.innerHeight;
     }
 
-    // ── draw frame 1 immediately ──────────────────────────────────────────────
+    // ── draw frame 1 immediately and start logo animation ─────────────────────
     const firstImg = images.current[0];
     if (firstImg) {
       if (firstImg.complete && firstImg.naturalWidth > 0) {
         drawFrame(0);
+        startLogoAnimation();
+        // Reveal section
+        if (sectionRef.current) {
+          gsap.to(sectionRef.current, { opacity: 1, duration: 0.1 });
+        }
       } else {
-        firstImg.onload = () => drawFrame(0);
+        firstImg.onload = () => {
+          drawFrame(0);
+          startLogoAnimation();
+          // Reveal section
+          if (sectionRef.current) {
+            gsap.to(sectionRef.current, { opacity: 1, duration: 0.1 });
+          }
+        };
       }
     }
 
@@ -163,7 +191,7 @@ export default function VideoHero() {
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
-        scrub: 1,
+        scrub: 0.5,
         onUpdate: (self) => {
           const p = self.progress;
 
@@ -285,19 +313,6 @@ export default function VideoHero() {
         },
       });
 
-      // ── Scene 0 — title: fade in + scale 0.92 → 1 ────────────────────────
-      gsap.fromTo(
-        s0TitleRef.current,
-        { opacity: 0, scale: 0.92 },
-        { opacity: 1, scale: 1, duration: 1.4, ease: "power3.out", delay: 0.3 }
-      );
-
-      // ── Scene 0 — tagline: fade in + translateY 20 → 0 ───────────────────
-      gsap.fromTo(
-        s0TaglineRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.9 }
-      );
     }, section);
 
     return () => {
@@ -311,7 +326,7 @@ export default function VideoHero() {
       <section
         ref={sectionRef}
         className="relative w-screen h-screen overflow-hidden"
-        style={{ backgroundColor: "#2C2C2C" }}
+        style={{ backgroundColor: "#2C2C2C", opacity: 0 }}
       >
         {/* Canvas — frame sequence drawn here */}
         <canvas

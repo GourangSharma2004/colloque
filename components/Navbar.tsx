@@ -56,6 +56,7 @@ type NavbarProps = {
 };
 
 export default function Navbar({ active }: NavbarProps) {
+  const [scrolled, setScrolled] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -69,6 +70,12 @@ export default function Navbar({ active }: NavbarProps) {
   const [authError, setAuthError] = useState<string | null>(null);
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handleOpenLogin = () => setLoginOpen(true);
@@ -107,11 +114,15 @@ export default function Navbar({ active }: NavbarProps) {
   return (
     <>
     <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12"
+      className="fixed top-0 left-0 right-0 flex items-center justify-between px-6 md:px-12"
       style={{
         height: "56px",
-        backgroundColor: "transparent",
-        borderBottom: "1px solid rgba(245,239,230,0.06)",
+        zIndex: 999,
+        backgroundColor: scrolled ? "rgba(28, 25, 20, 0.88)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(245,239,230,0.10)" : "1px solid rgba(245,239,230,0.06)",
+        transition: "background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease",
       }}
     >
       {/* ── Left: Wordmark ── */}

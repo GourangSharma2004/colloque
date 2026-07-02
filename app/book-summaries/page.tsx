@@ -31,7 +31,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Philosophy · Japan",
     quote: "The Japanese secret to a long and happy life — and what it actually demands of you.",
     cover: "/ikigai-cover.jpg",
-    href: "/ikigai-summary.html",
+    href: "/read?file=/ikigai-summary.html",
     coverBg: "#E2DAD0",
   },
   {
@@ -40,7 +40,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Entrepreneurship · Startups",
     quote: "Every great business is built on a secret the world hasn't found yet.",
     cover: "/zero to one.jpg",
-    href: "/zero-to-one-summary.html",
+    href: "/read?file=/zero-to-one-summary.html",
     coverBg: "#E0D8CE",
   },
   {
@@ -49,7 +49,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Neuroscience · Addiction",
     quote: "We are all, in some way, addicted. The question is whether we're willing to feel the pain.",
     cover: "/Dopamine Nation.jpg",
-    href: "/dopamine-nation-summary.html",
+    href: "/read?file=/dopamine-nation-summary.html",
     coverBg: "#E2DAD0",
   },
   {
@@ -58,7 +58,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Mindset · Resilience",
     quote: "Most people only use 40% of their potential. The question is what you're willing to do with the rest.",
     cover: "/Cant hurt Me.jpg",
-    href: "/cant-hurt-me-summary.html",
+    href: "/read?file=/cant-hurt-me-summary.html",
     coverBg: "#E0D8CE",
   },
   {
@@ -67,7 +67,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Entrepreneurship · Personal Brand",
     quote: "Your passion is the one unfair advantage no one else can replicate.",
     cover: "/crush it.jpg",
-    href: "/crush-it-summary.html",
+    href: "/read?file=/crush-it-summary.html",
     coverBg: "#E2DAD0",
   },
   {
@@ -76,7 +76,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Business · Leadership",
     quote: "Your story is the most powerful thing you own. Build the brand before you build the empire.",
     cover: "/DIARY.jpg",
-    href: "/diary-of-a-ceo-guide.html",
+    href: "/read?file=/diary-of-a-ceo-guide.html",
     coverBg: "#D6CFC6",
   },
   {
@@ -85,7 +85,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Productivity · Creativity",
     quote: "Someday is not a day of the week. The only thing between you and your creative work is time you haven't claimed.",
     cover: "/SOMEDAY.jpg",
-    href: "/someday-is-today-guide.html",
+    href: "/read?file=/someday-is-today-guide.html",
     coverBg: "#DDD7CF",
   },
   {
@@ -94,7 +94,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Relationships · Psychology",
     quote: "Understanding the fundamental differences between men and women is the first step to a fulfilling relationship.",
     cover: "/MEN.jpg",
-    href: "/mars-venus-guide.html",
+    href: "/read?file=/mars-venus-guide.html",
     coverBg: "#D6CFC6",
   },
   {
@@ -103,7 +103,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Productivity · Focus",
     quote: "In an economy defined by distraction, the ability to focus without interruption is becoming both rare and enormously valuable.",
     cover: "/DeepWork.JPEG",
-    href: "/deep-work-guide.html",
+    href: "/read?file=/deep-work-guide.html",
     coverBg: "#DDD7CF",
   },
   {
@@ -112,7 +112,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Finance · Behaviour",
     quote: "Getting wealthy is about earning more. Staying wealthy is about behaviour — and that has nothing to do with intelligence.",
     cover: "/money.png",
-    href: "/psychology-of-money-guide.html",
+    href: "/read?file=/psychology-of-money-guide.html",
     coverBg: "#D6CFC6",
   },
   {
@@ -121,7 +121,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Self-Help · Philosophy",
     quote: "The desire for more positive experience is itself a negative experience. Embrace the struggle.",
     cover: "/art.jpg",
-    href: "/subtle-art-complete.html",
+    href: "/read?file=/subtle-art-complete.html",
     coverBg: "#DDD7CF",
   },
   {
@@ -130,7 +130,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Sales · Business",
     quote: "Every single person you meet is a potential customer — if you treat them like a human being first.",
     cover: "/sell.jpg",
-    href: "/how-to-sell-anything-girard.html",
+    href: "/read?file=/how-to-sell-anything-girard.html",
     coverBg: "#D6CFC6",
   },
   {
@@ -139,7 +139,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Systems · Strategy",
     quote: "You can't understand a system until you see it as a whole — not as a collection of parts.",
     cover: "/think.jpg",
-    href: "/systems.html",
+    href: "/read?file=/systems.html",
     coverBg: "#E2DAD0",
   },
   {
@@ -148,7 +148,7 @@ const FEATURED_BOOKS_STATIC = [
     tags: "Stoicism · Mindfulness",
     quote: "In a world that never stops, the ability to be still is the ultimate competitive advantage.",
     cover: "/stillness.jpg",
-    href: "/Stillness.html",
+    href: "/read?file=/Stillness.html",
     coverBg: "#E0D8CE",
   },
 ];

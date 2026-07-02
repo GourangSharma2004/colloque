@@ -84,7 +84,7 @@ export default function CommunityClient() {
 
           {!isMember ? (
             <div style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(245, 239, 230, 0.6)", marginBottom: "1rem" }}>Join the waitlist for membership access:</p>
+              <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(245, 239, 230, 0.9)", marginBottom: "1rem" }}>Join the waitlist for membership access:</p>
               <WaitlistForm />
               <button
                 onClick={joinCommunity}
@@ -92,7 +92,7 @@ export default function CommunityClient() {
                   marginTop: "1.5rem",
                   padding: "0.5rem 1rem",
                   backgroundColor: "transparent",
-                  color: "rgba(245, 239, 230, 0.4)",
+                  color: "rgba(245, 239, 230, 0.8)",
                   border: "none",
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontSize: "11px",

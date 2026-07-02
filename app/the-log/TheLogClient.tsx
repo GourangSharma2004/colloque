@@ -3,10 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import SearchHighlight from "@/components/SearchHighlight";
-import WaitlistForm from "@/components/WaitlistForm";
 import { useUser } from "@/lib/auth";
 
 // ── Design tokens ──────────────────────────────────────────────────────────────
@@ -116,37 +114,28 @@ function SocialLink({ label, href, dark = false }: { label: string; href: string
 }
 
 // ── Reels Carousel Component ───────────────────────────────────────────────────
-const REEL_URLS = [
-  "https://www.instagram.com/reel/DU0Ys5_Emue/",
-  "https://www.instagram.com/reel/DMZbj0FxHNz/",
-  "https://www.instagram.com/reel/DL2cPk9BeEL/",
-  "https://www.instagram.com/reel/DWlJlbzgk8u/",
-  "https://www.instagram.com/reel/DNmwByAxdVB/",
-  "https://www.instagram.com/reel/DMPNT1jRG9Z/",
-  "https://www.instagram.com/reel/DMNIHCYym3C/",
-  "https://www.instagram.com/reel/DXR5Q0PicCj/",
+const REEL_SHORTCODES = [
+  "DU0Ys5_Emue",
+  "DMZbj0FxHNz",
+  "DL2cPk9BeEL",
+  "DWlJlbzgk8u",
+  "DNmwByAxdVB",
+  "DMPNT1jRG9Z",
+  "DMNIHCYym3C",
+  "DXR5Q0PicCj",
 ];
 
 function ReelsCarousel() {
   const [hovered, setHovered] = useState(false);
   const cardW = 360;
+  const cardH = 700;
+  const iframeH = 820;
   const gap = 32;
-  const totalW = REEL_URLS.length * (cardW + gap);
-  const doubled = [...REEL_URLS, ...REEL_URLS];
-
-  const handleScriptLoad = () => {
-    if ((window as any).instgrm?.Embeds) {
-      (window as any).instgrm.Embeds.process();
-    }
-  };
+  const totalW = REEL_SHORTCODES.length * (cardW + gap);
+  const doubled = [...REEL_SHORTCODES, ...REEL_SHORTCODES];
 
   return (
     <>
-      <Script
-        src="https://www.instagram.com/embed.js"
-        strategy="lazyOnload"
-        onLoad={handleScriptLoad}
-      />
       <style>{`
         @keyframes reelScroll {
           from { transform: translateX(0); }
@@ -164,7 +153,7 @@ function ReelsCarousel() {
           .reel-outer { margin-left: -6rem; margin-right: -6rem; }
         }
         .reel-track {
-          animation: reelScroll ${REEL_URLS.length * 5}s linear infinite;
+          animation: reelScroll ${REEL_SHORTCODES.length * 5}s linear infinite;
           will-change: transform;
         }
       `}</style>
@@ -181,21 +170,17 @@ function ReelsCarousel() {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          {doubled.map((url, i) => (
-            <div key={i} style={{ flexShrink: 0, width: `${cardW}px` }}>
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink={url}
-                data-instgrm-version="14"
-                style={{
-                  background: "#FFF",
-                  border: 0,
-                  borderRadius: "4px",
-                  boxShadow: "0 4px 20px rgba(44,44,44,0.10)",
-                  margin: 0,
-                  padding: 0,
-                  width: "100%",
-                }}
+          {doubled.map((code, i) => (
+            <div key={i} style={{ flexShrink: 0, width: `${cardW}px`, height: `${cardH}px`, borderRadius: "4px", overflow: "hidden", boxShadow: "0 4px 20px rgba(44,44,44,0.10)", backgroundColor: "#F5EFE6" }}>
+              <iframe
+                src={`https://www.instagram.com/reel/${code}/embed/`}
+                width={cardW}
+                height={iframeH}
+                frameBorder="0"
+                scrolling="no"
+                allowTransparency
+                allow="encrypted-media"
+                style={{ display: "block", border: "none", width: "100%", height: `${iframeH}px` }}
               />
             </div>
           ))}
@@ -321,7 +306,7 @@ export default function TheLogClient({
 
       <SearchHighlight query={query} targetId={targetId}>
         {/* ── 1. Hero ── */}
-        <section style={{ position: "relative", lineHeight: 0 }}>
+        <section style={{ position: "relative", minHeight: "100vh", lineHeight: 0 }}>
           <style>{`
             @keyframes heroFadeUp {
               from { opacity: 0; transform: translateY(18px); }
@@ -331,6 +316,10 @@ export default function TheLogClient({
               from { opacity: 0; }
               to   { opacity: 1; }
             }
+            @keyframes scrollBounce {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(8px); }
+            }
           `}</style>
 
           <video
@@ -339,7 +328,7 @@ export default function TheLogClient({
             loop
             muted
             playsInline
-            style={{ width: "100%", height: "auto", display: "block", objectFit: "cover" }}
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
           />
 
           <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.52)" }} />
@@ -355,6 +344,14 @@ export default function TheLogClient({
               No performance. Just the week as it actually was.
             </p>
             <div style={{ width: "60px", borderTop: "1px solid #C9A84C", opacity: 0, animation: "heroFadeIn 0.6s ease forwards", animationDelay: "0.95s" }} />
+            <div style={{ position: "absolute", bottom: "3rem", opacity: 0, animation: "heroFadeIn 0.6s ease forwards", animationDelay: "1.2s" }}>
+              <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,239,230,0.7)", marginBottom: "0.5rem", animation: "scrollBounce 2s ease-in-out infinite" }}>
+                Scroll to explore
+              </p>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(245,239,230,0.7)" strokeWidth="1.5" style={{ display: "block", margin: "0 auto", animation: "scrollBounce 2s ease-in-out infinite" }}>
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+            </div>
           </div>
         </section>
 
@@ -576,7 +573,7 @@ export default function TheLogClient({
                     letterSpacing: "0.06em",
                   }}
                 >
-                  Converse
+                  Colloque
                 </span>
               </p>
             </div>
@@ -609,7 +606,7 @@ export default function TheLogClient({
                     marginBottom: "2rem",
                   }}
                 >
-                  I build things I wish existed. Converse is one of them — a space for people who read seriously, think carefully, and want to talk about it.
+                  I build things I wish existed. Colloque is one of them — a space for people who read seriously, think carefully, and want to talk about it.
                 </p>
                 <div style={{ height: "1px", backgroundColor: "rgba(245,239,230,0.08)", marginBottom: "1.25rem" }} />
                 <p style={{ ...LABEL, color: "rgba(245,239,230,0.30)", letterSpacing: "0.18em", marginBottom: "0.5rem" }}>
@@ -754,6 +751,51 @@ export default function TheLogClient({
                     </p>
                   ))}
                 </div>
+
+                {/* Read the Frame Card */}
+                <a
+                  href="https://www.instagram.com/read_the_frame"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "block",
+                    padding: "1.5rem",
+                    backgroundColor: "rgba(201,168,76,0.08)",
+                    border: "1px solid rgba(201,168,76,0.25)",
+                    borderRadius: "12px",
+                    textDecoration: "none",
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.15)";
+                    e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.08)";
+                    e.currentTarget.style.borderColor = "rgba(201,168,76,0.25)";
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div style={{ width: "64px", height: "64px", borderRadius: "50%", overflow: "hidden", flexShrink: 0, backgroundColor: "#C9A84C" }}>
+                      <img
+                        src="/read-the-frame.jpg"
+                        alt="Read the Frame"
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,239,230,0.50)", marginBottom: "0.35rem" }}>
+                        Featured Profile
+                      </p>
+                      <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "18px", fontStyle: "italic", fontWeight: 600, color: "#F5EFE6", margin: 0, marginBottom: "0.25rem" }}>
+                        Read the Frame
+                      </p>
+                      <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "12px", fontWeight: 400, color: "rgba(245,239,230,0.60)", margin: 0 }}>
+                        @read_the_frame
+                      </p>
+                    </div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -832,7 +874,7 @@ export default function TheLogClient({
               >
                 Final year CS student. Founder of jngLABS. I build things, read
                 obsessively, and write about what I can&apos;t stop thinking about.
-                Converse is where all of it lives.
+                Colloque is where all of it lives.
               </p>
               <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
                 {SOCIAL_LINKS.map((s) => (
@@ -919,20 +961,8 @@ export default function TheLogClient({
         </section>
 
         {/* ── 6. Footer ── */}
-        <section style={{ backgroundColor: "#141414", padding: "100px 48px", borderTop: "1px solid rgba(245,239,230,0.06)" }}>
-          <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-            <h3 style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(32px, 5vw, 56px)", fontStyle: "italic", fontWeight: 700, color: "#F5EFE6", marginBottom: "1.5rem" }}>
-              Stay in the loop.
-            </h3>
-            <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "16px", fontWeight: 300, color: "rgba(245,239,230,0.60)", marginBottom: "2.5rem", maxWidth: "480px" }}>
-              Join the waitlist for early access to the Converse community and weekly logs delivered to your inbox.
-            </p>
-            <WaitlistForm />
-          </div>
-        </section>
-
-        <footer style={{ backgroundColor: "#1C1A17", padding: "80px 48px", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-          <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(24px, 4vw, 42px)", fontStyle: "italic", fontWeight: 600, color: "#F0EBE3", position: "absolute", left: "48px", maxWidth: "400px", lineHeight: 1.3 }}>
+        <footer className="px-6 md:px-16 lg:px-24 py-8 flex items-center justify-center relative" style={{ backgroundColor: "#1C1A17" }}>
+          <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(14px, 2vw, 20px)", fontStyle: "italic", fontWeight: 600, color: "#F0EBE3", position: "absolute", left: "48px", maxWidth: "400px", lineHeight: 1.3, whiteSpace: "nowrap" }}>
             &ldquo;No performance. Just the week as it actually was.&rdquo;
           </p>
           <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "16px", fontWeight: 600, color: "#F0EBE3" }}>
