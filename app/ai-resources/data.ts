@@ -60,6 +60,38 @@ export type StackItem = {
 
 export const DISPATCH_WEEKS: DispatchWeek[] = [
   {
+    week: "Week of June 29, 2026",
+    dropped: {
+      headline: "New dispatch available — click to read",
+      detail: "New dispatch available — click to read",
+    },
+    matters: {
+      headline: "New dispatch available — click to read",
+      detail: "New dispatch available — click to read",
+    },
+    overhyped: {
+      headline: "New dispatch available — click to read",
+      detail: "New dispatch available — click to read",
+    },
+    htmlFile: "/week 2/week-1-dispatch.html",
+  },
+  {
+    week: "Week of June 22, 2026",
+    dropped: {
+      headline: "New dispatch available — click to read",
+      detail: "New dispatch available — click to read",
+    },
+    matters: {
+      headline: "New dispatch available — click to read",
+      detail: "New dispatch available — click to read",
+    },
+    overhyped: {
+      headline: "New dispatch available — click to read",
+      detail: "New dispatch available — click to read",
+    },
+    htmlFile: "/week 1/Weekly_AI_Dispatch_Issue_014.html",
+  },
+  {
     week: "Week of May 11, 2026",
     dropped: {
       headline: "The week AI's valuation ceiling got shattered",

@@ -516,14 +516,14 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
               inset: 0,
               backgroundColor: "rgba(0, 0, 0, 0.6)",
               backdropFilter: "blur(8px)",
-              zIndex: 100,
+              zIndex: 9998,
             }}
           />
           <div
             style={{
               position: "fixed",
               inset: 0,
-              zIndex: 101,
+              zIndex: 9999,
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
             }}

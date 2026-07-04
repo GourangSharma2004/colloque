@@ -1004,7 +1004,7 @@ export default function TheLogClient({
 
       {/* ── Comments modal ── */}
       {commentsOpen && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div onClick={() => setCommentsOpen(false)} style={{ position: "absolute", inset: 0, backgroundColor: "rgba(0,0,0,0.60)" }} />
           <div style={{ position: "relative", backgroundColor: "#0d0d0d", borderRadius: "12px", width: "min(480px, 90vw)", maxHeight: "80vh", display: "flex", flexDirection: "column", padding: "1.75rem", zIndex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem", flexShrink: 0 }}>

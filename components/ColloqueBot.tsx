@@ -75,7 +75,7 @@ export default function ColloqueBot() {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#C9A84C] text-[#1C1914] shadow-lg hover:scale-110 transition-transform z-50 flex items-center justify-center"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#C9A84C] text-[#1C1914] shadow-lg hover:scale-110 transition-transform z-[10000] flex items-center justify-center"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -90,7 +90,7 @@ export default function ColloqueBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-3rem)] bg-[#1C1914] rounded-2xl shadow-2xl z-50 overflow-hidden"
+            className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-3rem)] bg-[#1C1914] rounded-2xl shadow-2xl z-[10000] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-[#2C2C2C] p-4 border-b border-[#C9A84C]/20">

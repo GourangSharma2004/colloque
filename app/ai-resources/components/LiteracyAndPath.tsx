@@ -273,7 +273,7 @@ export default function LiteracyAndPath({
               inset: 0,
               backgroundColor: "rgba(0,0,0,0.8)",
               backdropFilter: "blur(8px)",
-              zIndex: 1000,
+              zIndex: 9999,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
