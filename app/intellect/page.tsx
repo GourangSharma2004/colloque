@@ -140,6 +140,36 @@ const IDEAS_STATIC: IdeaItem[] = [
     image: "/self-harm.jpg",
     href: "/read?file=/why-self-harm-doc.html",
   },
+  {
+    slug: "the-play-deficit",
+    title: "The Play Deficit",
+    hook: "Decades of structured schooling have quietly stolen the one thing children most need to become functioning adults — and the consequences are now impossible to ignore.",
+    opening: "",
+    domain: "Developmental Psychology",
+    origin: "via Peter Gray",
+    image: "/intellect%201/play.jpg",
+    href: "/read?file=/intellect%201/the-play-deficit.html",
+  },
+  {
+    slug: "the-macho-sperm-myth",
+    title: "The Macho Sperm Myth",
+    hook: "How centuries of male-coded storytelling hijacked the science of human reproduction — and why the consequences still play out in fertility clinics today.",
+    opening: "",
+    domain: "Biology & Belief",
+    origin: "Original",
+    image: "/intellect%202/Sperm.jpg",
+    href: "/read?file=/intellect%202/macho-sperm-myth.html",
+  },
+  {
+    slug: "exodus",
+    title: "Exodus",
+    hook: "The engineering case for becoming a multi-planet species — and why it may be the only serious answer to the oldest silence in cosmology.",
+    opening: "",
+    domain: "Cosmology & Civilisation",
+    origin: "Original",
+    image: "/intellect%203/exodus.png",
+    href: "/read?file=/intellect%203/exodus.html",
+  },
 ];
 
 // ─── Server Component (ISR) ───────────────────────────────────────────────────

@@ -1,0 +1,2841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Win Friends and Influence People — A Transformation Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --gold: #d4af37;
+            --cream: #f8f6f0;
+            --dark-cream: #e8e4d9;
+            --text-dark: #2d2d2d;
+            --text-light: #6b6b6b;
+            --white: #ffffff;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--dark-cream) 100%);
+            color: var(--text-dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            color: var(--white);
+            margin-bottom: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .author {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gold);
+            margin-bottom: 32px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 16px;
+            opacity: 0.85;
+            line-height: 1.8;
+        }
+
+        .part {
+            margin-bottom: 80px;
+        }
+
+        .part-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .chapter {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .chapter-number {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--gold);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chapter h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .chapter h4 {
+            font-size: 18px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--dark-cream) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .principle-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .principle-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .principle-box p {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .example-box {
+            background: var(--white);
+            border: 2px solid var(--dark-cream);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .example-box h5 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .example-box p {
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .quote-box {
+            background: var(--primary);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 80px;
+            color: var(--gold);
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .quote-box p {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-box .quote-author {
+            display: block;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .callout-box {
+            background: linear-gradient(135deg, var(--accent) 0%, #c0392b 100%);
+            color: var(--white);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .callout-box h5 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .callout-box p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .action-box {
+            background: linear-gradient(135deg, var(--success) 0%, #219150 100%);
+            color: var(--white);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .action-box h5 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .action-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .action-box li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .action-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .mindset-shift {
+            background: var(--cream);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .mindset-shift h5 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .mindset-shift p {
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .habit-card {
+            background: var(--white);
+            border: 1px solid var(--dark-cream);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .habit-card h6 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .habit-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+
+        .vocabulary-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .vocabulary-section h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .vocab-card {
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .vocab-card h6 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .vocab-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .action-plan-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .action-plan-section h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .day-card {
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .day-card h6 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .day-card p {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .svg-diagram {
+            text-align: center;
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .svg-diagram svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            border-radius: 20px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .footer h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .footer p {
+            font-size: 14px;
+            opacity: 0.85;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .footer .credit {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(212,175,55,0.2);
+            font-size: 13px;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .footer .credit span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer .credit::before {
+            content: '♥';
+            color: var(--accent);
+            margin-right: 4px;
+        }
+
+        /* ── Cover Page ── */
+        .cover-page {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #0a0a1a 0%, #12122a 40%, #1a0a14 100%);
+            border-radius: 20px;
+            margin-bottom: 60px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+        }
+
+        .cover-decoration {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .cover-decoration svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            padding: 80px 40px;
+            max-width: 900px;
+        }
+
+        .cover-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(212,175,55,0.12);
+            border: 1px solid rgba(212,175,55,0.4);
+            color: var(--gold);
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .cover-eyebrow::before,
+        .cover-eyebrow::after {
+            content: '◆';
+            font-size: 8px;
+            opacity: 0.7;
+        }
+
+        .cover-main-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0;
+            letter-spacing: -1px;
+        }
+
+        .cover-main-title .line1 {
+            display: block;
+            color: var(--white);
+        }
+
+        .cover-main-title .line2 {
+            display: block;
+            color: var(--gold);
+        }
+
+        .cover-main-title .line3 {
+            display: block;
+            color: var(--white);
+            font-size: 48px;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .cover-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 36px auto;
+        }
+
+        .cover-divider-line {
+            flex: 1;
+            max-width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+
+        .cover-divider-line.right {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .cover-divider-gem {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        .cover-byline {
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 4px;
+        }
+
+        .cover-author {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            color: var(--gold);
+            margin-bottom: 48px;
+        }
+
+        .cover-stats {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 48px;
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cover-stat {
+            flex: 1;
+            padding: 20px 16px;
+            border-right: 1px solid rgba(212,175,55,0.2);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .cover-stat:last-child { border-right: none; }
+
+        .cover-stat-num {
+            display: block;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .cover-stat-label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+
+        .cover-quote-text {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 17px;
+            font-style: italic;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            max-width: 640px;
+            margin: 0 auto 48px;
+            border-left: 3px solid var(--accent);
+            padding-left: 24px;
+            text-align: left;
+        }
+
+        .cover-quote-text cite {
+            display: block;
+            font-size: 13px;
+            font-style: normal;
+            color: var(--accent);
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .scroll-cta {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.35);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: bobUp 2s ease-in-out infinite;
+        }
+
+        @keyframes bobUp {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(8px); }
+        }
+
+        /* ── Part Intro Diagram ── */
+        .part-intro-diagram {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 36px 24px;
+            margin-bottom: 48px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .part-intro-diagram h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .part-intro-diagram p.diagram-caption {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .part-intro-diagram svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* ── Sticky Navigation Header ── */
+        .nav-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--dark-cream);
+            padding: 16px 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .nav-header .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .nav-header a {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-header a:hover {
+            color: var(--accent);
+        }
+
+        .nav-header a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.2s ease;
+        }
+
+        .nav-header a:hover::after {
+            width: 100%;
+        }
+
+        .nav-header .nav-label {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .cover-main-title { font-size: 42px; }
+            .cover-main-title .line3 { font-size: 30px; }
+            .cover-stats { flex-wrap: wrap; }
+            .hero h1 { font-size: 32px; }
+            .chapter { padding: 24px; }
+            .chapter h3 { font-size: 22px; }
+            .part-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ══════════ COVER PAGE ══════════ -->
+        <div class="cover-page">
+
+            <!-- Decorative background SVG -->
+            <div class="cover-decoration">
+                <svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#d4af37" stop-opacity="0.12"/>
+                            <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+                        </radialGradient>
+                        <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#e94560" stop-opacity="0.1"/>
+                            <stop offset="100%" stop-color="#e94560" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- Ambient glows -->
+                    <ellipse cx="300" cy="200" rx="400" ry="300" fill="url(#glow2)" opacity="0.6"/>
+                    <ellipse cx="900" cy="700" rx="380" ry="280" fill="url(#glow1)" opacity="0.7"/>
+
+                    <!-- Outer concentric rings centred on page -->
+                    <circle cx="600" cy="450" r="420" fill="none" stroke="#d4af37" stroke-width="0.6" opacity="0.15"/>
+                    <circle cx="600" cy="450" r="340" fill="none" stroke="#d4af37" stroke-width="0.4" opacity="0.12"/>
+                    <circle cx="600" cy="450" r="260" fill="none" stroke="#e94560" stroke-width="0.4" opacity="0.10"/>
+
+                    <!-- Horizontal rule lines -->
+                    <line x1="0" y1="450" x2="220" y2="450" stroke="#d4af37" stroke-width="0.6" opacity="0.25"/>
+                    <line x1="980" y1="450" x2="1200" y2="450" stroke="#d4af37" stroke-width="0.6" opacity="0.25"/>
+
+                    <!-- Corner ornament — top-left -->
+                    <line x1="60" y1="60" x2="160" y2="60" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <line x1="60" y1="60" x2="60" y2="160" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <rect x="55" y="55" width="10" height="10" fill="#d4af37" opacity="0.5" transform="rotate(45 60 60)"/>
+
+                    <!-- Corner ornament — top-right -->
+                    <line x1="1140" y1="60" x2="1040" y2="60" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <line x1="1140" y1="60" x2="1140" y2="160" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <rect x="1135" y="55" width="10" height="10" fill="#d4af37" opacity="0.5" transform="rotate(45 1140 60)"/>
+
+                    <!-- Corner ornament — bottom-left -->
+                    <line x1="60" y1="840" x2="160" y2="840" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <line x1="60" y1="840" x2="60" y2="740" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <rect x="55" y="835" width="10" height="10" fill="#d4af37" opacity="0.5" transform="rotate(45 60 840)"/>
+
+                    <!-- Corner ornament — bottom-right -->
+                    <line x1="1140" y1="840" x2="1040" y2="840" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <line x1="1140" y1="840" x2="1140" y2="740" stroke="#d4af37" stroke-width="1" opacity="0.3"/>
+                    <rect x="1135" y="835" width="10" height="10" fill="#d4af37" opacity="0.5" transform="rotate(45 1140 840)"/>
+
+                    <!-- Dot grid — right side -->
+                    <g opacity="0.18" fill="#d4af37">
+                        <circle cx="980" cy="180" r="2"/><circle cx="1010" cy="180" r="2"/><circle cx="1040" cy="180" r="2"/><circle cx="1070" cy="180" r="2"/>
+                        <circle cx="980" cy="210" r="2"/><circle cx="1010" cy="210" r="2"/><circle cx="1040" cy="210" r="2"/><circle cx="1070" cy="210" r="2"/>
+                        <circle cx="980" cy="240" r="2"/><circle cx="1010" cy="240" r="2"/><circle cx="1040" cy="240" r="2"/><circle cx="1070" cy="240" r="2"/>
+                        <circle cx="980" cy="270" r="2"/><circle cx="1010" cy="270" r="2"/><circle cx="1040" cy="270" r="2"/><circle cx="1070" cy="270" r="2"/>
+                        <circle cx="980" cy="300" r="2"/><circle cx="1010" cy="300" r="2"/><circle cx="1040" cy="300" r="2"/><circle cx="1070" cy="300" r="2"/>
+                    </g>
+
+                    <!-- Dot grid — left side -->
+                    <g opacity="0.18" fill="#e94560">
+                        <circle cx="130" cy="580" r="2"/><circle cx="160" cy="580" r="2"/><circle cx="190" cy="580" r="2"/><circle cx="220" cy="580" r="2"/>
+                        <circle cx="130" cy="610" r="2"/><circle cx="160" cy="610" r="2"/><circle cx="190" cy="610" r="2"/><circle cx="220" cy="610" r="2"/>
+                        <circle cx="130" cy="640" r="2"/><circle cx="160" cy="640" r="2"/><circle cx="190" cy="640" r="2"/><circle cx="220" cy="640" r="2"/>
+                        <circle cx="130" cy="670" r="2"/><circle cx="160" cy="670" r="2"/><circle cx="190" cy="670" r="2"/><circle cx="220" cy="670" r="2"/>
+                    </g>
+
+                    <!-- Abstract open-book motif at bottom -->
+                    <g transform="translate(600,820)" opacity="0.07">
+                        <path d="M-120 0 C-120,-80 -10,-100 0,-100 C10,-100 120,-80 120,0" fill="none" stroke="#d4af37" stroke-width="3"/>
+                        <line x1="0" y1="-100" x2="0" y2="0" stroke="#d4af37" stroke-width="2"/>
+                        <path d="M-100 -10 C-80,-60 -20,-75 0,-75" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.6"/>
+                        <path d="M100 -10 C80,-60 20,-75 0,-75" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.6"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Main Content -->
+            <div class="cover-content">
+                <div class="cover-eyebrow">The World's Most Influential Book on Human Relations</div>
+
+                <h1 class="cover-main-title">
+                    <span class="line1">How to Win Friends</span>
+                    <span class="line2">&amp; Influence People</span>
+                    <span class="line3">A Complete Transformation Guide</span>
+                </h1>
+
+                <div class="cover-divider">
+                    <div class="cover-divider-line"></div>
+                    <div class="cover-divider-gem"></div>
+                    <div class="cover-divider-gem" style="opacity:.5;transform:rotate(45deg) scale(0.6)"></div>
+                    <div class="cover-divider-gem"></div>
+                    <div class="cover-divider-line right"></div>
+                </div>
+
+                <p class="cover-byline">By</p>
+                <p class="cover-author">Dale Carnegie</p>
+
+                <div class="cover-stats">
+                    <div class="cover-stat">
+                        <span class="cover-stat-num">30</span>
+                        <span class="cover-stat-label">Principles</span>
+                    </div>
+                    <div class="cover-stat">
+                        <span class="cover-stat-num">4</span>
+                        <span class="cover-stat-label">Parts</span>
+                    </div>
+                    <div class="cover-stat">
+                        <span class="cover-stat-num">50M+</span>
+                        <span class="cover-stat-label">Copies Sold</span>
+                    </div>
+                    <div class="cover-stat">
+                        <span class="cover-stat-num">87+</span>
+                        <span class="cover-stat-label">Years of Impact</span>
+                    </div>
+                </div>
+
+                <p class="cover-quote-text">
+                    You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you.
+                    <cite>— Dale Carnegie</cite>
+                </p>
+
+                <div class="scroll-cta">
+                    <span>Begin Reading</span>
+                    <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
+                        <path d="M10 2 L10 22" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M4 16 L10 22 L16 16" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- ══════════ END COVER ══════════ -->
+
+        <!-- ══════════ NAVIGATION HEADER ══════════ -->
+        <nav class="nav-header">
+            <div class="nav-inner">
+                <a href="#part-one"><span class="nav-label">I</span>Fundamental Techniques</a>
+                <a href="#part-two"><span class="nav-label">II</span>Six Ways to Like</a>
+                <a href="#part-three"><span class="nav-label">III</span>Win to Your Way</a>
+                <a href="#part-four"><span class="nav-label">IV</span>Be a Leader</a>
+            </div>
+        </nav>
+        <!-- ══════════ END NAV ══════════ -->
+
+        <div class="part" id="part-one">
+            <h2 class="part-title">Part One: Fundamental Techniques in Handling People</h2>
+
+            <!-- Part 1 Visual: The Criticism Trap -->
+            <div class="part-intro-diagram">
+                <h4>The Criticism Trap</h4>
+                <p class="diagram-caption">Why criticism almost never works — a self-reinforcing cycle Carnegie identified across thousands of case studies</p>
+                <svg viewBox="0 0 700 420" width="700" height="420" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+                    <defs>
+                        <marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L8,3 z" fill="#e94560"/>
+                        </marker>
+                        <filter id="shadow1" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.12)"/>
+                        </filter>
+                    </defs>
+
+                    <!-- Center label -->
+                    <circle cx="350" cy="210" r="60" fill="#1a1a2e" filter="url(#shadow1)"/>
+                    <text x="350" y="204" text-anchor="middle" fill="#d4af37" font-size="11" font-weight="700" letter-spacing="1">THE</text>
+                    <text x="350" y="220" text-anchor="middle" fill="#d4af37" font-size="11" font-weight="700" letter-spacing="1">CRITICISM</text>
+                    <text x="350" y="236" text-anchor="middle" fill="#d4af37" font-size="11" font-weight="700" letter-spacing="1">TRAP</text>
+
+                    <!-- Node 1 — CRITICIZE (top) -->
+                    <rect x="270" y="18" width="160" height="52" rx="26" fill="#e94560" filter="url(#shadow1)"/>
+                    <text x="350" y="49" text-anchor="middle" fill="white" font-size="13" font-weight="700">YOU CRITICIZE</text>
+
+                    <!-- Node 2 — DEFENSIVE (right) -->
+                    <rect x="530" y="135" width="160" height="52" rx="26" fill="#16213e" filter="url(#shadow1)"/>
+                    <text x="610" y="157" text-anchor="middle" fill="white" font-size="13" font-weight="700">THEY GET</text>
+                    <text x="610" y="174" text-anchor="middle" fill="#d4af37" font-size="13" font-weight="700">DEFENSIVE</text>
+
+                    <!-- Node 3 — RESENTMENT (bottom-right) -->
+                    <rect x="490" y="302" width="160" height="52" rx="26" fill="#16213e" filter="url(#shadow1)"/>
+                    <text x="570" y="324" text-anchor="middle" fill="white" font-size="13" font-weight="700">RESENTMENT</text>
+                    <text x="570" y="341" text-anchor="middle" fill="#e94560" font-size="13" font-weight="700">BUILDS</text>
+
+                    <!-- Node 4 — RESISTANCE (bottom-left) -->
+                    <rect x="50" y="302" width="160" height="52" rx="26" fill="#16213e" filter="url(#shadow1)"/>
+                    <text x="130" y="324" text-anchor="middle" fill="white" font-size="13" font-weight="700">BEHAVIOUR</text>
+                    <text x="130" y="341" text-anchor="middle" fill="#e94560" font-size="13" font-weight="700">UNCHANGED</text>
+
+                    <!-- Node 5 — REPEAT (left) -->
+                    <rect x="10" y="135" width="160" height="52" rx="26" fill="#16213e" filter="url(#shadow1)"/>
+                    <text x="90" y="157" text-anchor="middle" fill="white" font-size="13" font-weight="700">RELATIONSHIP</text>
+                    <text x="90" y="174" text-anchor="middle" fill="#e94560" font-size="13" font-weight="700">DETERIORATES</text>
+
+                    <!-- Curved arrows between nodes (arcs) -->
+                    <!-- 1→2: top to right -->
+                    <path d="M 430 44 Q 570 44 530 155" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arr1)" stroke-dasharray="6,3"/>
+                    <!-- 2→3: right to bottom-right -->
+                    <path d="M 630 187 Q 650 260 620 302" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arr1)" stroke-dasharray="6,3"/>
+                    <!-- 3→4: bottom-right to bottom-left -->
+                    <path d="M 490 335 Q 350 390 210 335" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arr1)" stroke-dasharray="6,3"/>
+                    <!-- 4→5: bottom-left to left -->
+                    <path d="M 80 302 Q 50 255 90 187" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arr1)" stroke-dasharray="6,3"/>
+                    <!-- 5→1: left to top -->
+                    <path d="M 170 135 Q 220 44 270 44" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arr1)" stroke-dasharray="6,3"/>
+
+                    <!-- Break-out label -->
+                    <rect x="270" y="370" width="160" height="38" rx="8" fill="#27ae60" opacity="0.9"/>
+                    <text x="350" y="386" text-anchor="middle" fill="white" font-size="11" font-weight="700">CARNEGIE'S SOLUTION:</text>
+                    <text x="350" y="401" text-anchor="middle" fill="white" font-size="11">Understand · Appreciate · Ask</text>
+                </svg>
+            </div>
+
+            <div class="svg-diagram">
+                <h3>The Influence Framework</h3>
+                <svg width="600" height="400" viewBox="0 0 600 400">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="50" y="50" width="500" height="300" rx="20" fill="url(#grad1)" />
+                    <circle cx="300" cy="120" r="60" fill="#d4af37" />
+                    <text x="300" y="125" text-anchor="middle" fill="#1a1a2e" font-size="14" font-weight="bold">YOU</text>
+                    <circle cx="150" cy="280" r="50" fill="#e94560" />
+                    <text x="150" y="285" text-anchor="middle" fill="white" font-size="12" font-weight="bold">THEM</text>
+                    <circle cx="450" cy="280" r="50" fill="#27ae60" />
+                    <text x="450" y="285" text-anchor="middle" fill="white" font-size="12" font-weight="bold">GOAL</text>
+                    <line x1="300" y1="180" x2="150" y2="230" stroke="#d4af37" stroke-width="3" />
+                    <line x1="300" y1="180" x2="450" y2="230" stroke="#d4af37" stroke-width="3" />
+                    <text x="300" y="350" text-anchor="middle" fill="white" font-size="16">Build Bridges, Not Walls</text>
+                </svg>
+                <p style="margin-top: 20px; color: var(--text-light);">The key to influence is understanding both the other person's needs and your goals, then finding the intersection where both can be satisfied.</p>
+            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">1</span>
+                <h3>If You Want to Gather Honey, Don't Kick Over the Beehive</h3>
+                <h4>Don't Criticize, Condemn, or Complain</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 1</div>
+                    <div class="principle-title">Don't criticize, condemn, or complain</div>
+                    <p>Criticism is futile because it puts a person on the defensive and usually makes them strive to justify themselves. Criticism is dangerous because it wounds a person's precious pride, hurts their sense of importance, and arouses resentment.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Two-Gun Crowley, one of the most dangerous criminals New York police ever hunted, was cornered in a shootout after killing an officer. When finally captured and bleeding from multiple wounds, his own written note read: "Under my coat is a weary heart, but a kind one—one that would do no one any harm." Even a cold-blooded murderer did not blame himself. Carnegie also cites Al Capone, who believed himself "a public benefactor... misunderstood and persecuted." If hardened criminals never blame themselves, ordinary people we deal with every day are even less likely to accept criticism gracefully.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Don't complain about the snow on your neighbor's roof when your own doorstep is unclean."</p>
+                    <span class="quote-author">— Confucius</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Human beings are not creatures of logic. We are creatures of emotion, creatures bristling with prejudices, and motivated by pride and vanity.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Instead of asking "What's wrong with this person?" ask "What challenges are they facing that I don't understand?" Replace judgment with curiosity.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Before criticizing someone, pause for 10 seconds and consider their perspective</li>
+                        <li>Replace complaints with constructive suggestions</li>
+                        <li>When you feel the urge to criticize, write it down first, then wait 24 hours before sharing</li>
+                        <li>Practice finding one positive thing about difficult people daily</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The 24-hour rule: Never criticize immediately. Always wait 24 hours to let emotions settle and perspective return.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">2</span>
+                <h3>The Big Secret of Dealing with People</h3>
+                <h4>Give Honest and Sincere Appreciation</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 2</div>
+                    <div class="principle-title">Give honest and sincere appreciation</div>
+                    <p>There is one longing—almost as deep, almost as imperious, as the desire for food or sleep—which is seldom gratified. It is the desire to be appreciated. The deepest principle in human nature is the craving to be appreciated.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A discontented gas company employee named Mr. M.E. lived in a state of misery for years dealing with a difficult supervisor. During one of Carnegie's classes, he was challenged to try giving genuine appreciation instead of complaints. He began the next union meeting by praising his opponent's genuine achievements as a labor arbitrator rather than attacking him. The reaction stunned him—colleagues who had never seen him praise anyone assumed he was joking, but his opponent, moved by the unexpected sincerity, became a valuable ally instead of an adversary.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"I have yet to find the man, however exalted his station, who did not do better work and put forth greater effort under a spirit of approval than under a spirit of criticism."</p>
+                    <span class="quote-author">— Charles Schwab</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Flattery is appreciation from a selfish motive. Sincere appreciation comes from the heart. One is selfish, the other unselfish. One comes from the lips, the other from the soul.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Instead of thinking "What can this person do for me?" ask "What can I genuinely appreciate about this person?" Recognition is a fundamental human need.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Write three thank-you notes weekly to people who have helped you</li>
+                        <li>Verbalize specific appreciation to family members daily</li>
+                        <li>Publicly recognize colleagues' contributions in meetings</li>
+                        <li>Keep a gratitude journal noting people you appreciate and why</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The daily appreciation: Find one person each day to genuinely thank for something specific they did or a quality you admire.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">3</span>
+                <h3>He Who Can Do This Has the Whole World with Him</h3>
+                <h4>Arouse in the Other Person an Eager Want</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 3</div>
+                    <div class="principle-title">Arouse in the other person an eager want</div>
+                    <p>The only way on earth to influence other people is to talk about what they want and show them how to get it. When you want to persuade someone, remember that they are interested in their own desires, not yours.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A mother in Carnegie's class had a three-year-old son, Tim, who refused to eat breakfast no matter how much she scolded or pleaded. Rather than continuing to nag, she let Tim's own desire to imitate his older brother do the persuading—she casually mentioned that his older brother loved his cereal because it made him grow big and strong like their father. Tim, wanting the same, began eating eagerly on his own, without a single further word of pressure from his mother.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"If there is any one secret of success, it lies in the ability to get the other person's point of view and see things from that person's angle as well as from your own."</p>
+                    <span class="quote-author">— Henry Ford</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>People who can put themselves in the place of others, who can understand the workings of their minds, need never worry about what the future has in store for them.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Stop asking "How can I get what I want?" Start asking "What does this person want, and how can I help them get it while also achieving my goals?"</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Before any request, identify the other person's primary motivation</li>
+                        <li>Frame your requests in terms of benefits to them, not to you</li>
+                        <li>Ask questions to discover what others truly want before making proposals</li>
+                        <li>Practice "you" language instead of "I" language in conversations</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The want analysis: Before any important conversation, write down what the other person wants and how your proposal serves their interests.</p>
+                </div>
+
+                            </div>
+        </div>
+
+        <div class="part" id="part-two">
+            <h2 class="part-title">Part Two: Six Ways to Make People Like You</h2>
+
+            <!-- Part 2 Visual: 6 Ways Radial Wheel -->
+            <div class="part-intro-diagram">
+                <h4>The Six Ways — Radial Relationship Map</h4>
+                <p class="diagram-caption">Each spoke is a friendship principle. Together they form an irresistible force of genuine human connection.</p>
+                <svg viewBox="0 0 700 500" width="700" height="500" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+                    <defs>
+                        <filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.14)"/>
+                        </filter>
+                        <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#d4af37"/>
+                            <stop offset="100%" stop-color="#b8941f"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- Outer decorative ring -->
+                    <circle cx="350" cy="250" r="210" fill="none" stroke="#e8e4d9" stroke-width="1.5"/>
+                    <circle cx="350" cy="250" r="150" fill="none" stroke="#e8e4d9" stroke-width="1"/>
+
+                    <!-- Spokes (6 × 60°) -->
+                    <line x1="350" y1="250" x2="350" y2="50"  stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                    <line x1="350" y1="250" x2="531" y2="145" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                    <line x1="350" y1="250" x2="531" y2="355" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                    <line x1="350" y1="250" x2="350" y2="450" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                    <line x1="350" y1="250" x2="169" y2="355" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                    <line x1="350" y1="250" x2="169" y2="145" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+
+                    <!-- Center circle -->
+                    <circle cx="350" cy="250" r="62" fill="url(#centerGrad)" filter="url(#shadow2)"/>
+                    <text x="350" y="244" text-anchor="middle" fill="#1a1a2e" font-size="11" font-weight="700" letter-spacing="0.5">MAKE PEOPLE</text>
+                    <text x="350" y="260" text-anchor="middle" fill="#1a1a2e" font-size="11" font-weight="700" letter-spacing="0.5">LIKE YOU</text>
+
+                    <!-- Node 1 — Top (Genuine Interest) -->
+                    <circle cx="350" cy="56" r="46" fill="#1a1a2e" filter="url(#shadow2)"/>
+                    <text x="350" y="48" text-anchor="middle" fill="#d4af37" font-size="20">❤</text>
+                    <text x="350" y="63" text-anchor="middle" fill="white" font-size="10" font-weight="600">GENUINE</text>
+                    <text x="350" y="76" text-anchor="middle" fill="white" font-size="10" font-weight="600">INTEREST</text>
+
+                    <!-- Node 2 — Top-Right (Smile) -->
+                    <circle cx="524" cy="147" r="46" fill="#e94560" filter="url(#shadow2)"/>
+                    <text x="524" y="139" text-anchor="middle" fill="white" font-size="20">☺</text>
+                    <text x="524" y="154" text-anchor="middle" fill="white" font-size="10" font-weight="600">SMILE</text>
+                    <text x="524" y="167" text-anchor="middle" fill="white" font-size="10" font-weight="600">ALWAYS</text>
+
+                    <!-- Node 3 — Bottom-Right (Name) -->
+                    <circle cx="524" cy="353" r="46" fill="#16213e" filter="url(#shadow2)"/>
+                    <text x="524" y="345" text-anchor="middle" fill="#d4af37" font-size="20">★</text>
+                    <text x="524" y="360" text-anchor="middle" fill="white" font-size="10" font-weight="600">REMEMBER</text>
+                    <text x="524" y="373" text-anchor="middle" fill="white" font-size="10" font-weight="600">THEIR NAME</text>
+
+                    <!-- Node 4 — Bottom (Listen) -->
+                    <circle cx="350" cy="444" r="46" fill="#1a1a2e" filter="url(#shadow2)"/>
+                    <text x="350" y="436" text-anchor="middle" fill="#d4af37" font-size="20">👂</text>
+                    <text x="350" y="451" text-anchor="middle" fill="white" font-size="10" font-weight="600">BE A GREAT</text>
+                    <text x="350" y="464" text-anchor="middle" fill="white" font-size="10" font-weight="600">LISTENER</text>
+
+                    <!-- Node 5 — Bottom-Left (Their Interests) -->
+                    <circle cx="176" cy="353" r="46" fill="#e94560" filter="url(#shadow2)"/>
+                    <text x="176" y="345" text-anchor="middle" fill="white" font-size="20">💬</text>
+                    <text x="176" y="360" text-anchor="middle" fill="white" font-size="10" font-weight="600">TALK THEIR</text>
+                    <text x="176" y="373" text-anchor="middle" fill="white" font-size="10" font-weight="600">INTERESTS</text>
+
+                    <!-- Node 6 — Top-Left (Make Them Feel Important) -->
+                    <circle cx="176" cy="147" r="46" fill="#16213e" filter="url(#shadow2)"/>
+                    <text x="176" y="139" text-anchor="middle" fill="#d4af37" font-size="20">👑</text>
+                    <text x="176" y="154" text-anchor="middle" fill="white" font-size="10" font-weight="600">MAKE THEM</text>
+                    <text x="176" y="167" text-anchor="middle" fill="white" font-size="10" font-weight="600">FEEL IMPORTANT</text>
+
+                    <!-- Principle numbers on spokes -->
+                    <text x="350" y="175" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700" opacity="0.7">P.4</text>
+                    <text x="448" y="192" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700" opacity="0.7">P.5</text>
+                    <text x="448" y="312" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700" opacity="0.7">P.6</text>
+                    <text x="350" y="338" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700" opacity="0.7">P.7</text>
+                    <text x="252" y="312" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700" opacity="0.7">P.8</text>
+                    <text x="252" y="192" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700" opacity="0.7">P.9</text>
+                </svg>
+            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">4</span>
+                <h3>Do This and You'll Be Welcome Anywhere</h3>
+                <h4>Become Genuinely Interested in Other People</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 4</div>
+                    <div class="principle-title">Become genuinely interested in other people</div>
+                    <p>You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you. People are not interested in you. They are not interested in me. They are interested in themselves.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Theodore Roosevelt amazed everyone from stable boys to foreign dignitaries with his knowledge of their specific interests. When his friend James Amos returned to the White House after Roosevelt's presidency, Roosevelt greeted the housekeeper Annie by name and asked about her buckwheat cakes recipe, then asked the servants about crops in a way that showed he'd genuinely remembered their previous conversations. Amos wept, saying, "That was the first time I'd been called by name by a President in two years."</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Genuine interest cannot be faked. When you truly care about others, it shows in your eyes, your questions, and your attention. People can sense the difference between curiosity and calculation.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "How can I impress this person?" with "What can I learn from this person?" Every person you meet knows something you don't.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Ask open-ended questions about others' experiences and opinions</li>
+                        <li>Remember details about people's lives and follow up on them</li>
+                        <li>Listen to understand, not to respond or impress</li>
+                        <li>Research people before meetings to find common interests</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The curious conversation: In every conversation, ask at least three questions about the other person before talking about yourself.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">5</span>
+                <h3>A Simple Way to Make a Good First Impression</h3>
+                <h4>Smile</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 5</div>
+                    <div class="principle-title">Smile</div>
+                    <p>Actions speak louder than words, and a smile says, "I like you. I am glad to see you." That is why dogs make such a hit. They are so glad to see us that they almost jump out of their skins.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A Wall Street stockbroker named William Steinhardt told Carnegie's class that he had been married eighteen years, and in all that time had rarely smiled at his wife or spoken more than a few grunted words each morning. Assigned to smile deliberately for one week as a class exercise, he found the results so transformative to his marriage that he continued the practice permanently—his wife noticed the change within two days and their entire household atmosphere shifted.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"The expression one wears on one's face is far more important than the clothes one wears on one's back."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>A smile must be sincere. People can detect a fake smile instantly. The smile that wins hearts comes from genuine pleasure in seeing another human being.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Instead of "I need to impress this person," think "I'm genuinely happy to have this interaction." Your smile will naturally follow this mindset.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Practice smiling before entering any room or meeting</li>
+                        <li>Smile when answering phone calls—it changes your voice</li>
+                        <li>Greet security guards, receptionists, and service workers with a smile</li>
+                        <li>Start each day by smiling at yourself in the mirror</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The smile greeting: Make eye contact and smile at every person you encounter, from family members to strangers.</p>
+                </div>
+
+                <div class="svg-diagram">
+                    <h3>The Smile Ripple Effect</h3>
+                    <svg width="600" height="350" viewBox="0 0 600 350">
+                        <circle cx="300" cy="175" r="40" fill="#d4af37" />
+                        <text x="300" y="180" text-anchor="middle" fill="#1a1a2e" font-size="14" font-weight="bold">SMILE</text>
+                        <circle cx="300" cy="175" r="80" fill="none" stroke="#e94560" stroke-width="2" stroke-dasharray="5,5" />
+                        <circle cx="300" cy="175" r="120" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,5" />
+                        <circle cx="300" cy="175" r="160" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-dasharray="5,5" />
+                        <text x="200" y="100" text-anchor="middle" fill="#1a1a2e" font-size="12">Connection</text>
+                        <text x="400" y="100" text-anchor="middle" fill="#1a1a2e" font-size="12">Trust</text>
+                        <text x="300" y="50" text-anchor="middle" fill="#1a1a2e" font-size="12">Influence</text>
+                        <text x="300" y="320" text-anchor="middle" fill="#1a1a2e" font-size="14">A Genuine Smile Creates Ripples of Positive Impact</text>
+                    </svg>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">6</span>
+                <h3>If You Don't Do This, You Are Heading for Trouble</h3>
+                <h4>Remember Names</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 6</div>
+                    <div class="principle-title">Remember that a person's name is to that person the sweetest and most important sound in any language</div>
+                    <p>The average person is more interested in their own name than in all the other names on earth combined. Remember that name and call it easily, and you have paid a subtle and very effective compliment.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Jim Farley, who left school at age ten, developed a system for remembering names that helped elect Franklin D. Roosevelt. Whenever he met someone new, he would learn their full name, family details, and occupation, then commit them to memory. By the time he managed Roosevelt's campaign, he could greet 50,000 people by their first names. This single skill helped him get ten presidential candidates elected and became foundational to his enormous political success.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Remember that a man's name is to him the sweetest and most important sound in the English language."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Forgetting someone's name is a clear signal that they don't matter to you. Remembering it says, "You are important to me." This simple act can build instant rapport.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>View names as precious gifts, not data to memorize. When someone tells you their name, treat it as an honor that they trust you with it.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Repeat the person's name immediately after hearing it</li>
+                        <li>Use their name naturally during conversation</li>
+                        <li>Create mental associations linking names to memorable images</li>
+                        <li>Write down new names with notes about the person</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The name repetition: When introduced, say "Nice to meet you, [Name]." Use their name three times in the first conversation.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">7</span>
+                <h3>An Easy Way to Become a Good Conversationalist</h3>
+                <h4>Be a Good Listener</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 7</div>
+                    <div class="principle-title">Be a good listener. Encourage others to talk about themselves</div>
+                    <p>To be interesting, be interested. Ask questions that other people will enjoy answering. Encourage them to talk about themselves and their accomplishments.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>At a dinner party, Carnegie met a botanist and listened to him for hours, fascinated, asking questions about exotic plants and his research. At the end of the evening, the botanist told the host that Carnegie was "a most stimulating conversationalist"—despite Carnegie having said almost nothing himself. He had simply been an excellent listener, encouraging the botanist to talk about his passion, which made the botanist feel brilliant and interesting.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"To be interesting, be interested. Ask questions that other people will enjoy answering. Encourage them to talk about themselves and their accomplishments."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Most people are so concerned with what they want to say that they never really hear what others are saying. True listening is rare and deeply appreciated.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "What can I say to impress?" with "What can I learn?" The best conversationalists aren't the best talkers—they're the best listeners.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Practice active listening by paraphrasing what others say</li>
+                        <li>Ask follow-up questions that show genuine interest</li>
+                        <li>Resist the urge to interrupt or share your own stories</li>
+                        <li>Give your full attention—put away phones and distractions</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The listening rule: For every minute you speak, listen for at least two minutes. Let others do 80% of the talking.</p>
+                </div>
+
+                <div class="svg-diagram">
+                    <h3>The Listening Rule</h3>
+                    <svg width="600" height="300" viewBox="0 0 600 300">
+                        <rect x="50" y="50" width="200" height="200" rx="10" fill="#e94560" />
+                        <text x="150" y="140" text-anchor="middle" fill="white" font-size="16" font-weight="bold">YOU SPEAK</text>
+                        <text x="150" y="170" text-anchor="middle" fill="white" font-size="24" font-weight="bold">20%</text>
+                        <rect x="350" y="50" width="200" height="200" rx="10" fill="#27ae60" />
+                        <text x="450" y="140" text-anchor="middle" fill="white" font-size="16" font-weight="bold">THEY SPEAK</text>
+                        <text x="450" y="170" text-anchor="middle" fill="white" font-size="24" font-weight="bold">80%</text>
+                        <line x1="250" y1="150" x2="350" y2="150" stroke="#d4af37" stroke-width="4" />
+                        <text x="300" y="280" text-anchor="middle" fill="#1a1a2e" font-size="14">The 80/20 Listening Principle</text>
+                    </svg>
+                </div>
+
+                            </div>
+        </div>
+
+        <div class="part" id="part-three">
+            <h2 class="part-title">Part Three: How to Win People to Your Way of Thinking</h2>
+
+            <!-- Part 3 Visual: 12 Persuasion Steps as a Horizontal Staircase -->
+            <div class="part-intro-diagram">
+                <h4>The 12-Step Persuasion Staircase</h4>
+                <p class="diagram-caption">Each step builds on the last — climb all 12 and you can win anyone to your way of thinking without argument or resentment.</p>
+                <svg viewBox="0 0 760 340" width="760" height="340" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+                    <defs>
+                        <filter id="shadow3" x="-10%" y="-10%" width="130%" height="130%">
+                            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.13)"/>
+                        </filter>
+                        <linearGradient id="stepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#16213e"/>
+                            <stop offset="100%" stop-color="#1a1a2e"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Background grid lines -->
+                    <line x1="0" y1="300" x2="760" y2="300" stroke="#e8e4d9" stroke-width="1"/>
+
+                    <!-- Steps (12 ascending rectangles) -->
+                    <!-- Step heights: base 300, each step ~18px taller, width 56px, gap 4px -->
+                    <!-- Step 10: Avoid arguments -->
+                    <rect x="8"   y="84"  width="54" height="216" rx="4" fill="url(#stepGrad)" filter="url(#shadow3)"/>
+                    <text x="35"  y="210" text-anchor="middle" fill="#d4af37" font-size="8.5" font-weight="700" transform="rotate(-90,35,210)">P10 Avoid Arguments</text>
+
+                    <!-- Step 11: Respect opinions -->
+                    <rect x="68"  y="102" width="54" height="198" rx="4" fill="url(#stepGrad)" filter="url(#shadow3)"/>
+                    <text x="95"  y="210" text-anchor="middle" fill="#d4af37" font-size="8.5" font-weight="700" transform="rotate(-90,95,210)">P11 Never "You're Wrong"</text>
+
+                    <!-- Step 12: Admit mistakes -->
+                    <rect x="128" y="120" width="54" height="180" rx="4" fill="url(#stepGrad)" filter="url(#shadow3)"/>
+                    <text x="155" y="210" text-anchor="middle" fill="#d4af37" font-size="8.5" font-weight="700" transform="rotate(-90,155,210)">P12 Admit Mistakes</text>
+
+                    <!-- Step 13: Be friendly -->
+                    <rect x="188" y="138" width="54" height="162" rx="4" fill="#e94560" filter="url(#shadow3)"/>
+                    <text x="215" y="218" text-anchor="middle" fill="white" font-size="8.5" font-weight="700" transform="rotate(-90,215,218)">P13 Begin Friendly</text>
+
+                    <!-- Step 14: Yes-yes -->
+                    <rect x="248" y="156" width="54" height="144" rx="4" fill="#e94560" filter="url(#shadow3)"/>
+                    <text x="275" y="226" text-anchor="middle" fill="white" font-size="8.5" font-weight="700" transform="rotate(-90,275,226)">P14 Get Yes-Yes</text>
+
+                    <!-- Step 15: Let them talk -->
+                    <rect x="308" y="174" width="54" height="126" rx="4" fill="url(#stepGrad)" filter="url(#shadow3)"/>
+                    <text x="335" y="234" text-anchor="middle" fill="#d4af37" font-size="8.5" font-weight="700" transform="rotate(-90,335,234)">P15 Let Them Talk</text>
+
+                    <!-- Step 16: Their idea -->
+                    <rect x="368" y="192" width="54" height="108" rx="4" fill="url(#stepGrad)" filter="url(#shadow3)"/>
+                    <text x="395" y="242" text-anchor="middle" fill="#d4af37" font-size="8.5" font-weight="700" transform="rotate(-90,395,242)">P16 Their Idea</text>
+
+                    <!-- Step 17: Their POV -->
+                    <rect x="428" y="210" width="54" height="90" rx="4" fill="#e94560" filter="url(#shadow3)"/>
+                    <text x="455" y="251" text-anchor="middle" fill="white" font-size="8.5" font-weight="700" transform="rotate(-90,455,251)">P17 Their POV</text>
+
+                    <!-- Step 18: Sympathy -->
+                    <rect x="488" y="228" width="54" height="72" rx="4" fill="url(#stepGrad)" filter="url(#shadow3)"/>
+                    <text x="515" y="259" text-anchor="middle" fill="#d4af37" font-size="8.5" font-weight="700" transform="rotate(-90,515,259)">P18 Sympathy</text>
+
+                    <!-- Step 19: Noble motives -->
+                    <rect x="548" y="246" width="54" height="54" rx="4" fill="url(#stepGrad)" filter="url(#shadow3)"/>
+                    <text x="575" y="267" text-anchor="middle" fill="#d4af37" font-size="8.5" font-weight="700" transform="rotate(-90,575,267)">P19 Noble Motives</text>
+
+                    <!-- Step 20: Dramatize -->
+                    <rect x="608" y="264" width="54" height="36" rx="4" fill="#e94560" filter="url(#shadow3)"/>
+                    <text x="635" y="276" text-anchor="middle" fill="white" font-size="8.5" font-weight="700" transform="rotate(-90,635,276)">P20 Dramatize</text>
+
+                    <!-- Step 21: Challenge -->
+                    <rect x="668" y="282" width="54" height="18" rx="4" fill="#d4af37" filter="url(#shadow3)"/>
+                    <text x="695" y="295" text-anchor="middle" fill="#1a1a2e" font-size="8.5" font-weight="700" transform="rotate(-90,695,295)">P21 Challenge</text>
+
+                    <!-- Diagonal staircase guide line -->
+                    <path d="M 8 84 L 62 84 L 62 102 L 122 102 L 122 120 L 182 120 L 182 138 L 242 138 L 242 156 L 302 156 L 302 174 L 362 174 L 362 192 L 422 192 L 422 210 L 482 210 L 482 228 L 542 228 L 542 246 L 602 246 L 602 264 L 662 264 L 662 282 L 722 282" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+
+                    <!-- Arrow at top right -->
+                    <path d="M 720 282 L 740 260" fill="none" stroke="#d4af37" stroke-width="2"/>
+                    <polygon points="740,256 744,266 734,264" fill="#d4af37"/>
+                    <text x="748" y="258" fill="#d4af37" font-size="10" font-weight="700">WIN!</text>
+
+                    <!-- Bottom label -->
+                    <text x="380" y="330" text-anchor="middle" fill="#6b6b6b" font-size="11">Each principle is a step closer to genuine, lasting agreement — not just compliance</text>
+                </svg>
+            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">8</span>
+                <h3>How to Interest People</h3>
+                <h4>Talk in Terms of the Other Person's Interests</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 8</div>
+                    <div class="principle-title">Talk in terms of the other person's interests</div>
+                    <p>The royal road to a person's heart is to talk about the things they treasure most. When you talk about what interests them, they will listen with rapt attention.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Theodore Roosevelt, before any visitor arrived at the White House, would research their specific interests—whether cattle ranching, stamp collecting, or Wild West history—and sit up reading about the subject the night before. He knew, as all leaders who deal with people must know, that the royal road to a person's heart is to talk in terms of what they hold dear.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"The royal road to a person's heart is to talk about the things they treasure most."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Everyone has passionate interests. When you discover and discuss them, you transform from a stranger into someone who understands them deeply.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Instead of "What do I want to tell them?" ask "What do they love to talk about?" Their interests are the key to their attention.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Research people's interests before meetings</li>
+                        <li>Ask "What do you enjoy doing outside of work?"</li>
+                        <li>Connect your ideas to their passions</li>
+                        <li>Learn enough about their interests to have meaningful conversations</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The interest discovery: Learn one new thing about each person you meet regularly—hobbies, passions, or interests.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">9</span>
+                <h3>How to Make People Like You Instantly</h3>
+                <h4>Make the Other Person Feel Important</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 9</div>
+                    <div class="principle-title">Make the other person feel important—and do it sincerely</div>
+                    <p>The desire to be important is the deepest urge in human nature. When you make people feel important, you satisfy this fundamental need and win their friendship.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A telephone company employee, weary of an abusive customer who repeatedly cursed and threatened to rip out his phone, decided to visit the man in person. Rather than defending the company, she listened to his tirade fully, told him she understood his frustration, and let him do most of the talking. Feeling genuinely heard and treated as important, the man calmed down, apologized, and became one of the company's most cooperative customers—all because someone made him feel his complaints mattered.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"The deepest principle in human nature is the craving to be appreciated."</p>
+                    <span class="quote-author">— William James</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Making people feel important isn't about empty praise. It's about genuine recognition of their value, contributions, and unique qualities.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>See everyone as having inherent worth. Your job is to discover and acknowledge what makes each person special and valuable.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Ask for people's advice and opinions</li>
+                        <li>Publicly acknowledge others' contributions</li>
+                        <li>Remember and reference people's achievements</li>
+                        <li>Treat everyone with respect regardless of status</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The importance acknowledgment: Find one way each day to make someone feel important through recognition or appreciation.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">10</span>
+                <h3>The Only Way to Get the Best of an Argument</h3>
+                <h4>Avoid Arguments</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 10</div>
+                    <div class="principle-title">The only way to get the best of an argument is to avoid it</div>
+                    <p>A man convinced against his will is of the same opinion still. Nine times out of ten, an argument ends with each side more firmly convinced than ever that they are absolutely right.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Patrick J. O'Haire, an automobile salesman, once argued with a difficult customer about a truck's specifications and won the argument—but lost the sale. Reflecting on dozens of similar losses, he changed his approach entirely: when a customer named the wrong specification for a competitor's truck, instead of correcting them, O'Haire agreed the other truck sounded excellent, redirected to his own product's real strengths, and made the sale. He learned that being right in an argument you win is often the same as being wrong in the sale you lose.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"A man convinced against his will is of the same opinion still."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>You cannot win an argument. If you lose it, you lose it; and if you win it, you still lose it because you have made the other person feel inferior and hurt their pride.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "I must prove I'm right" with "I want to understand their perspective and find common ground." The goal is understanding, not victory.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>When disagreement arises, pause and count to ten before responding</li>
+                        <li>Ask questions to understand the other person's viewpoint</li>
+                        <li>Look for areas of agreement first</li>
+                        <li>Suggest postponing discussion until emotions settle</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The argument avoidance: When you feel the urge to argue, instead say "Tell me more about why you see it that way."</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">11</span>
+                <h3>A Sure Way of Making Enemies</h3>
+                <h4>Never Say "You're Wrong"</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 11</div>
+                    <div class="principle-title">Show respect for the other person's opinions. Never say, "You're wrong."</div>
+                    <p>When we say someone is wrong, we strike a direct blow at their intelligence, judgment, pride, and self-respect. They will immediately want to strike back.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A young Benjamin Franklin was blunt, dogmatic, and loved correcting people—until an older friend took him aside and told him he was becoming insufferable, that his opinions had grown so overbearing no one wanted his company. Franklin adopted a new rule: never directly contradict others. Instead, he'd say "I conceive" or "I imagine" instead of "certainly" or "undoubtedly." This single change transformed him from a man people avoided into one of history's most beloved diplomats.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"I may be wrong, for I often am, but let's examine the facts."</p>
+                    <span class="quote-author">— Benjamin Franklin</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>You can tell people they are wrong by a look or a tone as effectively as you can with words. Respect their dignity even when you disagree.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "You're wrong" with "I see it differently." Approach disagreements as collaborative exploration, not judgment.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Start disagreements with "I may be mistaken, but..."</li>
+                        <li>Ask "What led you to that conclusion?"</li>
+                        <li>Focus on facts and perspectives, not right/wrong</li>
+                        <li>Admit when you don't know or might be wrong</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The respectful disagreement: Never say "You're wrong." Always say "I see it differently" or "That's an interesting perspective."</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">12</span>
+                <h3>If You're Wrong, Admit It</h3>
+                <h4>Admit Mistakes Quickly and Emphatically</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 12</div>
+                    <div class="principle-title">If you are wrong, admit it quickly and emphatically</div>
+                    <p>By fighting yourself when you're wrong, you can win the other person's good will. It takes courage to admit mistakes, but it disarms criticism and builds trust.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A commercial artist named Ferdinand Warren was once unfairly and harshly criticized by an art buyer for minor flaws in his work. Instead of arguing back, Warren immediately admitted the mistakes were his own fault and apologized sincerely, even before the buyer finished his tirade. Disarmed by the unexpected admission, the buyer softened completely, apologized in return for his own harshness, and gave Warren more work than ever—all because Warren admitted fault before it could be forced out of him.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"By fighting yourself when you're wrong, you can win the other person's good will."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Admitting mistakes before others point them out shows integrity and confidence. It transforms potential criticism into respect.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>View mistakes as learning opportunities, not threats to your ego. Admitting errors is a sign of strength, not weakness.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Admit mistakes immediately when you discover them</li>
+                        <li>Apologize sincerely without making excuses</li>
+                        <li>Focus on solutions rather than blame</li>
+                        <li>Thank people who point out your errors</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The quick admission: When you make a mistake, say immediately "I was wrong. I apologize. Here's how I'll fix it."</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">13</span>
+                <h3>A Drop of Honey</h3>
+                <h4>Begin in a Friendly Way</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 13</div>
+                    <div class="principle-title">Begin in a friendly way</div>
+                    <p>"A drop of honey catches more flies than a gallon of gall." If you come at someone with fists doubled, they will meet you with equal force. But a friendly beginning, even in a hostile negotiation, opens the door to agreement before a single argument is made.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A landlord named Mr. O.L. Straub had a tenant threatening to move out over a lease dispute. Instead of confronting him, Straub visited and said, "Mr. Sparks, I've listened to your reasons, and I still don't believe you intend to move. Years in the rental business have taught me a few things about human nature, and I sized you up in the first place as a man of your word." The tenant, disarmed by the friendly opening, ended up paying rent himself out of respect—he never mentioned the lease clause again.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"If you come at me with your fists doubled, I think I can promise you that mine will double as fast as yours; but if you come to me and say, 'Let us sit down and take counsel together,' we will presently find that we are not so far apart after all."</p>
+                    <span class="quote-author">— Woodrow Wilson</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Rockefeller said getting along with people is a purchasable commodity like sugar or coffee, and he'd pay more for that ability than any other under the sun. A friendly tone at the start decides the entire outcome of the interaction before content even matters.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "I need to win this confrontation" with "I need to open a door, not slam one." The first ten seconds of tone set the trajectory of the entire conversation.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Open difficult conversations with genuine warmth, not accusations</li>
+                        <li>Lead with a compliment or point of agreement before raising concerns</li>
+                        <li>Lower your voice and slow your pace when tension rises</li>
+                        <li>Ask "Can we talk this through together?" instead of issuing demands</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The honey opener: Before any confrontation, write one genuinely friendly sentence to start with, and say it first—no exceptions.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">14</span>
+                <h3>The Secret of Socrates</h3>
+                <h4>Get the Other Person Saying "Yes, Yes" Immediately</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 14</div>
+                    <div class="principle-title">Get the other person saying "yes, yes" immediately</div>
+                    <p>When talking with people, don't begin by discussing the things on which you differ. Begin by emphasizing the things on which you agree. Once someone says "no," their pride demands they remain consistent with that "no," even if they later see it was wrong.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>James Eberson, a bank clerk, was tasked with getting a hesitant customer to fill out full information on a form. Rather than insisting on bank policy, he asked the man's mother's name—which he'd give without question—then asked what he would want done with his money if he died, leading him to volunteer his son's name as beneficiary, then naturally the rest of the details fell into place. By the time the man left, he had given complete information voluntarily and even taken out a trust fund, simply because Eberson got him saying "yes" from the start.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"He who treads softly goes far." The Socratic method is based on getting a 'yes, yes' response, drawing the opponent in the direction you desire by degrees until, almost before he is aware of it, he finds himself at the conclusion.</p>
+                    <span class="quote-author">— Overstreet, quoted by Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Getting a "no" response is a most difficult handicap to overcome. When you say "no," your pride demands you remain consistent. Skilled speakers get a "yes" response as early in the conversation as possible.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Instead of leading with the point of disagreement, ask yourself: "What can this person agree with immediately?" Build momentum before you build your case.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Structure persuasive conversations to start with 2-3 obvious points of agreement</li>
+                        <li>Ask questions phrased so the honest answer is "yes"</li>
+                        <li>Avoid framing early questions in ways that invite "no"</li>
+                        <li>Save your most contentious point for last, after rapport is built</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The yes ladder: In any negotiation, identify three true statements the other person will agree with, and open with them in order.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">15</span>
+                <h3>The Safety Valve in Handling Complaints</h3>
+                <h4>Let the Other Person Do a Great Deal of the Talking</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 15</div>
+                    <div class="principle-title">Let the other person do a great deal of the talking</div>
+                    <p>Most people trying to win others to their way of thinking do too much talking themselves. Let the other person talk themselves out—it's cheaper in the long run, and you learn what you're really dealing with.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>An automobile manufacturer needed fabric for upholstering car seats. Three major manufacturers submitted samples, and the buyer found fault with all of them, planning to reject them. But before deciding, a manufacturer's representative, sensing he couldn't win through argument, invited the buyer to explain exactly what was wrong. He talked for an hour. By the end, the buyer's own irritation had dissolved, and he ended up requesting the representative's opinion—resulting in a contract for a large order.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"If you want enemies, excel your friends; but if you want friends, let your friends excel you."</p>
+                    <span class="quote-author">— La Rochefoucauld</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Even our friends would much rather talk to us about their own achievements than listen to us boast about ours. Letting someone talk fully often defuses anger before you say a word.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "I need to explain my side" with "I need to let them exhaust theirs." Silence and patience are persuasive tools, not passive ones.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>In conflict, ask "Tell me everything about how this happened" and don't interrupt</li>
+                        <li>Resist the urge to defend yourself until the other person has fully spoken</li>
+                        <li>Take notes while they talk to show you're absorbing, not just waiting to respond</li>
+                        <li>Ask clarifying questions that invite more talking, not less</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The talk-out rule: In any complaint or conflict, let the other person speak uninterrupted for at least two full minutes before you respond.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">16</span>
+                <h3>How to Get Cooperation</h3>
+                <h4>Let the Other Person Feel the Idea Is Theirs</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 16</div>
+                    <div class="principle-title">Let the other person feel that the idea is his or hers</div>
+                    <p>People have more faith in ideas they discover themselves than in ideas handed to them on a platter. Rather than trying to sell people on your ideas, give them the facts and let them draw their own conclusions.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Adolph Seltz, a sales manager, needed to motivate a discouraged sales force without ordering them around. Instead of commanding, he invited his salesmen to a meeting and asked them to voice their expectations of him as a manager. As they spoke, he wrote everything on a blackboard, then said, "I'll expect all these virtues from you that you expect from me." Sales increased significantly—the salesmen had set their own standards and felt ownership over the outcome.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Nobody likes to feel that he is being sold something, or told to do a thing. We much prefer to feel that we are buying of our own accord, or acting on our own ideas."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Wise leaders throw out suggestions and let the other person think out the conclusion. People will defend an idea to the death if they believe it is their own.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "Let me convince you" with "Let me give you the pieces and let you assemble the picture." Ownership creates commitment; instruction creates compliance.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Present facts and options, then ask "What do you think we should do?"</li>
+                        <li>Ask leading questions that guide someone toward your desired conclusion</li>
+                        <li>Credit others publicly for ideas they helped shape, even partially</li>
+                        <li>Resist the urge to say "I told you so" or claim authorship of shared ideas</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The ownership question: Before proposing a solution, ask "What would you do here?" at least once in every planning conversation.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">17</span>
+                <h3>A Formula That Will Work Wonders for You</h3>
+                <h4>See Things from the Other Person's Point of View</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 17</div>
+                    <div class="principle-title">Try honestly to see things from the other person's point of view</div>
+                    <p>Success in dealing with people depends on a sympathetic grasp of the other person's viewpoint. Remember that the other person may be totally wrong, but they don't think so—seek to understand, not condemn.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Carnegie describes how he used to walk his dog off-leash in a park, against regulations, until a police officer warned him repeatedly. Instead of arguing about rights, Carnegie realized the officer's viewpoint: he had a job to do and needed to be seen enforcing rules. Understanding this, Carnegie complied not from fear, but because he saw the situation through the officer's need to feel his authority mattered.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Cooperativeness in conversation is achieved when you show that you consider the other person's ideas and feelings as important as your own."</p>
+                    <span class="quote-author">— Gerald S. Nirenberg</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Tomorrow, before asking anyone to do anything, pause and ask: "How can I make this person want to do it?" This one habit alone can transform your effectiveness with people.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "Why can't they see it my way?" with "What does the world look like from where they're standing?" Understanding precedes influence.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Before any confrontation, spend 10 minutes writing out the other person's likely perspective</li>
+                        <li>Ask "Help me understand why this matters to you" in disagreements</li>
+                        <li>Identify what the other person has to lose, not just what you want to gain</li>
+                        <li>State their position back to them before presenting yours</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The perspective pause: Before every important request, ask "Why would this person want to do it?" and lead with that answer.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">18</span>
+                <h3>What Everybody Wants</h3>
+                <h4>Be Sympathetic with the Other Person's Ideas and Desires</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 18</div>
+                    <div class="principle-title">Be sympathetic with the other person's ideas and desires</div>
+                    <p>Three-fourths of the people you will ever meet are hungering and thirsting for sympathy. Give it to them, and they will love you. A magic phrase that stops arguments: "I don't blame you one iota for feeling as you do. If I were you, I would undoubtedly feel just as you do."</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A woman named Mrs. Douglas lost her home and her only son within a month—a devastating double blow. In deep despair, she wrote to a magazine expressing her pain. The response poured in from readers who simply said "I understand, I've been there too." Her healing began not from advice but from people expressing genuine sympathy for her exact situation, showing her she wasn't alone.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"I don't blame you one iota for feeling as you do. If I were you I would undoubtedly feel just as you do."</p>
+                    <span class="quote-author">— Dale Carnegie's recommended opening line</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>An answer that turns away wrath: "If I were you, I would feel just as you do." This phrase alone has calmed some of the angriest people in Carnegie's case studies.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "They shouldn't feel that way" with "Of course they feel that way—I'd feel the same in their position." Validate the emotion even when you disagree with the conclusion.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Say "I understand why you'd feel that way" before offering any counterpoint</li>
+                        <li>Acknowledge the legitimacy of someone's frustration even if you disagree with their solution</li>
+                        <li>Avoid minimizing others' struggles by comparing them to your own</li>
+                        <li>Practice sitting with someone's pain without rushing to fix it</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The sympathy line: In every disagreement, say "I don't blame you for feeling that way" before you say anything else.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">19</span>
+                <h3>An Appeal That Everybody Likes</h3>
+                <h4>Appeal to the Nobler Motives</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 19</div>
+                    <div class="principle-title">Appeal to the nobler motives</div>
+                    <p>Everyone believes themselves to be honest, generous, and fair. Appeal to a person's nobler motives, and they will generally respond, because most people are idealistic at heart and want to think well of themselves.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>J.P. Morgan's partner, facing tenants who refused to pay rent due to a legitimate grievance, could have sued. Instead, a landlord named Hamlin appealed to a difficult tenant's sense of fairness and honor rather than legal obligation, saying he trusted the tenant to do the right thing once he'd heard the full situation. The tenant, treated as an honorable man rather than a debtor, paid in full immediately.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"People... are inclined to be idealistic. They like to feel that they are motivated by good reasons."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Pamela Dunham, faced with a tenant threatening to break his lease, didn't threaten back—she appealed to his sense of being a man of his word, and he honored the agreement out of pride, not fear.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "How do I force compliance?" with "How do I appeal to who they want to believe they are?" Treat people as the honorable version of themselves.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Frame requests in terms of fairness, honor, or integrity</li>
+                        <li>Say "I know you're the kind of person who..." before making a request</li>
+                        <li>Appeal to shared values rather than rules or consequences</li>
+                        <li>Trust people publicly before they've proven trustworthy—it often becomes self-fulfilling</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The noble frame: When asking for compliance, frame it as an appeal to character: "I trust you'll do the right thing here."</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">20</span>
+                <h3>Movies Do It. TV Does It. Why Don't You Do It?</h3>
+                <h4>Dramatize Your Ideas</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 20</div>
+                    <div class="principle-title">Dramatize your ideas</div>
+                    <p>Merely stating a truth isn't enough; the truth must be made vivid, interesting, dramatic. Showmanship works—you have to use it if you want attention.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A drug store chain was losing sales to competitors due to poor product placement. Rather than writing a report full of numbers, an employee named James Boynton dramatized his findings by staging a mock store display in the boardroom showing exactly how disorganized shelves lost customers. The visual, dramatic presentation got instant approval for changes that a written report had failed to achieve for months.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"You can't put over a point merely by stating a truth; the truth has to be made vivid, interesting, dramatic."</p>
+                    <span class="quote-author">— Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>A struggling cash register salesman turned a boring pitch around by dramatically dropping coins into a bucket to physically show a shopkeeper how much money was "leaking" through his old till—the visual made the argument undeniable.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "Let me explain the facts" with "Let me show you the facts in a way you'll never forget." Ideas that are felt outlast ideas that are merely heard.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Use visual aids, demonstrations, or props to illustrate key points</li>
+                        <li>Tell a vivid story instead of listing abstract statistics</li>
+                        <li>Create a physical or visual comparison people can see, not just hear</li>
+                        <li>Rehearse how to present an idea, not just what to say</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The dramatization test: Before any important presentation, ask "How can I show this instead of just telling it?"</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">21</span>
+                <h3>When Nothing Else Works, Try This</h3>
+                <h4>Throw Down a Challenge</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 21</div>
+                    <div class="principle-title">Throw down a challenge</div>
+                    <p>The thing that most motivates people is the work itself—the chance to prove themselves, excel, and win. A well-placed challenge appeals to people who want the opportunity for self-expression and achievement.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Charles Schwab had a plant manager whose workers weren't meeting production quotas despite every appeal. Schwab asked the day shift how many "heats" (batches) they had produced, then simply wrote the number "6" in chalk on the floor. The night shift, seeing the number, felt challenged and pushed themselves to beat it, writing "7". Competition escalated night after night until the underperforming plant became the top producer in the company—all without a single order given.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"All men have fears, but the brave put down their fears and go forward, sometimes to death, but always to victory... The chance to express themselves, the chance to prove their worth, to excel, to win."</p>
+                    <span class="quote-author">— Dale Carnegie, quoting Harvey Firestone</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>What every successful person loves is the game. The chance for self-expression, to prove worth, to excel, to win—that's what motivates far more than money alone.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "How do I make them do this?" with "How do I turn this into a game they want to win?" Competition and challenge unlock effort that instructions can't.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Turn tasks into friendly competitions with visible progress tracking</li>
+                        <li>Frame difficult goals as opportunities to prove capability</li>
+                        <li>Use specific numbers or benchmarks people can beat</li>
+                        <li>Appeal to pride and the desire for mastery, not just obligation</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The chalk number: Find a way to make progress visible and challengeable in any team or personal goal you're pursuing.</p>
+                </div>
+
+                            </div>
+        </div>
+
+        <div class="part" id="part-four">
+            <h2 class="part-title">Part Four: Be a Leader — How to Change People Without Giving Offense or Arousing Resentment</h2>
+
+            <!-- Part 4 Visual: Leadership Pyramid -->
+            <div class="part-intro-diagram">
+                <h4>The Carnegie Leadership Pyramid</h4>
+                <p class="diagram-caption">9 principles that let you change people without resentment — each tier amplifies the one below it.</p>
+                <svg viewBox="0 0 700 440" width="700" height="440" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+                    <defs>
+                        <filter id="shadow4" x="-10%" y="-10%" width="130%" height="140%">
+                            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.15)"/>
+                        </filter>
+                        <linearGradient id="tier1Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#d4af37"/>
+                            <stop offset="100%" stop-color="#c9a227"/>
+                        </linearGradient>
+                        <linearGradient id="tier2Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#e94560"/>
+                            <stop offset="100%" stop-color="#c0392b"/>
+                        </linearGradient>
+                        <linearGradient id="tier3Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#16213e"/>
+                            <stop offset="100%" stop-color="#1a1a2e"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Shadow base -->
+                    <ellipse cx="350" cy="415" rx="230" ry="12" fill="rgba(0,0,0,0.1)"/>
+
+                    <!-- TIER 3 — Foundation (widest) — P22, P23, P24 -->
+                    <polygon points="90,390 610,390 550,310 150,310" fill="url(#tier3Grad)" filter="url(#shadow4)"/>
+                    <text x="350" y="340" text-anchor="middle" fill="#d4af37" font-size="11" font-weight="700" letter-spacing="0.5">FOUNDATION</text>
+                    <text x="200" y="362" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">P22 · Begin with Praise</text>
+                    <text x="350" y="378" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="10">P23 · Indirect Correction  ·  P24 · Own Your Mistakes</text>
+
+                    <!-- TIER 2 — Middle — P25, P26, P27 -->
+                    <polygon points="150,308 550,308 490,228 210,228" fill="url(#tier2Grad)" filter="url(#shadow4)"/>
+                    <text x="350" y="256" text-anchor="middle" fill="white" font-size="11" font-weight="700" letter-spacing="0.5">RESPECT</text>
+                    <text x="350" y="274" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10">P25 · Ask, Don't Order  ·  P26 · Let Them Save Face</text>
+                    <text x="350" y="292" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="10">P27 · Praise Every Improvement</text>
+
+                    <!-- TIER 1 — Top — P28, P29 -->
+                    <polygon points="210,226 490,226 430,146 270,146" fill="url(#tier1Grad)" filter="url(#shadow4)"/>
+                    <text x="350" y="172" text-anchor="middle" fill="#1a1a2e" font-size="11" font-weight="700" letter-spacing="0.5">INSPIRE</text>
+                    <text x="350" y="190" text-anchor="middle" fill="#1a1a2e" font-size="10">P28 · Give Fine Reputation to Live Up To</text>
+                    <text x="350" y="208" text-anchor="middle" fill="#1a1a2e" font-size="10">P29 · Encouragement  ·  Make Faults Seem Easy</text>
+
+                    <!-- APEX — P30 -->
+                    <polygon points="270,144 430,144 350,64" fill="#1a1a2e" filter="url(#shadow4)"/>
+                    <text x="350" y="104" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700">P30 · Make Them</text>
+                    <text x="350" y="119" text-anchor="middle" fill="#d4af37" font-size="10" font-weight="700">Happy to Comply</text>
+
+                    <!-- Apex star -->
+                    <circle cx="350" cy="56" r="12" fill="#d4af37"/>
+                    <text x="350" y="61" text-anchor="middle" fill="#1a1a2e" font-size="14" font-weight="700">★</text>
+
+                    <!-- Left labels -->
+                    <line x1="70" y1="350" x2="90" y2="350" stroke="#6b6b6b" stroke-width="1"/>
+                    <text x="65" y="354" text-anchor="end" fill="#6b6b6b" font-size="10">Foundation</text>
+                    <line x1="70" y1="268" x2="150" y2="268" stroke="#6b6b6b" stroke-width="1"/>
+                    <text x="65" y="272" text-anchor="end" fill="#6b6b6b" font-size="10">Respect</text>
+                    <line x1="70" y1="186" x2="210" y2="186" stroke="#6b6b6b" stroke-width="1"/>
+                    <text x="65" y="190" text-anchor="end" fill="#6b6b6b" font-size="10">Inspire</text>
+                    <line x1="70" y1="104" x2="270" y2="104" stroke="#6b6b6b" stroke-width="1"/>
+                    <text x="65" y="108" text-anchor="end" fill="#6b6b6b" font-size="10">Master</text>
+
+                    <!-- Bottom caption -->
+                    <text x="350" y="430" text-anchor="middle" fill="#6b6b6b" font-size="11">Build from the base up — each tier is impossible without the one below</text>
+                </svg>
+            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">22</span>
+                <h3>If You Must Find Fault, This Is the Way to Begin</h3>
+                <h4>Begin with Praise and Honest Appreciation</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 22</div>
+                    <div class="principle-title">Begin with praise and honest appreciation</div>
+                    <p>It is always easier to listen to unpleasant things after we have heard some praise of our good points. Beginning with praise is like the dentist who starts with novocaine before the drilling—the pain is still there, but the anesthetic has removed the sting.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>President Calvin Coolidge told his secretary, "That's a becoming dress you are wearing this morning, and you are a very attractive young woman," before adding, "But don't let it affect your punctuation in the letters." The compliment softened what followed, and unlike Coolidge's typical stern silence, this feedback was actually heard and acted upon without resentment.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Abstract theory is not enough. We must have proof that it works."</p>
+                    <span class="quote-author">— Dale Carnegie, on why he tested every principle before writing it down</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>The "but" undoes everything that came before it. Carnegie suggests replacing "but" with "and": "We are proud of you for raising your grades this term, and by continuing the same conscientious effort next term, your algebra grade can be up with all the others."</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "I need to point out what's wrong" with "I need to first show them what's already right." Criticism lands softer on ground that's already been watered with appreciation.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Find one genuine strength to acknowledge before any correction</li>
+                        <li>Replace "but" with "and" when transitioning from praise to feedback</li>
+                        <li>Make praise specific, not generic, so it feels earned and real</li>
+                        <li>Never use praise as a manipulative setup—it must be sincere</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The novocaine rule: Before any critical feedback, identify and state one true, specific positive first.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">23</span>
+                <h3>How to Criticize and Not Be Hated for It</h3>
+                <h4>Call Attention to Mistakes Indirectly</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 23</div>
+                    <div class="principle-title">Call attention to people's mistakes indirectly</div>
+                    <p>Calling attention to one's mistakes indirectly works wonders with sensitive people who might resent bitter criticism. It preserves dignity while still correcting behavior.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Charles Schwab, walking through his steel mill, saw workers smoking directly under a "No Smoking" sign. Instead of pointing at the sign and scolding, he walked over, handed each man a cigar, and said, "I'll appreciate it, boys, if you will smoke these on the outside." The men knew immediately they had broken a rule—but felt respected rather than humiliated, and never smoked in that spot again.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"I'll appreciate it, boys, if you will smoke these on the outside."</p>
+                    <span class="quote-author">— Charles Schwab</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>A change of one word can turn a failure story into a hopeful one. Carnegie changed his secretary's dictation notes from "You have made a lot of mistakes" to "Let's change this sentence and it will read better"—same correction, entirely different emotional impact.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "You did this wrong" with "Here's another way we could try this." Indirect correction protects dignity while still achieving the fix.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Use "let's" and "we" language instead of "you" when pointing out errors</li>
+                        <li>Model the correct behavior rather than naming the wrong one directly</li>
+                        <li>Ask a guiding question that leads someone to notice their own mistake</li>
+                        <li>Address mistakes privately, never in front of others</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The cigar approach: When you spot an error, find a way to redirect gently rather than naming the failure directly.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">24</span>
+                <h3>Talk About Your Own Mistakes First</h3>
+                <h4>Talk About Your Own Mistakes Before Criticizing</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 24</div>
+                    <div class="principle-title">Talk about your own mistakes before criticizing the other person</div>
+                    <p>It isn't nearly so difficult to listen to a recital of your faults if the person criticizing begins by humbly admitting that they, too, are far from perfect. Admitting your own mistakes—even when you haven't corrected them—can help convince someone to change their behavior.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Carnegie's nephew, Josephine, made frequent mistakes at her first job. When Carnegie wanted to point out an error, he began, "Josephine, you have made a mistake, but Lord knows it's no worse than many I have made. You certainly weren't born with judgment. That comes with experience, and you're better than I was at your age. I have done so many stupid, silly things myself." Josephine responded to the correction without defensiveness because Carnegie had disarmed his own authority first.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"You certainly weren't born with judgment. That comes with experience, and you're better than I was at your age."</p>
+                    <span class="quote-author">— Dale Carnegie, to his niece Josephine</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Humility disarms defensiveness. When a leader admits their own flaws before correcting someone else's, the criticism feels like solidarity rather than judgment from above.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "Let me tell you what you did wrong" with "Let me tell you about a time I did something similar." Shared fallibility builds trust before correction.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Share a relevant mistake of your own before addressing someone else's error</li>
+                        <li>Use phrases like "I've done this too" or "I struggled with this exact thing"</li>
+                        <li>Avoid presenting yourself as flawless when giving feedback</li>
+                        <li>Frame corrections as shared learning, not one-sided judgment</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The humility opener: Before correcting anyone, recall and share a similar mistake you once made.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">25</span>
+                <h3>No One Likes to Take Orders</h3>
+                <h4>Ask Questions Instead of Giving Direct Orders</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 25</div>
+                    <div class="principle-title">Ask questions instead of giving direct orders</div>
+                    <p>Asking questions makes an order more palatable and stimulates creativity in the person asked. People are far more likely to accept an order if they've had a part in the decision that brought the order about.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Ian Macdonald, a management consultant, needed a manufacturer to change a product design that had cost issues. Rather than dictating changes, he asked, "What do you think can be done here?" and "What would you suggest to fix this?" The manufacturer, given the chance to think through it himself, arrived at the exact solution Macdonald wanted—and executed it enthusiastically because it felt self-directed.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Do you think that would work?" instead of "Do that."</p>
+                    <span class="quote-author">— Dale Carnegie's suggested phrasing</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Questions like "Could you consider this?" or "Do you think this would work?" not only make orders more palatable, they often stimulate the creativity of the person asked, making them feel like a participant rather than a subordinate.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "Do this" with "What do you think about doing this?" Questions invite participation; orders invite resistance.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Convert direct commands into questions whenever possible</li>
+                        <li>Ask "Would this work?" instead of declaring "Do this"</li>
+                        <li>Give people room to suggest their own approach to a task</li>
+                        <li>Use questions to correct course without commanding a stop</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The question conversion: Before issuing any directive today, rephrase it as a question at least once.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">26</span>
+                <h3>Let the Other Person Save Face</h3>
+                <h4>Let the Other Person Save Face</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 26</div>
+                    <div class="principle-title">Let the other person save face</div>
+                    <p>Even if we are right and the other person is definitely wrong, we only destroy ego by causing someone to lose face. A few words of consideration for the other person's feelings can ease the pain of a difficult decision.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>General Electric faced the delicate task of removing Charles Steinmetz—a brilliant engineer but poor manager—from his department head role. Instead of firing or demoting him outright, they created a new title: "Consulting Engineer of General Electric," while placing a new manager in his old role. Steinmetz was pleased with his new title, and GE accomplished the delicate maneuver without a scene, because he never lost face.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"I had no right to say what I said... I ought to have known better than to make such a suggestion." The correction was needed, but the humility saved everyone's dignity.</p>
+                    <span class="quote-author">— Adapted from Dale Carnegie's account of Antoine de Saint-Exupéry's advice</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>"I have no right to say or do anything that diminishes a man in his own eyes. What matters is not what I think of him, but what he thinks of himself. Hurting a man in his dignity is a crime."</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "They need to accept they're wrong" with "How can this correction happen without humiliation?" Being right is never worth destroying someone's dignity.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Deliver difficult news or demotions privately, never publicly</li>
+                        <li>Offer a graceful exit or alternative role when correcting a mistake</li>
+                        <li>Avoid "gotcha" moments that publicly expose someone's error</li>
+                        <li>Frame necessary changes in terms of growth, not failure</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The dignity check: Before any correction or consequence, ask "How would I want this handled if it were me?"</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">27</span>
+                <h3>How to Spur People on to Success</h3>
+                <h4>Praise Every Improvement</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 27</div>
+                    <div class="principle-title">Praise the slightest improvement and praise every improvement. Be "hearty in your approbation and lavish in your praise"</div>
+                    <p>Ability withers under criticism; it flowers under encouragement. Praising even small improvements inspires people to keep improving, whereas focusing only on flaws causes them to give up trying.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A wife wanted her husband to improve his dancing, which was clumsy and outdated. Rather than criticizing his poor technique, her instructor told him, "You have a natural sense of rhythm... you really have a gift for dancing." Though this may have been an exaggeration, the encouragement made him practice eagerly, and he genuinely improved—because he now believed he could.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Flattery will get you nowhere with her, but praise, because it is sincere, will get you everywhere."</p>
+                    <span class="quote-author">— Dale Carnegie, distinguishing praise from flattery</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>A teacher named Mrs. Loretta praised a poorly performing student named Tommy for even the smallest correct answer. Over the semester, Tommy transformed from the "worst" student in class to one of the best—simply because someone believed in his improvement instead of dwelling on his shortcomings.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "They still have so far to go" with "Look how far they've already come." Progress, however small, deserves genuine recognition.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Notice and verbally acknowledge small improvements, not just final results</li>
+                        <li>Be specific about what improved: "Your opening paragraph is much clearer now"</li>
+                        <li>Praise effort and progress even when the end result isn't perfect yet</li>
+                        <li>Avoid saving all praise for when someone has "arrived"</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The improvement spotlight: Each week, identify one small improvement in someone's work or behavior and name it explicitly.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">28</span>
+                <h3>Give a Dog a Good Name</h3>
+                <h4>Give the Other Person a Fine Reputation to Live Up To</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 28</div>
+                    <div class="principle-title">Give the other person a fine reputation to live up to</div>
+                    <p>If you want to improve a person in a certain respect, act as though that particular trait were already one of their outstanding characteristics. Give them a fine reputation to live up to, and they will make prodigious efforts rather than see you disillusioned.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A hotel headwaiter, Henry, was known for being surly and difficult with staff. A new manager, instead of criticizing him, began introducing him to guests as "Henry, one of our finest and most dependable staff members." Within weeks, Henry's behavior transformed to match this new reputation—he became more courteous and reliable, living up to the label given to him rather than the one he'd earned.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Give a dog a bad name and you may as well hang him. But give him a good name and see what happens."</p>
+                    <span class="quote-author">— Old Proverb, cited by Dale Carnegie</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>A judge in Oklahoma used this principle with a defendant, telling him he had faith he was "a decent man at heart" and would honor a suspended sentence. The man, given a reputation to live up to, never returned to court again.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "They're just not reliable" with "I'll treat them as someone reliable and see what happens." People often become the reputation we assign them.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Introduce people using the positive trait you want them to embody</li>
+                        <li>Tell someone "I know you're the type of person who..." before an important task</li>
+                        <li>Publicly attribute good qualities to people who haven't fully shown them yet</li>
+                        <li>Avoid labeling people with negative traits, even in jest</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The reputation gift: Once a week, tell someone they have a positive quality you want them to grow into.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">29</span>
+                <h3>Make the Fault Seem Easy to Correct</h3>
+                <h4>Use Encouragement</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 29</div>
+                    <div class="principle-title">Use encouragement. Make the fault seem easy to correct</div>
+                    <p>Tell a child, a spouse, or an employee that they are stupid at doing something, that they have no gift for it, and you have destroyed almost every incentive to try to improve. But use the opposite technique—be lavish with encouragement, make the thing seem easy to do—and they will practice until they excel.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>Carnegie's wife wanted to learn to dance but was convinced she had no rhythm and would never improve, having been discouraged by a teacher years earlier. A new instructor told her, "You have a natural sense of rhythm... this comes very easily to you." The encouragement, rather than the harsh truth about her actual skill level, gave her the confidence to practice—and she genuinely improved as a result.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Use encouragement. Make the fault seem easy to correct."</p>
+                    <span class="quote-author">— Dale Carnegie, Principle 29</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>Lowell Thomas, a master broadcaster, always encouraged Carnegie by making challenging tasks seem achievable, saying things like "This is easy, you've got this"—not because it was actually easy, but because belief in ease creates the confidence needed to succeed.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "This is really hard, don't get discouraged" with "This is very doable, you're closer than you think." Perceived difficulty shapes actual effort and persistence.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Frame new or difficult tasks as achievable, not overwhelming</li>
+                        <li>Avoid language like "you're just not good at this"</li>
+                        <li>Break big challenges into small, easy-seeming steps</li>
+                        <li>Express genuine confidence in someone's ability to improve</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The ease frame: When teaching or coaching, say "This part is easy" before introducing each new step.</p>
+                </div>
+
+                            </div>
+
+            <div class="chapter">
+                <span class="chapter-number">30</span>
+                <h3>Making People Glad to Do What You Want</h3>
+                <h4>Make the Other Person Happy About Doing What You Suggest</h4>
+
+                <div class="principle-box">
+                    <div class="principle-number">Principle 30</div>
+                    <div class="principle-title">Make the other person happy about doing the thing you suggest</div>
+                    <p>The final leadership principle ties everything together: be sincere, know exactly what you want the other person to do, be empathetic, consider the benefits they'll receive, match those benefits to their wants, and make the request so the person realizes the action will benefit them.</p>
+                </div>
+
+                <div class="example-box">
+                    <h5>Real Example from the Book</h5>
+                    <p>A company president needed to ask an employee, Gunther, to take on an unpopular assignment involving significant unpaid overtime for an important convention. Rather than simply ordering it, the president called Gunther in, explained the importance of the event to the company's future, and framed the extra work as an opportunity to demonstrate leadership and resourcefulness at a critical moment. Gunther left the meeting excited rather than resentful, because the burden had been reframed as an opportunity for recognition.</p>
+                </div>
+
+                <div class="quote-box">
+                    <p>"Always make the other person happy about doing the thing you suggest."</p>
+                    <span class="quote-author">— Dale Carnegie, Principle 30</span>
+                </div>
+
+                <div class="callout-box">
+                    <h5>Key Insight</h5>
+                    <p>The four-step formula: 1) Be sincere—don't promise what you can't deliver. 2) Know exactly what you want the other person to do. 3) Be empathetic—ask what they really want. 4) Consider the benefits they'll receive from doing what you suggest.</p>
+                </div>
+
+                <div class="mindset-shift">
+                    <h5>Mindset Shift</h5>
+                    <p>Replace "I need them to do this for me" with "I need to show them why doing this is good for them too." The best requests leave both parties feeling like winners.</p>
+                </div>
+
+                <div class="action-box">
+                    <h5>Specific Actions</h5>
+                    <ul>
+                        <li>Before making a request, identify a genuine benefit for the other person</li>
+                        <li>State the benefit clearly and honestly, without manipulation</li>
+                        <li>Frame unpleasant tasks as opportunities for growth or recognition</li>
+                        <li>Always deliver on what you promise to maintain long-term trust</li>
+                    </ul>
+                </div>
+
+                <div class="habit-card">
+                    <h6>Habit to Build</h6>
+                    <p>The benefit-first ask: Before every significant request, write down what's genuinely in it for the other person, and lead with that.</p>
+                </div>
+
+                            </div>
+        </div>
+
+        <div class="vocabulary-section">
+            <h3>Key Vocabulary</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <h6>Appreciation</h6>
+                    <p>The recognition and enjoyment of the good qualities of someone or something. Unlike flattery, appreciation is sincere and comes from genuine regard.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Empathy</h6>
+                    <p>The ability to understand and share the feelings of another. Seeing the world through another person's eyes is the foundation of meaningful connection.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Rapport</h6>
+                    <p>A close and harmonious relationship in which the people or groups concerned understand each other's feelings or ideas and communicate well.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Influence</h6>
+                    <p>The capacity to have an effect on the character, development, or behavior of someone or something, or the effect itself.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Diplomacy</h6>
+                    <p>The art of dealing with people in a sensitive and effective way. Skill in managing negotiations and handling difficult situations with tact.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Sincerity</h6>
+                    <p>The quality of being free from pretense, deceit, or hypocrisy. Genuine honesty and authenticity in all interactions.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Validation</h6>
+                    <p>Recognition or affirmation that a person or their feelings are valid or worthwhile. Making others feel heard and understood.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Charisma</h6>
+                    <p>A personal quality of presence or charm that inspires others to follow or admire. The ability to attract and influence people.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Idiosyncrasy</h6>
+                    <p>A mode of behavior or way of thought peculiar to an individual. Recognizing others' idiosyncrasies without judgment is central to Carnegie's approach to tolerance.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Magnanimity</h6>
+                    <p>Generosity of spirit, especially toward a rival or someone less powerful. Admitting mistakes and letting others save face both require magnanimity.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Approbation</h6>
+                    <p>Approval or praise, especially formal or official. Carnegie urges readers to be "hearty in approbation and lavish in praise."</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Disarm</h6>
+                    <p>To remove someone's hostility or suspicion, often through unexpected kindness, humility, or agreement rather than confrontation.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Self-Justification</h6>
+                    <p>The psychological tendency to rationalize one's own actions as reasonable, even when wrong. Explains why criticism rarely produces change.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Ego-Investment</h6>
+                    <p>The degree to which a person's sense of self-worth is tied to an idea, opinion, or possession. High ego-investment makes people defend positions irrationally.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Reciprocity</h6>
+                    <p>The practice of exchanging things with others for mutual benefit. Kindness, appreciation, and sympathy tend to be returned in kind.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Tact</h6>
+                    <p>Sensitivity in dealing with others or with difficult issues, especially the ability to say the right thing at the right time without causing offense.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Persuasion</h6>
+                    <p>The act of causing someone to believe or do something through reasoning or influence, as opposed to force, threat, or manipulation.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Goodwill</h6>
+                    <p>Friendly, helpful, or cooperative feelings or attitude. The ultimate currency Carnegie's principles are designed to build and preserve.</p>
+                </div>
+                <div class="vocab-card">
+                    <h6>Consideration</h6>
+                    <p>Careful thought, typically for the needs and feelings of others, before acting or speaking. The thread running through all 30 principles.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-content">
+                <p>This transformation guide is based on "How to Win Friends and Influence People" by Dale Carnegie.</p>
+                <div class="credit">Made with love by Gourang Sharma</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
@@ -207,6 +207,34 @@ export default function TheLogClient({
   );
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<string | null>(null);
+  const overlayPushedRef = useRef(false);
+
+  // Push a history entry when overlay opens so the browser back button
+  // closes it instead of navigating away from /the-log.
+  const openPost = (slug: string) => {
+    if (!overlayPushedRef.current) {
+      window.history.pushState({ colloqueOverlay: true }, "");
+      overlayPushedRef.current = true;
+    }
+    setSelectedPost(slug);
+  };
+
+  const closePost = () => {
+    setSelectedPost(null);
+    if (overlayPushedRef.current) {
+      overlayPushedRef.current = false;
+      window.history.back();
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      overlayPushedRef.current = false;
+      setSelectedPost(null);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   // Fetch real comments when post is selected or modal opens
   useEffect(() => {
@@ -379,7 +407,7 @@ export default function TheLogClient({
               <div style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 1fr", gridTemplateRows: "310px 270px", gap: "16px" }}>
                 {/* Card 1 */}
                 {blogPosts[0] && (
-                  <div className="ed-card" onClick={() => setSelectedPost(blogPosts[0].slug)} style={{ gridColumn: "1", gridRow: "1 / 3", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[0].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                  <div className="ed-card" onClick={() => openPost(blogPosts[0].slug)} style={{ gridColumn: "1", gridRow: "1 / 3", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[0].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 60%)" }} />
                     <div className="ed-hover-grad" />
                     <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "2rem 2rem 2.25rem" }}>
@@ -412,7 +440,7 @@ export default function TheLogClient({
 
                 {/* Card 2 */}
                 {blogPosts[1] && (
-                  <div onClick={() => setSelectedPost(blogPosts[1].slug)} style={{ gridColumn: "2", gridRow: "1 / 3", cursor: "pointer" }}>
+                  <div onClick={() => openPost(blogPosts[1].slug)} style={{ gridColumn: "2", gridRow: "1 / 3", cursor: "pointer" }}>
                     <div className="ed-card" style={{ height: "100%", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[1].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 60%)" }} />
                       <div className="ed-hover-grad" />
@@ -440,7 +468,7 @@ export default function TheLogClient({
 
                 {/* Card 3 */}
                 {blogPosts[2] && (
-                  <div onClick={() => setSelectedPost(blogPosts[2].slug)} style={{ gridColumn: "3", gridRow: "1", cursor: "pointer" }}>
+                  <div onClick={() => openPost(blogPosts[2].slug)} style={{ gridColumn: "3", gridRow: "1", cursor: "pointer" }}>
                     <div className="ed-card" style={{ height: "100%", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[2].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 60%)" }} />
                       <div className="ed-hover-grad" />
@@ -468,7 +496,7 @@ export default function TheLogClient({
 
                 {/* Card 4 */}
                 {blogPosts[3] && (
-                  <div onClick={() => setSelectedPost(blogPosts[3].slug)} style={{ gridColumn: "3", gridRow: "2", cursor: "pointer" }}>
+                  <div onClick={() => openPost(blogPosts[3].slug)} style={{ gridColumn: "3", gridRow: "2", cursor: "pointer" }}>
                     <div className="ed-card" style={{ height: "100%", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[3].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 60%)" }} />
                       <div className="ed-hover-grad" />
@@ -501,7 +529,7 @@ export default function TheLogClient({
               <p style={{ ...LABEL, color: "#C9A84C", letterSpacing: "0.25em", marginBottom: "1rem" }}>All Entries</p>
               <div style={{ height: "1px", backgroundColor: "rgba(44,44,44,0.15)", marginBottom: 0 }} />
               {pastEntries.map((entry) => (
-                <div key={entry.slug} className="ed-entries-row" onClick={() => setSelectedPost(entry.slug)} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem", padding: "0.85rem 0", borderBottom: "1px solid rgba(44,44,44,0.08)", cursor: "pointer" }}>
+                <div key={entry.slug} className="ed-entries-row" onClick={() => openPost(entry.slug)} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem", padding: "0.85rem 0", borderBottom: "1px solid rgba(44,44,44,0.08)", cursor: "pointer" }}>
                   <div style={{ minWidth: 0 }}>
                     <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 400, color: "rgba(44,44,44,0.42)", letterSpacing: "0.07em", marginBottom: "0.2rem" }}>
                       {entry.week}
@@ -1027,7 +1055,7 @@ export default function TheLogClient({
             }
           `}</style>
 
-          <button onClick={() => setSelectedPost(null)} style={{ position: "fixed", top: "1.25rem", right: "1.5rem", width: "42px", height: "42px", borderRadius: "50%", backgroundColor: "#2C2C2C", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#F5EFE6", fontSize: "20px", lineHeight: 1, zIndex: 201, boxShadow: "0 4px 16px rgba(0,0,0,0.25)" }}>
+          <button onClick={() => closePost()} style={{ position: "fixed", top: "1.25rem", right: "1.5rem", width: "42px", height: "42px", borderRadius: "50%", backgroundColor: "#2C2C2C", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#F5EFE6", fontSize: "20px", lineHeight: 1, zIndex: 201, boxShadow: "0 4px 16px rgba(0,0,0,0.25)" }}>
             ×
           </button>
 

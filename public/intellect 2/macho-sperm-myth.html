@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Macho Sperm Myth</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080812;
+      --surface:  #0f0f1e;
+      --card:     #141428;
+      --border:   rgba(255,255,255,0.06);
+      --purple:   #7c3aed;
+      --purple-lt:#a78bfa;
+      --cyan:     #06b6d4;
+      --cyan-lt:  #67e8f9;
+      --gold:     #f59e0b;
+      --gold-lt:  #fcd34d;
+      --rose:     #f43f5e;
+      --green:    #10b981;
+      --text:     #e2e8f0;
+      --muted:    #94a3b8;
+      --dim:      #475569;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 50%, rgba(124,58,237,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 75% 40%, rgba(6,182,212,0.13) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 50% 90%, rgba(245,158,11,0.08) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    .floating-cells {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 860px; }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid rgba(6,182,212,0.35);
+      border-radius: 100px;
+      padding: 0.35rem 1.1rem;
+      margin-bottom: 2rem;
+      background: rgba(6,182,212,0.07);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, var(--purple-lt) 60%, var(--cyan-lt) 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 3rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+      border-radius: 2px;
+      margin: 0 auto 3rem;
+    }
+
+    /* ─── NAV PILLS ─────────────────────────── */
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.2s;
+      background: var(--surface);
+    }
+
+    .nav-pill:hover {
+      color: var(--text);
+      border-color: var(--purple-lt);
+      background: rgba(124,58,237,0.12);
+    }
+
+    /* ─── SCROLL INDICATOR ────────────────── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 1;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── LAYOUT ────────────────────────────── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 6rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ─── SECTION HEADERS ───────────────────── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-label .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── COLOR THEMES PER SECTION ─────────── */
+    .theme-purple .section-label { color: var(--purple-lt); }
+    .theme-purple .dot           { background: var(--purple); }
+    .theme-purple .section-title { color: #fff; }
+    .theme-purple .accent-line   { background: linear-gradient(90deg, var(--purple), transparent); }
+
+    .theme-cyan .section-label { color: var(--cyan-lt); }
+    .theme-cyan .dot           { background: var(--cyan); }
+    .theme-cyan .section-title { color: #fff; }
+    .theme-cyan .accent-line   { background: linear-gradient(90deg, var(--cyan), transparent); }
+
+    .theme-gold .section-label { color: var(--gold-lt); }
+    .theme-gold .dot           { background: var(--gold); }
+    .theme-gold .section-title { color: #fff; }
+    .theme-gold .accent-line   { background: linear-gradient(90deg, var(--gold), transparent); }
+
+    .theme-rose .section-label { color: #fb7185; }
+    .theme-rose .dot           { background: var(--rose); }
+    .theme-rose .section-title { color: #fff; }
+    .theme-rose .accent-line   { background: linear-gradient(90deg, var(--rose), transparent); }
+
+    .theme-green .section-label { color: #34d399; }
+    .theme-green .dot           { background: var(--green); }
+    .theme-green .section-title { color: #fff; }
+    .theme-green .accent-line   { background: linear-gradient(90deg, var(--green), transparent); }
+
+    .accent-line {
+      height: 2px;
+      width: 80px;
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── CORE INSIGHT ──────────────────────── */
+    .insight-block {
+      background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(6,182,212,0.08));
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 20px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insight-block::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem;
+      left: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem;
+      color: rgba(124,58,237,0.12);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .insight-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-style: italic;
+      line-height: 1.7;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── HUMAN PROBLEM ─────────────────────── */
+    .problem-text {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .problem-text p + p { margin-top: 1.2rem; }
+
+    /* ─── MECHANISM LIST ────────────────────── */
+    .mechanism-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mechanism-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem 1.6rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .mechanism-item:hover {
+      border-color: rgba(6,182,212,0.3);
+      transform: translateX(4px);
+    }
+
+    .mechanism-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2px;
+    }
+
+    .mechanism-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    /* ─── DIAGRAM: SPERM JOURNEY ─────────────── */
+    .diagram-wrapper {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      margin: 3rem 0;
+      overflow-x: auto;
+    }
+
+    .diagram-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── CONDITIONS ────────────────────────── */
+    .conditions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .condition-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .condition-card:hover { border-color: rgba(245,158,11,0.35); }
+
+    .condition-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .condition-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .condition-text {
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── REAL WORLD ─────────────────────────── */
+    .rw-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .rw-item {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+
+    .rw-item:last-child { border-bottom: none; }
+
+    .rw-icon {
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    .rw-text {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .rw-text strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* ─── RESEARCH CARDS ─────────────────────── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .research-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      transition: border-color 0.2s;
+    }
+
+    .research-card:hover { border-color: rgba(16,185,129,0.3); }
+
+    .research-card-year {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.6rem;
+    }
+
+    .research-card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+
+    .research-card-text {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── MYTH VS REALITY ────────────────────── */
+    .mvr-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+
+    @media (max-width: 580px) {
+      .mvr-grid { grid-template-columns: 1fr; }
+    }
+
+    .mvr-card {
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mvr-myth {
+      background: linear-gradient(135deg, rgba(244,63,94,0.12), rgba(244,63,94,0.04));
+      border: 1px solid rgba(244,63,94,0.25);
+    }
+
+    .mvr-reality {
+      background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(16,185,129,0.04));
+      border: 1px solid rgba(16,185,129,0.25);
+    }
+
+    .mvr-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .mvr-myth .mvr-label  { color: var(--rose); }
+    .mvr-reality .mvr-label { color: var(--green); }
+
+    .mvr-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .mvr-list li {
+      font-size: 0.9rem;
+      color: var(--text);
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .mvr-list li::before {
+      content: '✕';
+      position: absolute;
+      left: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .mvr-myth .mvr-list li::before  { color: var(--rose); }
+    .mvr-reality .mvr-list li::before { content: '✓'; color: var(--green); }
+
+    /* ─── TAKEAWAY ───────────────────────────── */
+    .takeaway-block {
+      background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(124,58,237,0.1));
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 20px;
+      padding: 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .takeaway-block::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(245,158,11,0.08), transparent);
+      pointer-events: none;
+    }
+
+    .takeaway-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.75;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .takeaway-star {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── TIMELINE ───────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--purple), var(--cyan), var(--gold));
+      border-radius: 2px;
+    }
+
+    .tl-item {
+      position: relative;
+      padding: 0 0 2rem 2rem;
+    }
+
+    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-dot {
+      position: absolute;
+      left: -2.55rem;
+      top: 0.25rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--cyan);
+    }
+
+    .tl-year {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-event {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .tl-sub {
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ─── SEPARATOR ─────────────────────────── */
+    .sep {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ─── STAT BOXES ─────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 2.5rem 0;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 1.2rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--purple-lt), var(--cyan-lt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── FOOTER ─────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding: 5rem 1.5rem;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .footer-author {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-author span {
+      color: #fff;
+      font-style: italic;
+    }
+
+    .footer-domain {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ─── VIDEO SECTION ─────────────────────────── */
+    .video-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .video-label-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .video-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+    }
+
+    .video-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+
+    .video-subtext {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 560px;
+    }
+
+    .video-frame {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(6,182,212,0.2);
+      box-shadow:
+        0 0 0 1px rgba(124,58,237,0.12),
+        0 30px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(6,182,212,0.06);
+      background: #000;
+    }
+
+    .video-frame video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 540px;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .video-glow {
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      pointer-events: none;
+      background: linear-gradient(135deg,
+        rgba(124,58,237,0.07) 0%,
+        transparent 50%,
+        rgba(6,182,212,0.07) 100%);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 640px) {
+      .insight-block { padding: 2rem 1.5rem; }
+      .takeaway-block { padding: 2.5rem 1.5rem; }
+      section { padding: 4rem 1rem; }
+      .mvr-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ░░░ HERO ░░░ -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Animated floating cells SVG -->
+  <svg class="floating-cells" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="cg1" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="cg2" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Large egg cell -->
+    <circle cx="900" cy="180" r="60" fill="none" stroke="rgba(245,158,11,0.12)" stroke-width="1.5"/>
+    <circle cx="900" cy="180" r="45" fill="rgba(245,158,11,0.04)"/>
+    <circle cx="900" cy="180" r="18" fill="rgba(245,158,11,0.08)"/>
+    <!-- Sperm silhouettes -->
+    <g opacity="0.18" stroke="#06b6d4" stroke-width="1" fill="none">
+      <ellipse cx="200" cy="400" rx="6" ry="4" fill="#06b6d4"/>
+      <path d="M206,400 Q240,390 270,410"/>
+      <ellipse cx="350" cy="200" rx="5" ry="3.5" fill="#06b6d4"/>
+      <path d="M355,200 Q385,192 410,205"/>
+      <ellipse cx="1050" cy="500" rx="5" ry="3.5" fill="#06b6d4"/>
+      <path d="M1055,500 Q1085,492 1110,505"/>
+      <ellipse cx="100" cy="150" rx="4" ry="3" fill="#7c3aed"/>
+      <path d="M104,150 Q128,143 148,155"/>
+      <ellipse cx="600" cy="600" rx="5" ry="3.5" fill="#7c3aed"/>
+      <path d="M605,600 Q635,592 660,605"/>
+      <ellipse cx="750" cy="100" rx="4" ry="3" fill="#06b6d4"/>
+      <path d="M754,100 Q778,93 798,104"/>
+    </g>
+    <!-- Decorative rings -->
+    <circle cx="150" cy="550" r="90" fill="none" stroke="rgba(124,58,237,0.07)" stroke-width="1"/>
+    <circle cx="1100" cy="150" r="110" fill="none" stroke="rgba(6,182,212,0.07)" stroke-width="1"/>
+    <circle cx="600" cy="50" r="70" fill="none" stroke="rgba(245,158,11,0.06)" stroke-width="1"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Psychology &amp; Human Behavior · Biology &amp; Belief</div>
+    <h1 class="hero-title">The Macho<br/>Sperm Myth</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">
+      How centuries of male-coded storytelling hijacked the science of human reproduction — and why the consequences still play out in fertility clinics today.
+    </p>
+    <nav class="nav-pills">
+      <a class="nav-pill" href="#insight">Core Insight</a>
+      <a class="nav-pill" href="#problem">The Problem</a>
+      <a class="nav-pill" href="#mechanism">Mechanism</a>
+      <a class="nav-pill" href="#conditions">Conditions</a>
+      <a class="nav-pill" href="#realworld">Real World</a>
+      <a class="nav-pill" href="#research">Research</a>
+      <a class="nav-pill" href="#takeaway">Takeaway</a>
+    </nav>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="22" viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="14" height="20" rx="7" stroke="currentColor" stroke-width="1.4"/>
+      <circle cx="8" cy="7" r="2" fill="currentColor"/>
+    </svg>
+    Scroll
+  </div>
+</div>
+
+<!-- ░░░ VIDEO ░░░ -->
+<div class="video-section">
+  <div class="video-label-row">
+    <span class="video-eyebrow">Watch</span>
+  </div>
+  <h2 class="video-heading">The Macho Sperm Myth — in Motion</h2>
+  <p class="video-subtext">A visual companion to the science of human reproduction and the cultural bias that shaped how we misunderstood it.</p>
+  <div class="video-frame">
+    <video controls playsinline preload="metadata">
+      <source src="macho.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-glow"></div>
+  </div>
+</div>
+
+<hr class="sep"/>
+
+<!-- ░░░ MYTH vs REALITY PREVIEW ░░░ -->
+<section>
+  <div class="mvr-grid">
+    <div class="mvr-card mvr-myth">
+      <div class="mvr-label">The Myth</div>
+      <ul class="mvr-list">
+        <li>Sperm race competitively toward the egg</li>
+        <li>The fastest, fittest sperm wins fertilization</li>
+        <li>The egg is a passive, waiting target</li>
+        <li>More sperm always means better fertility</li>
+        <li>Men retain full fertility into old age</li>
+      </ul>
+    </div>
+    <div class="mvr-card mvr-reality">
+      <div class="mvr-label">The Reality</div>
+      <ul class="mvr-list">
+        <li>Sperm are passively transported by the uterus and oviducts</li>
+        <li>Fertilization is effectively a lottery among healthy sperm</li>
+        <li>The female tract actively filters, stores, and releases sperm</li>
+        <li>Too many sperm causes fatal multi-fertilization (polyspermy)</li>
+        <li>Sperm mutations accumulate 4× faster than egg mutations with age</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ CORE INSIGHT ░░░ -->
+<section id="insight" class="theme-purple">
+  <div class="section-label"><span class="dot"></span> Core Insight</div>
+  <h2 class="section-title">The central finding</h2>
+  <div class="accent-line"></div>
+  <div class="insight-block">
+    <p class="insight-text">
+      The popular image of millions of sperm locked in Darwinian competition to conquer a passive egg is not biology — it is a cultural narrative, inherited from centuries of male-coded thinking, that has been quietly mistaken for scientific fact. The female reproductive system is not a passive arena but an active, selective biological architecture, and the "winning" sperm is not a champion but a lottery ticket drawn at random.
+    </p>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ HUMAN PROBLEM ░░░ -->
+<section id="problem" class="theme-cyan">
+  <div class="section-label"><span class="dot"></span> The Human Problem It Explains</div>
+  <h2 class="section-title">What we got wrong — and why it matters</h2>
+  <div class="accent-line"></div>
+  <div class="problem-text">
+    <p>Science is not immune to the cultural assumptions of the era in which it develops. When early researchers first observed sperm and egg, they did not approach the evidence neutrally — they brought with them a pre-existing framework of male activity and female passivity, and that framework became embedded in biological language, textbook diagrams, and clinical protocols.</p>
+    <p>The cost has not been merely symbolic. The gendered framing caused real scientific blind spots: the female reproductive tract's active role in storing and filtering sperm was largely ignored; aging men's declining fertility and rising mutation rates went unexamined while aging women faced intense medical scrutiny; and fertility treatments were designed around assumptions — more sperm is better, the egg just sits and waits — that clinical data directly contradict.</p>
+    <p>This is not a historical curiosity. It is an ongoing failure of objectivity with measurable consequences for patients seeking to conceive.</p>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ TIMELINE ░░░ -->
+<section>
+  <div class="section-label" style="color:var(--muted)"><span class="dot" style="background:var(--dim)"></span> Historical Record</div>
+  <h2 class="section-title" style="color:#fff;">A timeline of discovery — and distortion</h2>
+  <div class="accent-line" style="background:linear-gradient(90deg,var(--dim),transparent)"></div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--purple); box-shadow: 0 0 0 2px var(--purple)"></div>
+      <div class="tl-year">1600s — Preformation Theory</div>
+      <div class="tl-event">The natural philosophers of the Scientific Revolution proposed that all future generations were nested inside eggs like Russian dolls — a framework that conveniently legitimized dynastic rule and aristocratic lineage.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--purple-lt); box-shadow: 0 0 0 2px var(--purple-lt)"></div>
+      <div class="tl-year">1677 — Sperm Discovered</div>
+      <div class="tl-event">Antonie van Leeuwenhoek first observed human sperm under a microscope. For some years, he believed sperm were parasites living in semen.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--cyan); box-shadow: 0 0 0 2px var(--cyan)"></div>
+      <div class="tl-year">1695 — The Homunculus</div>
+      <div class="tl-event">Dutch mathematician Hartsoeker drew a tiny preformed human (homunculus) inside the sperm head — he admitted he had not actually seen it, but convinced himself it must be there.</div>
+      <div class="tl-sub">The original blueprint for reading ideology into biology.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--cyan-lt); box-shadow: 0 0 0 2px var(--cyan-lt)"></div>
+      <div class="tl-year">1827 — Mammalian Egg Observed</div>
+      <div class="tl-event">German biologist Karl Ernst von Baer first documented actual observations of mammalian eggs — 150 years after sperm were discovered.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold); box-shadow: 0 0 0 2px var(--gold)"></div>
+      <div class="tl-year">1876 — Fusion Confirmed</div>
+      <div class="tl-event">German zoologist Oscar Hertwig demonstrated sperm-egg fusion in sea urchins, establishing the basic mechanism of fertilization.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold-lt); box-shadow: 0 0 0 2px var(--gold-lt)"></div>
+      <div class="tl-year">1980 — The Cervical Crypt Study</div>
+      <div class="tl-event">Gynaecologist Vaclav Insler and colleagues demonstrated that the cervix acts as an active sperm reservoir, storing and releasing viable sperm for up to nine days. The finding was widely cited — and never replicated.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--green); box-shadow: 0 0 0 2px var(--green)"></div>
+      <div class="tl-year">1991 — Martin's Critique</div>
+      <div class="tl-event">Anthropologist Emily Martin formally identified the gendered metaphors embedded in reproductive biology literature, calling them a "scientific fairy tale" that devalued female biological processes.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ MECHANISM ░░░ -->
+<section id="mechanism" class="theme-cyan">
+  <div class="section-label"><span class="dot"></span> The Mechanism — How It Works</div>
+  <h2 class="section-title">The internal logic, step by step</h2>
+  <div class="accent-line"></div>
+
+  <!-- Sperm Journey Diagram -->
+  <div class="diagram-wrapper">
+    <div class="diagram-title">The Real Sperm Journey: Numbers at Each Stage</div>
+    <svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto">
+      <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7c3aed"/>
+          <stop offset="100%" stop-color="#f59e0b"/>
+        </linearGradient>
+        <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(255,255,255,0.3)"/>
+        </marker>
+      </defs>
+
+      <!-- connecting line -->
+      <line x1="60" y1="100" x2="700" y2="100" stroke="url(#lineGrad)" stroke-width="2" stroke-dasharray="4 3" opacity="0.5"/>
+
+      <!-- Stage 1: Ejaculate -->
+      <circle cx="60" cy="100" r="38" fill="rgba(124,58,237,0.15)" stroke="rgba(124,58,237,0.5)" stroke-width="1.5"/>
+      <text x="60" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#a78bfa">250M</text>
+      <text x="60" y="109" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#7c3aed">sperm</text>
+      <text x="60" y="152" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#94a3b8">Ejaculate</text>
+
+      <!-- Stage 2: Cervix -->
+      <circle cx="200" cy="100" r="28" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.45)" stroke-width="1.5"/>
+      <text x="200" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#818cf8">Millions</text>
+      <text x="200" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#6366f1">filtered</text>
+      <text x="200" y="145" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#94a3b8">Cervix</text>
+      <text x="200" y="158" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#475569">(mucus filter +</text>
+      <text x="200" y="169" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#475569">crypt storage)</text>
+
+      <!-- Stage 3: Uterus -->
+      <circle cx="340" cy="100" r="22" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.4)" stroke-width="1.5"/>
+      <text x="340" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#67e8f9">~1M</text>
+      <text x="340" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#06b6d4">remain</text>
+      <text x="340" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#94a3b8">Uterus</text>
+
+      <!-- Stage 4: Oviduct entry -->
+      <circle cx="470" cy="100" r="16" fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.4)" stroke-width="1.5"/>
+      <text x="470" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#34d399">~10K</text>
+      <text x="470" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#10b981">enter</text>
+      <text x="470" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#94a3b8">Oviduct</text>
+      <text x="470" y="144" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#475569">entry</text>
+
+      <!-- Stage 5: Near egg -->
+      <circle cx="580" cy="100" r="12" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.45)" stroke-width="1.5"/>
+      <text x="580" y="97" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="#fcd34d">~200</text>
+      <text x="580" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#f59e0b">remain</text>
+      <text x="580" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#94a3b8">Near egg</text>
+
+      <!-- Stage 6: Fertilisation -->
+      <circle cx="700" cy="100" r="28" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.6)" stroke-width="2"/>
+      <text x="700" y="92" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fcd34d">1 random</text>
+      <text x="700" y="104" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#f59e0b">sperm wins</text>
+      <text x="700" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#f59e0b">by chance</text>
+      <text x="700" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#94a3b8">Fertilization</text>
+
+      <!-- labels above: passive transport note -->
+      <text x="340" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="#475569" font-style="italic">← passively transported by uterine contractions →</text>
+    </svg>
+  </div>
+
+  <ol class="mechanism-list">
+    <li class="mechanism-item">
+      <div class="mechanism-num">1</div>
+      <div class="mechanism-text">Cultural assumptions of male vigor and female passivity entered biology at its earliest stages, when the first observers of sperm and egg were operating within a social world that rewarded patriarchal frameworks.</div>
+    </li>
+    <li class="mechanism-item">
+      <div class="mechanism-num">2</div>
+      <div class="mechanism-text">The metaphor of competitive racing was borrowed wholesale from elite-sport imagery and applied to sperm — a narrative frame that made intuitive sense culturally but does not match what sperm actually do inside the body.</div>
+    </li>
+    <li class="mechanism-item">
+      <div class="mechanism-num">3</div>
+      <div class="mechanism-text">Sperm in promiscuously mating species like chimpanzees genuinely do compete — but that biology was erroneously generalized to humans, who show all the reproductive hallmarks of single-male social groups (small testes, high rates of abnormal sperm, absence of sperm-blocking vaginal plugs).</div>
+    </li>
+    <li class="mechanism-item">
+      <div class="mechanism-num">4</div>
+      <div class="mechanism-text">Rather than swimming a full race, most human sperm are passively carried by the muscular contractions and fluid currents of the uterus and oviducts — a blue whale's sperm cannot physically swim 100 times farther than a mouse's, and neither can a human sperm sprint unaided.</div>
+    </li>
+    <li class="mechanism-item">
+      <div class="mechanism-num">5</div>
+      <div class="mechanism-text">The cervix functions as an active biological checkpoint: it traps abnormal sperm in mucus, stores healthy sperm in crypts for days, and gradually releases them — making fertilization a slow, managed process, not a frantic dash.</div>
+    </li>
+    <li class="mechanism-item">
+      <div class="mechanism-num">6</div>
+      <div class="mechanism-text">Of 250 million sperm in an average ejaculate, only a few hundred reach the fertilization site — and among those, the one that fertilizes the egg is not selected by genetic merit but by chance, since the DNA inside a sperm head is crystalline and cannot be "read" from outside.</div>
+    </li>
+    <li class="mechanism-item">
+      <div class="mechanism-num">7</div>
+      <div class="mechanism-text">The female tract evolved barriers specifically to limit sperm numbers at the egg — because too many sperm produce polyspermy, where multiple sperm fertilize one egg, causing 69 chromosomes instead of 46 and almost always resulting in miscarriage.</div>
+    </li>
+  </ol>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ KEY STATS ░░░ -->
+<section>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num">250M</div>
+      <div class="stat-label">Sperm in an average human ejaculate</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">~200</div>
+      <div class="stat-label">That actually reach the egg site</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">25K</div>
+      <div class="stat-label">Optimal sperm count for IVF success</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">10 days</div>
+      <div class="stat-label">Maximum human sperm survival in the cervix</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">4×</div>
+      <div class="stat-label">Faster mutation accumulation in sperm vs. eggs with age</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ CONDITIONS ░░░ -->
+<section id="conditions" class="theme-gold">
+  <div class="section-label"><span class="dot"></span> The Conditions</div>
+  <h2 class="section-title">When and why this pattern takes hold</h2>
+  <div class="accent-line"></div>
+  <div class="conditions-grid">
+    <div class="condition-card">
+      <div class="condition-icon">🔬</div>
+      <div class="condition-label">Homogeneous Scientific Culture</div>
+      <div class="condition-text">When interpreters of biological evidence share the same cultural assumptions — as male natural philosophers dominated early science — those assumptions are laundered into the language of objectivity without being questioned.</div>
+    </div>
+    <div class="condition-card">
+      <div class="condition-icon">📣</div>
+      <div class="condition-label">Media Amplification</div>
+      <div class="condition-text">Popular science journalism prefers dramatic competitive narratives over nuanced probabilistic ones. The "Olympic sperm" story is simply more compelling to publish than "sperm is passively transported and one is randomly selected."</div>
+    </div>
+    <div class="condition-card">
+      <div class="condition-icon">📚</div>
+      <div class="condition-label">Textbook Inertia</div>
+      <div class="condition-text">Once a framing is embedded in medical textbooks, it reproduces across generations of clinicians and researchers — even when corrective evidence exists, citation does not guarantee revision of practice.</div>
+    </div>
+    <div class="condition-card">
+      <div class="condition-icon">⚖️</div>
+      <div class="condition-label">Asymmetric Scrutiny</div>
+      <div class="condition-text">Female fertility is subjected to intense clinical and social attention at every life stage; male fertility is treated as a default. This asymmetry suppresses the questions that would reveal male reproductive decline.</div>
+    </div>
+    <div class="condition-card">
+      <div class="condition-icon">🧬</div>
+      <div class="condition-label">Cross-Species Extrapolation</div>
+      <div class="condition-text">The myth strengthens wherever data from promiscuously mating species is directly applied to humans — a legitimate comparative biology error that, once introduced, is rarely re-examined.</div>
+    </div>
+    <div class="condition-card">
+      <div class="condition-icon">💊</div>
+      <div class="condition-label">Clinical Protocol Lock-in</div>
+      <div class="condition-text">Once fertility treatments are standardized around incorrect models (high sperm concentration in IVF, short fertile windows in natural contraception), changing them requires confronting institutional resistance, not just scientific evidence.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ REAL WORLD ░░░ -->
+<section id="realworld" class="theme-rose">
+  <div class="section-label"><span class="dot"></span> Real World Manifestations</div>
+  <h2 class="section-title">Where this shows up in everyday life</h2>
+  <div class="accent-line"></div>
+  <div class="rw-list">
+
+    <div class="rw-item">
+      <div class="rw-icon" style="background:rgba(244,63,94,0.12)">🏥</div>
+      <div class="rw-text"><strong>Early IVF clinics routinely used sperm concentrations 20–40 times higher than optimal</strong>, inadvertently reducing fertilization success and raising miscarriage rates — a direct clinical consequence of the "more sperm wins" assumption.</div>
+    </div>
+
+    <div class="rw-item">
+      <div class="rw-icon" style="background:rgba(124,58,237,0.12)">💉</div>
+      <div class="rw-text"><strong>Intrauterine insemination bypasses the cervix's natural sperm filter</strong>, meaning abnormal sperm that would normally be trapped in mucus now reach the uterus — a procedural side-effect rarely explained to patients as a polyspermy risk.</div>
+    </div>
+
+    <div class="rw-item">
+      <div class="rw-icon" style="background:rgba(6,182,212,0.12)">📅</div>
+      <div class="rw-text"><strong>Couples using "natural" family planning methods track a narrow fertile window based on a 2-day sperm survival estimate</strong> — but if sperm survive 5–10 days in cervical crypts, those calculations may be off by as much as a week, making the method far less reliable.</div>
+    </div>
+
+    <div class="rw-item">
+      <div class="rw-icon" style="background:rgba(245,158,11,0.12)">🧊</div>
+      <div class="rw-text"><strong>Women in their late twenties are increasingly counselled to freeze eggs as fertility insurance</strong>, while men in the same age range are rarely advised to bank sperm — despite the fact that sperm mutations compound with age at four times the rate of egg mutations.</div>
+    </div>
+
+    <div class="rw-item">
+      <div class="rw-icon" style="background:rgba(16,185,129,0.12)">👴</div>
+      <div class="rw-text"><strong>Public discourse on "geriatric pregnancy" applies almost exclusively to women</strong>, yet older fathers pass on measurably higher rates of de novo mutations linked to conditions like autism and schizophrenia — a risk that receives a fraction of the medical attention devoted to maternal age.</div>
+    </div>
+
+    <div class="rw-item">
+      <div class="rw-icon" style="background:rgba(244,63,94,0.12)">🔬</div>
+      <div class="rw-text"><strong>The "kamikaze sperm" hypothesis — that abnormal sperm act as soldiers blocking rival males' sperm — was seriously entertained in scientific literature for years</strong> before being discredited, illustrating how the competitive narrative shapes which hypotheses researchers bother to test.</div>
+    </div>
+
+    <div class="rw-item">
+      <div class="rw-icon" style="background:rgba(124,58,237,0.12)">📖</div>
+      <div class="rw-text"><strong>Even Nobel Prize–winning reproductive medicine textbooks devoted a single sentence to cervical crypt sperm storage</strong>, despite its radical implications for understanding fertility windows and treating infertility.</div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ RESEARCH ░░░ -->
+<section id="research" class="theme-green">
+  <div class="section-label"><span class="dot"></span> What the Research Says</div>
+  <h2 class="section-title">The evidence behind the argument</h2>
+  <div class="accent-line"></div>
+  <div class="research-grid">
+
+    <div class="research-card">
+      <div class="research-card-year">1991 · Emily Martin, NYU</div>
+      <div class="research-card-title">The Gendered Language of Biology</div>
+      <div class="research-card-text">Anthropologist Emily Martin conducted a formal textual analysis of reproductive biology literature and identified pervasive, unexamined gendered metaphors — female processes described as wasteful and passive; male processes as productive and vigorous — embedded in both popular and scientific writing.</div>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-year">1970s–80s · Jack Cohen, Birmingham</div>
+      <div class="research-card-title">Sperm Counts and Genetic Variation</div>
+      <div class="research-card-text">Biologist Jack Cohen's cross-species studies showed that high sperm counts correlate with chromosomal crossover rates during meiosis — suggesting sperm abundance evolved to maximize genetic diversity rather than competitive racing. These papers remain rarely cited despite their explanatory power.</div>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-year">1980 · Insler et al., Tel Aviv</div>
+      <div class="research-card-title">The Cervical Crypt Study</div>
+      <div class="research-card-text">The only direct study of sperm storage in human cervical crypts — 25 volunteers were inseminated before scheduled hysterectomy — found viable sperm in cervical mucus up to the ninth day. The cervix stores up to 200,000 sperm and releases them gradually. No follow-up study has ever been conducted.</div>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-year">Clinical Data · IUI &amp; IVF</div>
+      <div class="research-card-title">Optimal Sperm Numbers Are Far Lower Than Assumed</div>
+      <div class="research-card-text">Clinical records from intrauterine insemination show that 20 million sperm — less than a tenth of an average ejaculate — achieves routine pregnancy rates. IVF data show fertilization rates peak at around 25,000 sperm per egg; concentrations above 50,000 actively suppress success, consistent with polyspermy risk.</div>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-year">Comparative Biology</div>
+      <div class="research-card-title">Humans Are Not Built for Sperm Competition</div>
+      <div class="research-card-text">Across all measurable markers — relative testes size, ejaculate quality, seminal vesicle size, sperm abnormality rates — humans consistently resemble primates living in single-male social groups, not promiscuously mating species. Human testes are one-third the size of chimpanzee testes, and human ejaculate contains a notably high proportion of structurally defective sperm.</div>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-year">Mutation Studies</div>
+      <div class="research-card-title">Sperm Age Faster Than Eggs</div>
+      <div class="research-card-text">Recent genomic research shows that de novo mutations accumulate approximately four times faster in sperm than in eggs as men age — directly contradicting the widely held belief that male fertility is stable across the lifespan and raising clinical implications that remain largely unaddressed in practice.</div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ░░░ TAKEAWAY ░░░ -->
+<section id="takeaway" class="theme-gold">
+  <div class="section-label"><span class="dot"></span> The Takeaway</div>
+  <h2 class="section-title">What to carry forward</h2>
+  <div class="accent-line"></div>
+  <div class="takeaway-block">
+    <div class="takeaway-star">✦</div>
+    <p class="takeaway-text">
+      The stories we embed in science — about which sex is active and which is passive, about competition versus collaboration, about whose fertility degrades and whose does not — are not neutral descriptions of nature. They are choices. And when those choices are shaped by cultural bias rather than evidence, they produce real harm: failed treatments, missed diagnoses, misplaced medical burden, and decades of unanswered questions about how human reproduction actually works. The macho sperm myth is a case study in how ideology masquerades as fact, and a reminder that rigorous self-examination is not a luxury of science — it is its precondition.
+    </p>
+  </div>
+</section>
+
+<!-- ░░░ FOOTER ░░░ -->
+<footer class="footer">
+  <p class="footer-author">Written by <span>Gourang Sharma</span></p>
+  <p class="footer-domain">Psychology &amp; Human Behavior · Biology &amp; Belief Systems</p>
+</footer>
+
+</body>
+</html>

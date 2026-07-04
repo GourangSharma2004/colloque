@@ -151,6 +151,24 @@ const FEATURED_BOOKS_STATIC = [
     href: "/read?file=/Stillness.html",
     coverBg: "#E0D8CE",
   },
+  {
+    title: "The Quick and Easy Way to Effective Speaking",
+    author: "Dale Carnegie",
+    tags: "Communication · Public Speaking",
+    quote: "Good public speakers are made, not born. The ability to speak with confidence is a learnable skill — and this book shows you exactly how.",
+    cover: "/Book%201/9789388144353.webp",
+    href: "/read?file=/Book%201/The-Quick-and-Easy-Way-to-Effective-Speaking-Summary.html",
+    coverBg: "#E2DAD0",
+  },
+  {
+    title: "How to Win Friends and Influence People",
+    author: "Dale Carnegie",
+    tags: "Relationships · Communication",
+    quote: "The only way to influence people is to talk about what they want. Master that one principle, and every room you walk into becomes an opportunity.",
+    cover: "/Book%202/1_OtxsMJ5huAFwANLR6lONyw.jpg",
+    href: "/read?file=/Book%202/how-to-win-friends-summary.html",
+    coverBg: "#D6CFC6",
+  },
 ];
 
 // ── Library placeholder data ──────────────────────────────────────────────────

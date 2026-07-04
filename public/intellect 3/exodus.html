@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exodus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- v2 -->
+    <style>
+        :root {
+            --bg:        #04080f;
+            --bg-card:   #081220;
+            --bg-card2:  #0b1829;
+            --gold:      #f0a020;
+            --gold-dim:  rgba(240,160,32,0.18);
+            --teal:      #14c8a8;
+            --teal-dim:  rgba(20,200,168,0.14);
+            --red:       #f05050;
+            --red-dim:   rgba(240,80,80,0.12);
+            --purple:    #a070f8;
+            --purple-dim:rgba(160,112,248,0.14);
+            --text:      #dce3f2;
+            --muted:     #5e6e8a;
+            --border:    rgba(255,255,255,0.07);
+        }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            overflow-x: hidden;
+        }
+
+        /* ── HERO — cover image ────────────────── */
+        #hero {
+            position: relative;
+            height: 100vh;
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 3.5rem;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('exodus.png') center 20% / cover no-repeat;
+            z-index: 0;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(4,8,15,1) 0%,
+                rgba(4,8,15,0.92) 25%,
+                rgba(4,8,15,0.35) 55%,
+                rgba(4,8,15,0.06) 100%
+            );
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 1.6rem;
+        }
+
+        .hero-title {
+            font-size: clamp(5rem, 14vw, 11rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 0.92;
+            background: linear-gradient(145deg, #ffffff 0%, #f0a020 45%, #ff7a2a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-tagline {
+            font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+            color: var(--muted);
+            max-width: 560px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            line-height: 1.1;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 0.3rem;
+        }
+        .stat-divider { width:1px; height:44px; background:var(--border); }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 2.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--muted);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+        .scroll-cue-line {
+            width: 1px; height: 36px;
+            background: linear-gradient(to bottom, var(--teal), transparent);
+            animation: breathe 2.2s ease-in-out infinite;
+        }
+        @keyframes breathe { 0%,100%{opacity:.25} 50%{opacity:.9} }
+
+        /* ── LAYOUT ─────────────────────────────── */
+        main { max-width: 1080px; margin: 0 auto; padding: 0 2rem 8rem; }
+
+        section.block { margin-bottom: 5.5rem; }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .sec-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+        .sec-rule { flex: 1; height: 1px; background: var(--border); }
+        .sec-title {
+            font-size: clamp(0.75rem, 1.6vw, 0.9rem);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* ── CARDS ──────────────────────────────── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2.2rem;
+        }
+        .card p { font-size: 1rem; line-height: 1.82; }
+
+        .card-gold {
+            background: linear-gradient(140deg, rgba(240,160,32,0.1), rgba(20,200,168,0.05));
+            border: 1px solid rgba(240,160,32,0.28);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-gold::before {
+            content: '\201C';
+            position: absolute; top:-1rem; left:1.5rem;
+            font-size: 9rem;
+            color: rgba(240,160,32,0.07);
+            font-family: Georgia,serif;
+            line-height: 1;
+            pointer-events: none;
+        }
+        .card-gold p { font-size: clamp(1.05rem, 2vw, 1.25rem); font-weight: 500; line-height: 1.72; color: #fff; position: relative; }
+
+        .card-teal {
+            background: linear-gradient(140deg, var(--teal-dim), rgba(240,160,32,0.04));
+            border: 1px solid rgba(20,200,168,0.25);
+            border-radius: 14px;
+            padding: 2.2rem;
+        }
+        .card-teal p { font-size: clamp(1.05rem, 2vw, 1.2rem); font-weight: 500; line-height: 1.72; color: #fff; text-align: center; }
+
+        .card-purple {
+            background: linear-gradient(140deg, var(--purple-dim), rgba(240,160,32,0.03));
+            border: 1px solid rgba(160,112,248,0.25);
+            border-radius: 14px;
+            padding: 2.2rem;
+        }
+        .card-purple p { font-size: 1rem; line-height: 1.82; }
+
+        .card-red {
+            background: linear-gradient(140deg, var(--red-dim), rgba(240,80,80,0.04));
+            border: 1px solid rgba(240,80,80,0.25);
+            border-radius: 14px;
+            padding: 2.2rem;
+        }
+        .card-red p { font-size: 1rem; line-height: 1.82; }
+        .card-red p + p { margin-top: 1rem; }
+
+        /* ── DIAGRAM WRAPPER ────────────────────── */
+        .diagram-wrap {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem 1.5rem 1.5rem;
+            margin-top: 2rem;
+        }
+        .diagram-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .diagram-wrap svg { width: 100%; display: block; overflow: visible; }
+
+        /* ── LOGIC LIST ─────────────────────────── */
+        .legend {
+            display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.4rem;
+        }
+        .legend-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.8rem; color: var(--muted);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.18rem 0.55rem;
+            border-radius: 4px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .tag-fact     { background:var(--teal-dim);   color:var(--teal);   border:1px solid rgba(20,200,168,0.3); }
+        .tag-proj     { background:var(--purple-dim); color:var(--purple); border:1px solid rgba(160,112,248,0.3); }
+
+        .logic-list { list-style:none; display:flex; flex-direction:column; gap:0.9rem; }
+
+        .logic-item {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            padding: 1.3rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .logic-item:hover { border-color: rgba(240,160,32,0.2); transform: translateX(3px); }
+
+        .logic-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 2rem;
+            padding-top: 0.15rem;
+        }
+        .logic-body { flex:1; }
+        .logic-body p { font-size: 0.97rem; line-height: 1.75; margin-top: 0.45rem; }
+
+        /* ── FORCES GRID ────────────────────────── */
+        .forces-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .force-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.6rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .force-card:hover { border-color: rgba(20,200,168,0.28); transform: translateY(-3px); }
+        .force-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.9rem;
+            display: block;
+        }
+        .force-card h3 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 0.55rem;
+        }
+        .force-card p { font-size: 0.91rem; line-height: 1.68; color: var(--text); }
+
+        /* ── FOOTER ─────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .author-line {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.82rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .author-line span { color: var(--gold); }
+
+        /* ── ASSUMPTION PILLARS ──────────────── */
+        .assumption-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .assumption-card {
+            background: linear-gradient(145deg, rgba(160,112,248,0.1), rgba(160,112,248,0.03));
+            border: 1px solid rgba(160,112,248,0.28);
+            border-radius: 14px;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .assumption-card:hover { transform: translateY(-4px); border-color: rgba(160,112,248,0.5); }
+        .assumption-card .a-icon { font-size: 2.4rem; margin-bottom: 1rem; display: block; }
+        .assumption-card h3 {
+            font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--purple); margin-bottom: 0.7rem;
+        }
+        .assumption-card p { font-size: 0.89rem; line-height: 1.65; }
+
+        /* ── RISK CARDS ──────────────────────── */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .risk-card {
+            background: linear-gradient(145deg, rgba(240,80,80,0.1), rgba(240,80,80,0.02));
+            border: 1px solid rgba(240,80,80,0.22);
+            border-radius: 12px;
+            padding: 1.6rem;
+            transition: border-color 0.2s;
+        }
+        .risk-card:hover { border-color: rgba(240,80,80,0.45); }
+        .risk-card .risk-icon { font-size: 1.8rem; margin-bottom: 0.7rem; display: block; }
+        .risk-card h3 {
+            font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--red); margin-bottom: 0.55rem;
+        }
+        .risk-card p { font-size: 0.91rem; line-height: 1.65; }
+
+        /* ── MARS CONDITIONS ─────────────────── */
+        .mars-conditions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.75rem;
+        }
+        .mars-stat {
+            background: rgba(240,80,80,0.07);
+            border: 1px solid rgba(240,80,80,0.18);
+            border-radius: 10px;
+            padding: 1.2rem 0.8rem;
+            text-align: center;
+        }
+        .mars-stat .m-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.62rem; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--muted);
+            margin-bottom: 0.5rem; display: block;
+        }
+        .mars-stat .m-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.15rem; font-weight: 700;
+            color: var(--red); display: block; margin-bottom: 0.25rem;
+        }
+        .mars-stat .m-compare { font-size: 0.75rem; color: var(--muted); }
+
+        /* ── PLANET RISK LAYOUT ──────────────── */
+        .planet-risk-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        .planet-risk-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 0.5rem;
+        }
+        .vs-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem; font-weight: 700;
+            color: var(--muted); text-align: center;
+        }
+
+        /* ── RESPONSIVE ─────────────────────────── */
+        @media (max-width: 640px) {
+            .hero-stats { gap: 1.5rem; }
+            .stat-num { font-size: 1.7rem; }
+            .forces-grid { grid-template-columns: 1fr; }
+            .assumption-grid { grid-template-columns: 1fr; }
+            .risk-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══ HERO — cover page ═════════════════════════════════ -->
+<section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <p class="hero-eyebrow">Mars · Consciousness · Civilisation</p>
+        <h1 class="hero-title">EXODUS</h1>
+        <p class="hero-tagline">The engineering case for becoming a multi-planet species — and why it may be the only serious answer to the oldest silence in cosmology.</p>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-num">1M</span>
+                <span class="stat-label">People Required</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">100K</span>
+                <span class="stat-label">Launches Needed</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">~100 yr</span>
+                <span class="stat-label">Near Horizon</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">500M yr</span>
+                <span class="stat-label">Earth's Window</span>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-cue">
+        <span>Scroll</span>
+        <div class="scroll-cue-line"></div>
+    </div>
+</section>
+
+<!-- ═══ MAIN ═════════════════════════════════════════════ -->
+<main>
+
+    <!-- 01 · BIG IDEA -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">01</span>
+            <h2 class="sec-title">The Big Idea</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <div class="card-gold">
+            <p>Humanity must establish a self-sustaining colony of at least one million people on Mars — not as an act of exploration or ambition, but as a hard existential insurance policy against the permanent extinction of consciousness in the universe. A civilisation confined to one planet is a civilisation one catastrophic event away from total erasure, and that is a risk no amount of terrestrial progress can eliminate.</p>
+        </div>
+
+        <!-- Single Point of Failure Diagram -->
+        <div class="diagram-wrap">
+            <p class="diagram-label">Figure 1 — The Core Argument · Single Planet = Zero Redundancy</p>
+            <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="earthRed" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(240,80,80,0.4)"/>
+                        <stop offset="100%" stop-color="rgba(240,80,80,0.08)"/>
+                    </radialGradient>
+                    <radialGradient id="earthGold" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(240,160,32,0.5)"/>
+                        <stop offset="100%" stop-color="rgba(240,160,32,0.1)"/>
+                    </radialGradient>
+                    <radialGradient id="marsGreen" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(20,200,168,0.5)"/>
+                        <stop offset="100%" stop-color="rgba(20,200,168,0.1)"/>
+                    </radialGradient>
+                </defs>
+
+                <!-- LEFT: SINGLE PLANET SCENARIO -->
+                <text x="175" y="22" fill="rgba(240,80,80,0.7)" font-size="10" font-family="monospace" letter-spacing="0.15em" text-anchor="middle" text-transform="uppercase">SINGLE PLANET</text>
+
+                <!-- Threat arrows converging on Earth -->
+                <!-- Asteroid from top-left -->
+                <line x1="90" y1="50" x2="148" y2="88" stroke="rgba(240,80,80,0.5)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#rArr)"/>
+                <text x="72" y="44" fill="rgba(240,80,80,0.55)" font-size="9" font-family="sans-serif">asteroid</text>
+                <!-- Sun from top-right -->
+                <line x1="260" y1="50" x2="202" y2="88" stroke="rgba(240,80,80,0.5)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#rArr)"/>
+                <text x="248" y="44" fill="rgba(240,80,80,0.55)" font-size="9" font-family="sans-serif">solar</text>
+                <!-- Pandemic from left -->
+                <line x1="60" y1="105" x2="138" y2="105" stroke="rgba(240,80,80,0.5)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#rArr)"/>
+                <text x="25" y="109" fill="rgba(240,80,80,0.55)" font-size="9" font-family="sans-serif">plague</text>
+                <!-- Gamma from bottom-left -->
+                <line x1="90" y1="160" x2="148" y2="122" stroke="rgba(240,80,80,0.5)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#rArr)"/>
+                <text x="62" y="172" fill="rgba(240,80,80,0.55)" font-size="9" font-family="sans-serif">gamma ray</text>
+                <!-- Supervolcano from bottom-right -->
+                <line x1="260" y1="160" x2="202" y2="122" stroke="rgba(240,80,80,0.5)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#rArr)"/>
+                <text x="240" y="172" fill="rgba(240,80,80,0.55)" font-size="9" font-family="sans-serif">supervolcano</text>
+
+                <!-- Earth (single, vulnerable) -->
+                <circle cx="175" cy="105" r="34" fill="url(#earthRed)" stroke="rgba(240,80,80,0.6)" stroke-width="2"/>
+                <text x="175" y="101" fill="#f05050" font-size="9" font-family="monospace" text-anchor="middle" font-weight="700">EARTH</text>
+                <text x="175" y="113" fill="rgba(240,80,80,0.65)" font-size="8" font-family="monospace" text-anchor="middle">ONLY COPY</text>
+
+                <!-- EXTINCT label -->
+                <rect x="130" y="155" width="90" height="22" rx="5" fill="rgba(240,80,80,0.15)" stroke="rgba(240,80,80,0.4)" stroke-width="1"/>
+                <text x="175" y="170" fill="#f05050" font-size="10" font-family="monospace" text-anchor="middle" font-weight="700">→ EXTINCT</text>
+
+                <!-- DIVIDER -->
+                <line x1="350" y1="20" x2="350" y2="185" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="5,4"/>
+                <text x="350" y="106" fill="var(--muted)" font-size="12" font-family="monospace" text-anchor="middle">VS</text>
+
+                <!-- RIGHT: MULTI-PLANET SCENARIO -->
+                <text x="525" y="22" fill="rgba(20,200,168,0.7)" font-size="10" font-family="monospace" letter-spacing="0.15em" text-anchor="middle">MULTI-PLANET</text>
+
+                <!-- Same threats — but only ONE planet hit -->
+                <line x1="400" y1="55" x2="447" y2="83" stroke="rgba(240,80,80,0.35)" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#rArr)"/>
+                <line x1="400" y1="130" x2="447" y2="117" stroke="rgba(240,80,80,0.35)" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#rArr)"/>
+
+                <!-- Earth hit / destroyed -->
+                <circle cx="465" cy="100" r="28" fill="rgba(240,80,80,0.2)" stroke="rgba(240,80,80,0.4)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <text x="465" y="97" fill="rgba(240,80,80,0.6)" font-size="8" font-family="monospace" text-anchor="middle">EARTH</text>
+                <text x="465" y="108" fill="rgba(240,80,80,0.45)" font-size="7" font-family="monospace" text-anchor="middle">destroyed</text>
+                <!-- X mark -->
+                <line x1="449" y1="84" x2="481" y2="116" stroke="rgba(240,80,80,0.5)" stroke-width="1.5"/>
+                <line x1="481" y1="84" x2="449" y2="116" stroke="rgba(240,80,80,0.5)" stroke-width="1.5"/>
+
+                <!-- Link to Mars -->
+                <line x1="495" y1="100" x2="555" y2="100" stroke="rgba(20,200,168,0.5)" stroke-width="2" stroke-dasharray="5,3"/>
+
+                <!-- Mars survives -->
+                <circle cx="585" cy="100" r="34" fill="url(#marsGreen)" stroke="#14c8a8" stroke-width="2"/>
+                <text x="585" y="97" fill="#14c8a8" font-size="9" font-family="monospace" text-anchor="middle" font-weight="700">MARS</text>
+                <text x="585" y="109" fill="rgba(20,200,168,0.65)" font-size="8" font-family="monospace" text-anchor="middle">SURVIVES</text>
+
+                <!-- SURVIVES label -->
+                <rect x="540" y="148" width="90" height="22" rx="5" fill="rgba(20,200,168,0.12)" stroke="rgba(20,200,168,0.4)" stroke-width="1"/>
+                <text x="585" y="163" fill="#14c8a8" font-size="10" font-family="monospace" text-anchor="middle" font-weight="700">→ RESILIENT</text>
+
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="rArr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                        <path d="M0,0 L6,3 L0,6 Z" fill="rgba(240,80,80,0.6)"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 02 · THE PROBLEM WITH THE PRESENT -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">02</span>
+            <h2 class="sec-title">The Problem with the Present</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <div class="card">
+            <p>Human spaceflight stagnated after Apollo — not because the technology failed but because the driving force behind it, Cold War ideological competition, dissolved once the political point was won. NASA's share of the US federal budget collapsed from 4.4% in 1966 to under 1%, no crewed Mars missions exist beyond aspirational presidential speeches, and Americans currently purchase seats on Russian rockets to reach low Earth orbit. The commercial space sector has either failed or remained operationally irrelevant. What once looked like the opening of a new epoch of exploration has, in practice, gone into near-total stasis.</p>
+        </div>
+
+        <!-- NASA Budget Chart -->
+        <div class="diagram-wrap">
+            <p class="diagram-label">Figure 1 — NASA Budget as % of US Federal Spend · The Great Withdrawal</p>
+            <svg viewBox="0 0 700 210" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#f0a020" stop-opacity="0.35"/>
+                        <stop offset="100%" stop-color="#f0a020" stop-opacity="0.02"/>
+                    </linearGradient>
+                </defs>
+                <!-- Grid -->
+                <line x1="60" y1="30"  x2="60"  y2="168" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+                <line x1="60" y1="168" x2="660" y2="168" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+                <line x1="60" y1="118" x2="660" y2="118" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4,5"/>
+                <line x1="60" y1="68"  x2="660" y2="68"  stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4,5"/>
+                <line x1="60" y1="30"  x2="660" y2="30"  stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4,5"/>
+                <!-- Y labels -->
+                <text x="50" y="172" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="end">0%</text>
+                <text x="50" y="122" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="end">1%</text>
+                <text x="50" y="72"  fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="end">2%</text>
+                <text x="50" y="34"  fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="end">3%+</text>
+                <!-- Area fill -->
+                <path d="M 90,148 L 160,55 L 230,65 L 310,158 L 420,162 L 530,163 L 640,164 L 640,168 L 90,168 Z"
+                      fill="url(#areaGrad)"/>
+                <!-- Line -->
+                <path d="M 90,148 L 160,55 L 230,65 L 310,158 L 420,162 L 530,163 L 640,164"
+                      fill="none" stroke="#f0a020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Peak annotation -->
+                <circle cx="160" cy="55" r="5.5" fill="#f0a020"/>
+                <line x1="160" y1="44" x2="160" y2="53" stroke="rgba(240,160,32,0.5)" stroke-width="1"/>
+                <text x="160" y="38" fill="#f0a020" font-size="11" font-family="monospace" text-anchor="middle" font-weight="700">4.4% Peak</text>
+                <!-- Cliff annotation -->
+                <line x1="220" y1="65" x2="330" y2="145" stroke="rgba(240,80,80,0.4)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <text x="275" y="100" fill="rgba(240,80,80,0.7)" font-size="10" font-family="monospace" text-anchor="middle">Apollo ends</text>
+                <!-- Current dot -->
+                <circle cx="640" cy="164" r="4.5" fill="#f05050"/>
+                <text x="640" y="155" fill="#f05050" font-size="10" font-family="monospace" text-anchor="middle">&lt;0.5%</text>
+                <!-- X labels -->
+                <text x="90"  y="188" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="middle">1957</text>
+                <text x="160" y="188" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="middle">1966</text>
+                <text x="230" y="188" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="middle">1972</text>
+                <text x="310" y="188" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="middle">1981</text>
+                <text x="420" y="188" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="middle">1995</text>
+                <text x="530" y="188" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="middle">2006</text>
+                <text x="640" y="188" fill="#5e6e8a" font-size="10" font-family="monospace" text-anchor="middle">2014</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 03 · SYSTEMIC LOGIC -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">03</span>
+            <h2 class="sec-title">The Systemic Logic — How the Argument Gets There</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <div class="legend">
+            <div class="legend-item"><span class="tag tag-fact">Established Fact</span><span>Empirically grounded</span></div>
+            <div class="legend-item"><span class="tag tag-proj">Reasoned Projection</span><span>Logical inference or speculative extrapolation</span></div>
+        </div>
+        <ul class="logic-list">
+            <li class="logic-item">
+                <span class="logic-num">01</span>
+                <div class="logic-body">
+                    <span class="tag tag-fact">Established Fact</span>
+                    <p>The Sun will expand enough within 500 million years to begin disrupting photosynthesis, and within one billion years the oceans will have evaporated — making Earth uninhabitable long before the star's terminal expansion at 5–10 billion years.</p>
+                </div>
+            </li>
+            <li class="logic-item">
+                <span class="logic-num">02</span>
+                <div class="logic-body">
+                    <span class="tag tag-fact">Established Fact</span>
+                    <p>Earth's geological record documents repeated mass extinctions from asteroid impacts, supervolcanoes, and glaciation events — none of which appear in human cultural memory, yet all are statistically probable across sufficient timescales.</p>
+                </div>
+            </li>
+            <li class="logic-item">
+                <span class="logic-num">03</span>
+                <div class="logic-body">
+                    <span class="tag tag-fact">Established Fact</span>
+                    <p>Over 50 years of systematic radio telescope searches, solar system probe surveys, and stellar observation have produced zero confirmed signals of intelligent life, despite a universe with billions of Earth-analogue planets and 13.8 billion years of available time.</p>
+                </div>
+            </li>
+            <li class="logic-item">
+                <span class="logic-num">04</span>
+                <div class="logic-body">
+                    <span class="tag tag-proj">Reasoned Projection</span>
+                    <p>The Copernican principle — that Earth is not cosmically special — implies intelligent life should have arisen and spread across the galaxy many times over; the total absence of evidence implies civilisations characteristically collapse or are destroyed before escaping their home planet.</p>
+                </div>
+            </li>
+            <li class="logic-item">
+                <span class="logic-num">05</span>
+                <div class="logic-body">
+                    <span class="tag tag-fact">Established Fact</span>
+                    <p>Human spaceflight capacity peaked during the Cold War Space Race — a program driven by ideological competition, not strategic planning — and has been in structural decline since NASA's budget was cut by roughly 80% in the decade after Apollo.</p>
+                </div>
+            </li>
+            <li class="logic-item">
+                <span class="logic-num">06</span>
+                <div class="logic-body">
+                    <span class="tag tag-proj">Reasoned Projection</span>
+                    <p>Fully reusable rockets would reduce cost-per-pound to orbit by two orders of magnitude, converting launch economics from a bespoke state programme into an industrial operation capable of sustaining the 100,000-launch scale required for Mars colonisation.</p>
+                </div>
+            </li>
+            <li class="logic-item">
+                <span class="logic-num">07</span>
+                <div class="logic-body">
+                    <span class="tag tag-proj">Reasoned Projection</span>
+                    <p>A functioning Earth-Mars economy would create compounding commercial pressure to improve every dimension of deep-space technology, building the industrial base needed to eventually extend civilisation throughout the Solar System and toward other stars.</p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Fermi Paradox Diagram -->
+        <div class="diagram-wrap">
+            <p class="diagram-label">Figure 2 — The Fermi Paradox · Where Does the Great Filter Sit?</p>
+            <svg viewBox="0 0 700 185" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+                        <path d="M0,0 L7,3.5 L0,7 Z" fill="rgba(255,255,255,0.2)"/>
+                    </marker>
+                    <marker id="arr-teal" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+                        <path d="M0,0 L7,3.5 L0,7 Z" fill="#14c8a8"/>
+                    </marker>
+                </defs>
+
+                <!-- Spine -->
+                <line x1="25" y1="95" x2="680" y2="95" stroke="rgba(255,255,255,0.1)" stroke-width="2" marker-end="url(#arr)"/>
+
+                <!-- Stage nodes -->
+                <!-- Abiogenesis -->
+                <circle cx="75" cy="95" r="24" fill="rgba(20,200,168,0.1)" stroke="#14c8a8" stroke-width="1.5"/>
+                <text x="75" y="91" fill="#14c8a8" font-size="8" font-family="monospace" text-anchor="middle">LIFE</text>
+                <text x="75" y="101" fill="#14c8a8" font-size="8" font-family="monospace" text-anchor="middle">FORMS</text>
+                <text x="75" y="130" fill="#5e6e8a" font-size="9" font-family="sans-serif" text-anchor="middle">common?</text>
+
+                <line x1="101" y1="95" x2="141" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+                <!-- Multicellular -->
+                <circle cx="170" cy="95" r="24" fill="rgba(20,200,168,0.08)" stroke="#14c8a8" stroke-width="1.5"/>
+                <text x="170" y="91" fill="#14c8a8" font-size="8" font-family="monospace" text-anchor="middle">MULTI</text>
+                <text x="170" y="101" fill="#14c8a8" font-size="8" font-family="monospace" text-anchor="middle">CELL</text>
+                <text x="170" y="130" fill="#5e6e8a" font-size="9" font-family="sans-serif" text-anchor="middle">rare</text>
+
+                <line x1="196" y1="95" x2="236" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+                <!-- Intelligence -->
+                <circle cx="265" cy="95" r="24" fill="rgba(240,160,32,0.1)" stroke="#f0a020" stroke-width="1.5"/>
+                <text x="265" y="91" fill="#f0a020" font-size="8" font-family="monospace" text-anchor="middle">INTEL</text>
+                <text x="265" y="101" fill="#f0a020" font-size="8" font-family="monospace" text-anchor="middle">IGENCE</text>
+                <text x="265" y="130" fill="#5e6e8a" font-size="9" font-family="sans-serif" text-anchor="middle">very rare</text>
+
+                <line x1="291" y1="95" x2="331" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+                <!-- Civilisation -->
+                <circle cx="365" cy="95" r="28" fill="rgba(240,160,32,0.14)" stroke="#f0a020" stroke-width="2"/>
+                <text x="365" y="91" fill="#f0a020" font-size="8" font-family="monospace" text-anchor="middle">CIVILI</text>
+                <text x="365" y="101" fill="#f0a020" font-size="8" font-family="monospace" text-anchor="middle">SATION</text>
+                <text x="365" y="134" fill="rgba(240,160,32,0.7)" font-size="9" font-family="monospace" text-anchor="middle">← we are here</text>
+
+                <!-- Filter Zone -->
+                <rect x="415" y="55" width="115" height="80" rx="8"
+                      fill="rgba(240,80,80,0.07)" stroke="rgba(240,80,80,0.4)" stroke-width="1.5" stroke-dasharray="5,3"/>
+                <text x="472" y="80" fill="#f05050" font-size="11" font-family="monospace" text-anchor="middle" font-weight="700">THE FILTER</text>
+                <text x="472" y="96" fill="rgba(240,80,80,0.65)" font-size="9" font-family="sans-serif" text-anchor="middle">single-planet</text>
+                <text x="472" y="109" fill="rgba(240,80,80,0.65)" font-size="9" font-family="sans-serif" text-anchor="middle">civilisations die</text>
+                <text x="472" y="44" fill="rgba(240,80,80,0.45)" font-size="22" font-family="monospace" text-anchor="middle">?</text>
+
+                <!-- Extinction arrow from civilisation -->
+                <path d="M393,78 Q412,60 414,68" stroke="#f05050" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+
+                <!-- Escape arrow -->
+                <line x1="532" y1="95" x2="572" y2="95" stroke="#14c8a8" stroke-width="2" marker-end="url(#arr-teal)"/>
+                <text x="552" y="86" fill="rgba(20,200,168,0.6)" font-size="8" font-family="monospace" text-anchor="middle">escape</text>
+
+                <!-- Multi-planet -->
+                <circle cx="612" cy="95" r="32" fill="rgba(20,200,168,0.12)" stroke="#14c8a8" stroke-width="2"/>
+                <text x="612" y="88" fill="#14c8a8" font-size="8" font-family="monospace" text-anchor="middle">MULTI-</text>
+                <text x="612" y="98" fill="#14c8a8" font-size="8" font-family="monospace" text-anchor="middle">PLANET</text>
+                <text x="612" y="108" fill="#14c8a8" font-size="8" font-family="monospace" text-anchor="middle">SPECIES</text>
+                <text x="612" y="140" fill="rgba(20,200,168,0.7)" font-size="9" font-family="monospace" text-anchor="middle">the objective</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 04 · FORCES DRIVING CHANGE -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">04</span>
+            <h2 class="sec-title">The Forces Driving Change</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <div class="forces-grid">
+            <div class="force-card">
+                <span class="force-icon">🔁</span>
+                <h3>Reusable Rockets</h3>
+                <p>Landing and relaunching the same vehicle within hours cuts cost-per-pound to orbit by 100×, converting spaceflight from a bespoke state programme into an industrial supply chain capable of sustaining mass migration.</p>
+            </div>
+            <div class="force-card">
+                <span class="force-icon">💰</span>
+                <h3>Private Capital</h3>
+                <p>Commercial investment replaces the brittle, politically dependent NASA-funding model — an engine that can survive ideological cycles, budget cuts, and changing administrations.</p>
+            </div>
+            <div class="force-card">
+                <span class="force-icon">⏳</span>
+                <h3>Earth's Finite Habitability</h3>
+                <p>The Sun's gradual brightening makes Earth's biosphere a countdown, not a constant — and stochastic black-swan risk (asteroid, supervolcano, engineered pandemic) makes even the near-term window probabilistically uncertain.</p>
+            </div>
+            <div class="force-card">
+                <span class="force-icon">📦</span>
+                <h3>Earth–Mars Economic Loop</h3>
+                <p>Once a functioning Martian colony exists, the commercial demands of resupply and expansion generate continuous pressure to improve deep-space technology across every dimension, compounding capability over decades.</p>
+            </div>
+            <div class="force-card">
+                <span class="force-icon">🧭</span>
+                <h3>The Migratory Imperative</h3>
+                <p>Human history is an unbroken record of migration into hostile environments — from tundra to open ocean — driven by survival pressure; interplanetary migration is the same pattern operating at civilisational scale.</p>
+            </div>
+        </div>
+
+        <!-- Mars Colony Scale Diagram -->
+        <div class="diagram-wrap">
+            <p class="diagram-label">Figure 3 — The Scale Problem · What 1 Million People on Mars Actually Requires</p>
+            <svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background blocks representing launches -->
+                <!-- Human trips: 10,000 -->
+                <rect x="30"  y="30" width="240" height="50" rx="6" fill="rgba(240,160,32,0.1)" stroke="rgba(240,160,32,0.3)" stroke-width="1.5"/>
+                <text x="150" y="51" fill="#f0a020" font-size="11" font-family="monospace" text-anchor="middle" font-weight="700">10,000 CREW LAUNCHES</text>
+                <text x="150" y="66" fill="rgba(240,160,32,0.65)" font-size="10" font-family="sans-serif" text-anchor="middle">100 people per trip × 10,000 = 1M people</text>
+
+                <!-- Plus -->
+                <text x="290" y="59" fill="#5e6e8a" font-size="22" font-family="monospace" text-anchor="middle">+</text>
+
+                <!-- Cargo trips: 90,000 -->
+                <rect x="320" y="30" width="240" height="50" rx="6" fill="rgba(160,112,248,0.1)" stroke="rgba(160,112,248,0.3)" stroke-width="1.5"/>
+                <text x="440" y="51" fill="#a070f8" font-size="11" font-family="monospace" text-anchor="middle" font-weight="700">90,000 CARGO LAUNCHES</text>
+                <text x="440" y="66" fill="rgba(160,112,248,0.65)" font-size="10" font-family="sans-serif" text-anchor="middle">~10 cargo trips per human trip</text>
+
+                <!-- Equals -->
+                <text x="578" y="59" fill="#5e6e8a" font-size="22" font-family="monospace" text-anchor="middle">=</text>
+
+                <!-- Total -->
+                <rect x="600" y="22" width="88" height="66" rx="6" fill="rgba(20,200,168,0.12)" stroke="rgba(20,200,168,0.4)" stroke-width="2"/>
+                <text x="644" y="47" fill="#14c8a8" font-size="11" font-family="monospace" text-anchor="middle" font-weight="700">100K</text>
+                <text x="644" y="61" fill="#14c8a8" font-size="9" font-family="monospace" text-anchor="middle">TOTAL</text>
+                <text x="644" y="73" fill="rgba(20,200,168,0.6)" font-size="9" font-family="monospace" text-anchor="middle">FLIGHTS</text>
+
+                <!-- Note -->
+                <text x="350" y="115" fill="#5e6e8a" font-size="10" font-family="sans-serif" text-anchor="middle">Each flight requires a giant reusable spacecraft · all achievable within ~100 years if launch costs drop 100×</text>
+                <text x="350" y="130" fill="rgba(240,160,32,0.4)" font-size="9" font-family="monospace" text-anchor="middle">— reusability is not optional; it is the entire premise —</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 05 · ASSUMPTIONS -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">05</span>
+            <h2 class="sec-title">The Assumptions</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <p style="font-size:0.92rem; color:var(--muted); margin-bottom:1.5rem; font-style:italic;">Every big idea rests on hidden premises. For this argument to hold, all three of the following must be true simultaneously.</p>
+        <div class="assumption-grid">
+            <div class="assumption-card">
+                <span class="a-icon">🚀</span>
+                <h3>Technology Will Scale Fast Enough</h3>
+                <p>Propulsion, life support, in-situ manufacturing, and radiation shielding must all advance to mission-viable levels within ~100 years — before a civilisation-ending event closes the window. No individual technology is unachievable; the assumption is the <em>pace</em>.</p>
+            </div>
+            <div class="assumption-card">
+                <span class="a-icon">🧑‍🚀</span>
+                <h3>Enough Humans Will Choose to Go Permanently</h3>
+                <p>At $500K per ticket, on a near-irreversible one-way trip to a lethal desert world, enough paying settlers must volunteer — not for tourism, but for permanent exile — to reach the critical mass required for genetic and industrial self-sufficiency.</p>
+            </div>
+            <div class="assumption-card">
+                <span class="a-icon">🏛️</span>
+                <h3>The Colony Will Hold Together</h3>
+                <p>A million-person society, sealed underground, resource-constrained, 7 months from reinforcement, must maintain functional governance and social cohesion across generations — a track record Earth's own colonial history, under paradise conditions by comparison, consistently failed to achieve.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06 · RISKS OR FAILURE MODES -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">06</span>
+            <h2 class="sec-title">The Risks or Failure Modes</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <div class="risk-grid">
+            <div class="risk-card">
+                <span class="risk-icon">☠️</span>
+                <h3>Physical Hostility of Mars</h3>
+                <p>Unprotected surface exposure kills in 30 seconds. Cosmic radiation, planet-wide dust storms, and −60°C average temperatures mean every system must work, every day, with no margin — in a world 7 months from the nearest repair shop.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-icon">📦</span>
+                <h3>Supply Chain Fragility</h3>
+                <p>Resupply launches are only possible every 26 months when Earth and Mars align. Any equipment failure, crop collapse, or manufacturing breakdown in that window has no external rescue. The colony must be self-sufficient faster than it realistically can be.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-icon">⚔️</span>
+                <h3>Social &amp; Governance Collapse</h3>
+                <p>Roanoke vanished. Jamestown nearly collapsed into cannibalism. Both had breathable air, open skies, and Earth nearby. A sealed underground colony under extreme scarcity and no external authority is a far more volatile social experiment — acknowledged but not solved.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-icon">🌀</span>
+                <h3>The Forward Filter (Unaddressed)</h3>
+                <p>The Fermi Paradox's "great filter" may lie <em>ahead</em> of humanity, not behind it. Multi-planetary expansion could trigger — rather than prevent — the same civilisational failure mode that silenced every predecessor species. This risk is raised but never answered.</p>
+            </div>
+        </div>
+
+        <!-- Mars Conditions Infographic -->
+        <div class="diagram-wrap">
+            <p class="diagram-label">Figure 5 — Why Mars Wants to Kill You · Surface Conditions vs Earth</p>
+            <div class="mars-conditions">
+                <div class="mars-stat">
+                    <span class="m-label">Avg Temperature</span>
+                    <span class="m-value">−60°C</span>
+                    <span class="m-compare">Earth: +15°C</span>
+                </div>
+                <div class="mars-stat">
+                    <span class="m-label">Min Temperature</span>
+                    <span class="m-value">−125°C</span>
+                    <span class="m-compare">Antarctica: −89°C</span>
+                </div>
+                <div class="mars-stat">
+                    <span class="m-label">Atmosphere Pressure</span>
+                    <span class="m-value">0.6%</span>
+                    <span class="m-compare">of Earth's surface</span>
+                </div>
+                <div class="mars-stat">
+                    <span class="m-label">Oxygen Level</span>
+                    <span class="m-value">0.13%</span>
+                    <span class="m-compare">Earth: 21%</span>
+                </div>
+                <div class="mars-stat">
+                    <span class="m-label">Radiation Dose</span>
+                    <span class="m-value">40×</span>
+                    <span class="m-compare">Earth surface levels</span>
+                </div>
+                <div class="mars-stat">
+                    <span class="m-label">Dust Storms</span>
+                    <span class="m-value">Global</span>
+                    <span class="m-compare">months-long, planet-wide</span>
+                </div>
+                <div class="mars-stat">
+                    <span class="m-label">Unprotected Survival</span>
+                    <span class="m-value">&lt;30s</span>
+                    <span class="m-compare">blood boils, skin peels</span>
+                </div>
+                <div class="mars-stat">
+                    <span class="m-label">Resupply Window</span>
+                    <span class="m-value">26 mo</span>
+                    <span class="m-compare">every launch alignment</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 07 · THE HORIZON -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">07</span>
+            <h2 class="sec-title">The Horizon</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <div class="card">
+            <p>The argument operates on two simultaneous timescales: a near-term engineering horizon of 25–100 years for a functional Martian colony, and a civilisational-scale backdrop of 500 million to one billion years framing Earth's inevitable uninhabitability. The long-term case is nearly irrefutable by physics alone; the near-term case rests entirely on execution assumptions — rocket reusability, cost curves, human settlement viability — that remain unverified at scale.</p>
+        </div>
+
+        <!-- Dual Timeline -->
+        <div class="diagram-wrap">
+            <p class="diagram-label">Figure 4 — Dual Timescale · The Near-Term Bet vs. The Long-Term Certainty</p>
+            <svg viewBox="0 0 700 155" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="tlGrad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%"   stop-color="#14c8a8"/>
+                        <stop offset="18%"  stop-color="#f0a020"/>
+                        <stop offset="45%"  stop-color="rgba(240,160,32,0.5)"/>
+                        <stop offset="100%" stop-color="rgba(240,80,80,0.3)"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Track -->
+                <rect x="38" y="69" width="624" height="6" rx="3" fill="url(#tlGrad)"/>
+
+                <!-- NOW -->
+                <circle cx="38" cy="72" r="7" fill="#14c8a8"/>
+                <text x="38" y="55" fill="#14c8a8" font-size="10" font-family="monospace" text-anchor="middle" font-weight="700">NOW</text>
+                <text x="38" y="44" fill="rgba(20,200,168,0.6)" font-size="9" font-family="monospace" text-anchor="middle">2024</text>
+
+                <!-- First missions -->
+                <circle cx="130" cy="72" r="5" fill="#f0a020"/>
+                <line x1="130" y1="78" x2="130" y2="100" stroke="rgba(240,160,32,0.4)" stroke-width="1"/>
+                <text x="130" y="110" fill="rgba(240,160,32,0.8)" font-size="9" font-family="monospace" text-anchor="middle">First</text>
+                <text x="130" y="121" fill="rgba(240,160,32,0.8)" font-size="9" font-family="monospace" text-anchor="middle">Missions</text>
+                <text x="130" y="133" fill="rgba(240,160,32,0.5)" font-size="8" font-family="monospace" text-anchor="middle">~2035</text>
+
+                <!-- Colony online -->
+                <circle cx="220" cy="72" r="5" fill="#f0a020"/>
+                <line x1="220" y1="56" x2="220" y2="67" stroke="rgba(240,160,32,0.4)" stroke-width="1"/>
+                <text x="220" y="47" fill="rgba(240,160,32,0.8)" font-size="9" font-family="monospace" text-anchor="middle">Colony</text>
+                <text x="220" y="36" fill="rgba(240,160,32,0.8)" font-size="9" font-family="monospace" text-anchor="middle">Online</text>
+                <text x="220" y="26" fill="rgba(240,160,32,0.5)" font-size="8" font-family="monospace" text-anchor="middle">~2040</text>
+
+                <!-- 1M -->
+                <circle cx="360" cy="72" r="7" fill="#f0a020"/>
+                <line x1="360" y1="79" x2="360" y2="100" stroke="rgba(240,160,32,0.4)" stroke-width="1"/>
+                <text x="360" y="111" fill="rgba(240,160,32,0.95)" font-size="10" font-family="monospace" text-anchor="middle" font-weight="700">1M on Mars</text>
+                <text x="360" y="124" fill="rgba(240,160,32,0.5)" font-size="8" font-family="monospace" text-anchor="middle">~2100 · engineering horizon</text>
+
+                <!-- Solar system -->
+                <circle cx="500" cy="72" r="4" fill="rgba(240,160,32,0.4)"/>
+                <line x1="500" y1="56" x2="500" y2="67" stroke="rgba(240,160,32,0.25)" stroke-width="1"/>
+                <text x="500" y="47" fill="rgba(240,160,32,0.45)" font-size="9" font-family="monospace" text-anchor="middle">Solar System</text>
+                <text x="500" y="36" fill="rgba(240,160,32,0.35)" font-size="8" font-family="monospace" text-anchor="middle">colonised</text>
+
+                <!-- Earth fails -->
+                <circle cx="655" cy="72" r="7" fill="rgba(240,80,80,0.7)"/>
+                <line x1="655" y1="79" x2="655" y2="100" stroke="rgba(240,80,80,0.35)" stroke-width="1"/>
+                <text x="655" y="111" fill="rgba(240,80,80,0.7)" font-size="9" font-family="monospace" text-anchor="middle">Earth</text>
+                <text x="655" y="122" fill="rgba(240,80,80,0.6)" font-size="9" font-family="monospace" text-anchor="middle">biosphere</text>
+                <text x="655" y="133" fill="rgba(240,80,80,0.5)" font-size="9" font-family="monospace" text-anchor="middle">collapses</text>
+                <text x="655" y="144" fill="rgba(240,80,80,0.35)" font-size="8" font-family="monospace" text-anchor="middle">500M yrs</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 08 · THE TAKEAWAY -->
+    <section class="block">
+        <div class="section-head">
+            <span class="sec-num">08</span>
+            <h2 class="sec-title">The Takeaway</h2>
+            <div class="sec-rule"></div>
+        </div>
+        <div class="card-teal">
+            <p>The survival of consciousness is not a philosophical aspiration — it is an engineering problem with a finite solution window and a cost-per-pound equation that can be solved. The most consequential civilisational variable of the next century is whether humanity crosses the threshold from single-planet to multi-planet species before a stochastic event or structural failure closes the option permanently.</p>
+        </div>
+    </section>
+
+</main>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+    <p class="author-line">Written by <span>Gourang Sharma</span></p>
+</footer>
+
+
+</body>
+</html>

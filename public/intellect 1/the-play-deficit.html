@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<!-- REWRITTEN v2 — deeper content -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Play Deficit</title>
+  <style>
+    :root {
+      --navy:   #0d1b2a;
+      --navy2:  #1e3a5f;
+      --gold:   #e8a020;
+      --amber:  #f4c54e;
+      --teal:   #2ec4b6;
+      --coral:  #e84545;
+      --violet: #7c6fcd;
+      --green:  #27ae60;
+      --cream:  #faf8f4;
+      --card:   #ffffff;
+      --border: #e2d9cc;
+      --text:   #1a1a2a;
+      --muted:  #6b7280;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(140deg, var(--navy) 0%, #1b3359 55%, #22486e 100%);
+      color: #fff;
+      padding: 90px 32px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 70%, rgba(232,160,32,.09) 0%, transparent 50%),
+        radial-gradient(circle at 80% 15%, rgba(46,196,182,.07) 0%, transparent 45%);
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(232,160,32,.15);
+      border: 1px solid rgba(232,160,32,.5);
+      color: var(--amber);
+      font-family: Arial, sans-serif;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 6px 20px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -.025em;
+      line-height: 1.12;
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.6);
+      font-style: italic;
+      max-width: 540px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+
+    .section {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    /* Section header */
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .sec-num {
+      width: 30px; height: 30px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: Arial, sans-serif;
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .sec-title {
+      font-family: Arial, sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .section h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .section p { font-size: 1.02rem; color: #2d3748; margin-bottom: 12px; }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ─── CORE INSIGHT ─── */
+    .core-card {
+      background: linear-gradient(140deg, var(--navy), #1e3a5f);
+      border-radius: 18px;
+      padding: 44px 44px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .core-card::before {
+      content: '\201C';
+      position: absolute; top: -18px; left: 28px;
+      font-size: 9rem;
+      color: rgba(232,160,32,.12);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .core-card p {
+      font-size: 1.16rem;
+      line-height: 1.82;
+      color: rgba(255,255,255,.9);
+      position: relative;
+      margin-bottom: 0;
+    }
+    .core-card .hi { color: var(--amber); font-weight: 600; }
+
+    /* ─── STAT ROW ─── */
+    .stat-row {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      margin: 28px 0 6px;
+    }
+    .stat-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      flex: 1; min-width: 150px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--coral);
+      font-family: Arial, sans-serif;
+      line-height: 1.1;
+    }
+    .stat-lbl {
+      font-size: .8rem;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    /* ─── FIGURE WRAP ─── */
+    .fig {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 32px 24px;
+      margin: 32px 0;
+    }
+    .fig-title {
+      font-family: Arial, sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .fig-cap {
+      font-size: .86rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    /* ─── MECHANISM LIST ─── */
+    .mech-list {
+      counter-reset: mech;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .mech-list li {
+      counter-increment: mech;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid #e5ddd2;
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 15px 20px;
+      font-size: .98rem;
+      color: #2d3748;
+      line-height: 1.65;
+    }
+    .mech-list li::before {
+      content: counter(mech);
+      min-width: 26px; height: 26px;
+      background: var(--navy);
+      color: #fff;
+      font-size: .74rem;
+      font-weight: 700;
+      font-family: Arial, sans-serif;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ─── INFO BOXES ─── */
+    .info-box {
+      border-radius: 12px;
+      padding: 28px 32px;
+    }
+    .info-box p { font-size: .98rem; margin-bottom: 12px; }
+    .info-box p:last-child { margin-bottom: 0; }
+    .box-blue   { background: #f0f7ff; border: 1px solid #bdd6f5; }
+    .box-blue p { color: #1e2d4a; }
+    .box-violet { background: #f5f3ff; border: 1px solid #c4b8f0; }
+    .box-violet p { color: #2a2040; }
+    .box-amber  { background: #fff8ee; border: 1px solid #f0d498; }
+    .box-amber p { color: #3a2800; }
+
+    /* ─── MANIFESTATION GRID ─── */
+    .manif-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 6px;
+    }
+    .manif-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .manif-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 1px; }
+    .manif-item p { font-size: .93rem; color: #3d4a5a; line-height: 1.58; margin: 0; }
+
+    /* ─── TAKEAWAY ─── */
+    .takeaway-card {
+      background: linear-gradient(140deg, #0f2310, #1c4228);
+      border-radius: 18px;
+      padding: 44px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .takeaway-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: rgba(46,196,182,.06);
+      border-radius: 50%;
+    }
+    .takeaway-card p {
+      font-size: 1.14rem;
+      color: rgba(255,255,255,.88);
+      line-height: 1.84;
+      position: relative;
+      margin: 0;
+    }
+    .takeaway-card .hi { color: #6effa4; font-weight: 600; }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      padding: 40px 24px;
+      font-family: Arial, sans-serif;
+      font-size: .88rem;
+      letter-spacing: .03em;
+    }
+    .footer .author {
+      color: var(--amber);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .06em;
+      margin-top: 6px;
+    }
+
+    /* ─── GOLDEN RULE CALLOUT ─── */
+    .golden-rule {
+      background: linear-gradient(135deg, #1a1040, #2a1a5e);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin: 28px 0;
+      border-left: 5px solid var(--violet);
+    }
+    .golden-rule .label {
+      font-family: Arial, sans-serif;
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(200,180,255,.55);
+      margin-bottom: 10px;
+    }
+    .golden-rule .quote {
+      font-size: 1.12rem;
+      color: rgba(255,255,255,.92);
+      font-style: italic;
+      line-height: 1.72;
+    }
+    .golden-rule .quote em { color: #b8a8ff; font-style: normal; font-weight: 600; }
+    .golden-rule .sub {
+      margin-top: 12px;
+      font-size: .9rem;
+      color: rgba(200,180,255,.65);
+      line-height: 1.6;
+    }
+
+    /* ─── COMPARE TABLE ─── */
+    .compare-wrap { overflow-x: auto; margin: 24px 0; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+    .compare-table th {
+      padding: 12px 16px;
+      font-family: Arial, sans-serif;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    .compare-table th:nth-child(1) { background: #1e3a5f; color: rgba(255,255,255,.5); width: 26%; }
+    .compare-table th:nth-child(2) { background: #0d5c3a; color: #6effa4; }
+    .compare-table th:nth-child(3) { background: #5c1a1a; color: #ffb3b3; }
+    .compare-table td {
+      padding: 11px 16px;
+      vertical-align: top;
+      line-height: 1.55;
+      border-bottom: 1px solid #eee;
+      color: #2d3748;
+    }
+    .compare-table td:nth-child(1) { background: #f7f4f0; font-weight: 600; font-size: .86rem; color: #555; font-family: Arial, sans-serif; }
+    .compare-table td:nth-child(2) { background: #f0fff8; color: #1a3a28; }
+    .compare-table td:nth-child(3) { background: #fff5f5; color: #3a1a1a; }
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    /* ─── QUOTE STRIP ─── */
+    .quote-strip {
+      border-left: 4px solid var(--gold);
+      padding: 14px 22px;
+      margin: 22px 0;
+      background: #fffbf0;
+      border-radius: 0 8px 8px 0;
+    }
+    .quote-strip p { font-size: .96rem; color: #3a2800; font-style: italic; margin: 0; line-height: 1.65; }
+    .quote-strip .attr { font-size: .8rem; color: var(--muted); margin-top: 6px; font-style: normal; font-family: Arial, sans-serif; }
+
+    /* ─── COVER PAGE ─── */
+    .cover {
+      min-height: 100vh;
+      background: #070f1a;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .cover-dots {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(46,196,182,.05) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none; z-index: 0;
+    }
+    .cover-glow-a {
+      position: absolute; top: -15%; left: -8%;
+      width: 55%; height: 65%;
+      background: radial-gradient(ellipse, rgba(232,160,32,.08) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
+    }
+    .cover-glow-b {
+      position: absolute; bottom: -15%; right: -5%;
+      width: 50%; height: 55%;
+      background: radial-gradient(ellipse, rgba(46,196,182,.07) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    .cover-inner {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 430px;
+      gap: 48px;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 80px 52px 52px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      animation: c-fade .95s ease both;
+    }
+    @keyframes c-fade {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .cover-eyebrow {
+      font-family: Arial, sans-serif;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--amber);
+      opacity: .8;
+      margin-bottom: 32px;
+    }
+    .cover-title-block { margin-bottom: 30px; line-height: 1; }
+    .ct-the {
+      font-family: Georgia, serif;
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      font-weight: 400;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .1em;
+      margin-bottom: 4px;
+    }
+    .ct-play {
+      font-family: Georgia, serif;
+      font-size: clamp(4.8rem, 10vw, 8.5rem);
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -.035em;
+      line-height: .9;
+      margin-bottom: 2px;
+    }
+    .ct-deficit {
+      font-family: Georgia, serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 2.5px #e84545;
+      letter-spacing: -.01em;
+      line-height: 1.05;
+    }
+    .cover-rule {
+      width: 56px; height: 3px;
+      background: linear-gradient(to right, var(--gold), var(--teal));
+      border-radius: 2px;
+      margin-bottom: 26px;
+    }
+    .cover-sub {
+      font-family: Georgia, serif;
+      font-size: clamp(.92rem, 1.6vw, 1.08rem);
+      color: rgba(255,255,255,.46);
+      line-height: 1.84;
+      max-width: 460px;
+      margin-bottom: 38px;
+    }
+    .cover-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding-top: 20px;
+    }
+    .cover-meta-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-family: Arial, sans-serif;
+    }
+    .cmr-label {
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.2);
+      min-width: 84px;
+      flex-shrink: 0;
+    }
+    .cmr-value { font-size: .78rem; color: rgba(255,255,255,.48); }
+    .cover-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .cover-illus-label {
+      font-family: Arial, sans-serif;
+      font-size: .63rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.2);
+      text-align: center;
+    }
+    .cover-stats-bar {
+      background: rgba(0,0,0,.35);
+      border-top: 1px solid rgba(232,160,32,.14);
+      padding: 14px 52px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      font-family: Arial, sans-serif;
+      font-size: .7rem;
+      color: rgba(255,255,255,.28);
+      letter-spacing: .04em;
+    }
+    .csb-sep { color: var(--gold); opacity: .4; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 620px) {
+      .manif-grid { grid-template-columns: 1fr; }
+      .hero        { padding: 64px 20px 52px; }
+      .core-card   { padding: 28px 24px; }
+      .takeaway-card { padding: 32px 22px; }
+      .fig         { padding: 22px 16px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     COVER PAGE
+════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-dots"></div>
+  <div class="cover-glow-a"></div>
+  <div class="cover-glow-b"></div>
+
+  <div class="cover-inner">
+
+    <!-- LEFT — Typography -->
+    <div class="cover-left">
+      <div class="cover-eyebrow">Psychology &amp; Human Development</div>
+
+      <div class="cover-title-block">
+        <div class="ct-the">The</div>
+        <div class="ct-play">Play</div>
+        <div class="ct-deficit">Deficit</div>
+      </div>
+
+      <div class="cover-rule"></div>
+
+      <p class="cover-sub">
+        How the quiet disappearance of free, self-directed play is reshaping
+        childhood — and the adults children become.
+      </p>
+
+      <div class="cover-meta">
+        <div class="cover-meta-row">
+          <span class="cmr-label">Research by</span>
+          <span class="cmr-value">Peter Gray · Evolutionary Psychologist, Boston College</span>
+        </div>
+        <div class="cover-meta-row">
+          <span class="cmr-label">Domain</span>
+          <span class="cmr-value">Child Development · Evolutionary Psychology · Education</span>
+        </div>
+        <div class="cover-meta-row">
+          <span class="cmr-label">Evidence</span>
+          <span class="cmr-value">Six decades of longitudinal data across multiple disciplines</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — SVG Illustration -->
+    <div class="cover-right">
+      <div class="cover-illus-label">The Developmental Difference</div>
+      <svg viewBox="0 0 420 430" xmlns="http://www.w3.org/2000/svg"
+           style="width:100%;max-width:420px;height:auto;display:block;">
+        <defs>
+          <filter id="nglow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="lhalf" cx="30%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="rgba(232,160,32,.07)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Outer boundary -->
+        <circle cx="210" cy="205" r="188" fill="rgba(255,255,255,.012)" stroke="rgba(46,196,182,.08)" stroke-width="1.2"/>
+        <!-- Left-half ambient glow -->
+        <circle cx="210" cy="205" r="188" fill="url(#lhalf)"/>
+
+        <!-- ── CONNECTIONS (left network only) ── -->
+        <g stroke="rgba(232,160,32,.2)" stroke-width="1.3" fill="none">
+          <line x1="75"  y1="125" x2="140" y2="90"/>
+          <line x1="75"  y1="125" x2="65"  y2="185"/>
+          <line x1="140" y1="90"  x2="185" y2="115"/>
+          <line x1="140" y1="90"  x2="130" y2="170"/>
+          <line x1="185" y1="115" x2="130" y2="170"/>
+          <line x1="185" y1="115" x2="185" y2="195"/>
+          <line x1="65"  y1="185" x2="130" y2="170"/>
+          <line x1="65"  y1="185" x2="70"  y2="260"/>
+          <line x1="130" y1="170" x2="185" y2="195"/>
+          <line x1="130" y1="170" x2="70"  y2="260"/>
+          <line x1="130" y1="170" x2="135" y2="245"/>
+          <line x1="185" y1="195" x2="135" y2="245"/>
+          <line x1="185" y1="195" x2="185" y2="275"/>
+          <line x1="70"  y1="260" x2="135" y2="245"/>
+          <line x1="70"  y1="260" x2="80"  y2="325"/>
+          <line x1="135" y1="245" x2="185" y2="275"/>
+          <line x1="135" y1="245" x2="80"  y2="325"/>
+          <line x1="135" y1="245" x2="145" y2="310"/>
+          <line x1="185" y1="275" x2="145" y2="310"/>
+          <line x1="185" y1="275" x2="190" y2="345"/>
+          <line x1="80"  y1="325" x2="145" y2="310"/>
+          <line x1="145" y1="310" x2="190" y2="345"/>
+        </g>
+
+        <!-- ── LEFT NODES — colored, glowing ── -->
+        <g filter="url(#nglow)">
+          <circle cx="75"  cy="125" r="5.5" fill="#2ec4b6"/>
+          <circle cx="140" cy="90"  r="5.5" fill="#e8a020"/>
+          <circle cx="185" cy="115" r="5.5" fill="#e84545"/>
+          <circle cx="65"  cy="185" r="5.5" fill="#7c6fcd"/>
+          <circle cx="130" cy="170" r="7.5" fill="#e8a020"/>
+          <circle cx="185" cy="195" r="5.5" fill="#2ec4b6"/>
+          <circle cx="70"  cy="260" r="5.5" fill="#e84545"/>
+          <circle cx="135" cy="245" r="7.5" fill="#27ae60"/>
+          <circle cx="185" cy="275" r="5.5" fill="#2ec4b6"/>
+          <circle cx="80"  cy="325" r="5.5" fill="#7c6fcd"/>
+          <circle cx="145" cy="310" r="5.5" fill="#e8a020"/>
+          <circle cx="190" cy="345" r="5.5" fill="#e84545"/>
+        </g>
+
+        <!-- Dividing line -->
+        <line x1="210" y1="17" x2="210" y2="393" stroke="rgba(255,255,255,.06)" stroke-width="1.5" stroke-dasharray="5,5"/>
+
+        <!-- ── RIGHT NODES — isolated, grey ── -->
+        <g fill="#253040">
+          <circle cx="345" cy="125" r="4"/>
+          <circle cx="280" cy="90"  r="4"/>
+          <circle cx="235" cy="115" r="4"/>
+          <circle cx="355" cy="185" r="4"/>
+          <circle cx="290" cy="170" r="4"/>
+          <circle cx="235" cy="195" r="4"/>
+          <circle cx="350" cy="260" r="4"/>
+          <circle cx="285" cy="245" r="4"/>
+          <circle cx="235" cy="275" r="4"/>
+          <circle cx="340" cy="325" r="4"/>
+          <circle cx="275" cy="310" r="4"/>
+          <circle cx="230" cy="345" r="4"/>
+        </g>
+
+        <!-- Half labels -->
+        <text x="108" y="395" text-anchor="middle" font-family="Arial,sans-serif"
+              font-size="9" fill="rgba(232,160,32,.5)" letter-spacing="2.5">WITH FREE PLAY</text>
+        <text x="305" y="395" text-anchor="middle" font-family="Arial,sans-serif"
+              font-size="9" fill="rgba(255,255,255,.18)" letter-spacing="2.5">WITHOUT</text>
+      </svg>
+    </div>
+
+  </div><!-- /cover-inner -->
+
+  <!-- Bottom stats bar -->
+  <div class="cover-stats-bar">
+    <span>5–8× rise in childhood anxiety since the 1950s</span>
+    <span class="csb-sep">·</span>
+    <span>Creativity scores in sustained decline since 1984</span>
+    <span class="csb-sep">·</span>
+    <span>85% of children score lower on creative elaboration than the 1984 average</span>
+    <span class="csb-sep">·</span>
+    <span>Six decades of convergent longitudinal evidence</span>
+  </div>
+
+</div><!-- /cover -->
+
+<div class="container">
+
+  <!-- ══ 01 CORE INSIGHT ══ -->
+  <div class="section">
+    <div class="sec-label">
+      <div class="sec-num">01</div>
+      <span class="sec-title">The Core Insight</span>
+    </div>
+    <div class="core-card">
+      <p>
+        Free, self-directed play is not leisure — it is the <span class="hi">biological mechanism</span>
+        through which human children have, for hundreds of thousands of years, built the emotional,
+        social, and creative capacities that make adult life livable. The systematic removal of that
+        mechanism from modern childhood has produced a measurable psychological crisis: children today
+        are more academically prepared and <em>less humanly capable</em> than at any point in
+        recorded history — more anxious, less empathetic, less creative, and less able to direct
+        their own lives.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ 02 THE HUMAN PROBLEM ══ -->
+  <div class="section">
+    <div class="sec-label">
+      <div class="sec-num">02</div>
+      <span class="sec-title">The Human Problem It Explains</span>
+    </div>
+    <h2>What we kept misreading</h2>
+    <div class="info-box box-amber">
+      <p>
+        We conflated education with instruction — and in doing so, missed where the most
+        important human learning actually happens. School is structurally an <strong>authoritarian
+        environment</strong>: children cannot quit, cannot negotiate the rules, are ranked against
+        each other, and are under constant evaluation. This makes it constitutionally incapable of
+        teaching the skills that only emerge under voluntary, self-directed, social conditions.
+        Children can memorise and comply inside a classroom. They cannot genuinely learn empathy,
+        initiative, or emotional self-regulation there.
+      </p>
+      <p>
+        The parallel rise of anxiety, depression, narcissism, and creativity collapse in young
+        people has been treated as a cluster of separate problems requiring separate explanations.
+        What went unrecognised is that they are <strong>the predictable outputs of a single
+        deprivation</strong> — the removal of an experience that evolution spent hundreds of thousands
+        of years designing children to need.
+      </p>
+      <p>
+        The generation being produced by play-deficient childhoods does not lack intelligence.
+        It lacks the internal architecture — self-regulation, social intuition, emotional resilience,
+        creative fluency — that only forms when children are left alone long enough to figure things
+        out for themselves.
+      </p>
+    </div>
+  </div>
+
+  <!-- FIGURE 1 — Stats -->
+  <div class="fig">
+    <div class="fig-title">Figure 1 — The Measurable Cost of Play Deprivation</div>
+    <div class="stat-row">
+      <div class="stat-pill">
+        <div class="stat-num">5–8×</div>
+        <div class="stat-lbl">Increase in diagnosed anxiety &amp; depression in U.S. children since the 1950s</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num">2×</div>
+        <div class="stat-lbl">Rise in suicide rate for ages 15–24 over the same period</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num">4×</div>
+        <div class="stat-lbl">Increase in suicide rate for children under age 15</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-num">85%</div>
+        <div class="stat-lbl">Of 2008 children scored lower on creative elaboration than the average child in 1984</div>
+      </div>
+    </div>
+    <p class="fig-cap">Data drawn from longitudinal clinical questionnaires and the Torrance Tests of Creative Thinking (TTCT).</p>
+  </div>
+
+  <!-- FIGURE 2 — Trend Chart -->
+  <div class="fig">
+    <div class="fig-title">Figure 2 — Diverging Trajectories, 1950 – 2020</div>
+    <svg viewBox="0 0 780 310" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;height:auto;font-family:Arial,sans-serif;display:block;">
+      <rect width="780" height="310" fill="#f9f9f9" rx="8"/>
+
+      <!-- grid -->
+      <line x1="90" y1="45"  x2="740" y2="45"  stroke="#e4dbd0" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="90" y1="110" x2="740" y2="110" stroke="#e4dbd0" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="90" y1="175" x2="740" y2="175" stroke="#e4dbd0" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="90" y1="240" x2="740" y2="240" stroke="#e4dbd0" stroke-width="1" stroke-dasharray="4,4"/>
+
+      <!-- axes -->
+      <line x1="90" y1="270" x2="740" y2="270" stroke="#bbb" stroke-width="1.5"/>
+      <line x1="90" y1="30"  x2="90"  y2="270" stroke="#bbb" stroke-width="1.5"/>
+
+      <!-- X labels -->
+      <text x="90"  y="288" text-anchor="middle" font-size="11" fill="#888">1950</text>
+      <text x="200" y="288" text-anchor="middle" font-size="11" fill="#888">1965</text>
+      <text x="310" y="288" text-anchor="middle" font-size="11" fill="#888">1980</text>
+      <text x="420" y="288" text-anchor="middle" font-size="11" fill="#888">1995</text>
+      <text x="530" y="288" text-anchor="middle" font-size="11" fill="#888">2010</text>
+      <text x="640" y="288" text-anchor="middle" font-size="11" fill="#888">2020</text>
+
+      <!-- Y labels -->
+      <text x="80" y="48"  text-anchor="end" font-size="10" fill="#999">High</text>
+      <text x="80" y="178" text-anchor="end" font-size="10" fill="#999">Mid</text>
+      <text x="80" y="272" text-anchor="end" font-size="10" fill="#999">Low</text>
+
+      <!-- vertical annotation -->
+      <line x1="310" y1="36" x2="310" y2="270" stroke="#bbb" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="314" y="50" font-size="10" fill="#888">~1960 shift begins</text>
+
+      <!-- Free Play (declining) — teal -->
+      <polyline
+        points="90,60 175,68 260,85 310,108 420,155 530,198 640,232 740,255"
+        fill="none" stroke="#2ec4b6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Mental Health Issues (rising) — coral -->
+      <polyline
+        points="90,252 175,248 260,238 310,220 420,183 530,143 640,108 740,75"
+        fill="none" stroke="#e84545" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Creativity Scores (flat then declining from 1984) — gold dashed -->
+      <polyline
+        points="90,95 175,93 260,91 310,90 380,92 420,105 530,145 640,182 740,212"
+        fill="none" stroke="#e8a020" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7,4"/>
+
+      <!-- Legend -->
+      <rect x="100" y="32" width="14" height="4" fill="#2ec4b6" rx="2"/>
+      <text x="120" y="38" font-size="11" fill="#444">Free Play (children)</text>
+
+      <rect x="270" y="32" width="14" height="4" fill="#e84545" rx="2"/>
+      <text x="290" y="38" font-size="11" fill="#444">Anxiety &amp; Depression Rates</text>
+
+      <rect x="500" y="32" width="14" height="4" fill="#e8a020" rx="2"/>
+      <text x="520" y="38" font-size="11" fill="#444">Creativity Scores (TTCT)</text>
+    </svg>
+    <p class="fig-cap">
+      Schematic of three converging longitudinal trends. Actual data sourced from clinical questionnaires,
+      TTCT normative samples, and demographic records cited in the research.
+    </p>
+  </div>
+
+  <!-- ══ 03 THE MECHANISM ══ -->
+  <div class="section">
+    <div class="sec-label">
+      <div class="sec-num">03</div>
+      <span class="sec-title">The Mechanism — How It Works</span>
+    </div>
+    <h2>The internal logic: what causes what</h2>
+    <p style="font-size:1.02rem;color:#2d3748;line-height:1.78;margin-bottom:22px;">
+      Natural selection built a powerful drive in human children to play at the specific activities
+      their culture values — because for the vast majority of human history, self-directed play was
+      the <em>only</em> route from incompetence to adult mastery. There was no school;
+      there was only watching, exploring, and playing. What follows is the internal logic of
+      how that mechanism actually works.
+    </p>
+    <div style="background:#f0f7ff;border:1px solid #bdd6f5;border-left:5px solid #2ec4b6;border-radius:10px;padding:20px 26px;margin-bottom:22px;">
+      <div style="font-family:Arial,sans-serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#6b7280;margin-bottom:8px;">The Core Premise</div>
+      <p style="font-size:1.03rem;color:#1e2d4a;line-height:1.76;margin:0;">
+        The single most important property of free play is that it is <strong>voluntary</strong>.
+        Any player can quit at any moment. This is not incidental — it is the entire mechanism.
+        Because the game ends when someone walks away, every child who wants to keep playing must
+        genuinely negotiate, adapt, and accommodate others' needs. No authority enforces this.
+        The social learning is real precisely because the stakes are real.
+      </p>
+    </div>
+    <ol class="mech-list">
+      <li>Hunter-gatherer children, studied across seven cultures on three continents, played freely from roughly age four through their mid-teens with almost no adult direction. This is the evolutionary baseline. Modern childhood — in which nearly every waking hour is structured — is the radical experiment, not the norm.</li>
+      <li>Children in self-directed play deliberately and repeatedly dose themselves with fear — climbing higher, swinging further, play-fighting, racing toward edges — and then work through that fear on their own terms. This self-chosen exposure builds genuine emotional resilience. Forced exposure (a gym teacher requiring every child to climb the rope) produces panic, shame, and reduced tolerance, not increased confidence.</li>
+      <li>Social play requires children to manage anger in real time without external arbitration. A tantrum works with parents — it often produces exactly what the child wants. A tantrum in a game of pickup baseball ends the game immediately and leaves the child alone. This is the honest, unmanipulable feedback loop that turns impulse into self-control.</li>
+      <li>The golden rule of social play is not <em>"do unto others as you would have done to you"</em> — it is something far harder: <em>"do unto others as they would have you do unto them."</em> This demands that children enter other people's minds, read their emotional states, and adjust behaviour accordingly. It is the direct practice of empathy, and it cannot be assigned as homework.</li>
+      <li>Age-mixed play compounds all of these effects. Older children must simplify, lead gently, and read the limits of younger ones. Younger children must advocate for themselves against more capable peers. Neither of these experiences occurs in an age-sorted classroom — where everyone is, by design, at the same level.</li>
+      <li>Creativity is a natural byproduct of the playful mental state. People are most creative when approaching a problem for pure enjoyment, without fear of evaluation. The psychologist Teresa Amabile demonstrated experimentally that introducing reward or competition into creative tasks reliably suppresses creative output. A school, where children's every activity is graded, is structurally hostile to creativity.</li>
+      <li>When adults structure or supervise play — assigning roles, enforcing rules, keeping score, or selecting teams — they remove the voluntary exit condition. The activity transforms from play into performance. The social learning evaporates. What remains is compliance practice.</li>
+      <li>Over a full childhood of adult-directed time, children habituate to being managed, evaluated, and rescued. They carry this as their default relationship to difficulty into adult life: waiting for instruction, fearing judgment, unable to self-regulate, and subtly convinced that some authority is supposed to be solving their problems for them.</li>
+    </ol>
+  </div>
+
+  <!-- FIGURE 3 — Developmental Web -->
+  <div class="fig">
+    <div class="fig-title">Figure 3 — What Free Play Builds (The Developmental Web)</div>
+    <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;height:auto;font-family:Arial,sans-serif;display:block;">
+      <rect width="720" height="400" fill="#f9f9f9" rx="10"/>
+
+      <!-- spoke lines -->
+      <line x1="360" y1="148" x2="360" y2="76"  stroke="#2ec4b6" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <line x1="360" y1="252" x2="360" y2="324" stroke="#e84545" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <line x1="308" y1="172" x2="190" y2="118" stroke="#e8a020" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <line x1="412" y1="172" x2="530" y2="118" stroke="#7c6fcd" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <line x1="308" y1="228" x2="190" y2="282" stroke="#2ec4b6" stroke-width="1.8" stroke-dasharray="5,3"/>
+      <line x1="412" y1="228" x2="530" y2="282" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+      <!-- centre -->
+      <circle cx="360" cy="200" r="58" fill="#0d1b2a" stroke="#e8a020" stroke-width="2.5"/>
+      <text x="360" y="194" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">FREE</text>
+      <text x="360" y="212" text-anchor="middle" font-size="14" font-weight="700" fill="#e8a020">PLAY</text>
+
+      <!-- top: Creativity -->
+      <ellipse cx="360" cy="58" rx="82" ry="26" fill="#fff" stroke="#2ec4b6" stroke-width="2"/>
+      <text x="360" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#0a2a2a">Creativity</text>
+      <text x="360" y="69" text-anchor="middle" font-size="10" fill="#555">&amp; Imagination</text>
+
+      <!-- bottom: Autonomy -->
+      <ellipse cx="360" cy="342" rx="82" ry="26" fill="#fff" stroke="#e84545" stroke-width="2"/>
+      <text x="360" y="338" text-anchor="middle" font-size="12" font-weight="600" fill="#3a1a1a">Autonomy</text>
+      <text x="360" y="353" text-anchor="middle" font-size="10" fill="#555">&amp; Self-reliance</text>
+
+      <!-- top-left: Social Skills -->
+      <ellipse cx="148" cy="105" rx="82" ry="27" fill="#fff" stroke="#e8a020" stroke-width="2"/>
+      <text x="148" y="101" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2800">Social Skills</text>
+      <text x="148" y="116" text-anchor="middle" font-size="10" fill="#555">&amp; Empathy</text>
+
+      <!-- top-right: Initiative -->
+      <ellipse cx="572" cy="105" rx="82" ry="27" fill="#fff" stroke="#7c6fcd" stroke-width="2"/>
+      <text x="572" y="101" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1040">Initiative</text>
+      <text x="572" y="116" text-anchor="middle" font-size="10" fill="#555">&amp; Problem-solving</text>
+
+      <!-- bottom-left: Emotional Regulation -->
+      <ellipse cx="148" cy="295" rx="88" ry="27" fill="#fff" stroke="#2ec4b6" stroke-width="2"/>
+      <text x="148" y="291" text-anchor="middle" font-size="12" font-weight="600" fill="#052a2a">Emotional</text>
+      <text x="148" y="306" text-anchor="middle" font-size="10" fill="#555">Regulation</text>
+
+      <!-- bottom-right: Resilience -->
+      <ellipse cx="572" cy="295" rx="82" ry="27" fill="#fff" stroke="#27ae60" stroke-width="2"/>
+      <text x="572" y="291" text-anchor="middle" font-size="12" font-weight="600" fill="#0a2a14">Resilience</text>
+      <text x="572" y="306" text-anchor="middle" font-size="10" fill="#555">&amp; Risk tolerance</text>
+    </svg>
+    <p class="fig-cap">
+      Free play acts as a single developmental engine generating six interlocking adult competencies —
+      practised not through instruction, but through the natural pressure of voluntary, social interaction.
+    </p>
+  </div>
+
+  <!-- GOLDEN RULE CALLOUT -->
+  <div class="golden-rule">
+    <div class="label">The Golden Rule of Social Play</div>
+    <div class="quote">
+      The familiar golden rule says: <em>do unto others as you would have them do unto you.</em><br/>
+      The rule that social play actually teaches is harder: <em>do unto others as <strong>they</strong> would have you do unto them.</em>
+    </div>
+    <div class="sub">
+      This requires entering another person's mind entirely — not projecting your own preferences, but accurately reading theirs. It demands perspective-taking in the most literal sense. Children practise this thousands of times in free play. They practise it almost never in a classroom. The difference between people who are genuinely good with others and those who are not often traces directly to how much time they had to do this as children.
+    </div>
+  </div>
+
+  <!-- PLAY VS SCHOOL TABLE -->
+  <div class="fig">
+    <div class="fig-title">Figure 4 — Two Learning Environments Compared</div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Free Play</th>
+            <th>Formal School</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Participation</td>
+            <td>Voluntary — anyone can quit at any time</td>
+            <td>Compulsory — exit is not an option</td>
+          </tr>
+          <tr>
+            <td>Authority</td>
+            <td>Democratic — rules are negotiated by players</td>
+            <td>Authoritarian — rules are set by adults</td>
+          </tr>
+          <tr>
+            <td>Evaluation</td>
+            <td>None — the game's continuation is the only feedback</td>
+            <td>Constant — grades, rankings, and judgment</td>
+          </tr>
+          <tr>
+            <td>Social learning</td>
+            <td>Genuine negotiation, compromise, empathy under real stakes</td>
+            <td>Cooperation as assigned task, competition as norm</td>
+          </tr>
+          <tr>
+            <td>Creativity</td>
+            <td>Flourishes — low stakes, no evaluation, intrinsic motivation</td>
+            <td>Suppressed — external reward and judgment reduce creative risk</td>
+          </tr>
+          <tr>
+            <td>Emotional development</td>
+            <td>Fear and anger managed voluntarily, by the child, in real time</td>
+            <td>Managed by adult intervention and institutional rules</td>
+          </tr>
+          <tr>
+            <td>Who holds power?</td>
+            <td>The child — strong, self-directed, responsible</td>
+            <td>The adult — child is passive, dependent, evaluated</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-cap">The structural differences between these two environments are not incidental. They determine which human capacities develop and which atrophy.</p>
+  </div>
+
+  <!-- ══ 04 CONDITIONS ══ -->
+  <div class="section">
+    <div class="sec-label">
+      <div class="sec-num">04</div>
+      <span class="sec-title">The Conditions</span>
+    </div>
+    <h2>When does the pattern emerge most strongly?</h2>
+    <div class="info-box box-blue">
+      <p>
+        The deficit is most acute where three pressures converge simultaneously: schooling expanded to
+        fill nearly all waking hours; parental fear (often well-intentioned) that has made unsupervised
+        outdoor time culturally unacceptable; and the replacement of child-initiated "pickup" games
+        with adult-directed, coached, and formally evaluated activities that look like play but
+        structurally are not.
+      </p>
+      <p>
+        The pattern has a powerful cross-cultural test case. East Asian educational systems — Chinese,
+        Japanese, South Korean — consistently produce the world's highest scores on standardised tests.
+        They have also produced what Chinese educators now call <em>gāofēn dīnéng</em>: "high scores,
+        low ability." Educational leaders in those countries are increasingly judging their own
+        systems to be failures — excellent at test performance, catastrophic at producing graduates
+        with creativity, social competence, or intrinsic motivation. The country that once urged
+        others to emulate its schools now wishes it could emulate theirs.
+      </p>
+      <p>
+        The animal evidence suggests a threshold dynamic: total play deprivation produces profound
+        emotional and social dysfunction. But even partial, chronic deprivation — the kind produced
+        by modern childhood scheduling — produces measurable deficits. You do not need to eliminate
+        play entirely to damage development. You only need to reduce it enough, consistently enough,
+        over enough years.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ 05 REAL WORLD MANIFESTATIONS ══ -->
+  <div class="section">
+    <div class="sec-label">
+      <div class="sec-num">05</div>
+      <span class="sec-title">Real World Manifestations</span>
+    </div>
+    <h2>Where this shows up in everyday life</h2>
+    <div class="manif-grid">
+      <div class="manif-item">
+        <div class="manif-icon">👔</div>
+        <p>Young professionals who are technically capable but freeze when given an ambiguous brief, waiting for someone to tell them exactly what to do — a dependency forged by childhoods without autonomous decision-making.</p>
+      </div>
+      <div class="manif-item">
+        <div class="manif-icon">😰</div>
+        <p>College students presenting at record rates to campus counselling centres with anxiety disorders, many of whom have never learned to sit with uncertainty or self-soothe without external intervention.</p>
+      </div>
+      <div class="manif-item">
+        <div class="manif-icon">🎓</div>
+        <p>High-achieving students from East Asian educational systems — top-ranked on international tests — described by their own educators as lacking curiosity, original thinking, and the ability to reason beyond a predefined answer.</p>
+      </div>
+      <div class="manif-item">
+        <div class="manif-icon">🤝</div>
+        <p>Adults who struggle in close relationships not from lack of intelligence or intention, but from a genuine inability to read others' needs and yield gracefully — social skills built on the playground, never in a classroom.</p>
+      </div>
+      <div class="manif-item">
+        <div class="manif-icon">💡</div>
+        <p>Creative professionals — musicians, programmers, designers — whose greatest breakthroughs trace directly back to childhood hours of obsessive, self-directed tinkering that no school timetable ever made room for.</p>
+      </div>
+      <div class="manif-item">
+        <div class="manif-icon">🏃</div>
+        <p>Children enrolled back-to-back in coached sports, music lessons, and tutoring who report feeling exhausted and joyless, having never experienced the restorative freedom of genuinely unplanned time.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 06 WHAT THE RESEARCH SAYS ══ -->
+  <div class="section">
+    <div class="sec-label">
+      <div class="sec-num">06</div>
+      <span class="sec-title">What the Research Says</span>
+    </div>
+    <h2>The evidence base</h2>
+    <div class="info-box box-violet">
+      <p>
+        The evolutionary foundation was laid by the German philosopher and naturalist <strong>Karl
+        Groos</strong>, whose 1898 work <em>The Play of Animals</em> first argued from a Darwinian
+        perspective that play is natural selection's mechanism for ensuring that young animals
+        practise survival skills before they need them in earnest. His follow-up, <em>The Play
+        of Man</em> (1901), extended this to humans — arguing that children's drive to play
+        at culturally specific activities is the biological engine of cultural transmission.
+        This "practice theory" remains foundational and well-accepted in the field.
+      </p>
+      <p>
+        Educational psychologist <strong>Kyung-Hee Kim</strong> analysed Torrance Test data from
+        normative U.S. samples spanning kindergarten through grade 12. She found a creativity decline
+        beginning sharply after 1984, with the measure of <em>creative elaboration</em> — the ability
+        to take an idea and develop it in a novel, unexpected direction — suffering the steepest
+        drop. By 2008, more than 85% of children scored below the 1984 average on this measure.
+        Crucially, TTCT scores predict real-world adult achievement better than IQ, better than
+        school grades, and better than peer evaluations.
+      </p>
+      <p>
+        <strong>Teresa Amabile</strong> at Harvard Business School demonstrated across numerous
+        controlled experiments that introducing evaluation, reward, or competition into creative
+        tasks measurably reduces creative output — the mechanism being that external judgment
+        activates self-monitoring, which displaces the exploratory, risk-taking thinking that
+        creativity requires. Play-deprived animal studies (rats and monkeys raised without play
+        interaction) consistently produce adults who freeze in novel environments and respond to
+        unfamiliar peers with inappropriate aggression or paralysis — a direct biological
+        parallel to the anxiety and social dysfunction observed in the human data.
+      </p>
+    </div>
+  </div>
+
+  <!-- FIGURE 4 — Evidence Pillars -->
+  <div class="fig">
+    <div class="fig-title">Figure 5 — Three Independent Lines of Evidence</div>
+    <svg viewBox="0 0 720 190" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;height:auto;font-family:Arial,sans-serif;display:block;">
+      <rect width="720" height="190" fill="#f9f9f9" rx="8"/>
+
+      <!-- Pillar 1 -->
+      <rect x="28" y="22" width="196" height="142" rx="10" fill="#fff" stroke="#2ec4b6" stroke-width="1.8"/>
+      <rect x="28" y="22" width="196" height="38"  rx="10" fill="#2ec4b6"/>
+      <rect x="28" y="48" width="196" height="12"  fill="#2ec4b6"/>
+      <text x="126" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Clinical Questionnaires</text>
+      <text x="126" y="82"  text-anchor="middle" font-size="10" fill="#444">Anxiety &amp; depression</text>
+      <text x="126" y="96"  text-anchor="middle" font-size="10" fill="#444">tracked since 1950s</text>
+      <text x="126" y="118" text-anchor="middle" font-size="10" fill="#666" font-style="italic">U.S. normative samples</text>
+      <text x="126" y="134" text-anchor="middle" font-size="10" fill="#666" font-style="italic">5–8× increase detected</text>
+      <text x="126" y="150" text-anchor="middle" font-size="10" fill="#666" font-style="italic">over six decades</text>
+
+      <!-- Pillar 2 -->
+      <rect x="262" y="22" width="196" height="142" rx="10" fill="#fff" stroke="#e8a020" stroke-width="1.8"/>
+      <rect x="262" y="22" width="196" height="38"  rx="10" fill="#e8a020"/>
+      <rect x="262" y="48" width="196" height="12"  fill="#e8a020"/>
+      <text x="360" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Torrance Tests (TTCT)</text>
+      <text x="360" y="82"  text-anchor="middle" font-size="10" fill="#444">Creativity measured</text>
+      <text x="360" y="96"  text-anchor="middle" font-size="10" fill="#444">across K–12 since 1960s</text>
+      <text x="360" y="118" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Clear decline from 1984</text>
+      <text x="360" y="134" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Better predictor than IQ</text>
+      <text x="360" y="150" text-anchor="middle" font-size="10" fill="#666" font-style="italic">or school grades</text>
+
+      <!-- Pillar 3 -->
+      <rect x="496" y="22" width="196" height="142" rx="10" fill="#fff" stroke="#7c6fcd" stroke-width="1.8"/>
+      <rect x="496" y="22" width="196" height="38"  rx="10" fill="#7c6fcd"/>
+      <rect x="496" y="48" width="196" height="12"  fill="#7c6fcd"/>
+      <text x="594" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Animal &amp; Field Studies</text>
+      <text x="594" y="82"  text-anchor="middle" font-size="10" fill="#444">Play deprivation in rats</text>
+      <text x="594" y="96"  text-anchor="middle" font-size="10" fill="#444">&amp; monkeys; 7 cultures</text>
+      <text x="594" y="118" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Emotional dysregulation</text>
+      <text x="594" y="134" text-anchor="middle" font-size="10" fill="#666" font-style="italic">in play-deprived animals</text>
+      <text x="594" y="150" text-anchor="middle" font-size="10" fill="#666" font-style="italic">mirrors human trends</text>
+    </svg>
+    <p class="fig-cap">
+      Three independent research traditions — clinical, psychometric, and cross-cultural — converge on the same conclusion.
+    </p>
+  </div>
+
+  <!-- ══ 07 TAKEAWAY ══ -->
+  <div class="section">
+    <div class="sec-label">
+      <div class="sec-num">07</div>
+      <span class="sec-title">The Takeaway</span>
+    </div>
+    <div class="quote-strip" style="margin-bottom:24px;">
+      <p>"You can't teach creativity; all you can do is let it blossom. And it blossoms in play."</p>
+      <div class="attr">— Peter Gray, Evolutionary Psychologist</div>
+    </div>
+    <div class="takeaway-card">
+      <p>
+        The deepest implication of this evidence is not that children need more recess.
+        It is that <span class="hi">the capacity for genuine adulthood is not delivered by instruction.</span>
+        It is forged in freedom: the freedom to fail without an adult rescuing you,
+        to negotiate without an adult adjudicating, to be afraid and recover without
+        an adult managing the exposure, to build something for no reason other than
+        the private pleasure of building it. We have constructed an educational system
+        that is extraordinarily efficient at producing a certain kind of person:
+        technically capable, externally compliant, and emotionally managed.
+        The question each of us should sit with is whether that person —
+        good at answering questions that have already been asked — is
+        the kind of person a genuinely good life actually requires.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ════════ FOOTER ════════ -->
+<div class="footer">
+  <p style="font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);">
+    Documented by
+  </p>
+  <p class="author">Written by Gourang Sharma</p>
+</div>
+
+</body>
+</html>

@@ -101,6 +101,13 @@ export default function VideoHero() {
   const animatedScenes = useRef<Set<number>>(new Set());
 
   useEffect(() => {
+    // Prevent browser scroll restoration from showing a mid-animation pillar scene
+    // (e.g. the AI Resources scene at ~60-72% scroll) when the user navigates back.
+    if (typeof window !== "undefined") {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    }
+
     // ── helpers ──────────────────────────────────────────────────────────────
     const drawFrame = (index: number) => {
       const canvas = canvasRef.current;
