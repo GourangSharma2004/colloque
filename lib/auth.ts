@@ -59,6 +59,8 @@ export function useUser() {
         );
         const status = localStorage.getItem(`colloque_member_${session.user.id}`);
         setIsMember(status === "true");
+      } else if (event === "SIGNED_OUT") {
+        setIsMember(false);
       }
     });
 
