@@ -131,9 +131,14 @@ export function useUser() {
     }
     if (!isSupabaseConfigured) return;
     const supabase = createClient();
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut({ scope: "local" });
+    } catch {
+      // Ignore network errors — we still clear local state below
+    }
     setUser(null);
     setSession(null);
+    setIsMember(false);
   }, [isMock]);
 
   const joinCommunity = useCallback(async () => {

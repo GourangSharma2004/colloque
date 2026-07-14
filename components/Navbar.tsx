@@ -109,6 +109,8 @@ export default function Navbar({ active }: NavbarProps) {
 
   const handleSignOut = async () => {
     await signOut();
+    setLoginOpen(false);
+    window.location.href = "/";
   };
 
   return (
