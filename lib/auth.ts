@@ -110,12 +110,6 @@ export function useUser() {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
-    
-    // Custom error message for rate limit
-    if (error && (error.message?.toLowerCase().includes("rate limit") || error.message?.toLowerCase().includes("exceeded"))) {
-      return { error: { ...error, message: "Email rate limit exceeded. Try again after an hour." } };
-    }
-    
     return { error };
   }, []);
 
