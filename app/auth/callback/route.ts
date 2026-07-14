@@ -29,12 +29,15 @@ export async function GET(request: NextRequest) {
     }
   );
 
+  let debugError = "no_token_or_code";
+
   // Magic link / OTP flow (token_hash + type)
   if (token_hash && type) {
     const { error } = await supabase.auth.verifyOtp({ type, token_hash });
     if (!error) {
       return response;
     }
+    debugError = `verifyOtp: ${error.message}`;
   }
 
   // PKCE flow (code)
@@ -43,8 +46,11 @@ export async function GET(request: NextRequest) {
     if (!error) {
       return response;
     }
+    debugError = `exchangeCode: ${error.message}`;
   }
 
-  // On error redirect to home with error param
-  return NextResponse.redirect(`${origin}/?error=auth`);
+  // On error redirect to home with the actual error reason
+  return NextResponse.redirect(
+    `${origin}/?error=auth&reason=${encodeURIComponent(debugError)}`
+  );
 }
