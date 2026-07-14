@@ -108,9 +108,9 @@ export default function Navbar({ active }: NavbarProps) {
   };
 
   const handleSignOut = async () => {
-    await signOut();
     setLoginOpen(false);
-    window.location.href = "/";
+    // Server-side sign-out reliably clears the auth cookies set by the server
+    window.location.href = "/auth/signout";
   };
 
   return (
