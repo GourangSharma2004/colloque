@@ -130,6 +130,8 @@ export function useUser() {
     if (!isSupabaseConfigured) return;
     const supabase = createClient();
     await supabase.auth.signOut();
+    setUser(null);
+    setSession(null);
   }, [isMock]);
 
   const joinCommunity = useCallback(async () => {
