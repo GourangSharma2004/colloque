@@ -106,6 +106,11 @@ export default function NoticeBoard() {
 
   return (
     <div style={{ padding: "3rem 2rem 4rem 2rem" }}>
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .nb-cards-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* Header row */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1.75rem" }}>
@@ -147,6 +152,7 @@ export default function NoticeBoard() {
 
         {/* Cards grid */}
         <div
+          className="nb-cards-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",

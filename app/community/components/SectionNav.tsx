@@ -56,8 +56,8 @@ export default function SectionNav() {
       }}
     >
       <div
-        className="flex items-center justify-center gap-6 md:gap-10"
-        style={{ width: "100%" }}
+        className="flex items-center gap-6 md:gap-10 md:justify-center"
+        style={{ width: "100%", overflowX: "auto", scrollbarWidth: "none", padding: "0 1.25rem" }}
       >
         {SECTIONS.map(({ id, label, Icon }) => (
           <button
@@ -79,6 +79,8 @@ export default function SectionNav() {
               display: "flex",
               alignItems: "center",
               gap: "0.45rem",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
             }}
             onMouseEnter={(e) => {
               if (activeSection !== id) {

@@ -35,6 +35,14 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ── Mobile safety net ──────────────────────────────────────────────────── */
+/* Applies only below the md breakpoint; never affects desktop (>=768px). */
+@media (max-width: 767px) {
+  img {
+    max-width: 100%;
+  }
+}
+
 @keyframes pulse {
   0%, 100% {
     opacity: 1;

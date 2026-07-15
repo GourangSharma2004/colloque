@@ -151,7 +151,24 @@ export default function BookSummariesClient({
           >
             <p style={{ ...labelStyle, marginBottom: "2rem" }}>Featured Reads</p>
 
+            <style jsx global>{`
+              @media (max-width: 767px) {
+                .bs-featured-grid { grid-template-columns: 1fr 1fr !important; }
+                .bs-coming-next-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+                .bs-coming-next-item { flex-direction: column !important; gap: 0.5rem !important; }
+                .bs-coming-next-item > div { min-width: 100% !important; }
+                .bs-coming-next-item span { padding-top: 0 !important; }
+                .bs-vote-form-row { flex-direction: column !important; }
+                .bs-vote-name { width: 100% !important; align-items: flex-start !important; }
+                .bs-footer { position: static !important; flex-direction: column !important; gap: 0.75rem !important; }
+                .bs-footer-quote, .bs-footer-cadence { display: none !important; }
+              }
+              @media (max-width: 480px) {
+                .bs-featured-grid { grid-template-columns: 1fr !important; }
+              }
+            `}</style>
             <div
+              className="bs-featured-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4, 1fr)",
@@ -355,7 +372,7 @@ export default function BookSummariesClient({
             className={`${sp} py-16`}
             style={{ borderTop: "1px solid #E0D9D0", backgroundColor: "#EAE4DC" }}
           >
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
+            <div className="bs-coming-next-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
 
               {/* Left — Coming Next list */}
               <div>
@@ -369,6 +386,7 @@ export default function BookSummariesClient({
                     { genre: "Stoicism",      title: "Meditations",                 author: "Marcus Aurelius",                      hook: "Private notes from the most powerful man in the world — written only for himself." },
                   ].map((book, idx, arr) => (
                     <div
+                      className="bs-coming-next-item"
                       key={idx}
                       style={{
                         display: "flex",
@@ -486,7 +504,7 @@ export default function BookSummariesClient({
                   style={{ display: "flex", flexDirection: "column", gap: "0.875rem", alignItems: "center" }}
                 >
                   {/* Row 1: Book Title + Author Name side by side */}
-                  <div style={{ display: "flex", gap: "0.75rem", width: "100%" }}>
+                  <div className="bs-vote-form-row" style={{ display: "flex", gap: "0.75rem", width: "100%" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", flex: 1 }}>
                       <label
                         style={{
@@ -549,7 +567,7 @@ export default function BookSummariesClient({
                   </div>
 
                   {/* Row 2: Your Name — centered, same width as row above */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", alignItems: "center", width: "50%" }}>
+                  <div className="bs-vote-name" style={{ display: "flex", flexDirection: "column", gap: "0.35rem", alignItems: "center", width: "50%" }}>
                     <label
                       style={{
                         fontFamily: "var(--font-dm-sans), sans-serif",
@@ -626,10 +644,11 @@ export default function BookSummariesClient({
 
           {/* ── F. Footer ───────────────────────────────────────────────────────── */}
           <footer
-            className={`${sp} py-8 flex items-center justify-center relative`}
+            className={`bs-footer ${sp} py-8 flex items-center justify-center relative`}
             style={{ backgroundColor: "#1C1A17" }}
           >
             <p
+              className="bs-footer-quote"
               style={{
                 fontFamily: "var(--font-cormorant), Georgia, serif",
                 fontSize: "18px",
@@ -654,6 +673,7 @@ export default function BookSummariesClient({
               © Colloque · Built for thinkers.
             </p>
             <p
+              className="bs-footer-cadence"
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontSize: "12px",

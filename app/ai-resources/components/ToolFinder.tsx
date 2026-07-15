@@ -75,6 +75,11 @@ export default function ToolFinder() {
         padding: "80px 1.5rem 80px",
       }}
     >
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .tf-result-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* ── FINDER ── */}
@@ -136,7 +141,7 @@ export default function ToolFinder() {
 
           {/* Result */}
           {result && (
-            <div style={{ marginTop: "1.75rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", backgroundColor: "rgba(44,44,44,0.1)", border: "1px solid rgba(44,44,44,0.1)", borderRadius: "4px", overflow: "hidden" }}>
+            <div className="tf-result-grid" style={{ marginTop: "1.75rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", backgroundColor: "rgba(44,44,44,0.1)", border: "1px solid rgba(44,44,44,0.1)", borderRadius: "4px", overflow: "hidden" }}>
               <div style={{ backgroundColor: "#F5EFE6", padding: "1.5rem 1.75rem" }}>
                 <div style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: "#C9A84C", fontWeight: 500, marginBottom: "0.5rem" }}>
                   Best Model

@@ -322,6 +322,11 @@ export default function IntellectClient({ ideas }: { ideas: IdeaItem[] }) {
 
             {/* ── Footer ── */}
             <footer className="py-8 px-6 md:px-16 lg:px-24 relative flex items-center justify-center">
+              <style jsx global>{`
+                @media (max-width: 767px) {
+                  .intellect-footer-label { display: none !important; }
+                }
+              `}</style>
               <p
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
@@ -334,6 +339,7 @@ export default function IntellectClient({ ideas }: { ideas: IdeaItem[] }) {
                 © Colloque · Built for thinkers.
               </p>
               <p
+                className="intellect-footer-label"
                 style={{
                   position: "absolute",
                   left: "clamp(1.5rem, 6vw, 6rem)",

@@ -156,6 +156,11 @@ export default function PromptLibrary() {
         padding: "80px 1.5rem 80px",
       }}
     >
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .pl-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* Header */}
         <div ref={headRef} style={{ marginBottom: "2.5rem" }}>
@@ -486,6 +491,7 @@ export default function PromptLibrary() {
 
         {/* Grid */}
         <div
+          className="pl-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",

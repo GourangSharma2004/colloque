@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsMobile } from "@/lib/useIsMobile";
 import { DISPATCH_WEEKS } from "../data";
 import { AiDispatch } from "../AIResourcesClient";
 
@@ -25,6 +26,17 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
   const [showSplitView, setShowSplitView] = useState(false);
   const [activeHtmlFile, setActiveHtmlFile] = useState<string | null>(null);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const isMobile = useIsMobile();
+
+  const openDispatchDocumentation = (htmlFile: string | null) => {
+    if (!htmlFile) return;
+    if (isMobile) {
+      window.open(htmlFile, "_blank");
+    } else {
+      setActiveHtmlFile(htmlFile);
+      setShowSplitView(true);
+    }
+  };
 
   useGSAP(
     () => {
@@ -79,8 +91,28 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
         }}
       />
 
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .wd-main-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+          .wd-main-grid > div { grid-column: span 1 !important; }
+          .wd-points-grid { grid-template-columns: 1fr !important; }
+          .wd-archive-grid { grid-template-columns: 1fr !important; }
+          .wd-split-overlay { grid-template-columns: 1fr !important; }
+          .wd-split-overlay > div:first-child { display: none !important; }
+          .wd-doc-iframe-container {
+            width: 100% !important;
+            height: calc(100% - 70px) !important;
+            overflow: auto !important;
+          }
+          .wd-doc-iframe {
+            width: 100% !important;
+            height: 100% !important;
+            transform-origin: top left !important;
+          }
+        }
+      `}</style>
       <div style={{ maxWidth: "1600px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "4rem" }}>
+        <div className="wd-main-grid" style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "4rem" }}>
           {/* Left Column: Hero & Intro */}
           <div style={{ gridColumn: "span 5" }}>
             {/* Eyebrow */}
@@ -227,7 +259,7 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
 
           {/* Right Column: Dispatch Points */}
           <div style={{ gridColumn: "span 7" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+            <div className="wd-points-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
               {POINT_META.map(({ key, label, accent }, idx) => {
                 const imageMap = {
                   dropped: "/dropped.png",
@@ -321,10 +353,7 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
                       {current[key].headline}
                     </h3>
                     <button
-                      onClick={() => {
-                        setActiveHtmlFile(current.htmlFile || null);
-                        setShowSplitView(true);
-                      }}
+                      onClick={() => openDispatchDocumentation(current.htmlFile || null)}
                       style={{
                         fontFamily: "var(--font-dm-sans), sans-serif",
                         fontSize: "12px",
@@ -421,7 +450,7 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
                     </button>
 
                     {isOpen && (
-                      <div style={{ paddingBottom: "2.5rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+                      <div className="wd-archive-grid" style={{ paddingBottom: "2.5rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
                         {POINT_META.map(({ key, label, accent }) => (
                           <div
                             key={key}
@@ -458,10 +487,7 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
                             </p>
                             {w.htmlFile && (
                               <button
-                                onClick={() => {
-                                  setActiveHtmlFile(w.htmlFile || null);
-                                  setShowSplitView(true);
-                                }}
+                                onClick={() => openDispatchDocumentation(w.htmlFile || null)}
                                 style={{
                                   fontFamily: "var(--font-dm-sans), sans-serif",
                                   fontSize: "12px",
@@ -520,6 +546,7 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
             }}
           />
           <div
+            className="wd-split-overlay"
             style={{
               position: "fixed",
               inset: 0,
@@ -694,6 +721,7 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
               {/* Documentation iframe */}
               {activeHtmlFile ? (
                 <div
+                  className="wd-doc-iframe-container"
                   style={{
                     width: "100%",
                     height: "calc(100% - 70px)",
@@ -701,6 +729,7 @@ export default function WeeklyDispatch({ aiDispatches }: { aiDispatches: AiDispa
                   }}
                 >
                   <iframe
+                    className="wd-doc-iframe"
                     src={activeHtmlFile}
                     style={{
                       width: "100%",

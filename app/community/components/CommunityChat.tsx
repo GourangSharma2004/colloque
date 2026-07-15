@@ -153,10 +153,20 @@ function CommunityChatContent({ activeChannel, setActiveChannel, messages, input
 
   return (
     <div style={{ padding: "4rem 2rem" }}>
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .cc-header-row { flex-direction: column !important; align-items: flex-start !important; gap: 0.75rem !important; }
+          .cc-chat-container { flex-direction: column !important; height: auto !important; max-height: calc(100dvh - 200px) !important; }
+          .cc-sidebar { width: 100% !important; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; display: flex !important; flex-direction: row !important; padding: 0.5rem 0 !important; overflow-x: auto !important; gap: 0.25rem !important; }
+          .cc-sidebar > button { width: auto !important; flex-shrink: 0 !important; padding: 0.5rem 0.75rem !important; }
+          .cc-sidebar > button p { display: none !important; }
+          .cc-chat-panel { min-height: 350px !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* Header row */}
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "1.5rem" }}>
+        <div className="cc-header-row" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "1.5rem" }}>
           <div>
             <h2 style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "20px", fontWeight: 700, color: "#2C2C2C", marginBottom: "0.3rem" }}>
               Community Chat
@@ -181,10 +191,10 @@ function CommunityChatContent({ activeChannel, setActiveChannel, messages, input
         </div>
 
         {/* Dark two-panel container */}
-        <div style={{ backgroundColor: "#1A1F1C", borderRadius: "12px", overflow: "hidden", display: "flex", height: "480px" }}>
+        <div className="cc-chat-container" style={{ backgroundColor: "#1A1F1C", borderRadius: "12px", overflow: "hidden", display: "flex", height: "480px" }}>
 
           {/* LEFT — Channel sidebar */}
-          <div style={{ width: "220px", flexShrink: 0, backgroundColor: "#141918", borderRight: "1px solid rgba(255,255,255,0.06)", padding: "1rem 0", overflowY: "auto" }}>
+          <div className="cc-sidebar" style={{ width: "220px", flexShrink: 0, backgroundColor: "#141918", borderRight: "1px solid rgba(255,255,255,0.06)", padding: "1rem 0", overflowY: "auto" }}>
             {CHANNELS.map((channel) => {
               const isActive = activeChannel === channel.id;
               return (
@@ -214,7 +224,7 @@ function CommunityChatContent({ activeChannel, setActiveChannel, messages, input
           </div>
 
           {/* RIGHT — Chat panel */}
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <div className="cc-chat-panel" style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
 
             {/* Messages area */}
             <div style={{ flex: 1, overflowY: "auto", padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>

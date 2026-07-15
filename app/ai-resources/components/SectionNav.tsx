@@ -47,7 +47,24 @@ export default function SectionNav() {
         borderBottom: "1px solid rgba(255,255,255,0.08)",
       }}
     >
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .sn-container {
+            justify-content: flex-start !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
+            mask-image: linear-gradient(to right, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%) !important;
+            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%) !important;
+          }
+          .sn-container::-webkit-scrollbar { display: none !important; }
+          .sn-list { scroll-snap-type: x mandatory !important; }
+          .sn-tab { scroll-snap-align: start !important; }
+        }
+      `}</style>
       <div
+        className="sn-container"
         style={{
           maxWidth: "1600px",
           margin: "0 auto",
@@ -59,6 +76,7 @@ export default function SectionNav() {
         }}
       >
         <ul
+          className="sn-list"
           style={{
             display: "flex",
             gap: "0",
@@ -71,7 +89,7 @@ export default function SectionNav() {
           {SECTIONS.map(({ id, label }) => {
             const isActive = active === id;
             return (
-              <li key={id}>
+              <li key={id} className="sn-tab">
                 <button
                   onClick={() => scrollTo(id)}
                   style={{

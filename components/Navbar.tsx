@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Bookmark, Search, User, X, LogOut } from "lucide-react";
+import { Bookmark, Search, User, X, LogOut, Menu } from "lucide-react";
 import { useUser } from "@/lib/auth";
 import { search, type SearchResult } from "@/lib/search-index";
 
@@ -57,6 +57,7 @@ type NavbarProps = {
 
 export default function Navbar({ active }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -239,6 +240,20 @@ export default function Navbar({ active }: NavbarProps) {
 
       {/* ── Right: Icons ── */}
       <div className="flex items-center gap-5">
+        {/* Hamburger — mobile only */}
+        <button
+          className="md:hidden"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMobileMenuOpen((o) => !o)}
+          style={{
+            background: "none", border: "none", cursor: "pointer", padding: 0,
+            color: mobileMenuOpen ? "#F5EFE6" : "rgba(245,239,230,0.55)",
+            transition: "color 0.2s",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >
+          {mobileMenuOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
+        </button>
         <button
           ref={bookmarkBtnRef}
           aria-label="Bookmark"
@@ -311,6 +326,58 @@ export default function Navbar({ active }: NavbarProps) {
         )}
       </div>
     </nav>
+
+    {/* ── Mobile Nav Menu ── */}
+    {mobileMenuOpen && (
+      <div className="md:hidden">
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          style={{ position: "fixed", inset: 0, top: "56px", zIndex: 97, backgroundColor: "rgba(0,0,0,0.45)" }}
+        />
+        <div
+          style={{
+            position: "fixed",
+            top: "56px",
+            left: 0,
+            right: 0,
+            zIndex: 98,
+            backgroundColor: "rgba(20,20,20,0.98)",
+            borderBottom: "1px solid rgba(245,239,230,0.10)",
+            boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
+          }}
+        >
+          <ul style={{ listStyle: "none", margin: 0, padding: "0.5rem 0" }}>
+            {NAV_LINKS.map((link) => {
+              const isActive = active === link.key;
+              return (
+                <li
+                  key={link.key}
+                  style={link.separator ? { borderTop: "1px solid rgba(245,239,230,0.08)", marginTop: "0.5rem", paddingTop: "0.5rem" } : undefined}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={{
+                      display: "block",
+                      padding: "0.9rem 1.5rem",
+                      fontFamily: link.separator ? "var(--font-cormorant), Georgia, serif" : "var(--font-dm-sans), sans-serif",
+                      fontStyle: link.separator ? "italic" : "normal",
+                      fontSize: "15px",
+                      fontWeight: link.separator ? 600 : 400,
+                      letterSpacing: "0.04em",
+                      color: isActive ? "#C4973A" : "rgba(245,239,230,0.85)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    )}
 
     {/* ── Bookmark Panel ── */}
     {bookmarkOpen && (

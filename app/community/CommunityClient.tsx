@@ -23,6 +23,9 @@ export default function CommunityClient() {
           0%, 100% { opacity: 0.35; }
           50% { opacity: 0.45; }
         }
+        @media (max-width: 767px) {
+          .community-footer-label { display: none !important; }
+        }
       `}</style>
       <div style={{ backgroundColor: "#F5EFE6", minHeight: "100vh" }}>
         <Navbar active="community" />
@@ -190,6 +193,7 @@ export default function CommunityClient() {
           © Colloque · Built for thinkers.
         </p>
         <p
+          className="community-footer-label"
           style={{
             position: "absolute",
             left: "clamp(1.5rem, 6vw, 6rem)",

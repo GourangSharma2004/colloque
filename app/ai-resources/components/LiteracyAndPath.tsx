@@ -216,6 +216,11 @@ export default function LiteracyAndPath({
         overflow: "hidden",
       }}
     >
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .phase-readiness-grid { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+      `}</style>
       <div
         style={{
           position: "absolute",
@@ -473,6 +478,7 @@ export default function LiteracyAndPath({
                       Phase Readiness
                     </h4>
                     <div
+                      className="phase-readiness-grid"
                       style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(6, 1fr)",

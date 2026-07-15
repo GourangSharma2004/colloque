@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import VideoHero from "@/components/VideoHero";
+import HomeHero from "@/components/HomeHero";
 
 export const metadata: Metadata = {
   title: "Colloque",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <VideoHero />
+      <HomeHero />
     </main>
   );
 }

@@ -113,6 +113,11 @@ export default function AIResourcesClient({
         </main>
 
         <footer className="py-8 px-6 md:px-16 lg:px-24 relative flex items-center justify-center mt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+          <style jsx global>{`
+            @media (max-width: 767px) {
+              .ai-footer-label { display: none !important; }
+            }
+          `}</style>
           <p
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
@@ -125,6 +130,7 @@ export default function AIResourcesClient({
             © Colloque · Built for thinkers.
           </p>
           <p
+            className="ai-footer-label"
             style={{
               position: "absolute",
               left: "clamp(1.5rem, 6vw, 6rem)",

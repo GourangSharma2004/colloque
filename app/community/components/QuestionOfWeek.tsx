@@ -310,9 +310,14 @@ function QuestionOfWeekContent({ question, replies, user, isMember, getDisplayNa
 
   return (
     <div style={{ padding: "4rem 2rem" }}>
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .qow-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* Two-column layout */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "4rem", alignItems: "start" }}>
+        <div className="qow-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "4rem", alignItems: "start" }}>
 
           {/* LEFT — Question */}
           <div>

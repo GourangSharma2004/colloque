@@ -30,6 +30,15 @@ export default function LearningSequence({ learningLevels }: { learningLevels: L
 
   return (
     <section ref={sectionRef} style={{ padding: "60px 0 0 0" }}>
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .ls-header-row { display: none !important; }
+          .ls-row {
+            grid-template-columns: 1fr !important;
+            gap: 0.35rem !important;
+          }
+        }
+      `}</style>
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
         {/* Header */}
         <div style={{ marginBottom: "3rem" }}>
@@ -85,6 +94,7 @@ export default function LearningSequence({ learningLevels }: { learningLevels: L
         >
           {/* Header Row */}
           <div
+            className="ls-header-row"
             style={{
               display: "grid",
               gridTemplateColumns: "80px 1fr 1fr",

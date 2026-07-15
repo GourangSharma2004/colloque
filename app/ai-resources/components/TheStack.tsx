@@ -155,7 +155,12 @@ export default function TheStack({ tools, stackItems }: { tools: Tool[]; stackIt
           </p>
         </div>
 
-        <div style={{ 
+        <style jsx global>{`
+          @media (max-width: 767px) {
+            .stack-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
+        <div className="stack-grid" style={{ 
           display: "grid", 
           gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))", 
           gap: "2rem",
