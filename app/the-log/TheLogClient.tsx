@@ -396,21 +396,30 @@ export default function TheLogClient({
             .ed-entries-row:hover .ed-title-cell { transform: translateX(4px); }
             .ed-arrow { color: rgba(201,168,76,0.60); transition: color 0.2s ease; font-family: var(--font-dm-sans), sans-serif; font-size: 14px; }
             .ed-entries-row:hover .ed-arrow { color: #C9A84C; }
+            @media (max-width: 767px) {
+              .ed-outer-flex { flex-direction: column !important; align-items: stretch !important; padding: 0 20px !important; gap: 2.5rem !important; }
+              .ed-grid { grid-template-columns: 1fr !important; grid-template-rows: none !important; gap: 1rem !important; width: 100% !important; min-width: 0 !important; }
+              .ed-slot-1, .ed-slot-2, .ed-slot-3, .ed-slot-4 { grid-column: 1 !important; grid-row: auto !important; height: auto !important; min-height: 380px !important; width: 100% !important; }
+              .ed-card { height: auto !important; min-height: 380px !important; width: 100% !important; display: flex !important; flex-direction: column !important; justify-content: flex-end !important; }
+              .ed-card-text { position: relative !important; bottom: auto !important; left: auto !important; right: auto !important; margin-top: auto !important; }
+              .ed-extra { display: none !important; }
+              .ed-sidebar { flex: none !important; width: 100% !important; }
+            }
           `}</style>
 
-          <div style={{ width: "100%", padding: "0 48px", display: "flex", gap: "56px", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div className="ed-outer-flex" style={{ width: "100%", padding: "0 48px", display: "flex", gap: "56px", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <p style={{ ...LABEL, color: "#C9A84C", letterSpacing: "0.25em", marginBottom: "2rem" }}>
                 This Week
               </p>
 
-              <div style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 1fr", gridTemplateRows: "310px 270px", gap: "16px" }}>
+              <div className="ed-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 1fr", gridTemplateRows: "310px 270px", gap: "16px" }}>
                 {/* Card 1 */}
                 {blogPosts[0] && (
-                  <div className="ed-card" onClick={() => openPost(blogPosts[0].slug)} style={{ gridColumn: "1", gridRow: "1 / 3", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[0].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                  <div className="ed-card ed-slot-1" onClick={() => openPost(blogPosts[0].slug)} style={{ gridColumn: "1", gridRow: "1 / 3", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[0].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 60%)" }} />
                     <div className="ed-hover-grad" />
-                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "2rem 2rem 2.25rem" }}>
+                    <div className="ed-card-text" style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "2rem 2rem 2.25rem" }}>
                       <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.24em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "0.65rem" }}>
                         {blogPosts[0].week}
                       </p>
@@ -440,11 +449,11 @@ export default function TheLogClient({
 
                 {/* Card 2 */}
                 {blogPosts[1] && (
-                  <div onClick={() => openPost(blogPosts[1].slug)} style={{ gridColumn: "2", gridRow: "1 / 3", cursor: "pointer" }}>
+                  <div className="ed-slot-2" onClick={() => openPost(blogPosts[1].slug)} style={{ gridColumn: "2", gridRow: "1 / 3", cursor: "pointer" }}>
                     <div className="ed-card" style={{ height: "100%", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[1].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 60%)" }} />
                       <div className="ed-hover-grad" />
-                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.5rem" }}>
+                      <div className="ed-card-text" style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.5rem" }}>
                         <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "10px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "0.5rem" }}>
                           {blogPosts[1].week}
                         </p>
@@ -468,11 +477,11 @@ export default function TheLogClient({
 
                 {/* Card 3 */}
                 {blogPosts[2] && (
-                  <div onClick={() => openPost(blogPosts[2].slug)} style={{ gridColumn: "3", gridRow: "1", cursor: "pointer" }}>
+                  <div className="ed-slot-3" onClick={() => openPost(blogPosts[2].slug)} style={{ gridColumn: "3", gridRow: "1", cursor: "pointer" }}>
                     <div className="ed-card" style={{ height: "100%", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[2].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 60%)" }} />
                       <div className="ed-hover-grad" />
-                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1rem 1.1rem" }}>
+                      <div className="ed-card-text" style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1rem 1.1rem" }}>
                         <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "9px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "0.4rem" }}>
                           {blogPosts[2].week}
                         </p>
@@ -496,11 +505,11 @@ export default function TheLogClient({
 
                 {/* Card 4 */}
                 {blogPosts[3] && (
-                  <div onClick={() => openPost(blogPosts[3].slug)} style={{ gridColumn: "3", gridRow: "2", cursor: "pointer" }}>
+                  <div className="ed-slot-4" onClick={() => openPost(blogPosts[3].slug)} style={{ gridColumn: "3", gridRow: "2", cursor: "pointer" }}>
                     <div className="ed-card" style={{ height: "100%", borderRadius: "12px", overflow: "hidden", position: "relative", backgroundColor: "#2C2C2C", backgroundImage: `url(${blogPosts[3].image})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 60%)" }} />
                       <div className="ed-hover-grad" />
-                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1rem 1.1rem" }}>
+                      <div className="ed-card-text" style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1rem 1.1rem" }}>
                         <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "9px", fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "0.4rem" }}>
                           {blogPosts[3].week}
                         </p>
@@ -525,7 +534,7 @@ export default function TheLogClient({
             </div>
 
             {/* Right: All Entries */}
-            <div style={{ flex: "0 0 280px", minWidth: 0 }}>
+            <div className="ed-sidebar" style={{ flex: "0 0 280px", minWidth: 0 }}>
               <p style={{ ...LABEL, color: "#C9A84C", letterSpacing: "0.25em", marginBottom: "1rem" }}>All Entries</p>
               <div style={{ height: "1px", backgroundColor: "rgba(44,44,44,0.15)", marginBottom: 0 }} />
               {pastEntries.map((entry) => (
@@ -829,22 +838,8 @@ export default function TheLogClient({
           </div>
 
           {/* Mobile: stacked */}
-          <div className="md:hidden" style={{ padding: "1.5rem 1.5rem 3rem" }}>
+          <div className="md:hidden" style={{ padding: "1.5rem 1.5rem 3rem", backgroundColor: "#F5EFE6" }}>
             <div style={{ position: "relative", textAlign: "center", marginBottom: "2rem" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "240px",
-                  height: "240px",
-                  borderRadius: "50%",
-                  backgroundColor: "#C9A84C",
-                  opacity: 0.20,
-                  zIndex: 0,
-                }}
-              />
               <Image
                 src="/gourang.png"
                 alt="Gourang"
@@ -875,9 +870,9 @@ export default function TheLogClient({
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  backgroundColor: "transparent",
-                  color: "#2C2C2C",
-                  border: "1px solid rgba(44,44,44,0.25)",
+                  backgroundColor: "#C9A84C",
+                  color: "#0e0e0e",
+                  border: "1px solid #C9A84C",
                   padding: "0.75rem 1.4rem",
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontSize: "13px",
@@ -888,14 +883,14 @@ export default function TheLogClient({
                 Subscribe
               </a>
             </div>
-            <div style={{ borderTop: "1px solid rgba(245,239,230,0.08)", paddingTop: "2rem" }}>
+            <div style={{ borderTop: "1px solid rgba(44,44,44,0.08)", paddingTop: "2rem" }}>
               <p style={{ ...LABEL, color: "#C9A84C", marginBottom: "1rem" }}>About</p>
               <p
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontSize: "14px",
                   fontWeight: 300,
-                  color: "rgba(245,239,230,0.70)",
+                  color: "rgba(44,44,44,0.75)",
                   lineHeight: 1.85,
                   marginBottom: "1.75rem",
                 }}
@@ -906,7 +901,7 @@ export default function TheLogClient({
               </p>
               <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
                 {SOCIAL_LINKS.map((s) => (
-                  <SocialLink key={s.label} label={s.label} href={s.href} dark />
+                  <SocialLink key={s.label} label={s.label} href={s.href} />
                 ))}
               </div>
             </div>
@@ -990,13 +985,18 @@ export default function TheLogClient({
 
         {/* ── 6. Footer ── */}
         <footer className="px-6 md:px-16 lg:px-24 py-8 flex items-center justify-center relative" style={{ backgroundColor: "#1C1A17" }}>
-          <p style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(14px, 2vw, 20px)", fontStyle: "italic", fontWeight: 600, color: "#F0EBE3", position: "absolute", left: "48px", maxWidth: "400px", lineHeight: 1.3, whiteSpace: "nowrap" }}>
+          <style>{`
+            @media (max-width: 767px) {
+              .log-footer-quote, .log-footer-sunday { display: none !important; }
+            }
+          `}</style>
+          <p className="log-footer-quote" style={{ fontFamily: "var(--font-cormorant), Georgia, serif", fontSize: "clamp(14px, 2vw, 20px)", fontStyle: "italic", fontWeight: 600, color: "#F0EBE3", position: "absolute", left: "48px", maxWidth: "400px", lineHeight: 1.3, whiteSpace: "nowrap" }}>
             &ldquo;No performance. Just the week as it actually was.&rdquo;
           </p>
           <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "16px", fontWeight: 600, color: "#F0EBE3" }}>
             © Colloque · Built for thinkers.
           </p>
-          <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "12px", fontWeight: 500, fontStyle: "italic", color: "#F0EBE3", position: "absolute", right: "6rem" }}>
+          <p className="log-footer-sunday" style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "12px", fontWeight: 500, fontStyle: "italic", color: "#F0EBE3", position: "absolute", right: "6rem" }}>
             Every Sunday.
           </p>
         </footer>
